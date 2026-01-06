@@ -1,0 +1,219 @@
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    margin-top: calc(var(--header-height) * -1);
+    /* Pull behind header */
+}
+
+/* Dark overlay for better text contrast */
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
+    z-index: 1;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    top: 50px;
+    /* Slight offset */
+}
+
+.hero-subtitle {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--color-secondary);
+    /* Gold */
+    margin-bottom: 0.5rem;
+    font-style: italic;
+}
+
+.hero-content h1 {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: white;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Hero Button */
+.btn-hero {
+    background-color: transparent;
+    border: 1px solid var(--color-secondary);
+    color: white;
+    padding: 18px 40px;
+    font-size: 1rem;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+}
+
+.btn-hero:hover {
+    background-color: rgba(197, 160, 89, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Sections General */
+.section {
+    padding: var(--spacing-xxl) 0;
+}
+
+/* Decorative Header "Curated Luxury..." */
+.decorative-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.decorative-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.5rem;
+    color: var(--color-text);
+    /* Dark Grey */
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 3px;
+    padding: 0 2rem;
+    background-color: var(--color-bg);
+    /* Match section bg */
+    z-index: 2;
+    margin: 0;
+}
+
+/* The horizontal line */
+.decorative-header::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-secondary);
+    /* Gold line */
+    z-index: 1;
+    opacity: 0.5;
+}
+
+/* Featured Grid */
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.view-all-container {
+    text-align: center;
+}
+
+.btn-gold {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    font-size: 0.9rem;
+}
+
+.btn-gold:hover {
+    background-color: #b08d4b;
+    /* Darker gold */
+    color: white;
+}
+
+/* Why Choose Section (Dark) */
+.why-choose-section {
+    background-color: var(--color-primary);
+    /* Dark */
+    color: white;
+    text-align: center;
+    position: relative;
+    /* Add subtle texture if desired, e.g., patterns */
+    background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 10px);
+}
+
+.why-choose-section .section-header h2 {
+    color: white;
+    font-size: 2.2rem;
+    margin-bottom: 4rem;
+    letter-spacing: 2px;
+}
+
+.value-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 4rem;
+}
+
+.value-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.icon-wrapper {
+    color: var(--color-secondary);
+    /* Gold icons */
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid rgba(197, 160, 89, 0.3);
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.value-item h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: white;
+    letter-spacing: 1px;
+    font-weight: 400;
+}
+
+.value-item p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.95rem;
+    max-width: 300px;
+    line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .decorative-header h2 {
+        font-size: 1.5rem;
+        padding: 0 1rem;
+    }
+
+    .featured-grid {
+        grid-template-columns: 1fr;
+    }
+}

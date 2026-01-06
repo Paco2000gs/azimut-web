@@ -1,0 +1,118 @@
+.property-inquiry-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #f1f5f9;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
+    /* Soft drop shadow */
+    font-family: 'Inter', sans-serif;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.form-header h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #0f172a;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.form-header p {
+    font-size: 0.9rem;
+    color: #64748b;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.minimal-input {
+    width: 100%;
+    padding: 0.75rem 0;
+    border: none;
+    border-bottom: 1px solid #e2e8f0;
+    background: transparent;
+    font-size: 0.95rem;
+    color: #334155;
+    transition: border-color 0.3s ease;
+    border-radius: 0;
+}
+
+.minimal-input:focus {
+    outline: none;
+    border-bottom-color: #d4af37;
+    /* Gold focus */
+}
+
+.minimal-input::placeholder {
+    color: #94a3b8;
+    font-weight: 300;
+}
+
+.btn-gold-full {
+    width: 100%;
+    background-color: #0f172a;
+    /* Dark Navy */
+    color: white;
+    border: none;
+    padding: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 1rem;
+}
+
+.btn-gold-full:hover {
+    background-color: #d4af37;
+    /* Gold */
+}
+
+.btn-gold-full:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.privacy-note {
+    font-size: 0.75rem;
+    color: #cbd5e1;
+    text-align: center;
+    margin-top: 1rem;
+    font-style: italic;
+}
+
+/* Success State */
+.inquiry-success {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+}
+
+.inquiry-success h3 {
+    font-family: 'Playfair Display', serif;
+    color: #0f172a;
+    margin: 1rem 0 0.5rem;
+}
+
+.inquiry-success p {
+    color: #64748b;
+    margin-bottom: 1.5rem;
+}
+
+.btn-text {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
