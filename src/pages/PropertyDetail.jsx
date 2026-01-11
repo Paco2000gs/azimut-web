@@ -26,7 +26,87 @@ const defaultIcon = new L.Icon({
 
 const PropertyDetail = () => {
     const { id } = useParams();
-    // ... (rest of the component logic remains same until return)
+    const { getPropertyById, getPropertyMedia, loading: contextLoading } = useProperties();
+    const [property, setProperty] = useState(null);
+    const [media, setMedia] = useState({ images: [], plans: [], videos: [] });
+    const [loading, setLoading] = useState(true);
+    const [activeImage, setActiveImage] = useState(0);
+    const [showLightbox, setShowLightbox] = useState(false);
+
+    useEffect(() => {
+        const loadData = async () => {
+            setLoading(true);
+            // 1. Get Property Basic Info
+            const prop = getPropertyById(id);
+            if (prop) {
+                setProperty(prop);
+
+                // 2. Get Property Media
+                const mediaResult = await getPropertyMedia(id);
+                if (mediaResult.success) {
+                    const allMedia = mediaResult.data || [];
+                    const images = allMedia.filter(m => m.type === 'image');
+
+                    // If property has a main image in the record but it's not in the media table yet (legacy), add it
+                    if (prop.image && !images.find(img => img.url === prop.image)) {
+                        images.unshift({ url: prop.image, id: 'main', type: 'image' });
+                    }
+
+                    setMedia({
+                        images: images,
+                        plans: allMedia.filter(m => m.type === 'plan'),
+                        videos: allMedia.filter(m => m.type === 'video')
+                    });
+                }
+            }
+            setLoading(false);
+        };
+
+        if (!contextLoading) {
+            loadData();
+        }
+    }, [id, contextLoading, getPropertyById, getPropertyMedia]);
+
+    if (loading || contextLoading) return <div className="loading-screen"><div className="spinner"></div></div>;
+
+    if (!property) {
+        return (
+            <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
+                <h2>Propiedad no encontrada</h2>
+                <Link to="/catalog" className="btn">Volver al listado</Link>
+            </div>
+        );
+    }
+
+    const { images } = media;
+    const displayImages = images.length > 0 ? images : [{ url: property.image || 'https://via.placeholder.com/1200x600?text=No+Image', id: 'placeholder' }];
+
+    // Safe Coordinate Handling
+    const lat = parseFloat(property.latitude);
+    const lng = parseFloat(property.longitude);
+    const hasCoordinates = !isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0;
+
+    // Schema.org Structured Data
+    const schemaData = {
+        "@context": "https://schema.org",
+        "@type": "RealEstateListing",
+        "name": property.title,
+        "description": property.description,
+        "url": window.location.href,
+        "image": displayImages.map(img => img.url),
+        "datePosted": property.created_at,
+        "offers": {
+            "@type": "Offer",
+            "price": property.price,
+            "priceCurrency": "EUR"
+        },
+        "address": {
+            "@type": "PostalAddress",
+            "addressLocality": property.city,
+            "addressRegion": property.province,
+            "addressCountry": "ES"
+        }
+    };
 
     return (
         <div className="page property-detail-page">
