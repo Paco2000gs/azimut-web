@@ -46,6 +46,28 @@ const Catalog = () => {
     }, [properties, province]);
 
     // Filter logic
+    const availableTypes = useMemo(() => {
+        if (!properties || properties.length === 0) return PROPERTY_TYPES;
+
+        let filtered = properties;
+
+        // Filter by province
+        if (province) {
+            filtered = filtered.filter(p => p.province === province);
+        }
+
+        // Filter by city
+        if (city) {
+            filtered = filtered.filter(p => p.city === city);
+        }
+
+        // Get unique types from the filtered properties
+        const typeSet = new Set(filtered.map(p => p.type));
+
+        // Return PROPERTY_TYPES that exist in the set (to maintain order)
+        return PROPERTY_TYPES.filter(t => typeSet.has(t));
+    }, [properties, province, city]);
+
     const filteredProperties = useMemo(() => {
         if (loading) return [];
         return properties.filter(property => {
@@ -108,7 +130,7 @@ const Catalog = () => {
                             <label>Tipo</label>
                             <select value={type} onChange={(e) => setType(e.target.value)} className="filter-select">
                                 <option value="">Todos</option>
-                                {PROPERTY_TYPES.map(t => (
+                                {availableTypes.map(t => (
                                     <option key={t} value={t}>{t}</option>
                                 ))}
                             </select>

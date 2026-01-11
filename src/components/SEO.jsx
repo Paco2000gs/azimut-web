@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 const SEO = ({ title, description, image, url }) => {
     const siteTitle = 'AzimutProperty | Exclusive Real Estate in Andalusia';
     const defaultDescription = 'Discover exclusive luxury properties in Marbella, Sotogrande, Cádiz, Sevilla, and Málaga. AzimutProperty offers a curated selection of the finest homes in Andalusia.';
-    const defaultImage = '/og-image.jpg'; // We should ensure this exists or use a property image
+    const defaultImage = '/assets/azimut-logo-gold.png'; // Updated to existing logo
     const siteUrl = 'https://www.azimutproperty.com'; // Replace with actual domain
 
     const fullTitle = title ? `${title} | AzimutProperty` : siteTitle;
