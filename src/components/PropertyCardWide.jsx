@@ -48,7 +48,7 @@ const PropertyCardWide = ({ property, priority = false }) => {
                         </div>
                         <div className="feature-item">
                             <Maximize size={18} />
-                            <span>{property.area} m²</span>
+                            <span>{Number(property.area).toLocaleString()} m²</span>
                         </div>
                     </div>
 

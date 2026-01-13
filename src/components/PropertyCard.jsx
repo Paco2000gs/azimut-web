@@ -32,7 +32,7 @@ const PropertyCard = ({ property }) => {
                     </div>
                     <div className="feature">
                         <Maximize size={16} />
-                        <span>{property.area} m²</span>
+                        <span>{Number(property.area).toLocaleString()} m²</span>
                     </div>
                 </div>
             </div>

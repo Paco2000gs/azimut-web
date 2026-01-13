@@ -1,7 +1,10 @@
 export const PROVINCES = [
     "Málaga",
     "Cádiz",
-    "Sevilla"
+    "Sevilla",
+    "Badajoz",
+    "Almería",
+    "Granada"
 ];
 
 export const CITIES = {
@@ -52,6 +55,21 @@ export const CITIES = {
         "Tomares", "Umbrete", "Utrera", "Valencina de la Concepción", "Villamanrique de la Condesa",
         "Villanueva de San Juan", "Villanueva del Ariscal", "Villanueva del Río y Minas", "Villaverde del Río",
         "El Viso del Alcor"
+    ],
+    "Badajoz": [
+        "Badajoz", "Mérida", "Don Benito", "Almendralejo", "Villanueva de la Serena",
+        "Zafra", "Montijo", "Olivenza", "Villafranca de los Barros", "Jerez de los Caballeros",
+        "Azuaga", "Llerena", "Guareña", "Castuera", "Fregenal de la Sierra"
+    ],
+    "Almería": [
+        "Almería", "Roquetas de Mar", "El Ejido", "Níjar", "Vícar", "Adra",
+        "Huércal-Overa", "Huércal de Almería", "Vera", "Cuevas del Almanzora",
+        "Berja", "Albox", "La Mojonera", "Mojácar", "Carboneras", "Arboleas"
+    ],
+    "Granada": [
+        "Granada", "Motril", "Almuñécar", "Armilla", "Maracena", "Loja", "Baza",
+        "Guadix", "Las Gabias", "La Zubia", "Atarfe", "Albolote", "Santa Fe",
+        "Churriana de la Vega", "Ogíjares", "Salobreña", "Huétor Vega", "Peligros"
     ]
 };
 

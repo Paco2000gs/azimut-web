@@ -190,7 +190,7 @@ const PropertyDetail = () => {
                             <div className="spec-item">
                                 <Maximize size={24} color="#64748b" />
                                 <div>
-                                    <span className="spec-value">{property.area} m²</span>
+                                    <span className="spec-value">{Number(property.area).toLocaleString()} m²</span>
                                     <span className="spec-label">Construidos</span>
                                 </div>
                             </div>
@@ -198,7 +198,12 @@ const PropertyDetail = () => {
                                 <div className="spec-item">
                                     <Home size={24} color="#64748b" />
                                     <div>
-                                        <span className="spec-value">{property.plot} m²</span>
+                                        <span className="spec-value">
+                                            {property.type?.trim().toLowerCase() === 'finca'
+                                                ? `${(Number(property.plot) / 10000).toLocaleString(undefined, { maximumFractionDigits: 2 })} ha`
+                                                : `${Number(property.plot).toLocaleString()} m²`
+                                            }
+                                        </span>
                                         <span className="spec-label">Parcela</span>
                                     </div>
                                 </div>
