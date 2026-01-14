@@ -39,6 +39,31 @@ const BlogPost = () => {
                 description={post.excerpt}
                 image={post.image}
             />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "BlogPosting",
+                        "headline": post.title,
+                        "image": [post.image],
+                        "datePublished": post.published_at,
+                        "dateModified": post.published_at,
+                        "author": {
+                            "@type": "Organization",
+                            "name": "Azimut Property Team"
+                        },
+                        "publisher": {
+                            "@type": "Organization",
+                            "name": "Azimut Property",
+                            "logo": {
+                                "@type": "ImageObject",
+                                "url": "https://www.azimutproperty.com/assets/azimut-logo-gold.png"
+                            }
+                        },
+                        "description": post.excerpt
+                    })}
+                </script>
+            </Helmet>
             <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || 'https://via.placeholder.com/1200x600?text=No+Image'})` }}>
                 <div className="overlay"></div>
                 <div className="container">

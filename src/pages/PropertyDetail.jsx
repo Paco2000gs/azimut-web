@@ -105,6 +105,30 @@ const PropertyDetail = () => {
             "addressLocality": property.city,
             "addressRegion": property.province,
             "addressCountry": "ES"
+        },
+        "breadcrumb": {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": 1,
+                    "name": "Home",
+                    "item": "https://www.azimutproperty.com"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 2,
+                    "name": "Catalog",
+                    "item": "https://www.azimutproperty.com/catalog"
+                },
+                {
+                    "@type": "ListItem",
+                    "position": 3,
+                    "name": property.title,
+                    "item": window.location.href
+                }
+            ]
         }
     };
 

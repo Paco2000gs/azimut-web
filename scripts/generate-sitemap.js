@@ -65,8 +65,31 @@ async function generateSitemap() {
         } catch (err) {
             console.error('Error fetching properties for sitemap:', err);
         }
+
+        // 3. Dynamic Routes (Blog Posts)
+        try {
+            const { data: posts, error } = await supabase
+                .from('posts')
+                .select('id, published_at');
+
+            if (error) throw error;
+
+            console.log(`Found ${posts.length} blog posts.`);
+
+            posts.forEach(post => {
+                sitemap += `
+  <url>
+    <loc>${baseUrl}/blog/${post.id}</loc>
+    <lastmod>${new Date(post.published_at).toISOString().split('T')[0]}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>`;
+            });
+        } catch (err) {
+            console.error('Error fetching blog posts for sitemap:', err);
+        }
     } else {
-        console.warn('Skipping dynamic properties in sitemap due to missing Supabase client.');
+        console.warn('Skipping dynamic content (properties/posts) in sitemap due to missing Supabase client.');
     }
 
     sitemap += `

@@ -2,9 +2,9 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ title, description, image, url }) => {
-    const siteTitle = 'AzimutProperty | Exclusive Real Estate in Andalusia';
-    const defaultDescription = 'Discover exclusive luxury properties in Marbella, Sotogrande, Cádiz, Sevilla, and Málaga. AzimutProperty offers a curated selection of the finest homes in Andalusia.';
-    const defaultImage = '/assets/azimut-logo-gold.png'; // Updated to existing logo
+    const siteTitle = 'Azimut Property | Exclusive Real Estate in Andalusia';
+    const defaultDescription = 'Discover exclusive luxury properties in Marbella, Sotogrande, Cádiz, Sevilla, and Málaga. Azimut Property is your expert partner for buying and selling premium real estate in Southern Spain.';
+    const defaultImage = 'https://www.azimutproperty.com/assets/azimut-logo-gold.png'; // Use absolute URL for OG tags
     const siteUrl = 'https://www.azimutproperty.com'; // Replace with actual domain
 
     const fullTitle = title ? `${title} | AzimutProperty` : siteTitle;

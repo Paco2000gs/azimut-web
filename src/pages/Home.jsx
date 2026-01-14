@@ -19,9 +19,38 @@ const Home = () => {
     return (
         <div className="page home">
             <SEO
-                title="Azimut Property | Exclusive Real Estate in Andalusia"
                 description="Elevate your lifestyle with Andalusia's premier properties. Discover curated luxury residences in Marbella, Sotogrande, and beyond."
             />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "RealEstateAgent",
+                        "name": "Azimut Property",
+                        "url": "https://www.azimutproperty.com",
+                        "logo": "https://www.azimutproperty.com/assets/azimut-logo-gold.png",
+                        "image": "https://www.azimutproperty.com/assets/hero-bg.jpg",
+                        "description": "Exclusive luxury real estate agency in Andalusia, Spain.",
+                        "address": {
+                            "@type": "PostalAddress",
+                            "addressLocality": "Sevilla",
+                            "addressRegion": "Andalusia",
+                            "addressCountry": "ES"
+                        },
+                        "contactPoint": {
+                            "@type": "ContactPoint",
+                            "telephone": "+34-600-000-000",
+                            "contactType": "customer service",
+                            "areaServed": "ES",
+                            "availableLanguage": ["English", "Spanish"]
+                        },
+                        "sameAs": [
+                            "https://www.instagram.com/azimutproperty",
+                            "https://www.linkedin.com/company/azimutproperty"
+                        ]
+                    })}
+                </script>
+            </Helmet>
 
             {/* Hero Section */}
             <section className="hero">
