@@ -41,7 +41,8 @@ const AdminDashboard = () => {
         latitude: '',
         longitude: '',
         features: [],
-        image: '' // Cover image URL
+        image: '', // Cover image URL
+        price_on_demand: false
     });
 
     // File States
@@ -106,7 +107,8 @@ const AdminDashboard = () => {
             latitude: property.latitude || '',
             longitude: property.longitude || '',
             features: property.features || [],
-            image: property.image || ''
+            image: property.image || '',
+            price_on_demand: property.price_on_demand || false
         });
 
         // Load existing media
@@ -156,7 +158,7 @@ const AdminDashboard = () => {
         setNewProperty({
             title: '', price: '', bedrooms: '', bathrooms: '', area: '', plot: '',
             description: '', type: 'Villa', city: '', province: '',
-            latitude: '', longitude: '', features: []
+            latitude: '', longitude: '', features: [], price_on_demand: false
         });
         setExistingMedia({ photos: [], plans: [], videos: [] });
         setPhotos([]);
@@ -194,6 +196,7 @@ const AdminDashboard = () => {
                 latitude: Number(propertyData.latitude) || 0,
                 longitude: Number(propertyData.longitude) || 0,
                 features: propertyData.features || [],
+                price_on_demand: propertyData.price_on_demand
             };
 
             let propertyId = editingId;
@@ -568,9 +571,32 @@ const AdminDashboard = () => {
                                                 value={newProperty.title} onChange={e => setNewProperty({ ...newProperty, title: e.target.value })} />
                                         </div>
                                         <div className="form-group">
-                                            <input type="number" placeholder="Precio (€)" required
-                                                value={newProperty.price} onChange={e => setNewProperty({ ...newProperty, price: e.target.value })} />
+                                            <input type="number" placeholder="Precio (€)" required={!newProperty.price_on_demand}
+                                                value={newProperty.price} onChange={e => setNewProperty({ ...newProperty, price: e.target.value })}
+                                                disabled={newProperty.price_on_demand}
+                                            />
                                         </div>
+                                    </div>
+
+                                    {/* Price on Demand Checkbox - Moved to separate row for visibility */}
+                                    {/* Price on Demand Checkbox - Moved to separate row for visibility */}
+                                    <div style={{ marginBottom: '1.5rem', marginTop: '1rem', padding: '1rem', backgroundColor: '#e0f2fe', borderRadius: '8px', border: '2px solid #3b82f6' }}>
+                                        <label style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1rem', cursor: 'pointer', userSelect: 'none', color: '#1e40af', margin: 0, fontWeight: 'bold' }}>
+                                            <input
+                                                type="checkbox"
+                                                checked={newProperty.price_on_demand}
+                                                onChange={(e) => {
+                                                    const isChecked = e.target.checked;
+                                                    setNewProperty({
+                                                        ...newProperty,
+                                                        price_on_demand: isChecked,
+                                                        price: isChecked ? '' : newProperty.price
+                                                    });
+                                                }}
+                                                style={{ width: '24px', height: '24px', margin: 0, cursor: 'pointer', accentColor: '#2563eb' }}
+                                            />
+                                            <span>MARCAR COMO PRECIO BAJO DEMANDA (Ocultar Precio)</span>
+                                        </label>
                                     </div>
 
                                     {/* Type Selection */}

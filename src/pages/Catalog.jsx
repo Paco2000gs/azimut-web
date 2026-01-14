@@ -74,8 +74,9 @@ const Catalog = () => {
             const matchProvince = province ? property.province === province : true;
             const matchCity = city ? property.city === city : true;
             const matchType = type ? property.type.toLowerCase() === type.toLowerCase() : true;
-            const matchMinPrice = minPrice ? property.price >= parseInt(minPrice) : true;
-            const matchMaxPrice = maxPrice ? property.price <= parseInt(maxPrice) : true;
+            // Exclude Price on Demand properties from price filtering if a filter is set
+            const matchMinPrice = minPrice ? (!property.price_on_demand && property.price >= parseInt(minPrice)) : true;
+            const matchMaxPrice = maxPrice ? (!property.price_on_demand && property.price <= parseInt(maxPrice)) : true;
 
             return matchProvince && matchCity && matchType && matchMinPrice && matchMaxPrice;
         });

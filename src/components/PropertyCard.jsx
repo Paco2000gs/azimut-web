@@ -13,7 +13,9 @@ const PropertyCard = ({ property }) => {
                     loading="lazy"
                 />
                 <span className="card-tag">{property.type}</span>
-                <span className="card-price">€{property.price.toLocaleString()}</span>
+                <span className="card-price">
+                    {property.price_on_demand ? "Bajo demanda" : `€${property.price.toLocaleString()}`}
+                </span>
             </div>
             <div className="card-content">
                 <h3 className="card-title">{property.title}</h3>
