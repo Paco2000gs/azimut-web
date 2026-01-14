@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
 import SEO from '../components/SEO';
