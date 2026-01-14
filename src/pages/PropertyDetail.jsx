@@ -136,7 +136,7 @@ const PropertyDetail = () => {
                             onClick={() => setShowLightbox(true)}
                         />
                         <div className="price-tag">
-                            {property.price_on_demand ? "Bajo demanda" : `€${property.price?.toLocaleString()}`}
+                            {property.price_on_demand ? "Price On Demand" : `€${property.price?.toLocaleString()}`}
                         </div>
                     </div>
 

@@ -20,7 +20,7 @@ const PropertyCardWide = ({ property, priority = false }) => {
                 <div className="card-overlay">
                     <span className="card-type-badge">{property.type}</span>
                     <span className="card-price-badge">
-                        {property.price_on_demand ? "Bajo demanda" : `€${property.price.toLocaleString()}`}
+                        {property.price_on_demand ? "Price On Demand" : `€${property.price.toLocaleString()}`}
                     </span>
                 </div>
             </div>

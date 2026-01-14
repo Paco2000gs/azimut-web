@@ -595,7 +595,7 @@ const AdminDashboard = () => {
                                                 }}
                                                 style={{ width: '24px', height: '24px', margin: 0, cursor: 'pointer', accentColor: '#2563eb' }}
                                             />
-                                            <span>MARCAR COMO PRECIO BAJO DEMANDA (Ocultar Precio)</span>
+                                            <span>MARK AS PRICE ON DEMAND (Hide Price)</span>
                                         </label>
                                     </div>
 
