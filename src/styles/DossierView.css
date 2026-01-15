@@ -54,19 +54,10 @@
     padding-bottom: 1rem;
 }
 
-.brand-logo h1 {
-    font-size: 2rem;
-    font-family: 'Playfair Display', serif;
-    letter-spacing: 0.1em;
-    margin: 0;
-    line-height: 1;
-}
-
-.brand-logo span {
-    font-size: 0.75rem;
-    letter-spacing: 0.3em;
-    color: #64748b;
-    text-transform: uppercase;
+.brand-logo img.logo-img {
+    height: 60px;
+    /* Adjust as needed based on aspect ratio */
+    object-fit: contain;
 }
 
 .contact-info {
@@ -107,7 +98,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
     color: white;
     padding: 2rem 1.5rem 1rem;
 }
@@ -160,6 +151,58 @@
 .spec-value.price {
     color: #0f172a;
     font-family: 'Playfair Display', serif;
+}
+
+/* Costs Estimator */
+.dossier-costs {
+    margin-bottom: 2rem;
+    background: #f8fafc;
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+.dossier-costs h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.costs-disclaimer {
+    font-size: 0.75rem;
+    color: #64748b;
+    margin-bottom: 1rem;
+    font-style: italic;
+}
+
+.costs-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+    border-top: 1px solid #cbd5e1;
+    padding-top: 1rem;
+}
+
+.cost-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.cost-item span:first-child {
+    font-size: 0.75rem;
+    color: #64748b;
+    text-transform: uppercase;
+}
+
+.cost-item strong {
+    color: #0f172a;
+    font-size: 1.1rem;
+}
+
+.cost-item.total strong {
+    color: #3b82f6;
 }
 
 /* Content */
@@ -294,7 +337,8 @@
 
     /* Force background colors */
     .dossier-specs,
-    .features-column {
+    .features-column,
+    .dossier-costs {
         background-color: #f8fafc !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;

@@ -12,6 +12,15 @@ const DossierView = () => {
     const [images, setImages] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    const calculateCosts = (price) => {
+        if (!price || price === 0) return null;
+        const itp = price * 0.10; // 10% ITP (General approximation)
+        const notary = 850 + (price * 0.001); // Approx estimation
+        const registry = 450 + (price * 0.001); // Approx estimation
+        const total = itp + notary + registry;
+        return { itp, notary, registry, total };
+    };
+
     useEffect(() => {
         const loadData = async () => {
             setLoading(true);
@@ -57,8 +66,7 @@ const DossierView = () => {
                 {/* HEAD: Branding & Header */}
                 <header className="dossier-header">
                     <div className="brand-logo">
-                        <h1>AZIMUT</h1>
-                        <span>REAL ESTATE</span>
+                        <img src="/assets/azimut-logos.png" alt="Azimut Real Estate" className="logo-img" />
                     </div>
                     <div className="contact-info">
                         <div className="contact-item"><Phone size={14} /> +34 999 999 999</div>
@@ -112,6 +120,36 @@ const DossierView = () => {
                         </div>
                     )}
                 </section>
+
+                {/* PURCHASE COSTS ESTIMATOR */}
+                {!property.price_on_demand && property.price > 0 && (
+                    <section className="dossier-costs">
+                        <h3>Estimación de Gastos de Compra</h3>
+                        <p className="costs-disclaimer">*Cálculo aproximado (ITP 10% + Notaría + Registro). No tiene valor contractual.</p>
+                        <div className="costs-grid">
+                            <div className="cost-item">
+                                <span>Precio Propiedad</span>
+                                <strong>€{property.price.toLocaleString()}</strong>
+                            </div>
+                            <div className="cost-item">
+                                <span>Impuestos (ITP 10%)</span>
+                                <span>€{calculateCosts(property.price).itp.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                            </div>
+                            <div className="cost-item">
+                                <span>Notaría (Est.)</span>
+                                <span>€{calculateCosts(property.price).notary.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                            </div>
+                            <div className="cost-item">
+                                <span>Registro (Est.)</span>
+                                <span>€{calculateCosts(property.price).registry.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                            </div>
+                            <div className="cost-item total">
+                                <span>Total Estimado</span>
+                                <strong>€{(property.price + calculateCosts(property.price).total).toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong>
+                            </div>
+                        </div>
+                    </section>
+                )}
 
                 {/* CONTENT: Description & Features */}
                 <div className="dossier-content">
