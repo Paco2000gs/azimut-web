@@ -4,6 +4,11 @@
     padding-bottom: 4rem;
 }
 
+.property-header-container {
+    padding-top: calc(var(--header-height) + 2rem);
+    padding-bottom: 1rem;
+}
+
 /* Header & Back Link */
 .back-link {
     display: inline-flex;

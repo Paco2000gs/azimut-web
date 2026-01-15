@@ -142,7 +142,7 @@ const PropertyDetail = () => {
             </Helmet>
 
             {/* Header / Navigation Check */}
-            <div className="container" style={{ paddingTop: '2rem', paddingBottom: '1rem' }}>
+            <div className="container property-header-container">
                 <Link to="/catalog" className="back-link">
                     <ArrowLeft size={18} /> Volver a Propiedades
                 </Link>
