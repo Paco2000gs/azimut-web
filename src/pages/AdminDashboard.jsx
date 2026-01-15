@@ -911,6 +911,14 @@ const AdminDashboard = () => {
                                                 </td>
                                                 <td style={{ textAlign: 'right', display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
                                                     <button
+                                                        onClick={() => window.open(`/dossier/${property.id}`, '_blank')}
+                                                        className="delete-btn"
+                                                        style={{ backgroundColor: '#0f172a' }}
+                                                        title="Ver Dossier"
+                                                    >
+                                                        <FileText size={18} />
+                                                    </button>
+                                                    <button
                                                         onClick={() => handleEditProperty(property)}
                                                         className="delete-btn"
                                                         style={{ backgroundColor: '#3b82f6' }}

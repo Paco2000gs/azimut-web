@@ -19,6 +19,7 @@ import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
+import DossierView from './pages/DossierView';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -57,6 +58,9 @@ function App() {
                 <Route path="terms" element={<Terms />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
+
+              {/* Dossier Route (Public but Standalone) */}
+              <Route path="/dossier/:id" element={<DossierView />} />
 
               {/* Admin Routes */}
               <Route path="/admin/login" element={<AdminLogin />} />
