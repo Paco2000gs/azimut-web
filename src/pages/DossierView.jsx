@@ -75,110 +75,123 @@ const DossierView = () => {
                     </div>
                 </header>
 
-                {/* HERO: Main Image & Title */}
-                <section className="dossier-hero">
-                    <div className="hero-image-container">
+                {/* PAGE 1 CONTENT */}
+                <div className="dossier-section page-1">
+                    {/* HERO IMAGE (No textual overlay) */}
+                    <div className="hero-image-container-clean">
                         <img
                             src={property.image || 'https://via.placeholder.com/1200x800'}
                             alt={property.title}
-                            className="hero-image"
+                            className="hero-image-clean"
                         />
-                        <div className="hero-overlay">
-                            <h2 className="property-title">{property.title}</h2>
-                            <div className="property-location">
-                                <MapPin size={18} /> {property.city}, {property.province}
-                            </div>
+                    </div>
+
+                    {/* TITLE & INFO BLOCK */}
+                    <div className="property-header-block">
+                        <h2 className="property-title-clean">{property.title}</h2>
+                        <div className="property-location-clean">
+                            <MapPin size={20} /> {property.city}, {property.province}
                         </div>
                     </div>
-                </section>
 
-                {/* SPECS GRID */}
-                <section className="dossier-specs">
-                    <div className="spec-item">
-                        <span className="spec-label">Precio</span>
-                        <span className="spec-value price">
-                            {property.price_on_demand ? "Consultar" : `€${property.price?.toLocaleString()}`}
-                        </span>
-                    </div>
-                    <div className="spec-item">
-                        <Bed size={20} />
-                        <span className="spec-value">{property.bedrooms} Dormitorios</span>
-                    </div>
-                    <div className="spec-item">
-                        <Bath size={20} />
-                        <span className="spec-value">{property.bathrooms} Baños</span>
-                    </div>
-                    <div className="spec-item">
-                        <Maximize size={20} />
-                        <span className="spec-value">{property.area} m²</span>
-                    </div>
-                    {property.plot > 0 && (
+                    {/* SPECS GRID */}
+                    <section className="dossier-specs">
                         <div className="spec-item">
-                            {/* Icon for plot if needed */}
-                            <span className="spec-label">Parcela</span>
-                            <span className="spec-value">{property.plot} m²</span>
+                            <span className="spec-label">Precio</span>
+                            <span className="spec-value price">
+                                {property.price_on_demand ? "Consultar" : `€${property.price?.toLocaleString()}`}
+                            </span>
                         </div>
-                    )}
-                </section>
-
-                {/* PURCHASE COSTS ESTIMATOR */}
-                {!property.price_on_demand && property.price > 0 && (
-                    <section className="dossier-costs">
-                        <h3>Estimación de Gastos de Compra</h3>
-                        <p className="costs-disclaimer">*Cálculo aproximado (ITP 10% + Notaría + Registro). No tiene valor contractual.</p>
-                        <div className="costs-grid">
-                            <div className="cost-item">
-                                <span>Precio Propiedad</span>
-                                <strong>€{property.price.toLocaleString()}</strong>
-                            </div>
-                            <div className="cost-item">
-                                <span>Impuestos (ITP 10%)</span>
-                                <span>€{calculateCosts(property.price).itp.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-                            </div>
-                            <div className="cost-item">
-                                <span>Notaría (Est.)</span>
-                                <span>€{calculateCosts(property.price).notary.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-                            </div>
-                            <div className="cost-item">
-                                <span>Registro (Est.)</span>
-                                <span>€{calculateCosts(property.price).registry.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
-                            </div>
-                            <div className="cost-item total">
-                                <span>Total Estimado</span>
-                                <strong>€{(property.price + calculateCosts(property.price).total).toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong>
-                            </div>
+                        <div className="spec-item">
+                            <Bed size={20} />
+                            <span className="spec-value">{property.bedrooms} Dormitorios</span>
                         </div>
+                        <div className="spec-item">
+                            <Bath size={20} />
+                            <span className="spec-value">{property.bathrooms} Baños</span>
+                        </div>
+                        <div className="spec-item">
+                            <Maximize size={20} />
+                            <span className="spec-value">{property.area} m²</span>
+                        </div>
+                        {property.plot > 0 && (
+                            <div className="spec-item">
+                                <span className="spec-label">Parcela</span>
+                                <span className="spec-value">{property.plot} m²</span>
+                            </div>
+                        )}
                     </section>
-                )}
 
-                {/* CONTENT: Description & Features */}
-                <div className="dossier-content">
-                    <div className="description-column">
-                        <h3>Descripción</h3>
-                        <p>{property.description}</p>
-                    </div>
+                    {/* PURCHASE COSTS ESTIMATOR */}
+                    {calculateCosts(property.price) && (
+                        <section className="dossier-costs">
+                            <h3>Estimación de Gastos de Compra</h3>
+                            <p className="costs-disclaimer">*Cálculo aproximado (ITP 10% + Notaría + Registro). No tiene valor contractual.</p>
+                            <div className="costs-grid">
+                                <div className="cost-item">
+                                    <span>Precio Propiedad</span>
+                                    <strong>€{property.price.toLocaleString()}</strong>
+                                </div>
+                                <div className="cost-item">
+                                    <span>Impuestos (ITP 10%)</span>
+                                    <span>€{calculateCosts(property.price).itp.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                                </div>
+                                <div className="cost-item">
+                                    <span>Notaría (Est.)</span>
+                                    <span>€{calculateCosts(property.price).notary.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                                </div>
+                                <div className="cost-item">
+                                    <span>Registro (Est.)</span>
+                                    <span>€{calculateCosts(property.price).registry.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
+                                </div>
+                                <div className="cost-item total">
+                                    <span>Total Estimado</span>
+                                    <strong>€{(property.price + calculateCosts(property.price).total).toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong>
+                                </div>
+                            </div>
+                        </section>
+                    )}
+                </div>
 
-                    <div className="features-column">
-                        <h3>Características</h3>
-                        <ul className="features-list">
-                            {property.features?.map((feat, idx) => (
-                                <li key={idx}>{feat}</li>
-                            ))}
-                        </ul>
+                {/* PAGE BREAK */}
+                <div className="page-break"></div>
+
+                {/* PAGE 2 CONTENT: TEXT & FEATURES */}
+                <div className="dossier-section page-2">
+                    <div className="dossier-content-full">
+                        <div className="description-section">
+                            <h3>Descripción</h3>
+                            <p>{property.description}</p>
+                        </div>
+
+                        <div className="features-section">
+                            <h3>Características</h3>
+                            <ul className="features-list-grid">
+                                {property.features?.map((feat, idx) => (
+                                    <li key={idx}>{feat}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                 </div>
 
-                {/* GALLERY GRID */}
-                <section className="dossier-gallery">
-                    <h3>Galería</h3>
-                    <div className="gallery-grid">
-                        {galleryImages.map((img, idx) => (
-                            <div key={idx} className="gallery-item">
-                                <img src={img.url} alt={`View ${idx + 1}`} />
-                            </div>
-                        ))}
-                    </div>
-                </section>
+                {/* PAGE BREAK */}
+                <div className="page-break"></div>
+
+                {/* PAGE 3 CONTENT: GALLERY */}
+                <div className="dossier-section page-3">
+                    <section className="dossier-gallery-full">
+                        <h3>Galería</h3>
+                        <div className="gallery-grid-full">
+                            {/* Show more images for the full page, e.g. 6-8 */}
+                            {images.slice(0, 8).map((img, idx) => (
+                                <div key={idx} className="gallery-item-full">
+                                    <img src={img.url} alt={`View ${idx + 1}`} />
+                                </div>
+                            ))}
+                        </div>
+                    </section>
+                </div>
 
                 {/* FOOTER */}
                 <footer className="dossier-footer">

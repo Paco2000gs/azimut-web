@@ -36,15 +36,14 @@
 
 .dossier-container {
     max-width: 210mm;
-    /* A4 width approx */
     margin: 0 auto;
     background: white;
-    padding: 2rem;
-    /* reduced padding */
+    padding: 40px;
+    /* Standard internal padding */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
 }
 
-/* Header */
+/* HEADER */
 .dossier-header {
     display: flex;
     justify-content: space-between;
@@ -54,9 +53,15 @@
     padding-bottom: 1rem;
 }
 
+.brand-logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
 .brand-logo img.logo-img {
-    height: 60px;
-    /* Adjust as needed based on aspect ratio */
+    height: 80px;
+    /* Larger logo */
     object-fit: contain;
 }
 
@@ -74,50 +79,45 @@
     margin-bottom: 0.25rem;
 }
 
-/* Hero */
-.dossier-hero {
-    margin-bottom: 2rem;
-}
-
-.hero-image-container {
-    position: relative;
+/* PAGE 1: HERO & SPECS */
+.hero-image-container-clean {
     width: 100%;
     height: 400px;
+    /* Consistent height */
     overflow: hidden;
     border-radius: 4px;
+    margin-bottom: 1.5rem;
 }
 
-.hero-image {
+.hero-image-clean {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-.hero-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.5) 60%, transparent 100%);
-    color: white;
-    padding: 2rem 1.5rem 1rem;
+.property-header-block {
+    margin-bottom: 2rem;
+    text-align: left;
 }
 
-.property-title {
+.property-title-clean {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 2.5rem;
+    color: #0f172a;
     margin: 0 0 0.5rem 0;
+    line-height: 1.1;
 }
 
-.property-location {
+.property-location-clean {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    font-size: 1.1rem;
+    font-size: 1.25rem;
+    color: #64748b;
     font-weight: 300;
 }
 
-/* Specs */
+/* Specs Bar */
 .dossier-specs {
     display: flex;
     justify-content: space-between;
@@ -149,13 +149,11 @@
 }
 
 .spec-value.price {
-    color: #0f172a;
     font-family: 'Playfair Display', serif;
 }
 
-/* Costs Estimator */
+/* Costs */
 .dossier-costs {
-    margin-bottom: 2rem;
     background: #f8fafc;
     padding: 1.5rem;
     border-radius: 8px;
@@ -205,103 +203,104 @@
     color: #3b82f6;
 }
 
-/* Content */
-.dossier-content {
-    display: flex;
-    gap: 2rem;
-    margin-bottom: 2rem;
+/* PAGE 2: DESCRIPTION & FEATURES */
+.description-section {
+    margin-bottom: 3rem;
 }
 
-.description-column {
-    flex: 2;
-}
-
-.features-column {
-    flex: 1;
-    background: #f8fafc;
-    padding: 1.5rem;
-    border-radius: 8px;
-    height: fit-content;
-}
-
-.dossier-content h3 {
+.description-section h3,
+.features-section h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    border-bottom: 1px solid #e2e8f0;
-    padding-bottom: 0.5rem;
-    margin-top: 0;
+    font-size: 1.8rem;
+    color: #0f172a;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.75rem;
+    margin-bottom: 1.5rem;
 }
 
-.description-column p {
-    line-height: 1.6;
+.description-section p {
+    font-size: 1rem;
+    line-height: 1.8;
     color: #334155;
     text-align: justify;
+    column-count: 2;
+    /* Multicol for reading? Optional, maybe keep single col for clarity */
+    column-gap: 2rem;
 }
 
-.features-list {
+.features-list-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
-.features-list li {
-    padding: 0.5rem 0;
-    border-bottom: 1px solid #e2e8f0;
-    font-size: 0.9rem;
+.features-list-grid li {
+    background: #f8fafc;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-size: 0.95rem;
     color: #475569;
+    border: 1px solid #e2e8f0;
 }
 
-.features-list li:last-child {
-    border-bottom: none;
-}
-
-/* Gallery */
-.dossier-gallery h3 {
+/* PAGE 3: GALLERY */
+.dossier-gallery-full h3 {
     font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
 }
 
-.gallery-grid {
+.gallery-grid-full {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    /* 2 columns for print stability */
-    gap: 1rem;
+    /* 2 large columns */
+    gap: 1.5rem;
 }
 
-.gallery-item {
-    height: 200px;
-    border-radius: 4px;
+.gallery-item-full {
+    height: 280px;
+    /* Big images */
+    border-radius: 8px;
     overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 }
 
-.gallery-item img {
+.gallery-item-full img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-/* Footer */
+/* FOOTER */
 .dossier-footer {
-    margin-top: 3rem;
+    margin-top: auto;
     text-align: center;
     border-top: 1px solid #e2e8f0;
-    padding-top: 1rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     color: #94a3b8;
-    font-size: 0.8rem;
+    font-size: 0.9rem;
 }
 
-/* PRINT STYLES */
+/* PAGE BREAKER */
+.page-break {
+    height: 2rem;
+    width: 100%;
+    background: transparent;
+}
+
+/* PRINT MEDIA QUERIES */
 @media print {
     @page {
         size: A4;
         margin: 0;
-        /* Remove browser default margins */
     }
 
     body {
         margin: 0;
-        padding: 0;
         background: white;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
@@ -309,48 +308,59 @@
 
     .dossier-page {
         padding: 0;
-        background: white;
+    }
+
+    .dossier-container {
+        box-shadow: none;
+        width: 100vw;
+        max-width: none;
+        padding: 15mm;
+        /* Print Margin */
+        margin: 0;
     }
 
     .no-print {
         display: none !important;
     }
 
-    .dossier-container {
-        box-shadow: none;
-        width: 100%;
-        max-width: 100%;
-        margin: 0;
-        padding: 15mm;
-        /* Add print margin manually */
+    .page-break {
+        height: 0;
+        page-break-before: always;
+        break-before: page;
     }
 
-    .hero-image-container {
-        page-break-inside: avoid;
-    }
-
-    .spec-item,
-    .features-column,
-    .description-column {
-        page-break-inside: avoid;
-    }
-
-    /* Force background colors */
+    /* Avoid breaking inside components */
+    .hero-image-container-clean,
+    .property-header-block,
     .dossier-specs,
-    .features-column,
-    .dossier-costs {
+    .dossier-costs,
+    .description-section,
+    .gallery-item-full {
+        page-break-inside: avoid;
+    }
+
+    /* Force backgrounds */
+    .dossier-specs,
+    .dossier-costs,
+    .features-list-grid li {
         background-color: #f8fafc !important;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
     }
 
-    .hero-overlay {
-        background: rgba(0, 0, 0, 0.6) !important;
-        /* Lighter overlay for print ink save? Or keep dark for looks? Keeping for looks */
+    /* Text colors */
+    h1,
+    h2,
+    h3,
+    p,
+    span,
+    li {
+        color: black !important;
+        /* Ensure crisp text */
     }
 
-    a {
-        text-decoration: none;
-        color: inherit;
+    .property-title-clean {
+        color: #0f172a !important;
+        /* Keep dark blue/black nuance if printer supports */
     }
 }
