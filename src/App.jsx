@@ -7,6 +7,7 @@ import { isSupabaseConfigured } from './utils/supabaseClient';
 import { BlogProvider } from './context/BlogContext';
 import Layout from './components/Layout';
 import Home from './pages/Home';
+import GTMTracker from './components/GTMTracker';
 
 import Catalog from './pages/Catalog';
 import PropertyDetail from './pages/PropertyDetail';
@@ -44,6 +45,7 @@ function App() {
       <PropertiesProvider>
         <BlogProvider>
           <LeadsProvider>
+            <GTMTracker />
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Layout />}>
