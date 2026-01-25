@@ -106,6 +106,11 @@ const PropertyDetail = () => {
             "addressRegion": property.province,
             "addressCountry": "ES"
         },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": lat,
+            "longitude": lng
+        },
         "breadcrumb": {
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
