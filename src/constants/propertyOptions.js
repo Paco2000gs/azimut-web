@@ -4,7 +4,10 @@ export const PROVINCES = [
     "Sevilla",
     "Badajoz",
     "Almería",
-    "Granada"
+    "Granada",
+    "Girona",
+    "Huelva",
+    "Cuenca"
 ];
 
 export const CITIES = {
@@ -70,6 +73,34 @@ export const CITIES = {
         "Granada", "Motril", "Almuñécar", "Armilla", "Maracena", "Loja", "Baza",
         "Guadix", "Las Gabias", "La Zubia", "Atarfe", "Albolote", "Santa Fe",
         "Churriana de la Vega", "Ogíjares", "Salobreña", "Huétor Vega", "Peligros"
+    ],
+    "Girona": [
+        // Costa Brava - Zona destacada
+        "Lloret de Mar", "Tossa de Mar", "Blanes", "Platja d'Aro", "S'Agaró", "Sant Feliu de Guíxols",
+        "Palamós", "Palafrugell", "Calella de Palafrugell", "Tamariu", "Llafranc", "Begur",
+        "L'Estartit", "L'Escala", "Roses", "Cadaqués", "Port de la Selva", "Llançà",
+        "Colera", "Portbou", "Sant Pere Pescador", "Empuriabrava",
+        // Otras poblaciones de Girona
+        "Girona", "Salt", "Figueres", "Olot", "Banyoles", "Palafrugell", "Sant Feliu de Guíxols",
+        "Lloret de Mar", "Blanes", "Cassà de la Selva", "Sarrià de Ter", "Celrà", "Torroella de Montgrí",
+        "Ripoll", "Puigcerdà", "La Bisbal d'Empordà", "Palamós", "Roses", "Platja d'Aro",
+        "Pals", "Peratallada", "Monells", "Ullastret", "Torrent", "Calonge", "Sant Antoni de Calonge"
+    ],
+    "Huelva": [
+        "Huelva", "Lepe", "Almonte", "Moguer", "Isla Cristina", "Ayamonte", "Cartaya",
+        "Punta Umbría", "Aljaraque", "Bollullos Par del Condado", "La Palma del Condado",
+        "Valverde del Camino", "Gibraleón", "San Juan del Puerto", "Palos de la Frontera",
+        "Rociana del Condado", "Bonares", "Trigueros", "Villablanca", "El Rompido",
+        "Mazagón", "Matalascañas", "Aracena", "Jabugo", "Cortegana", "Aroche",
+        "Almonaster la Real", "Nerva", "Minas de Riotinto", "Zalamea la Real"
+    ],
+    "Cuenca": [
+        "Cuenca", "Tarancón", "Quintanar del Rey", "San Clemente", "Motilla del Palancar",
+        "Las Pedroñeras", "Villacañas", "Casasimarro", "Huete", "Priego", "Minglanilla",
+        "Iniesta", "Mota del Cuervo", "Valdeolivas", "Villamayor de Santiago", "Belmonte",
+        "Villanueva de la Jara", "Sisante", "Honrubia", "El Provencio", "Horcajo de Santiago",
+        "Villarejo de Fuentes", "Carboneras de Guadazaón", "Cañaveras", "Landete",
+        "Campillo de Altobuey", "Alarcón", "Buendía", "Cañete", "Huélamo", "Tragacete"
     ]
 };
 
