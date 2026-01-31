@@ -47,17 +47,36 @@ async function generateSitemap() {
         try {
             const { data: properties, error } = await supabase
                 .from('properties')
-                .select('id, created_at');
+                .select('id, type, city, created_at');
 
             if (error) throw error;
 
             console.log(`Found ${properties.length} properties.`);
 
             properties.forEach(property => {
+                // Generate slug: type-city-id
+                const generateSlug = (prop) => {
+                    const normalize = (str) => {
+                        return str
+                            .toLowerCase()
+                            .normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, '') // Remove accents
+                            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
+                            .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
+                    };
+
+                    const typeSlug = normalize(prop.type || 'property');
+                    const citySlug = normalize(prop.city || 'location');
+
+                    return `${typeSlug}-${citySlug}-${prop.id}`;
+                };
+
+                const slug = generateSlug(property);
+
                 sitemap += `
   <url>
-    <loc>${baseUrl}/property/${property.id}</loc>
-    <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod> // Simple YYYY-MM-DD
+    <loc>${baseUrl}/property/${slug}</loc>
+    <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>`;

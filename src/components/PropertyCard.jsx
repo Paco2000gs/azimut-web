@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Maximize } from 'lucide-react';
+import { generatePropertySlug } from '../utils/slugify';
 import '../styles/PropertyCard.css';
 
 const PropertyCard = ({ property }) => {
+    const slug = generatePropertySlug(property);
+
     return (
-        <Link to={`/property/${property.id}`} className="property-card">
+        <Link to={`/property/${slug}`} className="property-card">
             <div className="card-image">
                 <img
                     src={property.image || property.property_media?.find(m => m.type === 'image')?.url || 'https://via.placeholder.com/400x300?text=No+Image'}

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import SEO from '../components/SEO';
@@ -9,6 +9,7 @@ import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
+import { extractIdFromSlug, generatePropertySlug } from '../utils/slugify';
 
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import L from 'leaflet';
@@ -25,7 +26,8 @@ const defaultIcon = new L.Icon({
 });
 
 const PropertyDetail = () => {
-    const { id } = useParams();
+    const { id: urlParam } = useParams();
+    const navigate = useNavigate();
     const { getPropertyById, getPropertyMedia, loading: contextLoading } = useProperties();
     const [property, setProperty] = useState(null);
     const [media, setMedia] = useState({ images: [], plans: [], videos: [] });
@@ -36,13 +38,30 @@ const PropertyDetail = () => {
     useEffect(() => {
         const loadData = async () => {
             setLoading(true);
+
+            // Extract ID from URL parameter (could be slug or numeric ID)
+            let propertyId = urlParam;
+
+            // If it's a slug, extract the ID
+            if (isNaN(parseInt(urlParam, 10))) {
+                propertyId = extractIdFromSlug(urlParam);
+            }
+
             // 1. Get Property Basic Info
-            const prop = getPropertyById(id);
+            const prop = getPropertyById(propertyId);
             if (prop) {
                 setProperty(prop);
 
+                // Generate the canonical slug for this property
+                const canonicalSlug = generatePropertySlug(prop);
+
+                // If the current URL doesn't match the canonical slug, redirect
+                if (urlParam !== canonicalSlug) {
+                    navigate(`/property/${canonicalSlug}`, { replace: true });
+                }
+
                 // 2. Get Property Media
-                const mediaResult = await getPropertyMedia(id);
+                const mediaResult = await getPropertyMedia(propertyId);
                 if (mediaResult.success) {
                     const allMedia = mediaResult.data || [];
                     const images = allMedia.filter(m => m.type === 'image');
@@ -65,7 +84,7 @@ const PropertyDetail = () => {
         if (!contextLoading) {
             loadData();
         }
-    }, [id, contextLoading, getPropertyById, getPropertyMedia]);
+    }, [urlParam, contextLoading, getPropertyById, getPropertyMedia, navigate]);
 
     if (loading || contextLoading) return <div className="loading-screen"><div className="spinner"></div></div>;
 

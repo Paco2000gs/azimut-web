@@ -3,10 +3,13 @@ import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Maximize, ArrowRight } from 'lucide-react';
 import '../styles/PropertyCardWide.css';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
+import { generatePropertySlug } from '../utils/slugify';
 
 const PropertyCardWide = ({ property, priority = false }) => {
+    const slug = generatePropertySlug(property);
+
     return (
-        <Link to={`/property/${property.id}`} className="property-card-wide">
+        <Link to={`/property/${slug}`} className="property-card-wide">
             <div className="card-image-container">
                 <img
                     src={getOptimizedImageUrl(
