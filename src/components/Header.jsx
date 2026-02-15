@@ -18,6 +18,7 @@ const Header = () => {
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`} role="banner">
             <div className="container header-container">
+                <h1 className="visual-hidden">Inmobiliaria de Lujo en Andalucía | Azimut Property: Especialistas en Marbella, Benahavís y Estepona</h1>
                 <Link to="/" className="logo" aria-label="Azimut Property - Inicio">
                     <img src="/azimut-logo-gold.png" alt="Azimut Property - Inmobiliaria de lujo en Andalucía" className="logo-img" width="40" height="40" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>

@@ -1,57 +1,143 @@
-/* Hero Section */
+/* Hero Styles */
 .hero {
     position: relative;
-    height: 100vh;
+    height: 90vh;
     min-height: 600px;
-    background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=2000&auto=format&fit=crop');
-    background-size: cover;
-    background-position: center;
     display: flex;
     align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-    margin-top: calc(var(--header-height) * -1);
-    /* Pull behind header */
+    background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000');
+    /* Fallback high quality villa image */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: #fff;
 }
 
-/* Dark overlay for better text contrast */
 .hero-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.6));
-    z-index: 1;
+    background: linear-gradient(135deg, rgba(26, 26, 26, 0.7) 0%, rgba(26, 26, 26, 0.3) 100%);
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
-    top: 50px;
-    /* Slight offset */
+    z-index: 10;
+    text-align: center;
+    max-width: 900px;
+}
+
+.hero-header-branded {
+    margin-bottom: 3rem;
+}
+
+.eyebrow-text {
+    display: block;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-secondary);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
 }
 
 .hero-subtitle {
     display: block;
-    font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--color-secondary);
-    /* Gold */
-    margin-bottom: 0.5rem;
-    font-style: italic;
+    font-size: 1.1rem;
+    font-weight: 400;
+    letter-spacing: 8px;
+    margin-bottom: 1rem;
+    color: var(--color-secondary-light);
 }
 
-.hero-content h1 {
-    font-family: var(--font-heading);
-    font-size: 3.5rem;
-    font-weight: 400;
-    color: white;
-    margin-bottom: 3rem;
-    line-height: 1.2;
-    text-transform: uppercase;
+.main-value-proposition {
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.cta-group-luxury {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    margin-bottom: 4rem;
+}
+
+.btn-primary-gold {
+    background-color: var(--color-secondary);
+    color: #fff;
+}
+
+.btn-secondary-outline {
+    background-color: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.trust-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 0.8rem;
     letter-spacing: 2px;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.trust-indicators .separator {
+    color: var(--color-secondary);
+}
+
+/* Authority Section */
+.authority-section {
+    background-color: var(--color-primary);
+    color: #fff;
+    padding: 6rem 0;
+}
+
+.authority-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.authority-content p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 2rem;
+}
+
+.authority-content .lead-text {
+    font-size: 1.4rem;
+    font-family: var(--font-heading);
+    color: var(--color-secondary-light);
+    font-style: italic;
+    margin-bottom: 2.5rem;
+}
+
+/* Featured Section */
+.featured-section {
+    padding: var(--spacing-xxl) 0;
+    background-color: var(--color-bg);
+}
+
+.featured-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
 /* Hero Button */
