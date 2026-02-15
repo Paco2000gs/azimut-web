@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useParams, Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
@@ -9,15 +9,12 @@ import '../styles/Blog.css';
 const BlogPost = () => {
     const { id } = useParams();
     const { getPostById, loading } = useBlog();
-    const [post, setPost] = useState(null);
 
     useEffect(() => {
-        if (!loading) {
-            const foundPost = getPostById(id);
-            setPost(foundPost);
-        }
         window.scrollTo(0, 0);
-    }, [id, loading, getPostById]);
+    }, [id]);
+
+    const post = !loading ? getPostById(id) : null;
 
     if (loading) return <div className="loading-screen"><div className="spinner"></div></div>;
 
@@ -39,6 +36,8 @@ const BlogPost = () => {
                 title={post.title}
                 description={post.excerpt}
                 image={post.image}
+                url={`/blog/${post.id}`}
+                type="article"
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -51,17 +50,21 @@ const BlogPost = () => {
                         "dateModified": post.published_at,
                         "author": {
                             "@type": "Organization",
-                            "name": "Azimut Property Team"
+                            "name": "Azimut Property"
                         },
                         "publisher": {
                             "@type": "Organization",
                             "name": "Azimut Property",
                             "logo": {
                                 "@type": "ImageObject",
-                                "url": "https://www.azimutproperty.com/assets/azimut-logo-gold.png"
+                                "url": "https://www.azimutproperty.com/azimut-logo-gold.png"
                             }
                         },
-                        "description": post.excerpt
+                        "description": post.excerpt,
+                        "mainEntityOfPage": {
+                            "@type": "WebPage",
+                            "@id": `https://www.azimutproperty.com/blog/${post.id}`
+                        }
                     })}
                 </script>
             </Helmet>

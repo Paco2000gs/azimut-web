@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
 import SEO from '../components/SEO';
-import { Compass, Shield, Key } from 'lucide-react'; // Import icons matching the screenshot vibe
+import { Compass, Shield, Key } from 'lucide-react';
 import '../styles/Home.css';
 
 const Home = () => {
@@ -20,7 +20,9 @@ const Home = () => {
     return (
         <div className="page home">
             <SEO
-                description="Elevate your lifestyle with Andalusia's premier properties. Discover curated luxury residences in Marbella, Sotogrande, and beyond."
+                title="Inicio"
+                description="Eleve su estilo de vida con las propiedades más exclusivas de Andalucía. Descubra residencias de lujo seleccionadas en Marbella, Sotogrande, Cádiz y más."
+                url="/"
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -29,21 +31,21 @@ const Home = () => {
                         "@type": "RealEstateAgent",
                         "name": "Azimut Property",
                         "url": "https://www.azimutproperty.com",
-                        "logo": "https://www.azimutproperty.com/assets/azimut-logo-gold.png",
-                        "image": "https://www.azimutproperty.com/assets/hero-bg.jpg",
-                        "description": "Exclusive luxury real estate agency in Andalusia, Spain.",
+                        "logo": "https://www.azimutproperty.com/azimut-logo-gold.png",
+                        "image": "https://www.azimutproperty.com/azimut-logo-gold.png",
+                        "description": "Agencia inmobiliaria de lujo exclusiva en Andalucía, España. Villas, áticos y fincas en Marbella, Cádiz, Sevilla y Málaga.",
                         "address": {
                             "@type": "PostalAddress",
                             "addressLocality": "Sevilla",
-                            "addressRegion": "Andalusia",
+                            "addressRegion": "Andalucía",
                             "addressCountry": "ES"
                         },
                         "contactPoint": {
                             "@type": "ContactPoint",
-                            "telephone": "+34-600-000-000",
+                            "email": "info@azimutproperty.com",
                             "contactType": "customer service",
                             "areaServed": "ES",
-                            "availableLanguage": ["English", "Spanish"]
+                            "availableLanguage": ["Spanish", "English"]
                         },
                         "sameAs": [
                             "https://www.instagram.com/azimutproperty",
@@ -58,22 +60,22 @@ const Home = () => {
                 <div className="hero-overlay"></div>
                 <div className="container hero-content">
                     <h1>
-                        <span className="hero-subtitle">ELEVATE YOUR LIFESTYLE</span>
-                        WITH ANDALUSIA'S <br /> PREMIER PROPERTIES
+                        <span className="hero-subtitle">ELEVE SU ESTILO DE VIDA</span>
+                        CON LAS PROPIEDADES <br /> MÁS EXCLUSIVAS DE ANDALUCÍA
                     </h1>
-                    <Link to="/catalog" className="btn btn-hero">EXPLORE OUR EXCLUSIVE COLLECTION</Link>
+                    <Link to="/catalog" className="btn btn-hero">EXPLORE NUESTRA COLECCIÓN EXCLUSIVA</Link>
                 </div>
             </section>
 
-            {/* Featured Properties containing "Curated Luxury Residences" */}
+            {/* Featured Properties */}
             <section className="section featured-section">
                 <div className="container">
                     <div className="section-header decorative-header">
-                        <h2>CURATED LUXURY RESIDENCES</h2>
+                        <h2>RESIDENCIAS DE LUJO SELECCIONADAS</h2>
                     </div>
 
                     {loading ? (
-                        <div className="loading">Loading exclusive listings...</div>
+                        <div className="loading" role="status" aria-label="Cargando propiedades">Cargando listados exclusivos...</div>
                     ) : (
                         <div className="featured-grid">
                             {featuredProperties.map(property => (
@@ -83,38 +85,38 @@ const Home = () => {
                     )}
 
                     <div className="view-all-container">
-                        <Link to="/catalog" className="btn btn-gold">VIEW ALL PROPERTIES</Link>
+                        <Link to="/catalog" className="btn btn-gold">VER TODAS LAS PROPIEDADES</Link>
                     </div>
                 </div>
             </section>
 
-            {/* Why Choose Section (Dark Background) */}
+            {/* Why Choose Section */}
             <section className="section why-choose-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2>WHY CHOOSE AZIMUT PROPERTY</h2>
+                        <h2>¿POR QUÉ ELEGIR AZIMUT PROPERTY?</h2>
                     </div>
                     <div className="value-grid">
                         <div className="value-item">
                             <div className="icon-wrapper">
-                                <Compass size={40} strokeWidth={1} />
+                                <Compass size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>UNPARALLELED EXPERTISE</h3>
-                            <p>Refined, trustworthy discernment across specific exclusive locations.</p>
+                            <h3>EXPERIENCIA INCOMPARABLE</h3>
+                            <p>Conocimiento refinado y profundo del mercado inmobiliario de lujo en las ubicaciones más exclusivas de Andalucía.</p>
                         </div>
                         <div className="value-item">
                             <div className="icon-wrapper">
-                                <Shield size={40} strokeWidth={1} />
+                                <Shield size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>CONFIDENTIAL SERVICE</h3>
-                            <p>Confidential service is considered to and paramount excellence.</p>
+                            <h3>SERVICIO CONFIDENCIAL</h3>
+                            <p>Discreción y confidencialidad absoluta en cada operación. Su privacidad es nuestra máxima prioridad.</p>
                         </div>
                         <div className="value-item">
                             <div className="icon-wrapper">
-                                <Key size={40} strokeWidth={1} />
+                                <Key size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>ACCESS TO OFF-MARKET GEMS</h3>
-                            <p>Access to off-market gems, and the considerations promos.</p>
+                            <h3>ACCESO A PROPIEDADES EXCLUSIVAS</h3>
+                            <p>Acceso privilegiado a propiedades fuera de mercado y oportunidades únicas antes de su publicación.</p>
                         </div>
                     </div>
                 </div>

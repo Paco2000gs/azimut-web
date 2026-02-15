@@ -9,7 +9,7 @@ import '../styles/Catalog.css';
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
 
 const Catalog = () => {
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [searchParams] = useSearchParams();
     const { properties, loading } = useProperties();
 
     // Filter states
@@ -86,7 +86,8 @@ const Catalog = () => {
         <div className="page catalog">
             <SEO
                 title="Catálogo de Propiedades"
-                description="Explore nuestra exclusiva colección de villas, apartamentos y fincas de lujo en las ubicaciones más prestigiosas."
+                description="Explore nuestra exclusiva colección de villas, apartamentos y fincas de lujo en las ubicaciones más prestigiosas de Andalucía."
+                url="/catalog"
             />
 
             {/* Hero / Header Section */}

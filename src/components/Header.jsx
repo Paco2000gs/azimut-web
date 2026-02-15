@@ -16,23 +16,29 @@ const Header = () => {
     }, []);
 
     return (
-        <header className={`header ${scrolled ? 'scrolled' : ''}`}>
+        <header className={`header ${scrolled ? 'scrolled' : ''}`} role="banner">
             <div className="container header-container">
-                <Link to="/" className="logo">
-                    <img src="/azimut-logo-gold.png" alt="Azimut Logo" className="logo-img" />
+                <Link to="/" className="logo" aria-label="Azimut Property - Inicio">
+                    <img src="/azimut-logo-gold.png" alt="Azimut Property - Inmobiliaria de lujo en Andalucía" className="logo-img" width="40" height="40" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>
                 </Link>
 
-                <nav className={`nav ${isOpen ? 'open' : ''}`}>
-                    <NavLink to="/" onClick={() => setIsOpen(false)}>Home</NavLink>
-                    <NavLink to="/catalog" onClick={() => setIsOpen(false)}>Properties</NavLink>
-                    <NavLink to="/about" onClick={() => setIsOpen(false)}>About Us</NavLink>
-                    <NavLink to="/blog" onClick={() => setIsOpen(false)}>Journal</NavLink>
-                    <NavLink to="/contact" className="btn-nav" onClick={() => setIsOpen(false)}>Contact</NavLink>
+                <nav className={`nav ${isOpen ? 'open' : ''}`} role="navigation" aria-label="Navegación principal">
+                    <NavLink to="/" onClick={() => setIsOpen(false)}>Inicio</NavLink>
+                    <NavLink to="/catalog" onClick={() => setIsOpen(false)}>Propiedades</NavLink>
+                    <NavLink to="/about" onClick={() => setIsOpen(false)}>Sobre Nosotros</NavLink>
+                    <NavLink to="/blog" onClick={() => setIsOpen(false)}>Blog</NavLink>
+                    <NavLink to="/contact" className="btn-nav" onClick={() => setIsOpen(false)}>Contacto</NavLink>
                 </nav>
 
-                <button className="menu-toggle" onClick={() => setIsOpen(!isOpen)}>
-                    {isOpen ? <X /> : <Menu />}
+                <button
+                    className="menu-toggle"
+                    onClick={() => setIsOpen(!isOpen)}
+                    aria-label={isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+                    aria-expanded={isOpen}
+                    aria-controls="main-nav"
+                >
+                    {isOpen ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
                 </button>
             </div>
         </header>

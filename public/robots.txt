@@ -1,3 +1,8 @@
 User-agent: *
 Allow: /
+
+Disallow: /admin
+Disallow: /admin/login
+Disallow: /dossier/
+
 Sitemap: https://www.azimutproperty.com/sitemap.xml

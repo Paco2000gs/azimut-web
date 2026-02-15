@@ -13,7 +13,7 @@ const NotFound = () => {
             textAlign: 'center',
             padding: '2rem'
         }}>
-            <SEO title="Page Not Found" />
+            <SEO title="Página No Encontrada" noindex={true} />
             <h1 style={{ fontSize: '4rem', marginBottom: '1rem', color: '#1e293b' }}>404</h1>
             <h2 style={{ marginBottom: '1.5rem', color: '#64748b' }}>Page Not Found</h2>
             <p style={{ marginBottom: '2rem', maxWidth: '400px', color: '#94a3b8' }}>

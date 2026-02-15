@@ -111,13 +111,14 @@ const PropertyDetail = () => {
         "@type": "RealEstateListing",
         "name": property.title,
         "description": property.description,
-        "url": window.location.href,
+        "url": `https://www.azimutproperty.com/property/${urlParam}`,
         "image": displayImages.map(img => img.url),
         "datePosted": property.created_at,
         "offers": {
             "@type": "Offer",
-            "price": property.price,
-            "priceCurrency": "EUR"
+            "price": property.price_on_demand ? undefined : property.price,
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock"
         },
         "address": {
             "@type": "PostalAddress",
@@ -125,32 +126,40 @@ const PropertyDetail = () => {
             "addressRegion": property.province,
             "addressCountry": "ES"
         },
-        "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": lat,
-            "longitude": lng
+        ...(hasCoordinates && {
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": lat,
+                "longitude": lng
+            }
+        }),
+        "numberOfBedrooms": property.bedrooms,
+        "numberOfBathroomsTotal": property.bathrooms,
+        "floorSize": {
+            "@type": "QuantitativeValue",
+            "value": property.area,
+            "unitCode": "MTK"
         },
         "breadcrumb": {
-            "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             "itemListElement": [
                 {
                     "@type": "ListItem",
                     "position": 1,
-                    "name": "Home",
+                    "name": "Inicio",
                     "item": "https://www.azimutproperty.com"
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "Catalog",
+                    "name": "Catálogo",
                     "item": "https://www.azimutproperty.com/catalog"
                 },
                 {
                     "@type": "ListItem",
                     "position": 3,
                     "name": property.title,
-                    "item": window.location.href
+                    "item": `https://www.azimutproperty.com/property/${urlParam}`
                 }
             ]
         }
@@ -158,7 +167,7 @@ const PropertyDetail = () => {
 
     return (
         <div className="page property-detail-page">
-            <SEO title={`${property.title} | Azimut`} description={property.description?.substring(0, 160)} image={displayImages[0]?.url} />
+            <SEO title={`${property.title} | Azimut`} description={property.description?.substring(0, 160)} image={displayImages[0]?.url} url={`/property/${urlParam}`} />
             <Helmet>
                 <script type="application/ld+json">
                     {JSON.stringify(schemaData)}

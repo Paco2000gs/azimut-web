@@ -9,8 +9,9 @@ const About = () => {
     return (
         <div className="page about">
             <SEO
-                title="About Us - Redefining Luxury"
-                description="Learn about AzimutProperty, our philosophy, and our team of experts dedicated to finding your perfect home in Southern Spain."
+                title="Sobre Nosotros - Redefiniendo el Lujo"
+                description="Conozca Azimut Property, nuestra filosofía y nuestro equipo de expertos dedicados a encontrar su hogar perfecto en el sur de España."
+                url="/about"
             />
             <div className="about-hero">
                 <div className="container">
