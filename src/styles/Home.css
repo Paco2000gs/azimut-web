@@ -297,12 +297,72 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-    .hero-content h1 {
-        font-size: 2rem;
+    .hero {
+        height: auto;
+        min-height: 100vh;
+        padding-top: 120px;
+        /* Space for the fixed header */
+        padding-bottom: 4rem;
+        background-attachment: scroll;
+        /* Better performance on mobile */
+    }
+
+    .hero-content {
+        padding: 0 1.5rem;
+    }
+
+    .eyebrow-text {
+        font-size: 0.75rem;
+        letter-spacing: 2px;
+        margin-bottom: 1rem;
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+        margin-bottom: 1rem;
     }
 
     .hero-subtitle {
-        font-size: 1.5rem;
+        font-size: 0.9rem;
+        letter-spacing: 4px;
+        margin-bottom: 0.5rem;
+    }
+
+    .hero-title br {
+        display: none;
+        /* Let text flow naturally on narrow screens */
+    }
+
+    .main-value-proposition {
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 2rem;
+    }
+
+    .cta-group-luxury {
+        flex-direction: column;
+        gap: 1rem;
+        width: 100%;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .btn-hero {
+        width: 100%;
+        padding: 14px 20px;
+        font-size: 0.85rem;
+    }
+
+    .trust-indicators {
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.75rem;
+    }
+
+    .trust-indicators .separator {
+        display: none;
     }
 
     .decorative-header h2 {
