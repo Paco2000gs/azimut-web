@@ -91,8 +91,8 @@ const PropertyDetail = () => {
     if (!property) {
         return (
             <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
-                <h2>Propiedad no encontrada</h2>
-                <Link to="/catalog" className="btn">Volver al listado</Link>
+                <h2>Property not found</h2>
+                <Link to="/catalog" className="btn">Back to listing</Link>
             </div>
         );
     }
@@ -146,13 +146,13 @@ const PropertyDetail = () => {
                 {
                     "@type": "ListItem",
                     "position": 1,
-                    "name": "Inicio",
+                    "name": "Home",
                     "item": "https://www.azimutproperty.com"
                 },
                 {
                     "@type": "ListItem",
                     "position": 2,
-                    "name": "Catálogo",
+                    "name": "Catalogue",
                     "item": "https://www.azimutproperty.com/catalog"
                 },
                 {
@@ -177,7 +177,7 @@ const PropertyDetail = () => {
             {/* Header / Navigation Check */}
             <div className="container property-header-container">
                 <Link to="/catalog" className="back-link">
-                    <ArrowLeft size={18} /> Volver a Propiedades
+                    <ArrowLeft size={18} /> Back to Properties
                 </Link>
             </div>
 
@@ -234,21 +234,21 @@ const PropertyDetail = () => {
                                 <Bed size={24} color="#64748b" />
                                 <div>
                                     <span className="spec-value">{property.bedrooms}</span>
-                                    <span className="spec-label">Dormitorios</span>
+                                    <span className="spec-label">Bedrooms</span>
                                 </div>
                             </div>
                             <div className="spec-item">
                                 <Bath size={24} color="#64748b" />
                                 <div>
                                     <span className="spec-value">{property.bathrooms}</span>
-                                    <span className="spec-label">Baños</span>
+                                    <span className="spec-label">Bathrooms</span>
                                 </div>
                             </div>
                             <div className="spec-item">
                                 <Maximize size={24} color="#64748b" />
                                 <div>
                                     <span className="spec-value">{Number(property.area).toLocaleString()} m²</span>
-                                    <span className="spec-label">Construidos</span>
+                                    <span className="spec-label">Built</span>
                                 </div>
                             </div>
                             {property.plot > 0 && (
@@ -261,7 +261,7 @@ const PropertyDetail = () => {
                                                 : `${Number(property.plot).toLocaleString()} m²`
                                             }
                                         </span>
-                                        <span className="spec-label">Parcela</span>
+                                        <span className="spec-label">Plot</span>
                                     </div>
                                 </div>
                             )}
@@ -269,14 +269,14 @@ const PropertyDetail = () => {
 
                         {/* Description */}
                         <div className="content-section">
-                            <h3 className="section-title">Descripción</h3>
+                            <h3 className="section-title">Description</h3>
                             <p className="description-text">{property.description}</p>
                         </div>
 
                         {/* Features */}
                         {property.features && property.features.length > 0 && (
                             <div className="content-section">
-                                <h3 className="section-title">Características</h3>
+                                <h3 className="section-title">Features</h3>
                                 <div className="features-grid">
                                     {property.features.map((feature, idx) => (
                                         <div key={idx} className="feature-tag">
@@ -293,12 +293,12 @@ const PropertyDetail = () => {
                         {/* Plans Section */}
                         {media.plans.length > 0 && (
                             <div className="content-section">
-                                <h3 className="section-title">Planos</h3>
+                                <h3 className="section-title">Floor Plans</h3>
                                 <div className="plans-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                                     {media.plans.map(plan => (
                                         <a key={plan.id} href={plan.url} className="plan-link" target="_blank" rel="noopener noreferrer">
                                             <FileText size={24} color="#3b82f6" />
-                                            <span>{plan.title || 'Ver Plano'}</span>
+                                            <span>{plan.title || 'View Plan'}</span>
                                         </a>
                                     ))}
                                 </div>
@@ -326,7 +326,7 @@ const PropertyDetail = () => {
                         {/* Map Section */}
                         {hasCoordinates && (
                             <div className="content-section">
-                                <h3 className="section-title">Ubicación</h3>
+                                <h3 className="section-title">Location</h3>
                                 <div className="map-container" style={{ height: '400px' }}>
                                     <MapContainer
                                         key={`${lat}-${lng}`} // Helper to force re-render if coordinates change
@@ -374,7 +374,7 @@ const PropertyDetail = () => {
                         className="lightbox-close"
                         onClick={() => setShowLightbox(false)}
                     >
-                        <X size={24} /> Cerrar
+                        <X size={24} /> Close
                     </button>
                 </div>
             )}

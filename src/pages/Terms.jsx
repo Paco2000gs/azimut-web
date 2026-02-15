@@ -9,7 +9,7 @@ const Terms = () => {
 
     return (
         <div className="page terms">
-            <SEO title="Términos de Servicio" description="Términos y condiciones de uso del sitio web Azimut Property." url="/terms" />
+            <SEO title="Terms of Service" description="Terms and conditions of use for the Azimut Property website." url="/terms" />
             <div className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
                 <h1>Terms of Service</h1>
                 <p className="last-updated">Last updated: December 1, 2025</p>

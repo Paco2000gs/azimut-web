@@ -42,8 +42,8 @@ const Contact = () => {
     return (
         <div className="page contact">
             <SEO
-                title="Contacto"
-                description="Póngase en contacto con Azimut Property. Estamos aquí para asistirle en la compra o venta de inmuebles de lujo en Andalucía."
+                title="Contact Us"
+                description="Get in touch with Azimut Property. We are here to assist you with buying or selling luxury real estate in Andalusia."
                 url="/contact"
             />
             <div className="container">

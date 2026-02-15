@@ -3,7 +3,7 @@ import { useLeads } from '../context/LeadsContext';
 import '../styles/PropertyInquiryForm.css';
 import { Send, CheckCircle } from 'lucide-react';
 
-const PropertyInquiryForm = ({ propertyId, propertyTitle }) => {
+const PropertyInquiryForm = ({ propertyTitle }) => {
     const { addLead } = useLeads();
     const [formData, setFormData] = useState({
         name: '',
@@ -20,8 +20,8 @@ const PropertyInquiryForm = ({ propertyId, propertyTitle }) => {
         setLoading(true);
 
         const fullMessage = `
-Presupuesto: ${formData.budget || 'No especificado'}
-Mensaje: ${formData.message || 'Solicitud de información.'}
+Budget: ${formData.budget || 'Not specified'}
+Message: ${formData.message || 'Information request.'}
         `.trim();
 
         try {
@@ -29,7 +29,7 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
                 name: formData.name,
                 email: formData.email,
                 phone: formData.phone,
-                interest: `Interés en Propiedad: ${propertyTitle}`,
+                interest: `Interest in Property: ${propertyTitle}`,
                 message: fullMessage,
                 source: 'Property Detail',
                 property_title: propertyTitle
@@ -38,7 +38,7 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
             setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
         } catch (error) {
             console.error('Error submitting form:', error);
-            alert('Error al enviar. Por favor intente de nuevo.');
+            alert('Error sending inquiry. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -52,10 +52,10 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
         return (
             <div className="inquiry-success">
                 <CheckCircle size={48} color="#10b981" />
-                <h3>¡Solicitud Recibida!</h3>
-                <p>Le enviaremos el dossier privado a su correo en breve.</p>
+                <h3>Request Received!</h3>
+                <p>We will send the private dossier to your email shortly.</p>
                 <button onClick={() => setSubmitted(false)} className="btn-text">
-                    Enviar otra consulta
+                    Send another inquiry
                 </button>
             </div>
         );
@@ -64,8 +64,8 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
     return (
         <div className="property-inquiry-form">
             <div className="form-header">
-                <h3>Solicitar Dossier Privado</h3>
-                <p>Reciba información detallada y confidencial sobre esta propiedad.</p>
+                <h3>Request Private Dossier</h3>
+                <p>Receive detailed and confidential information about this property.</p>
             </div>
 
             <form onSubmit={handleSubmit}>
@@ -73,7 +73,7 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
                     <input
                         type="text"
                         name="name"
-                        placeholder="Nombre Completo"
+                        placeholder="Full Name"
                         value={formData.name}
                         onChange={handleChange}
                         required
@@ -85,7 +85,7 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
                     <input
                         type="email"
                         name="email"
-                        placeholder="Email Preferente"
+                        placeholder="Preferred Email"
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -97,7 +97,7 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
                     <input
                         type="tel"
                         name="phone"
-                        placeholder="Teléfono (Opcional)"
+                        placeholder="Phone (Optional)"
                         value={formData.phone}
                         onChange={handleChange}
                         className="minimal-input"
@@ -112,18 +112,18 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
                         className="minimal-input"
                         required
                     >
-                        <option value="" disabled>Rango de Inversión</option>
-                        <option value="< 500k">Menos de €500k</option>
+                        <option value="" disabled>Investment Range</option>
+                        <option value="< 500k">Below €500k</option>
                         <option value="500k - 1M">€500k - €1M</option>
                         <option value="1M - 3M">€1M - €3M</option>
-                        <option value="> 3M">Más de €3M</option>
+                        <option value="> 3M">Above €3M</option>
                     </select>
                 </div>
 
                 <div className="form-group">
                     <textarea
                         name="message"
-                        placeholder="Mensaje breve (opcional)"
+                        placeholder="Short message (optional)"
                         value={formData.message}
                         onChange={handleChange}
                         className="minimal-input"
@@ -132,11 +132,11 @@ Mensaje: ${formData.message || 'Solicitud de información.'}
                 </div>
 
                 <button type="submit" className="btn-gold-full" disabled={loading}>
-                    {loading ? 'Enviando...' : 'Solicitar Dossier'}
+                    {loading ? 'Sending...' : 'Request Dossier'}
                 </button>
 
                 <p className="privacy-note">
-                    * Sus datos serán tratados con estricta confidencialidad.
+                    * Your data will be treated with strict confidentiality.
                 </p>
             </form>
         </div>

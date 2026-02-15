@@ -12,8 +12,8 @@ const Blog = () => {
     return (
         <div className="page blog">
             <SEO
-                title="Blog - Tendencias Inmobiliarias de Lujo"
-                description="Lea las últimas tendencias, análisis y noticias del mundo inmobiliario de lujo en Andalucía."
+                title="Journal - Luxury Real Estate Trends"
+                description="Read the latest trends, analysis, and news from the luxury real estate world in Andalusia."
                 url="/blog"
             />
             <div className="blog-hero">

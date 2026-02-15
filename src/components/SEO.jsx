@@ -2,8 +2,8 @@ import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
 const SEO = ({ title, description, image, url, type = 'website', noindex = false }) => {
-    const siteTitle = 'Azimut Property | Propiedades de Lujo y Villas en Marbella y Andalucía';
-    const defaultDescription = 'Especialistas en activos inmobiliarios exclusivos en Marbella, Estepona y Benahavís. Acceso a villas off-market, branded residences y asesoría experta para inversores HNWI en Andalucía.';
+    const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
+    const defaultDescription = 'Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís. Access to off-market villas, branded residences, and expert consultancy for HNWI investors in Andalusia.';
     const defaultImage = 'https://www.azimutproperty.com/azimut-logo-gold.png';
     const siteUrl = 'https://www.azimutproperty.com';
 

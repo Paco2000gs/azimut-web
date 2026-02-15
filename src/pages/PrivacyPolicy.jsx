@@ -9,7 +9,7 @@ const PrivacyPolicy = () => {
 
     return (
         <div className="page privacy-policy">
-            <SEO title="Política de Privacidad" description="Política de privacidad de Azimut Property. Conozca cómo tratamos sus datos personales." url="/privacy" />
+            <SEO title="Privacy Policy" description="Privacy policy of Azimut Property. Learn how we handle your personal data." url="/privacy" />
             <div className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
                 <h1>Privacy Policy</h1>
                 <p className="last-updated">Last updated: December 1, 2025</p>

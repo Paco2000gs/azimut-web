@@ -22,7 +22,7 @@ const Home = () => {
         "@context": "https://schema.org",
         "@type": "RealEstateAgent",
         "name": "Azimut Property",
-        "description": "Inmobiliaria boutique especializada en el sector de lujo en la Costa del Sol. Especialistas en activos inmobiliarios exclusivos en Marbella, Estepona y Benahavís.",
+        "description": "Boutique real estate agency specialized in the luxury sector on the Costa del Sol. Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís.",
         "url": "https://www.azimutproperty.com/",
         "telephone": "+34-600-000-000",
         "logo": "https://www.azimutproperty.com/azimut-logo-gold.png",
@@ -30,14 +30,14 @@ const Home = () => {
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Marbella",
-            "addressRegion": "Andalucía",
+            "addressRegion": "Andalusia",
             "addressCountry": "ES"
         },
         "areaServed": [
             { "@type": "City", "name": "Marbella" },
             { "@type": "City", "name": "Estepona" },
             { "@type": "City", "name": "Benahavís" },
-            { "@type": "Place", "name": "Milla de Oro" }
+            { "@type": "Place", "name": "Golden Mile" }
         ],
         "priceRange": "€1,000,000 - €50,000,000",
         "contactPoint": {
@@ -56,8 +56,8 @@ const Home = () => {
     return (
         <div className="page home">
             <SEO
-                title="Azimut Property | Propiedades de Lujo y Villas en Marbella y Andalucía"
-                description="Especialistas en activos inmobiliarios exclusivos en Marbella, Estepona y Benahavís. Acceso a villas off-market, branded residences y asesoría experta para inversores HNWI en Andalucía."
+                title="Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia"
+                description="Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís. Access to off-market villas, branded residences, and expert consultancy for HNWI investors in Andalusia."
                 url="/"
             />
             <Helmet>
@@ -72,20 +72,20 @@ const Home = () => {
                 <div className="hero-overlay"></div>
                 <div className="container hero-content">
                     <header className="hero-header-branded">
-                        <span className="eyebrow-text">Exclusividad y Discreción en el Triángulo de Oro</span>
-                        <h1>
-                            <span className="hero-subtitle">ELEVE SU ESTILO DE VIDA</span>
-                            CON LAS PROPIEDADES <br /> MÁS EXCLUSIVAS DE ANDALUCÍA
+                        <span className="eyebrow-text">Exclusivity and Discretion in the Golden Triangle</span>
+                        <h1 className="hero-title">
+                            <span className="hero-subtitle">ELEVATE YOUR LIFESTYLE</span>
+                            WITH THE MOST EXCLUSIVE <br /> PROPERTIES IN ANDALUSIA
                         </h1>
                         <p className="main-value-proposition">
-                            Descubra una colección curada de propiedades off-market y residencias de lujo
-                            diseñadas para el bienestar y la longevidad en el sur de España.
+                            Discover a curated collection of off-market properties and luxury residences
+                            designed for wellness and longevity in Southern Spain.
                         </p>
                     </header>
 
                     <div className="cta-group-luxury">
-                        <Link to="/catalog" className="btn btn-hero btn-primary-gold">Explorar Villas Exclusivas</Link>
-                        <Link to="/contact" className="btn btn-hero btn-secondary-outline">Solicitar Catálogo Off-Market</Link>
+                        <Link to="/catalog" className="btn btn-hero btn-primary-gold">Explore Exclusive Villas</Link>
+                        <Link to="/contact" className="btn btn-hero btn-secondary-outline">Request Off-Market Catalogue</Link>
                     </div>
 
                     <div className="trust-indicators">
@@ -101,17 +101,17 @@ const Home = () => {
                 <div className="container">
                     <div className="authority-content">
                         <p className="lead-text">
-                            Especialistas en el mercado inmobiliario de alta gama en el Triángulo de Oro de Andalucía.
-                            Azimut Property ofrece un acceso sin precedentes a las propiedades más exclusivas de
-                            Marbella, Benahavís y Estepona.
+                            Specialists in the high-end real estate market in the Golden Triangle of Andalusia.
+                            Azimut Property offers unprecedented access to the most exclusive properties in
+                            Marbella, Benahavís, and Estepona.
                         </p>
                         <p>
-                            Desde villas contemporáneas con certificación energética líder en la industria hasta las
-                            codiciadas Branded Residences en la Milla de Oro, nuestra selección está diseñada para
-                            aquellos que priorizan la privacidad, la sostenibilidad y el bienestar. En un mercado
-                            impulsado por la escasez de activos y una demanda internacional récord, proporcionamos
-                            la inteligencia de mercado y la discreción necesarias para asegurar inversiones de capital
-                            seguras y estilos de vida inigualables en el sur de Europa.
+                            From contemporary villas with industry-leading energy certification to the
+                            coveted Branded Residences on the Golden Mile, our selection is designed for
+                            those who prioritize privacy, sustainability, and well-being. In a market
+                            driven by asset scarcity and record international demand, we provide the
+                            market intelligence and discretion necessary to secure safe capital
+                            investments and unparalleled lifestyles in Southern Europe.
                         </p>
                     </div>
                 </div>
@@ -121,11 +121,11 @@ const Home = () => {
             <section className="section featured-section">
                 <div className="container">
                     <div className="section-header decorative-header">
-                        <h2>RESIDENCIAS DE LUJO SELECCIONADAS</h2>
+                        <h2>CURATED LUXURY RESIDENCES</h2>
                     </div>
 
                     {loading ? (
-                        <div className="loading" role="status" aria-label="Cargando propiedades">Cargando listados exclusivos...</div>
+                        <div className="loading" role="status" aria-label="Loading properties">Loading exclusive listings...</div>
                     ) : (
                         <div className="featured-grid">
                             {featuredProperties.map(property => (
@@ -135,7 +135,7 @@ const Home = () => {
                     )}
 
                     <div className="view-all-container">
-                        <Link to="/catalog" className="btn btn-gold">VER TODAS LAS PROPIEDADES</Link>
+                        <Link to="/catalog" className="btn btn-gold">VIEW ALL PROPERTIES</Link>
                     </div>
                 </div>
             </section>
@@ -144,29 +144,29 @@ const Home = () => {
             <section className="section why-choose-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2>¿POR QUÉ ELEGIR AZIMUT PROPERTY?</h2>
+                        <h2>WHY CHOOSE AZIMUT PROPERTY?</h2>
                     </div>
                     <div className="value-grid">
                         <div className="value-item">
                             <div className="icon-wrapper">
                                 <Compass size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>EXPERIENCIA INCOMPARABLE</h3>
-                            <p>Conocimiento refinado y profundo del mercado inmobiliario de lujo en las ubicaciones más exclusivas de Andalucía.</p>
+                            <h3>UNPARALLELED EXPERTISE</h3>
+                            <p>Refined and deep knowledge of the luxury real estate market in Andalusia's most exclusive locations.</p>
                         </div>
                         <div className="value-item">
                             <div className="icon-wrapper">
                                 <Shield size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>SERVICIO CONFIDENCIAL</h3>
-                            <p>Discreción y confidencialidad absoluta en cada operación. Su privacidad es nuestra máxima prioridad.</p>
+                            <h3>CONFIDENTIAL SERVICE</h3>
+                            <p>Absolute discretion and confidentiality in every transaction. Your privacy is our top priority.</p>
                         </div>
                         <div className="value-item">
                             <div className="icon-wrapper">
                                 <Key size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>ACCESO A PROPIEDADES EXCLUSIVAS</h3>
-                            <p>Acceso privilegiado a propiedades fuera de mercado y oportunidades únicas antes de su publicación.</p>
+                            <h3>EXCLUSIVE LISTINGS ACCESS</h3>
+                            <p>Privileged access to off-market properties and unique opportunities before they are published.</p>
                         </div>
                     </div>
                 </div>

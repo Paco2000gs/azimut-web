@@ -18,24 +18,24 @@ const Header = () => {
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`} role="banner">
             <div className="container header-container">
-                <h1 className="visual-hidden">Inmobiliaria de Lujo en Andalucía | Azimut Property: Especialistas en Marbella, Benahavís y Estepona</h1>
-                <Link to="/" className="logo" aria-label="Azimut Property - Inicio">
-                    <img src="/azimut-logo-gold.png" alt="Azimut Property - Inmobiliaria de lujo en Andalucía" className="logo-img" width="40" height="40" />
+                <h1 className="visual-hidden">Luxury Real Estate in Andalusia | Azimut Property: Specialists in Marbella, Benahavís, and Estepona</h1>
+                <Link to="/" className="logo" aria-label="Azimut Property - Home">
+                    <img src="/azimut-logo-gold.png" alt="Azimut Property - Luxury Real Estate in Andalusia" className="logo-img" width="40" height="40" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>
                 </Link>
 
-                <nav className={`nav ${isOpen ? 'open' : ''}`} role="navigation" aria-label="Navegación principal">
-                    <NavLink to="/" onClick={() => setIsOpen(false)}>Inicio</NavLink>
-                    <NavLink to="/catalog" onClick={() => setIsOpen(false)}>Propiedades</NavLink>
-                    <NavLink to="/about" onClick={() => setIsOpen(false)}>Sobre Nosotros</NavLink>
+                <nav className={`nav ${isOpen ? 'open' : ''}`} role="navigation" aria-label="Main navigation">
+                    <NavLink to="/" onClick={() => setIsOpen(false)}>Home</NavLink>
+                    <NavLink to="/catalog" onClick={() => setIsOpen(false)}>Properties</NavLink>
+                    <NavLink to="/about" onClick={() => setIsOpen(false)}>About Us</NavLink>
                     <NavLink to="/blog" onClick={() => setIsOpen(false)}>Blog</NavLink>
-                    <NavLink to="/contact" className="btn-nav" onClick={() => setIsOpen(false)}>Contacto</NavLink>
+                    <NavLink to="/contact" className="btn-nav" onClick={() => setIsOpen(false)}>Contact</NavLink>
                 </nav>
 
                 <button
                     className="menu-toggle"
                     onClick={() => setIsOpen(!isOpen)}
-                    aria-label={isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
+                    aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
                     aria-expanded={isOpen}
                     aria-controls="main-nav"
                 >

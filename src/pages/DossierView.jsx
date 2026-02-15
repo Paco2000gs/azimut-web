@@ -47,18 +47,17 @@ const DossierView = () => {
         loadData();
     }, [id, getPropertyById, getPropertyMedia]);
 
-    if (loading) return <div className="dossier-loading">Generando Dossier...</div>;
-    if (!property) return <div className="dossier-error">Propiedad no encontrada</div>;
+    if (loading) return <div className="dossier-loading">Generating Dossier...</div>;
+    if (!property) return <div className="dossier-error">Property not found</div>;
 
-    // Filter to top 5 images for the grid (avoid overcrowding)
-    const galleryImages = images.slice(0, 5);
+
 
     return (
         <div className="dossier-page">
             {/* Print Button (Hidden in Print) */}
             <div className="dossier-actions no-print">
                 <button onClick={() => window.print()} className="print-btn">
-                    <Printer size={20} /> Imprimir / Guardar PDF
+                    <Printer size={20} /> Print / Save PDF
                 </button>
             </div>
 
@@ -97,18 +96,18 @@ const DossierView = () => {
                     {/* SPECS GRID */}
                     <section className="dossier-specs">
                         <div className="spec-item">
-                            <span className="spec-label">Precio</span>
+                            <span className="spec-label">Price</span>
                             <span className="spec-value price">
-                                {property.price_on_demand ? "Consultar" : `€${property.price?.toLocaleString()}`}
+                                {property.price_on_demand ? "On Demand" : `€${property.price?.toLocaleString()}`}
                             </span>
                         </div>
                         <div className="spec-item">
                             <Bed size={20} />
-                            <span className="spec-value">{property.bedrooms} Dormitorios</span>
+                            <span className="spec-value">{property.bedrooms} Bedrooms</span>
                         </div>
                         <div className="spec-item">
                             <Bath size={20} />
-                            <span className="spec-value">{property.bathrooms} Baños</span>
+                            <span className="spec-value">{property.bathrooms} Bathrooms</span>
                         </div>
                         <div className="spec-item">
                             <Maximize size={20} />
@@ -116,7 +115,7 @@ const DossierView = () => {
                         </div>
                         {property.plot > 0 && (
                             <div className="spec-item">
-                                <span className="spec-label">Parcela</span>
+                                <span className="spec-label">Plot</span>
                                 <span className="spec-value">{property.plot} m²</span>
                             </div>
                         )}
@@ -125,27 +124,27 @@ const DossierView = () => {
                     {/* PURCHASE COSTS ESTIMATOR */}
                     {calculateCosts(property.price) && (
                         <section className="dossier-costs">
-                            <h3>Estimación de Gastos de Compra</h3>
-                            <p className="costs-disclaimer">*Cálculo aproximado (ITP 10% + Notaría + Registro). No tiene valor contractual.</p>
+                            <h3>Purchase Costs Estimation</h3>
+                            <p className="costs-disclaimer">*Approximate calculation (ITP 10% + Notary + Registry). No contractual value.</p>
                             <div className="costs-grid">
                                 <div className="cost-item">
-                                    <span>Precio Propiedad</span>
+                                    <span>Property Price</span>
                                     <strong>€{property.price.toLocaleString()}</strong>
                                 </div>
                                 <div className="cost-item">
-                                    <span>Impuestos (ITP 10%)</span>
+                                    <span>Taxes (ITP 10%)</span>
                                     <span>€{calculateCosts(property.price).itp.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                                 </div>
                                 <div className="cost-item">
-                                    <span>Notaría (Est.)</span>
+                                    <span>Notary (Est.)</span>
                                     <span>€{calculateCosts(property.price).notary.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                                 </div>
                                 <div className="cost-item">
-                                    <span>Registro (Est.)</span>
+                                    <span>Registry (Est.)</span>
                                     <span>€{calculateCosts(property.price).registry.toLocaleString(undefined, { maximumFractionDigits: 0 })}</span>
                                 </div>
                                 <div className="cost-item total">
-                                    <span>Total Estimado</span>
+                                    <span>Estimated Total</span>
                                     <strong>€{(property.price + calculateCosts(property.price).total).toLocaleString(undefined, { maximumFractionDigits: 0 })}</strong>
                                 </div>
                             </div>
@@ -160,12 +159,12 @@ const DossierView = () => {
                 <div className="dossier-section page-2">
                     <div className="dossier-content-full">
                         <div className="description-section">
-                            <h3>Descripción</h3>
+                            <h3>Description</h3>
                             <p>{property.description}</p>
                         </div>
 
                         <div className="features-section">
-                            <h3>Características</h3>
+                            <h3>Features</h3>
                             <ul className="features-list-grid">
                                 {property.features?.map((feat, idx) => (
                                     <li key={idx}>{feat}</li>
@@ -181,7 +180,7 @@ const DossierView = () => {
                 {/* PAGE 3 CONTENT: GALLERY */}
                 <div className="dossier-section page-3">
                     <section className="dossier-gallery-full">
-                        <h3>Galería</h3>
+                        <h3>Gallery</h3>
                         <div className="gallery-grid-full">
                             {/* Show more images for the full page, e.g. 6-8 */}
                             {images.slice(0, 8).map((img, idx) => (
@@ -195,7 +194,7 @@ const DossierView = () => {
 
                 {/* FOOTER */}
                 <footer className="dossier-footer">
-                    <p>Azimut Real Estate - Su socio de confianza en propiedades exclusivas.</p>
+                    <p>Azimut Real Estate - Your trusted partner in exclusive properties.</p>
                 </footer>
             </div>
         </div>
