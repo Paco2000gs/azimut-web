@@ -20,5 +20,8 @@ export default defineConfig({
     sourcemap: false,
     // Target modern browsers for smaller output
     target: 'es2020',
+    // Ensure the output is clean for crawlers
+    minify: 'terser',
+    cssCodeSplit: true,
   },
 })

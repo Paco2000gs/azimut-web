@@ -21,6 +21,7 @@ import NotFound from './pages/NotFound';
 import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import DossierView from './pages/DossierView';
+import LocationSEOContent from './components/LocationSEOContent';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -50,7 +51,10 @@ function App() {
               {/* Public Routes */}
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path="catalog" element={<Catalog />} />
+                <Route path="catalog" element={<Navigate to="/venta" replace />} />
+                <Route path="venta" element={<Catalog />} />
+                <Route path="venta/:city" element={<Catalog />} />
+                <Route path="venta/:city/:area" element={<Catalog />} />
                 <Route path="property/:id" element={<PropertyDetail />} />
                 <Route path="about" element={<About />} />
                 <Route path="blog" element={<Blog />} />

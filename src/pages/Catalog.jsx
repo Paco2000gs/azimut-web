@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { useSearchParams, useParams } from 'react-router-dom';
 import { useProperties } from '../context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
 import PropertyCardWide from '../components/PropertyCardWide';
@@ -7,17 +7,38 @@ import SEO from '../components/SEO';
 import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
+import LocationSEOContent from '../components/LocationSEOContent';
 
 const Catalog = () => {
+    const { city: urlCity, area: urlArea } = useParams();
     const [searchParams] = useSearchParams();
     const { properties, loading } = useProperties();
 
-    // Filter states
-    const [province, setProvince] = useState(searchParams.get('province') || '');
-    const [city, setCity] = useState(searchParams.get('city') || '');
+    // Helper to format URL slugs back to display names (e.g., "marbella" -> "Marbella")
+    const formatSlug = (slug) => {
+        if (!slug) return '';
+        return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
+    };
+
+    // Filter states - Priority to URL parameters for Silo Architecture
+    const [province, setProvince] = useState(urlCity ? 'Málaga' : (searchParams.get('province') || ''));
+    const [city, setCity] = useState(urlCity ? formatSlug(urlCity) : (searchParams.get('city') || ''));
     const [type, setType] = useState(searchParams.get('type') || '');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
+
+    // Update state if URL parameters change (for direct navigation/back-forward)
+    useEffect(() => {
+        if (urlCity) {
+            setProvince('Málaga');
+            setCity(formatSlug(urlCity));
+        }
+        if (urlArea) {
+            // If area is present, we might want to use it for filtering too
+            // Note: Our current schema might not have an "area" field separate from city, 
+            // or it might be part of the city for specific urbanizations.
+        }
+    }, [urlCity, urlArea]);
 
     // Handle province change
     const handleProvinceChange = (e) => {
@@ -29,42 +50,25 @@ const Catalog = () => {
     const availableCities = useMemo(() => {
         if (!properties || properties.length === 0 || !province) return [];
 
-        // Get all cities that appear in the properties list for the selected province
         const citySet = new Set(
             properties
                 .filter(p => p.province === province)
                 .map(p => p.city)
         );
 
-        // Filter the static cities list to only include those present in the properties
         const allProvinceCities = CITIES[province] || [];
-        // If we want to show ONLY available, we intersect. 
-        // If we want to allow selecting any valid city, we use allProvinceCities.
-        // User request: "A la hora de realizar una busqueda que aparezcan en el buscador solamente las poblaciones que dispongan de viviendas para ofrecer." -> ONLY available.
-
         return allProvinceCities.filter(c => citySet.has(c));
     }, [properties, province]);
 
-    // Filter logic
+    // Filter logic for available types
     const availableTypes = useMemo(() => {
         if (!properties || properties.length === 0) return PROPERTY_TYPES;
 
         let filtered = properties;
+        if (province) filtered = filtered.filter(p => p.province === province);
+        if (city) filtered = filtered.filter(p => p.city?.toLowerCase() === city?.toLowerCase());
 
-        // Filter by province
-        if (province) {
-            filtered = filtered.filter(p => p.province === province);
-        }
-
-        // Filter by city
-        if (city) {
-            filtered = filtered.filter(p => p.city === city);
-        }
-
-        // Get unique types from the filtered properties
         const typeSet = new Set(filtered.map(p => p.type));
-
-        // Return PROPERTY_TYPES that exist in the set (to maintain order)
         return PROPERTY_TYPES.filter(t => typeSet.has(t));
     }, [properties, province, city]);
 
@@ -72,7 +76,8 @@ const Catalog = () => {
         if (loading) return [];
         return properties.filter(property => {
             const matchProvince = province ? property.province === province : true;
-            const matchCity = city ? property.city === city : true;
+            // Case insensitive match for city
+            const matchCity = city ? property.city?.toLowerCase() === city?.toLowerCase() : true;
             const matchType = type ? property.type.toLowerCase() === type.toLowerCase() : true;
             // Exclude Price on Demand properties from price filtering if a filter is set
             const matchMinPrice = minPrice ? (!property.price_on_demand && property.price >= parseInt(minPrice)) : true;
@@ -82,12 +87,24 @@ const Catalog = () => {
         });
     }, [properties, loading, province, city, type, minPrice, maxPrice]);
 
+    // Dynamic SEO data
+    const seoTitle = useMemo(() => {
+        if (city) return `Luxury Real Estate & Villas for Sale in ${city}`;
+        if (type) return `Exclusive ${type}s for Sale in Andalusia`;
+        return "Property Catalogue | Luxury Real Estate";
+    }, [city, type]);
+
+    const seoDescription = useMemo(() => {
+        if (city) return `Discover the most exclusive luxury properties for sale in ${city}. High-end villas, apartments, and off-market listings in ${city}, Costa del Sol.`;
+        return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
+    }, [city]);
+
     return (
         <div className="page catalog">
             <SEO
-                title="Property Catalogue"
-                description="Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia."
-                url="/catalog"
+                title={seoTitle}
+                description={seoDescription}
+                url={urlCity ? `/venta/${urlCity}${urlArea ? `/${urlArea}` : ''}` : "/venta"}
             />
 
             {/* Hero / Header Section */}
@@ -209,6 +226,8 @@ const Catalog = () => {
                     )}
                 </div>
             </div>
+
+            {!loading && <LocationSEOContent city={city} area={urlArea} />}
         </div>
     );
 };

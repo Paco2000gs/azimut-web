@@ -22,10 +22,20 @@ const Footer = () => {
                     <div className="footer-column">
                         <h3>Discover</h3>
                         <ul className="footer-links">
-                            <li><Link to="/catalog">Properties</Link></li>
-                            <li><Link to="/catalog?type=villa">Villas</Link></li>
-                            <li><Link to="/catalog?type=penthouse">Penthouses</Link></li>
-                            <li><Link to="/catalog?type=finca">Fincas</Link></li>
+                            <li><Link to="/venta">Properties for Sale</Link></li>
+                            <li><Link to="/venta?type=villa">Luxury Villas</Link></li>
+                            <li><Link to="/venta?type=penthouse">Exclusive Penthouses</Link></li>
+                            <li><Link to="/venta?type=finca">Country Fincas</Link></li>
+                        </ul>
+                    </div>
+
+                    <div className="footer-column">
+                        <h3>Key Areas</h3>
+                        <ul className="footer-links">
+                            <li><Link to="/venta/marbella">Marbella</Link></li>
+                            <li><Link to="/venta/benahavis">Benahavís</Link></li>
+                            <li><Link to="/venta/estepona">Estepona</Link></li>
+                            <li><Link to="/venta/marbella/golden-mile">Golden Mile</Link></li>
                         </ul>
                     </div>
 

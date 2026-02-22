@@ -1,3 +1,4 @@
+/* eslint-env node */
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
@@ -19,10 +20,13 @@ async function generateSitemap() {
     console.log('Generating sitemap...');
     const baseUrl = 'https://www.azimutproperty.com';
 
-    // 1. Static Routes
+    // 1. Static & Silo Routes
     const staticRoutes = [
         '/',
-        '/catalog',
+        '/venta',
+        '/venta/marbella',
+        '/venta/benahavis',
+        '/venta/estepona',
         '/about',
         '/contact',
         '/blog',
@@ -85,7 +89,33 @@ async function generateSitemap() {
             console.error('Error fetching properties for sitemap:', err);
         }
 
-        // 3. Dynamic Routes (Blog Posts)
+        // 3. Silo Routes (Unique cities from properties)
+        try {
+            const { data: locations, error: locError } = await supabase
+                .from('properties')
+                .select('city')
+                .not('city', 'is', null);
+
+            if (locError) throw locError;
+
+            const uniqueCities = [...new Set(locations.map(l => l.city))].filter(Boolean);
+            uniqueCities.forEach(city => {
+                const normalize = (str) => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+                const citySlug = normalize(city);
+
+                sitemap += `
+  <url>
+    <loc>${baseUrl}/venta/${citySlug}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`;
+            });
+            console.log(`Added ${uniqueCities.length} location silos to sitemap.`);
+        } catch (err) {
+            console.error('Error fetching locations for sitemap silos:', err);
+        }
+
+        // 4. Dynamic Routes (Blog Posts)
         try {
             const { data: posts, error } = await supabase
                 .from('posts')

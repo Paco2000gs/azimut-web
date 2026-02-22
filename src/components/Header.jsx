@@ -26,7 +26,7 @@ const Header = () => {
 
                 <nav className={`nav ${isOpen ? 'open' : ''}`} role="navigation" aria-label="Main navigation">
                     <NavLink to="/" onClick={() => setIsOpen(false)}>Home</NavLink>
-                    <NavLink to="/catalog" onClick={() => setIsOpen(false)}>Properties</NavLink>
+                    <NavLink to="/venta" onClick={() => setIsOpen(false)}>Properties</NavLink>
                     <NavLink to="/about" onClick={() => setIsOpen(false)}>About Us</NavLink>
                     <NavLink to="/blog" onClick={() => setIsOpen(false)}>Blog</NavLink>
                     <NavLink to="/contact" className="btn-nav" onClick={() => setIsOpen(false)}>Contact</NavLink>
