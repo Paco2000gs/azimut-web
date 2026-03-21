@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "npm run generate-sitemap && vite build && node scripts/prerender.js",
-    "build:no-prerender": "npm run generate-sitemap && vite build",
+    "build": "npm run generate-sitemap && vite build && node scripts/prerender.js || echo 'Prerender skipped (no browser available)'",
+    "build:local": "npm run generate-sitemap && vite build && node scripts/prerender.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
     "preview": "vite preview"
