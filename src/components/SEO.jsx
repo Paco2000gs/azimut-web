@@ -1,9 +1,9 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, image, url, type = 'website', noindex = false }) => {
+const SEO = ({ title, description, image, url, type = 'website', noindex = false, keywords = '' }) => {
     const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
-    const defaultDescription = 'Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís. Access to off-market villas, branded residences, and expert consultancy for HNWI investors in Andalusia.';
+    const defaultDescription = 'Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers.';
     const defaultImage = 'https://www.azimutproperty.com/azimut-logo-gold.png';
     const siteUrl = 'https://www.azimutproperty.com';
 
@@ -12,6 +12,9 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
     const fullImage = image || defaultImage;
     const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
 
+    // Build the English URL equivalent for hreflang
+    const enUrl = url ? `${siteUrl}/en${url === '/' ? '' : url}` : `${siteUrl}/en`;
+
     return (
         <Helmet>
             {/* Standard Metadata */}
@@ -19,6 +22,12 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
             <meta name="description" content={fullDescription} />
             <link rel="canonical" href={fullUrl} />
             {noindex && <meta name="robots" content="noindex, nofollow" />}
+            {keywords && <meta name="keywords" content={keywords} />}
+
+            {/* Hreflang tags for multilingual SEO */}
+            <link rel="alternate" hreflang="es" href={fullUrl} />
+            <link rel="alternate" hreflang="en" href={enUrl} />
+            <link rel="alternate" hreflang="x-default" href={fullUrl} />
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content={type} />

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
 import '../styles/Home.css'; // Reusing general styles
 
@@ -7,9 +8,23 @@ const PrivacyPolicy = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://www.azimutproperty.com/privacy" }
+        ]
+    };
+
     return (
         <div className="page privacy-policy">
-            <SEO title="Privacy Policy" description="Privacy policy of Azimut Property. Learn how we handle your personal data." url="/privacy" />
+            <SEO title="Privacy Policy" description="Privacy policy of Azimut Property. Learn how we handle your personal data in compliance with GDPR." url="/privacy" />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+            </Helmet>
             <div className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
                 <h1>Privacy Policy</h1>
                 <p className="last-updated">Last updated: December 1, 2025</p>

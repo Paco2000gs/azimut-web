@@ -1,5 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { useSearchParams, useParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
 import PropertyCardWide from '../components/PropertyCardWide';
@@ -99,13 +100,44 @@ const Catalog = () => {
         return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
     }, [city]);
 
+    const seoKeywords = useMemo(() => {
+        if (city) return `properties ${city}, villas ${city}, luxury real estate ${city}, Costa del Sol`;
+        return "luxury properties Costa del Sol, villas Marbella, apartments Estepona, real estate Andalusia";
+    }, [city]);
+
+    const breadcrumbSchema = useMemo(() => {
+        const items = [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Properties for Sale", "item": "https://www.azimutproperty.com/venta" }
+        ];
+        if (urlCity) {
+            items.push({
+                "@type": "ListItem",
+                "position": 3,
+                "name": `Properties in ${formatSlug(urlCity)}`,
+                "item": `https://www.azimutproperty.com/venta/${urlCity}`
+            });
+        }
+        return {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": items
+        };
+    }, [urlCity]);
+
     return (
         <div className="page catalog">
             <SEO
                 title={seoTitle}
                 description={seoDescription}
                 url={urlCity ? `/venta/${urlCity}${urlArea ? `/${urlArea}` : ''}` : "/venta"}
+                keywords={seoKeywords}
             />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+            </Helmet>
 
             {/* Hero / Header Section */}
             <div className="catalog-header">

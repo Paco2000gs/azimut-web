@@ -56,12 +56,12 @@ const Home = () => {
     return (
         <div className="page home">
             <SEO
-                title="Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia"
-                description="Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís. Access to off-market villas, branded residences, and expert consultancy for HNWI investors in Andalusia."
+                title="Luxury Real Estate & Villas in Marbella and Andalusia"
+                description="Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers in Andalusia."
                 url="/"
+                keywords="luxury villas Marbella, real estate Andalusia, Marbella Golden Mile properties, investment homes Benahavis, sustainable luxury villas, Costa del Sol real estate"
             />
             <Helmet>
-                <meta name="keywords" content="luxury villas Marbella, real estate Andalusia, Marbella Golden Mile properties, investment homes Benahavis, sustainable luxury villas" />
                 <script type="application/ld+json">
                     {JSON.stringify(schemaData)}
                 </script>

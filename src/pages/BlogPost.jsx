@@ -67,6 +67,17 @@ const BlogPost = () => {
                         }
                     })}
                 </script>
+                <script type="application/ld+json">
+                    {JSON.stringify({
+                        "@context": "https://schema.org",
+                        "@type": "BreadcrumbList",
+                        "itemListElement": [
+                            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+                            { "@type": "ListItem", "position": 2, "name": "Journal", "item": "https://www.azimutproperty.com/blog" },
+                            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.azimutproperty.com/blog/${post.id}` }
+                        ]
+                    })}
+                </script>
             </Helmet>
             <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || 'https://via.placeholder.com/1200x600?text=No+Image'})` }}>
                 <div className="overlay"></div>

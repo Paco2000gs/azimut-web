@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useBlog } from '../context/BlogContext';
 import SEO from '../components/SEO';
 import '../styles/Blog.css';
@@ -7,15 +8,30 @@ import '../styles/Blog.css';
 const Blog = () => {
     const { posts, loading } = useBlog();
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Journal", "item": "https://www.azimutproperty.com/blog" }
+        ]
+    };
+
     if (loading) return <div className="loading-screen"><div className="spinner"></div></div>;
 
     return (
         <div className="page blog">
             <SEO
-                title="Journal - Luxury Real Estate Trends"
-                description="Read the latest trends, analysis, and news from the luxury real estate world in Andalusia."
+                title="Journal | Luxury Real Estate Trends & Market Insights"
+                description="Latest trends, analysis and guides about the luxury real estate market in Marbella and Costa del Sol. Expert insights for buyers."
                 url="/blog"
+                keywords="luxury real estate blog, Marbella property market, Costa del Sol investment guide, buying property Spain"
             />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+            </Helmet>
             <div className="blog-hero">
                 <div className="container">
                     <h1>Journal</h1>

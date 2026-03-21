@@ -105,7 +105,7 @@ const PropertyDetail = () => {
     const lng = parseFloat(property.longitude);
     const hasCoordinates = !isNaN(lat) && !isNaN(lng) && lat !== 0 && lng !== 0;
 
-    // Schema.org Structured Data
+    // Schema.org Structured Data - RealEstateListing
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "RealEstateListing",
@@ -140,37 +140,35 @@ const PropertyDetail = () => {
             "value": property.area,
             "unitCode": "MTK"
         },
-        "breadcrumb": {
-            "@type": "BreadcrumbList",
-            "itemListElement": [
-                {
-                    "@type": "ListItem",
-                    "position": 1,
-                    "name": "Home",
-                    "item": "https://www.azimutproperty.com"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 2,
-                    "name": "Catalogue",
-                    "item": "https://www.azimutproperty.com/catalog"
-                },
-                {
-                    "@type": "ListItem",
-                    "position": 3,
-                    "name": property.title,
-                    "item": `https://www.azimutproperty.com/property/${urlParam}`
-                }
-            ]
+        "broker": {
+            "@type": "RealEstateAgent",
+            "name": "Azimut Property",
+            "url": "https://www.azimutproperty.com",
+            "telephone": "+34-600-000-000",
+            "email": "info@azimutproperty.com"
         }
+    };
+
+    // Breadcrumb schema (separate for better Google parsing)
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Properties", "item": "https://www.azimutproperty.com/venta" },
+            { "@type": "ListItem", "position": 3, "name": property.title, "item": `https://www.azimutproperty.com/property/${urlParam}` }
+        ]
     };
 
     return (
         <div className="page property-detail-page">
-            <SEO title={`${property.title} | Azimut`} description={property.description?.substring(0, 160)} image={displayImages[0]?.url} url={`/property/${urlParam}`} />
+            <SEO title={`${property.title} | ${property.city}`} description={property.description?.substring(0, 160)} image={displayImages[0]?.url} url={`/property/${urlParam}`} keywords={`${property.type} ${property.city}, buy property ${property.city}, luxury real estate ${property.city}`} />
             <Helmet>
                 <script type="application/ld+json">
                     {JSON.stringify(schemaData)}
+                </script>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
                 </script>
             </Helmet>
 

@@ -18,7 +18,7 @@
   <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
   <meta name="author" content="Azimut Property" />
   <meta name="geo.region" content="ES-AN" />
-  <meta name="geo.placename" content="Andalucía, España" />
+  <meta name="geo.placename" content="Marbella, Costa del Sol, Andalucía" />
 
   <!-- Preconnect for performance -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -27,14 +27,61 @@
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/azimut-logo-gold.png" />
-  <meta name="description"
-    content="Azimut Property – Agencia inmobiliaria de lujo en Andalucía. Villas exclusivas, áticos y fincas en Marbella, Cádiz, Sevilla y Málaga. Descubra propiedades premium en el sur de España." />
-  <title>Azimut Property | Inmobiliaria de Lujo en Andalucía</title>
 
-  <!-- Open Graph defaults (overridden by React Helmet per page) -->
-  <meta property="og:site_name" content="Azimut Property" />
-  <meta property="og:locale" content="es_ES" />
-  <meta property="og:type" content="website" />
+  <!--
+    SEO meta tags (title, description, canonical, hreflang, OG, Twitter)
+    are managed per-page by React Helmet and captured by pre-rendering.
+    Do NOT add them here to avoid duplicates in pre-rendered HTML.
+  -->
+
+  <!-- Schema.org JSON-LD: RealEstateAgent (global, visible to all crawlers including those that don't execute JS) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "RealEstateAgent",
+    "name": "Azimut Property",
+    "description": "Boutique real estate agency specialized in the luxury sector on the Costa del Sol. Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís.",
+    "url": "https://www.azimutproperty.com",
+    "logo": "https://www.azimutproperty.com/azimut-logo-gold.png",
+    "image": "https://www.azimutproperty.com/azimut-logo-gold.png",
+    "telephone": "+34-600-000-000",
+    "email": "info@azimutproperty.com",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Marbella",
+      "addressRegion": "Málaga",
+      "postalCode": "29660",
+      "addressCountry": "ES"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "36.5099",
+      "longitude": "-4.8861"
+    },
+    "areaServed": [
+      {"@type": "City", "name": "Marbella"},
+      {"@type": "City", "name": "Estepona"},
+      {"@type": "City", "name": "Benahavís"},
+      {"@type": "City", "name": "Mijas"},
+      {"@type": "City", "name": "Fuengirola"},
+      {"@type": "City", "name": "Benalmádena"},
+      {"@type": "City", "name": "Nerja"},
+      {"@type": "City", "name": "Málaga"}
+    ],
+    "knowsLanguage": ["es", "en"],
+    "priceRange": "€1,000,000 - €50,000,000",
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    "sameAs": [
+      "https://www.instagram.com/azimutproperty",
+      "https://www.linkedin.com/company/azimutproperty"
+    ]
+  }
+  </script>
 </head>
 
 <body>

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
 import '../styles/Home.css';
 
@@ -7,9 +8,23 @@ const Terms = () => {
         window.scrollTo(0, 0);
     }, []);
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": "https://www.azimutproperty.com/terms" }
+        ]
+    };
+
     return (
         <div className="page terms">
             <SEO title="Terms of Service" description="Terms and conditions of use for the Azimut Property website." url="/terms" />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+            </Helmet>
             <div className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
                 <h1>Terms of Service</h1>
                 <p className="last-updated">Last updated: December 1, 2025</p>

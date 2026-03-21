@@ -27,10 +27,15 @@ async function generateSitemap() {
         '/venta/marbella',
         '/venta/benahavis',
         '/venta/estepona',
+        '/venta/mijas',
+        '/venta/fuengirola',
+        '/venta/benalmadena',
+        '/venta/nerja',
         '/about',
         '/contact',
         '/blog',
-        '/privacy-policy'
+        '/privacy',
+        '/terms'
     ];
 
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>

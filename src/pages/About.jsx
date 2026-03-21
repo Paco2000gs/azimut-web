@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import '../styles/About.css';
 import joseImg from '../assets/team/jose-rey.png';
 import franciscoImg from '../assets/team/francisco-garrido.jpg';
@@ -6,13 +7,28 @@ import joaquinImg from '../assets/team/joaquin-castro.png';
 import SEO from '../components/SEO';
 
 const About = () => {
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://www.azimutproperty.com/about" }
+        ]
+    };
+
     return (
         <div className="page about">
             <SEO
-                title="About Us - Redefining Luxury"
-                description="Learn about Azimut Property, our philosophy, and our team of experts dedicated to finding your perfect home in Southern Spain."
+                title="About Us - Redefining Luxury Real Estate in Marbella"
+                description="Meet the Azimut Property team. Boutique agency in Marbella and Costa del Sol specializing in luxury villas and off-market properties."
                 url="/about"
+                keywords="about Azimut Property, luxury real estate agency Marbella, international buyers Costa del Sol, boutique real estate"
             />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+            </Helmet>
             <div className="about-hero">
                 <div className="container">
                     <h1>Redefining Luxury Real Estate</h1>

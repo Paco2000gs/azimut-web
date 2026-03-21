@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { Mail, Clock } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
 import SEO from '../components/SEO';
@@ -39,13 +40,28 @@ const Contact = () => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.azimutproperty.com/contact" }
+        ]
+    };
+
     return (
         <div className="page contact">
             <SEO
-                title="Contact Us"
-                description="Get in touch with Azimut Property. We are here to assist you with buying or selling luxury real estate in Andalusia."
+                title="Contact Us | Luxury Real Estate Agency Marbella"
+                description="Contact Azimut Property to buy or sell luxury real estate in Marbella, Estepona, and Costa del Sol. Multilingual team. Email: info@azimutproperty.com."
                 url="/contact"
+                keywords="contact real estate Marbella, luxury property inquiry Costa del Sol, buy villa Marbella contact"
             />
+            <Helmet>
+                <script type="application/ld+json">
+                    {JSON.stringify(breadcrumbSchema)}
+                </script>
+            </Helmet>
             <div className="container">
                 <div className="section-header">
                     <h1>Contact Us</h1>
