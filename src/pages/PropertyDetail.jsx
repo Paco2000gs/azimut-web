@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, lazy, Suspense } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
@@ -11,19 +11,8 @@ import PropertyInquiryForm from '../components/PropertyInquiryForm';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug } from '../utils/slugify';
 
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import L from 'leaflet';
-
-// Custom Icon Setup to avoid "d is not a function" errors with global prototype hacks
-const defaultIcon = new L.Icon({
-    iconUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon.png',
-    iconRetinaUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-icon-2x.png',
-    shadowUrl: 'https://unpkg.com/leaflet@1.7.1/dist/images/marker-shadow.png',
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-});
+// Lazy-load Leaflet map — saves ~153KB from initial bundle
+const PropertyMap = lazy(() => import('../components/PropertyMap'));
 
 const PropertyDetail = () => {
     const { id: urlParam } = useParams();
@@ -326,23 +315,9 @@ const PropertyDetail = () => {
                             <div className="content-section">
                                 <h3 className="section-title">Location</h3>
                                 <div className="map-container" style={{ height: '400px' }}>
-                                    <MapContainer
-                                        key={`${lat}-${lng}`} // Helper to force re-render if coordinates change
-                                        center={[lat, lng]}
-                                        zoom={15}
-                                        scrollWheelZoom={false}
-                                        style={{ height: '100%', width: '100%' }}
-                                    >
-                                        <TileLayer
-                                            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-                                            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                                        />
-                                        <Marker position={[lat, lng]} icon={defaultIcon}>
-                                            <Popup>
-                                                {property.title}
-                                            </Popup>
-                                        </Marker>
-                                    </MapContainer>
+                                    <Suspense fallback={<div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9' }}>Loading map...</div>}>
+                                        <PropertyMap lat={lat} lng={lng} title={property.title} />
+                                    </Suspense>
                                 </div>
                             </div>
                         )}

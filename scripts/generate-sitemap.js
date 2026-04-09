@@ -41,13 +41,13 @@ async function generateSitemap() {
     let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
 
-    // Add static routes
+    // Add static routes (no changefreq/priority — Google ignores both)
+    const today = new Date().toISOString().split('T')[0];
     staticRoutes.forEach(route => {
         sitemap += `
   <url>
     <loc>${baseUrl}${route}</loc>
-    <changefreq>daily</changefreq>
-    <priority>${route === '/' ? '1.0' : '0.8'}</priority>
+    <lastmod>${today}</lastmod>
   </url>`;
     });
 
@@ -86,8 +86,6 @@ async function generateSitemap() {
   <url>
     <loc>${baseUrl}/property/${slug}</loc>
     <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
   </url>`;
             });
         } catch (err) {
@@ -111,8 +109,7 @@ async function generateSitemap() {
                 sitemap += `
   <url>
     <loc>${baseUrl}/venta/${citySlug}</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <lastmod>${today}</lastmod>
   </url>`;
             });
             console.log(`Added ${uniqueCities.length} location silos to sitemap.`);
@@ -135,8 +132,6 @@ async function generateSitemap() {
   <url>
     <loc>${baseUrl}/blog/${post.id}</loc>
     <lastmod>${new Date(post.published_at).toISOString().split('T')[0]}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>`;
             });
         } catch (err) {

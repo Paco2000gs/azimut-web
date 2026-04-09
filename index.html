@@ -24,6 +24,10 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;600&display=swap" />
+
+  <!-- LCP preload: hero background image (largest contentful paint element) -->
+  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000" fetchpriority="high" />
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/azimut-logo-gold.png" />
@@ -40,10 +44,14 @@
   {
     "@context": "https://schema.org",
     "@type": "RealEstateAgent",
+    "@id": "https://www.azimutproperty.com/#organization",
     "name": "Azimut Property",
     "description": "Boutique real estate agency specialized in the luxury sector on the Costa del Sol. Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís.",
     "url": "https://www.azimutproperty.com",
-    "logo": "https://www.azimutproperty.com/azimut-logo-gold.png",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://www.azimutproperty.com/azimut-logo-gold.png"
+    },
     "image": "https://www.azimutproperty.com/azimut-logo-gold.png",
     "telephone": "+34-600-000-000",
     "email": "info@azimutproperty.com",
@@ -60,27 +68,49 @@
       "longitude": "-4.8861"
     },
     "areaServed": [
-      {"@type": "City", "name": "Marbella"},
-      {"@type": "City", "name": "Estepona"},
-      {"@type": "City", "name": "Benahavís"},
-      {"@type": "City", "name": "Mijas"},
-      {"@type": "City", "name": "Fuengirola"},
-      {"@type": "City", "name": "Benalmádena"},
-      {"@type": "City", "name": "Nerja"},
-      {"@type": "City", "name": "Málaga"}
+      {"@type": "City", "name": "Marbella", "sameAs": "https://www.wikidata.org/wiki/Q39347"},
+      {"@type": "City", "name": "Estepona", "sameAs": "https://www.wikidata.org/wiki/Q843209"},
+      {"@type": "City", "name": "Benahavís", "sameAs": "https://www.wikidata.org/wiki/Q2897197"},
+      {"@type": "City", "name": "Mijas", "sameAs": "https://www.wikidata.org/wiki/Q850753"},
+      {"@type": "City", "name": "Fuengirola", "sameAs": "https://www.wikidata.org/wiki/Q484844"},
+      {"@type": "City", "name": "Benalmádena", "sameAs": "https://www.wikidata.org/wiki/Q489825"},
+      {"@type": "City", "name": "Nerja", "sameAs": "https://www.wikidata.org/wiki/Q850860"},
+      {"@type": "City", "name": "Málaga", "sameAs": "https://www.wikidata.org/wiki/Q8851"}
     ],
     "knowsLanguage": ["es", "en"],
-    "priceRange": "€1,000,000 - €50,000,000",
+    "priceRange": "€€€€",
+    "currenciesAccepted": "EUR",
     "openingHoursSpecification": {
       "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       "opens": "09:00",
       "closes": "18:00"
     },
+    "inLanguage": ["es", "en"],
     "sameAs": [
       "https://www.instagram.com/azimutproperty",
       "https://www.linkedin.com/company/azimutproperty"
     ]
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: WebSite with SearchAction (enables Sitelinks Search Box in Google) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Azimut Property",
+    "alternateName": "Azimut Property Marbella",
+    "url": "https://www.azimutproperty.com",
+    "inLanguage": ["es", "en"],
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://www.azimutproperty.com/venta?q={search_term_string}"
+      },
+      "query-input": "required name=search_term_string"
+    }
   }
   </script>
 </head>

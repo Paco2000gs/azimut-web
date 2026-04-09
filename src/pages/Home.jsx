@@ -18,28 +18,35 @@ const Home = () => {
     }, []);
 
     // Schema.org for RealEstateAgent focused on Marbella / HNWI
+    // Reference the global RealEstateAgent schema from index.html via @id
+    // No need to duplicate — the full schema is in index.html <head>
     const schemaData = {
         "@context": "https://schema.org",
         "@type": "RealEstateAgent",
+        "@id": "https://www.azimutproperty.com/#organization",
         "name": "Azimut Property",
         "description": "Boutique real estate agency specialized in the luxury sector on the Costa del Sol. Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís.",
         "url": "https://www.azimutproperty.com/",
         "telephone": "+34-600-000-000",
-        "logo": "https://www.azimutproperty.com/azimut-logo-gold.png",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://www.azimutproperty.com/azimut-logo-gold.png"
+        },
         "image": "https://www.azimutproperty.com/azimut-logo-gold.png",
         "address": {
             "@type": "PostalAddress",
             "addressLocality": "Marbella",
-            "addressRegion": "Andalusia",
+            "addressRegion": "Málaga",
             "addressCountry": "ES"
         },
         "areaServed": [
-            { "@type": "City", "name": "Marbella" },
-            { "@type": "City", "name": "Estepona" },
-            { "@type": "City", "name": "Benahavís" },
+            { "@type": "City", "name": "Marbella", "sameAs": "https://www.wikidata.org/wiki/Q39347" },
+            { "@type": "City", "name": "Estepona", "sameAs": "https://www.wikidata.org/wiki/Q843209" },
+            { "@type": "City", "name": "Benahavís", "sameAs": "https://www.wikidata.org/wiki/Q2897197" },
             { "@type": "Place", "name": "Golden Mile" }
         ],
-        "priceRange": "€1,000,000 - €50,000,000",
+        "priceRange": "€€€€",
+        "currenciesAccepted": "EUR",
         "contactPoint": {
             "@type": "ContactPoint",
             "email": "info@azimutproperty.com",

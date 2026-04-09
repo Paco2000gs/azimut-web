@@ -49,11 +49,16 @@ const BlogPost = () => {
                         "datePublished": post.published_at,
                         "dateModified": post.published_at,
                         "author": {
-                            "@type": "Organization",
-                            "name": "Azimut Property"
+                            "@type": "Person",
+                            "name": post.author || "Azimut Property",
+                            "worksFor": {
+                                "@type": "RealEstateAgent",
+                                "@id": "https://www.azimutproperty.com/#organization"
+                            }
                         },
                         "publisher": {
                             "@type": "Organization",
+                            "@id": "https://www.azimutproperty.com/#organization",
                             "name": "Azimut Property",
                             "logo": {
                                 "@type": "ImageObject",
