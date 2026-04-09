@@ -1,7 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 
-const SEO = ({ title, description, image, url, type = 'website', noindex = false, keywords = '' }) => {
+const SEO = ({ title, description, image, url, type = 'website', noindex = false, keywords = '', lang = 'es' }) => {
     const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
     const defaultDescription = 'Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers.';
     const defaultImage = 'https://www.azimutproperty.com/azimut-logo-gold.png';
@@ -15,8 +15,13 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
     // Build the English URL equivalent for hreflang
     const enUrl = url ? `${siteUrl}/en${url === '/' ? '' : url}` : `${siteUrl}/en`;
 
+    const ogLocale = lang === 'en' ? 'en_GB' : 'es_ES';
+
     return (
         <Helmet>
+            {/* HTML lang attribute — critical for search engine language detection */}
+            <html lang={lang} />
+
             {/* Standard Metadata */}
             <title>{fullTitle}</title>
             <meta name="description" content={fullDescription} />
@@ -38,7 +43,7 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
             <meta property="og:image:width" content="1200" />
             <meta property="og:image:height" content="630" />
             <meta property="og:site_name" content="Azimut Property" />
-            <meta property="og:locale" content="es_ES" />
+            <meta property="og:locale" content={ogLocale} />
 
             {/* Twitter */}
             <meta name="twitter:card" content="summary_large_image" />
