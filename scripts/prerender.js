@@ -4,12 +4,16 @@
  * Generates static HTML for ALL public routes so Google and AI crawlers
  * can index content without executing JavaScript.
  *
+ * Works in TWO environments:
+ *   - Local: uses full Puppeteer (puppeteer package with bundled Chrome)
+ *   - Vercel/CI: uses puppeteer-core + @sparticuz/chromium (serverless Chrome)
+ *
  * Queries Supabase for dynamic routes (properties, blog posts, location cities).
  *
  * Usage: node scripts/prerender.js
  * Runs automatically after `vite build` via npm run build.
  */
-import { launch } from 'puppeteer';
+import puppeteerCore from 'puppeteer-core';
 import { createClient } from '@supabase/supabase-js';
 import { createServer } from 'http';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
@@ -43,6 +47,80 @@ const CORE_LOCATION_ROUTES = [
     '/venta/nerja',
 ];
 
+const normalize = (str) =>
+    str.toLowerCase().normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+/**
+ * Launch browser — works on both local (full Puppeteer) and Vercel/CI (@sparticuz/chromium)
+ */
+async function launchBrowser() {
+    // Strategy 1: Try @sparticuz/chromium (works on Vercel, Lambda, CI)
+    try {
+        const chromium = await import('@sparticuz/chromium');
+        const chromiumMod = chromium.default || chromium;
+
+        // On Vercel, chromium.executablePath() returns the path to the serverless Chrome binary
+        const executablePath = await chromiumMod.executablePath();
+
+        if (executablePath) {
+            console.log('Using @sparticuz/chromium (serverless environment)');
+            const browser = await puppeteerCore.launch({
+                args: chromiumMod.args,
+                defaultViewport: chromiumMod.defaultViewport,
+                executablePath,
+                headless: 'shell',
+            });
+            return browser;
+        }
+    } catch {
+        // @sparticuz/chromium not available or no binary — fall through
+    }
+
+    // Strategy 2: Try full Puppeteer (local dev — has its own bundled Chrome)
+    try {
+        const puppeteerFull = await import('puppeteer');
+        const puppeteer = puppeteerFull.default || puppeteerFull;
+        console.log('Using full Puppeteer (local environment)');
+        const browser = await puppeteer.launch({
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        });
+        return browser;
+    } catch {
+        // Full puppeteer not available — fall through
+    }
+
+    // Strategy 3: Try system Chrome with puppeteer-core
+    const possiblePaths = [
+        '/usr/bin/google-chrome',
+        '/usr/bin/chromium-browser',
+        '/usr/bin/chromium',
+        'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe',
+        'C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe',
+    ];
+
+    for (const chromePath of possiblePaths) {
+        try {
+            if (existsSync(chromePath)) {
+                console.log(`Using system Chrome: ${chromePath}`);
+                const browser = await puppeteerCore.launch({
+                    executablePath: chromePath,
+                    headless: true,
+                    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+                });
+                return browser;
+            }
+        } catch {
+            continue;
+        }
+    }
+
+    throw new Error('No Chrome/Chromium binary found. Install puppeteer or @sparticuz/chromium.');
+}
+
 /**
  * Fetch dynamic routes from Supabase (properties + blog posts + extra cities)
  */
@@ -57,12 +135,6 @@ async function getDynamicRoutes() {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const routes = [];
-
-    const normalize = (str) =>
-        str.toLowerCase().normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '')
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/^-+|-+$/g, '');
 
     // Property detail pages
     try {
@@ -166,15 +238,8 @@ async function prerender() {
     await new Promise(r => server.listen(PORT, r));
     console.log(`Static server running on port ${PORT}\n`);
 
-    let browser;
-    try {
-        browser = await launch({ headless: true, args: ['--no-sandbox'] });
-    } catch (err) {
-        console.error('Could not launch Puppeteer:', err.message);
-        console.log('Pre-render skipped (no browser available)');
-        server.close();
-        return;
-    }
+    // Launch browser (works on local AND Vercel/CI)
+    const browser = await launchBrowser();
 
     let success = 0;
     let failed = 0;
@@ -193,7 +258,6 @@ async function prerender() {
             let html = await page.content();
 
             // Verify that Helmet set a per-page canonical (not the default homepage one)
-            // This ensures each prerendered page has its own canonical URL
             const hasHelmetCanonical = html.includes('data-rh="true"');
             if (!hasHelmetCanonical && route !== '/') {
                 console.warn(`  ⚠️ Helmet may not have set canonical for ${route}`);
@@ -222,7 +286,18 @@ async function prerender() {
 
     await browser.close();
     server.close();
+
     console.log(`\nPre-render complete! ${success} succeeded, ${failed} failed out of ${uniqueRoutes.length} routes.`);
+
+    // FAIL the build if too many routes failed (ensures Vercel doesn't deploy broken HTML)
+    if (failed > 0 && success === 0) {
+        console.error('\n❌ All routes failed to pre-render. Aborting build.');
+        process.exit(1);
+    }
+    if (failed > uniqueRoutes.length * 0.2) {
+        console.error(`\n❌ Too many failures (${failed}/${uniqueRoutes.length}). Aborting build.`);
+        process.exit(1);
+    }
 }
 
 prerender().catch(err => {

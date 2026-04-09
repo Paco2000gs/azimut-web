@@ -1,4 +1,13 @@
 {
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/:path(.*)",
+      "has": [{ "type": "host", "value": "azimutproperty.com" }],
+      "destination": "https://www.azimutproperty.com/:path",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",
