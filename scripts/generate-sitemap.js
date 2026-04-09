@@ -16,6 +16,15 @@ if (!supabaseUrl || !supabaseAnonKey) {
 
 const supabase = (supabaseUrl && supabaseAnonKey) ? createClient(supabaseUrl, supabaseAnonKey) : null;
 
+const normalize = (str) => {
+    return str
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+};
+
 async function generateSitemap() {
     console.log('Generating sitemap...');
     const baseUrl = 'https://www.azimutproperty.com';
@@ -63,24 +72,9 @@ async function generateSitemap() {
             console.log(`Found ${properties.length} properties.`);
 
             properties.forEach(property => {
-                // Generate slug: type-city-id
-                const generateSlug = (prop) => {
-                    const normalize = (str) => {
-                        return str
-                            .toLowerCase()
-                            .normalize('NFD')
-                            .replace(/[\u0300-\u036f]/g, '') // Remove accents
-                            .replace(/[^a-z0-9]+/g, '-') // Replace non-alphanumeric with hyphens
-                            .replace(/^-+|-+$/g, ''); // Remove leading/trailing hyphens
-                    };
-
-                    const typeSlug = normalize(prop.type || 'property');
-                    const citySlug = normalize(prop.city || 'location');
-
-                    return `${typeSlug}-${citySlug}-${prop.id}`;
-                };
-
-                const slug = generateSlug(property);
+                const typeSlug = normalize(property.type || 'property');
+                const citySlug = normalize(property.city || 'location');
+                const slug = `${typeSlug}-${citySlug}-${property.id}`;
 
                 sitemap += `
   <url>
@@ -103,7 +97,6 @@ async function generateSitemap() {
 
             const uniqueCities = [...new Set(locations.map(l => l.city))].filter(Boolean);
             uniqueCities.forEach(city => {
-                const normalize = (str) => str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
                 const citySlug = normalize(city);
 
                 sitemap += `
@@ -117,20 +110,23 @@ async function generateSitemap() {
             console.error('Error fetching locations for sitemap silos:', err);
         }
 
-        // 4. Dynamic Routes (Blog Posts)
+        // 4. Dynamic Routes (Blog Posts — SEO-friendly slugs)
         try {
             const { data: posts, error } = await supabase
                 .from('posts')
-                .select('id, published_at');
+                .select('id, title, published_at');
 
             if (error) throw error;
 
             console.log(`Found ${posts.length} blog posts.`);
 
             posts.forEach(post => {
+                const titleSlug = normalize(post.title || 'post');
+                const slug = `${titleSlug}-${post.id}`;
+
                 sitemap += `
   <url>
-    <loc>${baseUrl}/blog/${post.id}</loc>
+    <loc>${baseUrl}/blog/${slug}</loc>
     <lastmod>${new Date(post.published_at).toISOString().split('T')[0]}</lastmod>
   </url>`;
             });

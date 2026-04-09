@@ -58,6 +58,12 @@ async function getDynamicRoutes() {
     const supabase = createClient(supabaseUrl, supabaseKey);
     const routes = [];
 
+    const normalize = (str) =>
+        str.toLowerCase().normalize('NFD')
+            .replace(/[\u0300-\u036f]/g, '')
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/^-+|-+$/g, '');
+
     // Property detail pages
     try {
         const { data: properties, error } = await supabase
@@ -65,12 +71,6 @@ async function getDynamicRoutes() {
             .select('id, type, city');
 
         if (error) throw error;
-
-        const normalize = (str) =>
-            str.toLowerCase().normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/^-+|-+$/g, '');
 
         properties.forEach(prop => {
             const typeSlug = normalize(prop.type || 'property');
@@ -93,16 +93,17 @@ async function getDynamicRoutes() {
         console.error('  Error fetching properties:', err.message);
     }
 
-    // Blog post pages
+    // Blog post pages (with SEO-friendly slugs)
     try {
         const { data: posts, error } = await supabase
             .from('posts')
-            .select('id');
+            .select('id, title');
 
         if (error) throw error;
 
         posts.forEach(post => {
-            routes.push(`/blog/${post.id}`);
+            const titleSlug = normalize(post.title || 'post');
+            routes.push(`/blog/${titleSlug}-${post.id}`);
         });
 
         console.log(`  Found ${posts.length} blog posts`);

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useBlog } from '../context/BlogContext';
+import { generateBlogSlug } from '../utils/slugify';
 import SEO from '../components/SEO';
 import '../styles/Blog.css';
 
@@ -51,7 +52,7 @@ const Blog = () => {
                                     <div className="blog-date">{new Date(post.published_at).toLocaleDateString()}</div>
                                     <h3 className="blog-title">{post.title}</h3>
                                     <p className="blog-excerpt">{post.excerpt}</p>
-                                    <Link to={`/blog/${post.id}`} className="read-more">Read Article</Link>
+                                    <Link to={`/blog/${generateBlogSlug(post)}`} className="read-more">Read Article</Link>
                                 </div>
                             </article>
                         ))}

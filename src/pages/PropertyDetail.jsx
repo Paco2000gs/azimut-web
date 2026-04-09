@@ -101,7 +101,7 @@ const PropertyDetail = () => {
         "name": property.title,
         "description": property.description,
         "url": `https://www.azimutproperty.com/property/${urlParam}`,
-        "image": displayImages.map(img => img.url),
+        "image": displayImages.map(img => getOptimizedImageUrl(img.url, { width: 1200, height: 800, resize: 'cover' })),
         "datePosted": property.created_at,
         "offers": {
             "@type": "Offer",
@@ -176,7 +176,11 @@ const PropertyDetail = () => {
                     <div className="gallery-main">
                         <img
                             src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })}
-                            alt={property.title}
+                            srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800, height: 533, resize: 'cover' })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })} 1200w`}
+                            sizes="(max-width: 768px) 100vw, 1200px"
+                            alt={`${property.title} — ${property.type} in ${property.city}, ${property.province}`}
+                            width={1200}
+                            height={800}
                             onClick={() => setShowLightbox(true)}
                         />
                         <div className="price-tag">
@@ -198,7 +202,9 @@ const PropertyDetail = () => {
                             >
                                 <img
                                     src={getOptimizedImageUrl(img.url, { width: 200, height: 150, resize: 'cover' })}
-                                    alt={`View ${idx}`}
+                                    alt={`${property.title} — photo ${idx + 1} of ${displayImages.length}`}
+                                    width={200}
+                                    height={150}
                                     loading="lazy"
                                 />
                             </div>
@@ -341,7 +347,7 @@ const PropertyDetail = () => {
                     <img
                         className="lightbox-image"
                         src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1600, quality: 90 })}
-                        alt="Full Screen"
+                        alt={`${property.title} — full screen view`}
                     />
                     <button
                         className="lightbox-close"

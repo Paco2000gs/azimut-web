@@ -2,17 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Maximize } from 'lucide-react';
 import { generatePropertySlug } from '../utils/slugify';
+import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import '../styles/PropertyCard.css';
 
 const PropertyCard = ({ property }) => {
     const slug = generatePropertySlug(property);
+    const imgUrl = property.image || property.property_media?.find(m => m.type === 'image')?.url || '';
+    const altText = `${property.type} in ${property.city} — ${property.bedrooms} bed, ${Number(property.area).toLocaleString()} m²`;
 
     return (
         <Link to={`/property/${slug}`} className="property-card">
             <div className="card-image">
                 <img
-                    src={property.image || property.property_media?.find(m => m.type === 'image')?.url || 'https://via.placeholder.com/400x300?text=No+Image'}
-                    alt={property.title}
+                    src={getOptimizedImageUrl(imgUrl, { width: 400, height: 300, resize: 'cover' })}
+                    srcSet={`${getOptimizedImageUrl(imgUrl, { width: 400, height: 300, resize: 'cover' })} 400w, ${getOptimizedImageUrl(imgUrl, { width: 800, height: 600, resize: 'cover' })} 800w`}
+                    sizes="(max-width: 768px) 100vw, 400px"
+                    alt={altText}
+                    width={400}
+                    height={300}
                     loading="lazy"
                 />
                 <span className="card-tag">{property.type}</span>

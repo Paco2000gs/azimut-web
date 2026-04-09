@@ -1,20 +1,33 @@
 import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
+import { generateBlogSlug, extractBlogId } from '../utils/slugify';
 import SEO from '../components/SEO';
 import '../styles/Blog.css';
 
 const BlogPost = () => {
-    const { id } = useParams();
+    const { id: urlParam } = useParams();
+    const navigate = useNavigate();
     const { getPostById, loading } = useBlog();
+
+    const postId = extractBlogId(urlParam);
+    const post = !loading && postId ? getPostById(postId) : null;
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [id]);
+    }, [urlParam]);
 
-    const post = !loading ? getPostById(id) : null;
+    // Redirect old numeric URLs or wrong slugs to canonical slug
+    useEffect(() => {
+        if (post) {
+            const canonicalSlug = generateBlogSlug(post);
+            if (urlParam !== canonicalSlug) {
+                navigate(`/blog/${canonicalSlug}`, { replace: true });
+            }
+        }
+    }, [post, urlParam, navigate]);
 
     if (loading) return <div className="loading-screen"><div className="spinner"></div></div>;
 
@@ -36,7 +49,7 @@ const BlogPost = () => {
                 title={post.title}
                 description={post.excerpt}
                 image={post.image}
-                url={`/blog/${post.id}`}
+                url={`/blog/${generateBlogSlug(post)}`}
                 type="article"
             />
             <Helmet>
@@ -68,7 +81,7 @@ const BlogPost = () => {
                         "description": post.excerpt,
                         "mainEntityOfPage": {
                             "@type": "WebPage",
-                            "@id": `https://www.azimutproperty.com/blog/${post.id}`
+                            "@id": `https://www.azimutproperty.com/blog/${generateBlogSlug(post)}`
                         }
                     })}
                 </script>
@@ -79,7 +92,7 @@ const BlogPost = () => {
                         "itemListElement": [
                             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
                             { "@type": "ListItem", "position": 2, "name": "Journal", "item": "https://www.azimutproperty.com/blog" },
-                            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.azimutproperty.com/blog/${post.id}` }
+                            { "@type": "ListItem", "position": 3, "name": post.title, "item": `https://www.azimutproperty.com/blog/${generateBlogSlug(post)}` }
                         ]
                     })}
                 </script>
