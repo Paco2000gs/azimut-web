@@ -18,7 +18,8 @@ const Header = () => {
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`} role="banner">
             <div className="container header-container">
-                <h1 className="visual-hidden">Luxury Real Estate in Andalusia | Azimut Property: Specialists in Marbella, Benahavís, and Estepona</h1>
+                {/* H1 removed — each page provides its own unique H1.
+                    Having a global H1 in the header created duplicate H1s across all pages. */}
                 <Link to="/" className="logo" aria-label="Azimut Property - Home">
                     <img src="/azimut-logo-gold.png" alt="Azimut Property - Luxury Real Estate in Andalusia" className="logo-img" width="40" height="40" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>
