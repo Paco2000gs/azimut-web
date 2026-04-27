@@ -38,6 +38,7 @@ const STATIC_ROUTES = [
 
 // Core location city routes (always pre-rendered even without Supabase)
 const CORE_LOCATION_ROUTES = [
+    // Costa del Sol (Málaga)
     '/venta/marbella',
     '/venta/benahavis',
     '/venta/estepona',
@@ -45,6 +46,10 @@ const CORE_LOCATION_ROUTES = [
     '/venta/fuengirola',
     '/venta/benalmadena',
     '/venta/nerja',
+    // Rural Andalucía — province landing pages
+    '/venta/cadiz',
+    '/venta/huelva',
+    '/venta/sevilla',
 ];
 
 const normalize = (str) =>

@@ -21,9 +21,25 @@ const Catalog = () => {
         return slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ');
     };
 
+    // Map URL slugs that represent provinces to their province name
+    const PROVINCE_SLUGS = {
+        'cadiz': 'Cádiz',
+        'huelva': 'Huelva',
+        'sevilla': 'Sevilla',
+        'malaga': 'Málaga',
+        'badajoz': 'Badajoz',
+        'almeria': 'Almería',
+        'granada': 'Granada',
+        'girona': 'Girona',
+        'cuenca': 'Cuenca',
+    };
+
+    const isProvincePage = urlCity ? !!PROVINCE_SLUGS[urlCity.toLowerCase()] : false;
+    const detectedProvince = urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || 'Málaga') : '';
+
     // Filter states - Priority to URL parameters for Silo Architecture
-    const [province, setProvince] = useState(urlCity ? 'Málaga' : (searchParams.get('province') || ''));
-    const [city, setCity] = useState(urlCity ? formatSlug(urlCity) : (searchParams.get('city') || ''));
+    const [province, setProvince] = useState(urlCity ? detectedProvince : (searchParams.get('province') || ''));
+    const [city, setCity] = useState(urlCity && !isProvincePage ? formatSlug(urlCity) : (searchParams.get('city') || ''));
     const [type, setType] = useState(searchParams.get('type') || '');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
@@ -31,8 +47,8 @@ const Catalog = () => {
     // Update state if URL parameters change (for direct navigation/back-forward)
     useEffect(() => {
         if (urlCity) {
-            setProvince('Málaga');
-            setCity(formatSlug(urlCity));
+            setProvince(detectedProvince);
+            setCity(isProvincePage ? '' : formatSlug(urlCity));
         }
         if (urlArea) {
             // If area is present, we might want to use it for filtering too
@@ -88,33 +104,64 @@ const Catalog = () => {
         });
     }, [properties, loading, province, city, type, minPrice, maxPrice]);
 
+    // Per-province SEO data for rural Andalusia focus
+    const PROVINCE_SEO = {
+        'cadiz': {
+            title: 'Comprar Casa Rural y Finca en Cádiz | Azimut',
+            description: 'Casas rurales, fincas agrícolas y cortijos en venta en Cádiz. Propiedades exclusivas en Vejer, Tarifa, Medina-Sidonia y Sierra de Grazalema.',
+            keywords: 'comprar casa rural Cádiz, finca agrícola Cádiz, cortijo aceite oliva Cádiz, propiedad rural Cádiz, casa campo Cádiz, casa rural con piscina Cádiz, villa Cádiz',
+            h1: 'Casas Rurales y Fincas en Venta en Cádiz',
+            hero: 'Encuentra tu propiedad rural en la provincia más auténtica de Andalucía',
+        },
+        'huelva': {
+            title: 'Comprar Finca y Chalet con Terreno en Huelva',
+            description: 'Chalets con terreno, fincas y casas de campo en venta en Huelva. Propiedades rurales en Aracena, Sierra de Aracena y Costa de la Luz.',
+            keywords: 'chalet con terreno Huelva, finca agrícola Huelva, casa campo Huelva, chalet con terreno 10 hectáreas Huelva, casa lujo Huelva, finca equina Sevilla Huelva',
+            h1: 'Fincas y Chalets con Terreno en Venta en Huelva',
+            hero: 'Propiedades rurales únicas entre el Parque Nacional de Doñana y la Sierra de Aracena',
+        },
+        'sevilla': {
+            title: 'Comprar Cortijo y Hacienda en Sevilla | Azimut',
+            description: 'Cortijos, haciendas y fincas agrícolas en venta en Sevilla. Propiedades con olivar, viñedo o uso ecuestre en el corazón de Andalucía.',
+            keywords: 'comprar cortijo Sevilla, finca agrícola Sevilla, hacienda olivar Sevilla, finca equina Sevilla, propiedad rural inversión Andalucía, finca orgánica Andalucía',
+            h1: 'Cortijos, Haciendas y Fincas en Venta en Sevilla',
+            hero: 'Adquiere una hacienda, cortijo u olivar en la provincia sevillana',
+        },
+    };
+
+    const provinceSeo = urlCity ? PROVINCE_SEO[urlCity.toLowerCase()] : null;
+
     // Dynamic SEO data
     const seoTitle = useMemo(() => {
+        if (provinceSeo) return provinceSeo.title;
         if (city) return `Luxury Real Estate & Villas for Sale in ${city}`;
         if (type) return `Exclusive ${type}s for Sale in Andalusia`;
         return "Property Catalogue | Luxury Real Estate";
-    }, [city, type]);
+    }, [city, type, provinceSeo]);
 
     const seoDescription = useMemo(() => {
+        if (provinceSeo) return provinceSeo.description;
         if (city) return `Discover the most exclusive luxury properties for sale in ${city}. High-end villas, apartments, and off-market listings in ${city}, Costa del Sol.`;
         return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
-    }, [city]);
+    }, [city, provinceSeo]);
 
     const seoKeywords = useMemo(() => {
+        if (provinceSeo) return provinceSeo.keywords;
         if (city) return `properties ${city}, villas ${city}, luxury real estate ${city}, Costa del Sol`;
         return "luxury properties Costa del Sol, villas Marbella, apartments Estepona, real estate Andalusia";
-    }, [city]);
+    }, [city, provinceSeo]);
 
     const breadcrumbSchema = useMemo(() => {
+        const provinceName = urlCity ? (PROVINCE_SEO[urlCity.toLowerCase()]?.h1 || `Propiedades en ${formatSlug(urlCity)}`) : null;
         const items = [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Properties for Sale", "item": "https://www.azimutproperty.com/venta" }
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Propiedades en Venta", "item": "https://www.azimutproperty.com/venta" }
         ];
         if (urlCity) {
             items.push({
                 "@type": "ListItem",
                 "position": 3,
-                "name": `Properties in ${formatSlug(urlCity)}`,
+                "name": provinceName,
                 "item": `https://www.azimutproperty.com/venta/${urlCity}`
             });
         }
@@ -124,6 +171,25 @@ const Catalog = () => {
             "itemListElement": items
         };
     }, [urlCity]);
+
+    // ItemList schema for province pages (helps Google index individual property links)
+    const itemListSchema = useMemo(() => {
+        if (!provinceSeo || filteredProperties.length === 0) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": provinceSeo.h1,
+            "description": provinceSeo.description,
+            "url": `https://www.azimutproperty.com/venta/${urlCity}`,
+            "numberOfItems": filteredProperties.length,
+            "itemListElement": filteredProperties.slice(0, 10).map((prop, idx) => ({
+                "@type": "ListItem",
+                "position": idx + 1,
+                "url": `https://www.azimutproperty.com/property/${(prop.type || 'property').toLowerCase().replace(/\s+/g, '-')}-${(prop.city || 'location').toLowerCase().replace(/\s+/g, '-')}-${prop.id}`,
+                "name": prop.title
+            }))
+        };
+    }, [provinceSeo, filteredProperties, urlCity]);
 
     return (
         <div className="page catalog">
@@ -137,13 +203,18 @@ const Catalog = () => {
                 <script type="application/ld+json">
                     {JSON.stringify(breadcrumbSchema)}
                 </script>
+                {itemListSchema && (
+                    <script type="application/ld+json">
+                        {JSON.stringify(itemListSchema)}
+                    </script>
+                )}
             </Helmet>
 
             {/* Hero / Header Section */}
             <div className="catalog-header">
                 <div className="container">
-                    <h1>Property Catalogue</h1>
-                    <p>Discover your next dream residence</p>
+                    <h1>{provinceSeo ? provinceSeo.h1 : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
+                    <p>{provinceSeo ? provinceSeo.hero : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
                 </div>
             </div>
 

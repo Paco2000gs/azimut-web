@@ -33,6 +33,7 @@ async function generateSitemap() {
     const staticRoutes = [
         '/',
         '/venta',
+        // Costa del Sol
         '/venta/marbella',
         '/venta/benahavis',
         '/venta/estepona',
@@ -40,6 +41,10 @@ async function generateSitemap() {
         '/venta/fuengirola',
         '/venta/benalmadena',
         '/venta/nerja',
+        // Rural Andalucía — province landing pages
+        '/venta/cadiz',
+        '/venta/huelva',
+        '/venta/sevilla',
         '/about',
         '/contact',
         '/blog',

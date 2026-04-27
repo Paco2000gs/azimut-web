@@ -63,10 +63,10 @@ const Home = () => {
     return (
         <div className="page home">
             <SEO
-                title="Luxury Real Estate & Villas in Marbella and Andalusia"
-                description="Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers in Andalusia."
+                title="Fincas, Cortijos y Villas en Andalucía | Azimut Property"
+                description="Propiedades rurales y de lujo en Cádiz, Huelva, Sevilla y Marbella. Fincas, cortijos, haciendas y villas exclusivas. Asesoría personalizada para compradores nacionales e internacionales."
                 url="/"
-                keywords="luxury villas Marbella, real estate Andalusia, Marbella Golden Mile properties, investment homes Benahavis, sustainable luxury villas, Costa del Sol real estate"
+                keywords="fincas Andalucía, comprar cortijo Sevilla, casa rural Cádiz, chalet con terreno Huelva, propiedad rural inversión Andalucía, villas Marbella, luxury real estate Andalusia, hacienda olivar Sevilla"
             />
             <Helmet>
                 <script type="application/ld+json">
