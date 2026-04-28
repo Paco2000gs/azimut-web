@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
 import { generateBlogSlug, extractBlogId } from '../utils/slugify';
+import { formatBlogContent, calculateReadingTime } from '../utils/formatBlogContent';
 import SEO from '../components/SEO';
 import '../styles/Blog.css';
 
@@ -14,6 +15,18 @@ const BlogPost = () => {
 
     const postId = extractBlogId(urlParam);
     const post = !loading && postId ? getPostById(postId) : null;
+
+    // Procesar contenido automáticamente: texto plano → HTML estructurado
+    const formattedContent = useMemo(() => {
+        if (!post?.content) return '';
+        return formatBlogContent(post.content);
+    }, [post?.content]);
+
+    // Calcular tiempo de lectura real basado en el contenido
+    const readingTime = useMemo(() => {
+        if (!post?.content) return 1;
+        return calculateReadingTime(post.content);
+    }, [post?.content]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -97,6 +110,8 @@ const BlogPost = () => {
                     })}
                 </script>
             </Helmet>
+
+            {/* Hero del artículo */}
             <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || 'https://via.placeholder.com/1200x600?text=No+Image'})` }}>
                 <div className="overlay"></div>
                 <div className="container">
@@ -104,18 +119,22 @@ const BlogPost = () => {
                     <h1>{post.title}</h1>
                     <div className="post-meta">
                         <span><Calendar size={16} /> {new Date(post.published_at).toLocaleDateString()}</span>
-                        <span><Clock size={16} /> 5 min read</span>
+                        <span><Clock size={16} /> {readingTime} min read</span>
                     </div>
                 </div>
             </div>
 
-            <div className="container blog-post-content">
-                <div className="content-wrapper" dangerouslySetInnerHTML={{ __html: post.content }}></div>
+            {/* Contenido del artículo — renderizado estructurado */}
+            <article className="container blog-post-content">
+                <div
+                    className="content-wrapper article-body"
+                    dangerouslySetInnerHTML={{ __html: formattedContent }}
+                />
 
                 <div className="post-footer">
                     <Link to="/blog" className="btn btn-outline">Read More Articles</Link>
                 </div>
-            </div>
+            </article>
         </div>
     );
 };
