@@ -9,6 +9,7 @@ import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
 import LocationSEOContent from '../components/LocationSEOContent';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();
@@ -34,13 +35,27 @@ const Catalog = () => {
         'cuenca': 'Cuenca',
     };
 
+    // Map URL slugs for property types
+    const TYPE_SLUGS = {
+        'villas': 'Villa',
+        'fincas': 'Finca',
+        'apartments': 'Apartment',
+        'penthouses': 'Penthouse',
+        'mansions': 'Mansion',
+        'townhouses': 'Townhouse',
+        'plots': 'Plot',
+        'terrenos': 'Plot',
+        'haciendas': 'Finca', // Mapping haciendas to Finca for now as it's the closest type
+    };
+
     const isProvincePage = urlCity ? !!PROVINCE_SLUGS[urlCity.toLowerCase()] : false;
     const detectedProvince = urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || 'Málaga') : '';
+    const detectedType = urlArea ? TYPE_SLUGS[urlArea.toLowerCase()] : (searchParams.get('type') || '');
 
     // Filter states - Priority to URL parameters for Silo Architecture
     const [province, setProvince] = useState(urlCity ? detectedProvince : (searchParams.get('province') || ''));
     const [city, setCity] = useState(urlCity && !isProvincePage ? formatSlug(urlCity) : (searchParams.get('city') || ''));
-    const [type, setType] = useState(searchParams.get('type') || '');
+    const [type, setType] = useState(detectedType);
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
 
@@ -51,11 +66,17 @@ const Catalog = () => {
             setCity(isProvincePage ? '' : formatSlug(urlCity));
         }
         if (urlArea) {
-            // If area is present, we might want to use it for filtering too
-            // Note: Our current schema might not have an "area" field separate from city, 
-            // or it might be part of the city for specific urbanizations.
+            const t = TYPE_SLUGS[urlArea.toLowerCase()];
+            if (t) {
+                setType(t);
+            } else if (!isProvincePage) {
+                // If it's not a type and we have a city, maybe urlArea is a sub-area/neighborhood
+                setCity(formatSlug(urlArea));
+            }
+        } else if (!searchParams.get('type')) {
+            setType('');
         }
-    }, [urlCity, urlArea]);
+    }, [urlCity, urlArea, searchParams]);
 
     // Handle province change
     const handleProvinceChange = (e) => {
@@ -140,26 +161,36 @@ const Catalog = () => {
 
     // Dynamic SEO data
     const seoTitle = useMemo(() => {
+        if (province && type) {
+            const typePlural = type === 'Finca' ? 'Fincas' : type === 'Villa' ? 'Villas' : `${type}s`;
+            return `${typePlural} en Venta en ${province} | Azimut Property`;
+        }
         if (provinceSeo) return provinceSeo.title;
         if (city) return `Luxury Real Estate & Villas for Sale in ${city}`;
         if (type) return `Exclusive ${type}s for Sale in Andalusia`;
         return "Property Catalogue | Luxury Real Estate";
-    }, [city, type, provinceSeo]);
+    }, [province, city, type, provinceSeo]);
 
     const seoDescription = useMemo(() => {
+        if (province && type) {
+            return `Descubre nuestra selección exclusiva de ${type.toLowerCase()}s en la provincia de ${province}. Oportunidades únicas de inversión y estilo de vida en el sur de España.`;
+        }
         if (provinceSeo) return provinceSeo.description;
         if (city) return `Discover the most exclusive luxury properties for sale in ${city}. High-end villas, apartments, and off-market listings in ${city}, Costa del Sol.`;
         return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
-    }, [city, provinceSeo]);
+    }, [province, city, provinceSeo, type]);
 
     const seoKeywords = useMemo(() => {
+        if (province && type) {
+            return `${type.toLowerCase()} ${province}, comprar ${type.toLowerCase()} ${province}, ${type.toLowerCase()}s en venta ${province}`;
+        }
         if (provinceSeo) return provinceSeo.keywords;
         if (city) return `properties ${city}, villas ${city}, luxury real estate ${city}, Costa del Sol`;
         return "luxury properties Costa del Sol, villas Marbella, apartments Estepona, real estate Andalusia";
-    }, [city, provinceSeo]);
+    }, [province, city, provinceSeo, type]);
 
     const breadcrumbSchema = useMemo(() => {
-        const provinceName = urlCity ? (PROVINCE_SEO[urlCity.toLowerCase()]?.h1 || `Propiedades en ${formatSlug(urlCity)}`) : null;
+        const provinceName = urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || formatSlug(urlCity)) : null;
         const items = [
             { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
             { "@type": "ListItem", "position": 2, "name": "Propiedades en Venta", "item": "https://www.azimutproperty.com/venta" }
@@ -168,8 +199,17 @@ const Catalog = () => {
             items.push({
                 "@type": "ListItem",
                 "position": 3,
-                "name": provinceName,
+                "name": `Propiedades en ${provinceName}`,
                 "item": `https://www.azimutproperty.com/venta/${urlCity}`
+            });
+        }
+        if (urlArea) {
+            const typeName = TYPE_SLUGS[urlArea.toLowerCase()] || formatSlug(urlArea);
+            items.push({
+                "@type": "ListItem",
+                "position": 4,
+                "name": typeName,
+                "item": `https://www.azimutproperty.com/venta/${urlCity}/${urlArea}`
             });
         }
         return {
@@ -177,7 +217,7 @@ const Catalog = () => {
             "@type": "BreadcrumbList",
             "itemListElement": items
         };
-    }, [urlCity]);
+    }, [urlCity, urlArea]);
 
     // ItemList schema for province pages (helps Google index individual property links)
     const itemListSchema = useMemo(() => {
@@ -220,6 +260,13 @@ const Catalog = () => {
             {/* Hero / Header Section */}
             <div className="catalog-header">
                 <div className="container">
+                    <Breadcrumbs 
+                        customItems={[
+                            { label: 'Propiedades', link: '/venta' },
+                            ...(urlCity ? [{ label: PROVINCE_SLUGS[urlCity.toLowerCase()] || formatSlug(urlCity), link: `/venta/${urlCity}` }] : []),
+                            ...(urlArea ? [{ label: TYPE_SLUGS[urlArea.toLowerCase()] || formatSlug(urlArea) }] : [])
+                        ]}
+                    />
                     <h1>{provinceSeo ? provinceSeo.h1 : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
                     <p>{provinceSeo ? provinceSeo.hero : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
                 </div>

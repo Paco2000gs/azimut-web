@@ -7,6 +7,7 @@ import { MapPin, Bed, Bath, Maximize, Home, Check, ArrowLeft, Phone, Mail, Grid,
 import '../styles/Home.css'; // Reusing global styles
 import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
+import Breadcrumbs from '../components/Breadcrumbs';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug } from '../utils/slugify';
@@ -162,10 +163,14 @@ const PropertyDetail = () => {
             </Helmet>
 
             {/* Header / Navigation Check */}
-            <div className="container property-header-container">
-                <Link to="/catalog" className="back-link">
-                    <ArrowLeft size={18} /> Back to Properties
-                </Link>
+            <div className="container property-header-container" style={{ paddingBottom: 0 }}>
+                <Breadcrumbs 
+                    customItems={[
+                        { label: 'Propiedades', link: '/venta' },
+                        { label: property.province, link: `/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}` },
+                        { label: property.title }
+                    ]}
+                />
             </div>
 
             {/* ERROR FIX: Only render gallery if we have images */}
