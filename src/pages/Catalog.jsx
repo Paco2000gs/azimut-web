@@ -9,7 +9,6 @@ import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
 import LocationSEOContent from '../components/LocationSEOContent';
-import Breadcrumbs from '../components/Breadcrumbs';
 
 const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();
@@ -35,27 +34,13 @@ const Catalog = () => {
         'cuenca': 'Cuenca',
     };
 
-    // Map URL slugs for property types
-    const TYPE_SLUGS = {
-        'villas': 'Villa',
-        'fincas': 'Finca',
-        'apartments': 'Apartment',
-        'penthouses': 'Penthouse',
-        'mansions': 'Mansion',
-        'townhouses': 'Townhouse',
-        'plots': 'Plot',
-        'terrenos': 'Plot',
-        'haciendas': 'Finca', // Mapping haciendas to Finca for now as it's the closest type
-    };
-
     const isProvincePage = urlCity ? !!PROVINCE_SLUGS[urlCity.toLowerCase()] : false;
     const detectedProvince = urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || 'Málaga') : '';
-    const detectedType = urlArea ? TYPE_SLUGS[urlArea.toLowerCase()] : (searchParams.get('type') || '');
 
     // Filter states - Priority to URL parameters for Silo Architecture
     const [province, setProvince] = useState(urlCity ? detectedProvince : (searchParams.get('province') || ''));
     const [city, setCity] = useState(urlCity && !isProvincePage ? formatSlug(urlCity) : (searchParams.get('city') || ''));
-    const [type, setType] = useState(detectedType);
+    const [type, setType] = useState(searchParams.get('type') || '');
     const [minPrice, setMinPrice] = useState('');
     const [maxPrice, setMaxPrice] = useState('');
 
@@ -66,15 +51,16 @@ const Catalog = () => {
             setCity(isProvincePage ? '' : formatSlug(urlCity));
         }
         if (urlArea) {
-            const t = TYPE_SLUGS[urlArea.toLowerCase()];
-            if (t) {
-                setType(t);
-            } else if (!isProvincePage) {
-                // If it's not a type and we have a city, maybe urlArea is a sub-area/neighborhood
-                setCity(formatSlug(urlArea));
+            // Check if urlArea is a property type (e.g., /venta/cadiz/finca)
+            const typeMatch = PROPERTY_TYPES.find(t => t.toLowerCase().replace(/\s+/g, '-') === urlArea.toLowerCase());
+            if (typeMatch) {
+                setType(typeMatch);
             }
-        } else if (!searchParams.get('type')) {
-            setType('');
+        } else {
+            // Reset type if we navigate back to a province-only URL
+            if (!searchParams.get('type')) {
+                setType('');
+            }
         }
     }, [urlCity, urlArea, searchParams]);
 
@@ -161,36 +147,26 @@ const Catalog = () => {
 
     // Dynamic SEO data
     const seoTitle = useMemo(() => {
-        if (province && type) {
-            const typePlural = type === 'Finca' ? 'Fincas' : type === 'Villa' ? 'Villas' : `${type}s`;
-            return `${typePlural} en Venta en ${province} | Azimut Property`;
-        }
         if (provinceSeo) return provinceSeo.title;
         if (city) return `Luxury Real Estate & Villas for Sale in ${city}`;
         if (type) return `Exclusive ${type}s for Sale in Andalusia`;
         return "Property Catalogue | Luxury Real Estate";
-    }, [province, city, type, provinceSeo]);
+    }, [city, type, provinceSeo]);
 
     const seoDescription = useMemo(() => {
-        if (province && type) {
-            return `Descubre nuestra selección exclusiva de ${type.toLowerCase()}s en la provincia de ${province}. Oportunidades únicas de inversión y estilo de vida en el sur de España.`;
-        }
         if (provinceSeo) return provinceSeo.description;
         if (city) return `Discover the most exclusive luxury properties for sale in ${city}. High-end villas, apartments, and off-market listings in ${city}, Costa del Sol.`;
         return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
-    }, [province, city, provinceSeo, type]);
+    }, [city, provinceSeo]);
 
     const seoKeywords = useMemo(() => {
-        if (province && type) {
-            return `${type.toLowerCase()} ${province}, comprar ${type.toLowerCase()} ${province}, ${type.toLowerCase()}s en venta ${province}`;
-        }
         if (provinceSeo) return provinceSeo.keywords;
         if (city) return `properties ${city}, villas ${city}, luxury real estate ${city}, Costa del Sol`;
         return "luxury properties Costa del Sol, villas Marbella, apartments Estepona, real estate Andalusia";
-    }, [province, city, provinceSeo, type]);
+    }, [city, provinceSeo]);
 
     const breadcrumbSchema = useMemo(() => {
-        const provinceName = urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || formatSlug(urlCity)) : null;
+        const provinceName = urlCity ? (PROVINCE_SEO[urlCity.toLowerCase()]?.h1 || `Propiedades en ${formatSlug(urlCity)}`) : null;
         const items = [
             { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
             { "@type": "ListItem", "position": 2, "name": "Propiedades en Venta", "item": "https://www.azimutproperty.com/venta" }
@@ -199,17 +175,8 @@ const Catalog = () => {
             items.push({
                 "@type": "ListItem",
                 "position": 3,
-                "name": `Propiedades en ${provinceName}`,
+                "name": provinceName,
                 "item": `https://www.azimutproperty.com/venta/${urlCity}`
-            });
-        }
-        if (urlArea) {
-            const typeName = TYPE_SLUGS[urlArea.toLowerCase()] || formatSlug(urlArea);
-            items.push({
-                "@type": "ListItem",
-                "position": 4,
-                "name": typeName,
-                "item": `https://www.azimutproperty.com/venta/${urlCity}/${urlArea}`
             });
         }
         return {
@@ -217,7 +184,7 @@ const Catalog = () => {
             "@type": "BreadcrumbList",
             "itemListElement": items
         };
-    }, [urlCity, urlArea]);
+    }, [urlCity]);
 
     // ItemList schema for province pages (helps Google index individual property links)
     const itemListSchema = useMemo(() => {
@@ -260,16 +227,36 @@ const Catalog = () => {
             {/* Hero / Header Section */}
             <div className="catalog-header">
                 <div className="container">
-                    <Breadcrumbs 
-                        customItems={[
-                            { label: 'Propiedades', link: '/venta' },
-                            ...(urlCity ? [{ label: PROVINCE_SLUGS[urlCity.toLowerCase()] || formatSlug(urlCity), link: `/venta/${urlCity}` }] : []),
-                            ...(urlArea ? [{ label: TYPE_SLUGS[urlArea.toLowerCase()] || formatSlug(urlArea) }] : [])
-                        ]}
-                    />
                     <h1>{provinceSeo ? provinceSeo.h1 : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
                     <p>{provinceSeo ? provinceSeo.hero : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
                 </div>
+            </div>
+
+            {/* Breadcrumbs UI */}
+            <div className="container" style={{ marginTop: '1.5rem' }}>
+                <nav className="breadcrumbs" aria-label="Breadcrumb" style={{ fontSize: '0.875rem', color: '#64748b' }}>
+                    <ol style={{ listStyle: 'none', padding: 0, display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                        <li><a href="/" style={{ color: '#64748b', textDecoration: 'none' }}>Inicio</a></li>
+                        <li style={{ color: '#cbd5e1' }}>/</li>
+                        <li><a href="/venta" style={{ color: '#64748b', textDecoration: 'none' }}>Propiedades</a></li>
+                        {urlCity && (
+                            <>
+                                <li style={{ color: '#cbd5e1' }}>/</li>
+                                <li>
+                                    <a href={`/venta/${urlCity}`} style={{ color: type ? '#64748b' : '#1e293b', fontWeight: type ? '400' : '600', textDecoration: 'none' }}>
+                                        {formatSlug(urlCity)}
+                                    </a>
+                                </li>
+                            </>
+                        )}
+                        {type && (
+                            <>
+                                <li style={{ color: '#cbd5e1' }}>/</li>
+                                <li style={{ color: '#1e293b', fontWeight: '600' }}>{type}s</li>
+                            </>
+                        )}
+                    </ol>
+                </nav>
             </div>
 
             {/* Search Bar Section */}

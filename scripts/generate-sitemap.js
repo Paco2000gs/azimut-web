@@ -92,55 +92,26 @@ async function generateSitemap() {
             console.error('Error fetching properties for sitemap:', err);
         }
 
-        // 3. Silo Routes (Unique cities and Province+Type combinations)
+        // 3. Silo Routes (Unique cities from properties)
         try {
-            const { data: listings, error: locError } = await supabase
+            const { data: locations, error: locError } = await supabase
                 .from('properties')
-                .select('city, province, type')
+                .select('city')
                 .not('city', 'is', null);
 
             if (locError) throw locError;
 
-            // City Silos
-            const uniqueCities = [...new Set(listings.map(l => l.city))].filter(Boolean);
+            const uniqueCities = [...new Set(locations.map(l => l.city))].filter(Boolean);
             uniqueCities.forEach(city => {
                 const citySlug = normalize(city);
+
                 sitemap += `
   <url>
     <loc>${baseUrl}/venta/${citySlug}</loc>
     <lastmod>${today}</lastmod>
   </url>`;
             });
-
-            // Province + Type Silos
-            const typeToSlug = {
-                'Villa': 'villas',
-                'Finca': 'fincas',
-                'Apartment': 'apartments',
-                'Penthouse': 'penthouses',
-                'Mansion': 'mansions',
-                'Townhouse': 'townhouses',
-                'Plot': 'plots'
-            };
-
-            const provinceTypeSilos = new Set();
-            listings.forEach(l => {
-                if (l.province && l.type) {
-                    const provinceSlug = normalize(l.province);
-                    const typeSlug = typeToSlug[l.type] || normalize(l.type);
-                    provinceTypeSilos.add(`${provinceSlug}/${typeSlug}`);
-                }
-            });
-
-            provinceTypeSilos.forEach(silo => {
-                sitemap += `
-  <url>
-    <loc>${baseUrl}/venta/${silo}</loc>
-    <lastmod>${today}</lastmod>
-  </url>`;
-            });
-
-            console.log(`Added ${uniqueCities.length} city silos and ${provinceTypeSilos.size} province-type silos to sitemap.`);
+            console.log(`Added ${uniqueCities.length} location silos to sitemap.`);
         } catch (err) {
             console.error('Error fetching locations for sitemap silos:', err);
         }

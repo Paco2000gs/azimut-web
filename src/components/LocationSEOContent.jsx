@@ -240,6 +240,19 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
                 })}
             </div>
 
+            {/* Internal Silo Links */}
+            <div className="silo-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
+                <a href={`/venta/${city?.toLowerCase()}/finca`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                    Fincas en {city}
+                </a>
+                <a href={`/venta/${city?.toLowerCase()}/plot`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                    Terrenos en {city}
+                </a>
+                <a href={`/venta/${city?.toLowerCase()}/villa`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                    Villas en {city}
+                </a>
+            </div>
+
             {/* CTA for rural provinces */}
             {isRuralProvince && currentContent.cta && (
                 <div style={{ margin: '2rem 0', padding: '1.5rem 2rem', background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%)', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>

@@ -25,7 +25,7 @@ const Home = () => {
         "@type": "RealEstateAgent",
         "@id": "https://www.azimutproperty.com/#organization",
         "name": "Azimut Property",
-        "description": "Boutique real estate agency specialized in the luxury sector on the Costa del Sol. Specialists in exclusive real estate assets in Marbella, Estepona, and Benahavís.",
+        "description": "Boutique real estate agency specialized in luxury assets and rural estates across Andalusia. Specialists in Marbella, Cádiz, Sevilla, and Huelva.",
         "url": "https://www.azimutproperty.com/",
         "telephone": "+34-600-000-000",
         "logo": {
@@ -40,10 +40,12 @@ const Home = () => {
             "addressCountry": "ES"
         },
         "areaServed": [
+            { "@type": "State", "name": "Andalusia", "sameAs": "https://www.wikidata.org/wiki/Q5771" },
             { "@type": "City", "name": "Marbella", "sameAs": "https://www.wikidata.org/wiki/Q39347" },
-            { "@type": "City", "name": "Estepona", "sameAs": "https://www.wikidata.org/wiki/Q843209" },
-            { "@type": "City", "name": "Benahavís", "sameAs": "https://www.wikidata.org/wiki/Q2897197" },
-            { "@type": "Place", "name": "Golden Mile" }
+            { "@type": "City", "name": "Sevilla", "sameAs": "https://www.wikidata.org/wiki/Q8717" },
+            { "@type": "City", "name": "Cádiz", "sameAs": "https://www.wikidata.org/wiki/Q15682" },
+            { "@type": "City", "name": "Huelva", "sameAs": "https://www.wikidata.org/wiki/Q12246" },
+            { "@type": "Place", "name": "Costa del Sol" }
         ],
         "priceRange": "€€€€",
         "currenciesAccepted": "EUR",

@@ -7,7 +7,6 @@ import { MapPin, Bed, Bath, Maximize, Home, Check, ArrowLeft, Phone, Mail, Grid,
 import '../styles/Home.css'; // Reusing global styles
 import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
-import Breadcrumbs from '../components/Breadcrumbs';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug } from '../utils/slugify';
@@ -162,15 +161,29 @@ const PropertyDetail = () => {
                 </script>
             </Helmet>
 
-            {/* Header / Navigation Check */}
-            <div className="container property-header-container" style={{ paddingBottom: 0 }}>
-                <Breadcrumbs 
-                    customItems={[
-                        { label: 'Propiedades', link: '/venta' },
-                        { label: property.province, link: `/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}` },
-                        { label: property.title }
-                    ]}
-                />
+            {/* Breadcrumbs UI */}
+            <div className="container" style={{ marginTop: '2rem' }}>
+                <nav className="breadcrumbs" aria-label="Breadcrumb" style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '1.5rem' }}>
+                    <ol style={{ listStyle: 'none', padding: 0, display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
+                        <li><Link to="/" style={{ color: '#64748b', textDecoration: 'none' }}>Inicio</Link></li>
+                        <li style={{ color: '#cbd5e1' }}>/</li>
+                        <li><Link to="/venta" style={{ color: '#64748b', textDecoration: 'none' }}>Propiedades</Link></li>
+                        <li style={{ color: '#cbd5e1' }}>/</li>
+                        <li>
+                            <Link to={`/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: '#64748b', textDecoration: 'none' }}>
+                                {property.province}
+                            </Link>
+                        </li>
+                        <li style={{ color: '#cbd5e1' }}>/</li>
+                        <li>
+                            <Link to={`/venta/${property.city?.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: '#64748b', textDecoration: 'none' }}>
+                                {property.city}
+                            </Link>
+                        </li>
+                        <li style={{ color: '#cbd5e1' }}>/</li>
+                        <li style={{ color: '#1e293b', fontWeight: '600' }}>{property.title}</li>
+                    </ol>
+                </nav>
             </div>
 
             {/* ERROR FIX: Only render gallery if we have images */}
@@ -340,6 +353,36 @@ const PropertyDetail = () => {
                         <div className="agent-card" style={{ padding: 0, border: 'none', boxShadow: 'none' }}>
                             <PropertyInquiryForm propertyId={property.id} propertyTitle={property.title} />
                         </div>
+                    </div>
+                </div>
+
+                {/* RELATED PROPERTIES SECTION */}
+                <div className="related-properties" style={{ marginTop: '5rem', borderTop: '1px solid #e2e8f0', paddingTop: '4rem' }}>
+                    <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: '#1e293b' }}>Propiedades Similares en {property.province}</h3>
+                    <div className="related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
+                        {useProperties().properties
+                            .filter(p => p.province === property.province && p.id !== property.id)
+                            .slice(0, 3)
+                            .map(related => (
+                                <Link key={related.id} to={`/property/${generatePropertySlug(related)}`} className="related-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+                                    <div style={{ borderRadius: '0.75rem', overflow: 'hidden', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', background: '#fff', transition: 'transform 0.2s' }}>
+                                        <img
+                                            src={getOptimizedImageUrl(related.image, { width: 400, height: 260, resize: 'cover' })}
+                                            alt={related.title}
+                                            style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                                        />
+                                        <div style={{ padding: '1.25rem' }}>
+                                            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#1e293b' }}>{related.title}</h4>
+                                            <div style={{ fontSize: '0.875rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                                <MapPin size={14} /> {related.city}
+                                            </div>
+                                            <div style={{ marginTop: '1rem', fontWeight: '700', color: '#b8860b' }}>
+                                                {related.price_on_demand ? "Consultar Precio" : `€${related.price?.toLocaleString()}`}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ))}
                     </div>
                 </div>
             </div>
