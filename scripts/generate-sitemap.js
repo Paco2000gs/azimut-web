@@ -45,6 +45,7 @@ async function generateSitemap() {
         '/venta/cadiz',
         '/venta/huelva',
         '/venta/sevilla',
+        '/venta/malaga',
         '/about',
         '/contact',
         '/blog',

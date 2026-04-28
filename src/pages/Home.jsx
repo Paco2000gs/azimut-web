@@ -79,20 +79,20 @@ const Home = () => {
                 <div className="hero-overlay"></div>
                 <div className="container hero-content">
                     <header className="hero-header-branded">
-                        <span className="eyebrow-text">Exclusivity and Discretion in the Golden Triangle</span>
+                        <span className="eyebrow-text">Exclusive Estates and Investment Opportunities in Andalusia</span>
                         <h1 className="hero-title">
-                            <span className="hero-subtitle">ELEVATE YOUR LIFESTYLE</span>
-                            WITH THE MOST EXCLUSIVE <br /> PROPERTIES IN ANDALUSIA
+                            <span className="hero-subtitle">ELEVATE YOUR PORTFOLIO</span>
+                            WITH THE MOST UNIQUE <br /> PROPERTIES IN SOUTHERN SPAIN
                         </h1>
                         <p className="main-value-proposition">
-                            Discover a curated collection of off-market properties and luxury residences
-                            designed for wellness and longevity in Southern Spain.
+                            From contemporary villas in the Golden Triangle to historic cortijos 
+                            and high-yield agricultural land in Cádiz and Sevilla.
                         </p>
                     </header>
 
                     <div className="cta-group-luxury">
-                        <Link to="/catalog" className="btn btn-hero btn-primary-gold">Explore Exclusive Villas</Link>
-                        <Link to="/contact" className="btn btn-hero btn-secondary-outline">Request Off-Market Catalogue</Link>
+                        <Link to="/venta" className="btn btn-hero btn-primary-gold">View Property Portfolio</Link>
+                        <Link to="/venta?type=finca" className="btn btn-hero btn-secondary-outline">Explore Rural Estates</Link>
                     </div>
 
                     <div className="trust-indicators">
@@ -108,17 +108,21 @@ const Home = () => {
                 <div className="container">
                     <div className="authority-content">
                         <p className="lead-text">
-                            Specialists in the high-end real estate market in the Golden Triangle of Andalusia.
-                            Azimut Property offers unprecedented access to the most exclusive properties in
-                            Marbella, Benahavís, and Estepona.
+                            Specialists in premium real estate assets across Andalusia.
+                            Azimut Property provides expert consultancy for luxury residences, 
+                            rural estates, and strategic land investments.
                         </p>
                         <p>
-                            From contemporary villas with industry-leading energy certification to the
-                            coveted Branded Residences on the Golden Mile, our selection is designed for
-                            those who prioritize privacy, sustainability, and well-being. In a market
-                            driven by asset scarcity and record international demand, we provide the
-                            market intelligence and discretion necessary to secure safe capital
-                            investments and unparalleled lifestyles in Southern Europe.
+                            While our roots are deep in the Golden Triangle of Marbella, Benahavís, and Estepona, 
+                            we have expanded our expertise to the emerging high-value markets of Cádiz and Sevilla. 
+                            From historic haciendas with productive olive groves to coastal plots with 
+                            unparalleled development potential, we identify assets that offer both 
+                            lifestyle excellence and long-term capital preservation.
+                        </p>
+                        <p>
+                            In a competitive landscape, our off-market access and RICS-regulated 
+                            standards ensure that our clients secure the most coveted opportunities 
+                            in Southern Europe with absolute discretion.
                         </p>
                     </div>
                 </div>

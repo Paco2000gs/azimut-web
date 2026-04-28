@@ -20,12 +20,12 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-column">
-                        <h3>Discover</h3>
+                        <h3>Property Types</h3>
                         <ul className="footer-links">
-                            <li><Link to="/venta">Properties for Sale</Link></li>
+                            <li><Link to="/venta?type=finca">Fincas & Cortijos</Link></li>
+                            <li><Link to="/venta?type=plot">Land & Plots</Link></li>
                             <li><Link to="/venta?type=villa">Luxury Villas</Link></li>
-                            <li><Link to="/venta?type=penthouse">Exclusive Penthouses</Link></li>
-                            <li><Link to="/venta?type=finca">Country Fincas</Link></li>
+                            <li><Link to="/venta?type=penthouse">Penthouses</Link></li>
                         </ul>
                     </div>
 
@@ -33,9 +33,9 @@ const Footer = () => {
                         <h3>Key Areas</h3>
                         <ul className="footer-links">
                             <li><Link to="/venta/marbella">Marbella</Link></li>
-                            <li><Link to="/venta/benahavis">Benahavís</Link></li>
-                            <li><Link to="/venta/estepona">Estepona</Link></li>
-                            <li><Link to="/venta/marbella/golden-mile">Golden Mile</Link></li>
+                            <li><Link to="/venta/cadiz">Cádiz</Link></li>
+                            <li><Link to="/venta/sevilla">Sevilla</Link></li>
+                            <li><Link to="/venta/huelva">Huelva</Link></li>
                         </ul>
                     </div>
 

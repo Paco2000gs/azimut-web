@@ -127,6 +127,13 @@ const Catalog = () => {
             h1: 'Cortijos, Haciendas y Fincas en Venta en Sevilla',
             hero: 'Adquiere una hacienda, cortijo u olivar en la provincia sevillana',
         },
+        'malaga': {
+            title: 'Fincas, Terrenos y Cortijos en Málaga | Azimut Property',
+            description: 'Inversión en fincas rústicas, terrenos agrícolas y propiedades rurales en el interior de Málaga. Oportunidades en Ronda, Axarquía y Valle del Guadalhorce.',
+            keywords: 'fincas Málaga, terrenos agrícolas Málaga, comprar cortijo Ronda, inversión suelo Málaga, casa de campo Málaga interior, finca olivar Málaga',
+            h1: 'Fincas y Terrenos en Venta en Málaga Interior',
+            hero: 'Descubre el potencial de inversión en el interior de la provincia de Málaga',
+        },
     };
 
     const provinceSeo = urlCity ? PROVINCE_SEO[urlCity.toLowerCase()] : null;

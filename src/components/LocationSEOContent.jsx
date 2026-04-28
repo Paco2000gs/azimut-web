@@ -129,6 +129,36 @@ En Azimut Property somos especialistas en la búsqueda y adquisición de propied
             ]
         },
 
+        'malaga': {
+            title: 'Fincas, Terrenos y Cortijos en Málaga Interior',
+            intro: 'Málaga: inversión en suelo y fincas exclusivas más allá de la costa',
+            description: `La provincia de Málaga ofrece un potencial de revalorización único en su zona de interior. Mientras la costa está consolidada, áreas como Ronda, el Valle del Guadalhorce y la Axarquía presentan oportunidades excepcionales para adquirir fincas de recreo, explotaciones agrícolas y terrenos con gran potencial de desarrollo.
+
+**¿Por qué invertir en el interior de Málaga?**
+
+Málaga es el motor económico de Andalucía. Su conectividad internacional a través del aeropuerto y el AVE, unida a una calidad de vida envidiable, hace que las propiedades rurales en el interior de la provincia sean activos altamente líquidos.
+
+- **Conectividad**: Acceso rápido desde la Costa del Sol y Málaga capital a entornos rurales protegidos.
+- **Microclimas**: Variedad de paisajes, desde los viñedos de Ronda hasta los cultivos tropicales de la Axarquía.
+- **Turismo de Interior**: Un sector al alza que garantiza rentabilidades por alquiler vacacional rural superiores al 6% anual.
+- **Escasez de Activos**: La demanda de fincas con cortijo rehabilitado supera ampliamente la oferta disponible.
+
+**Zonas destacadas para inversión rural en Málaga**
+
+*Ronda y Serranía*: La zona de referencia para fincas exclusivas y viñedos. Ronda combina prestigio histórico con una naturaleza salvaje y majestuosa.
+
+*Valle del Guadalhorce (Coín, Álora, Alhaurín)*: Conocido como "la huerta de Málaga", es ideal para quienes buscan una finca con producción de cítricos o aguacates cerca de la capital.
+
+*La Axarquía*: Pendientes pronunciadas con vistas al mar, ideales para cultivos subtropicales y casas de campo con carácter mediterráneo auténtico.
+
+En Azimut Property seleccionamos activos en Málaga que combinan la autenticidad del entorno rural con la seguridad de una inversión sólida en la provincia más dinámica del sur de España.`,
+            cta: '¿Buscas una inversión en terreno o una finca en Málaga? Consúltanos.',
+            faqs: [
+                { q: '¿Qué rentabilidad ofrece una finca agrícola en Málaga?', a: 'Dependiendo del cultivo (aguacates, cítricos, olivar), la rentabilidad agrícola suele oscilar entre el 3% y el 7% anual, a lo que se suma la revalorización del suelo.' },
+                { q: '¿Es buen momento para comprar terreno en Málaga?', a: 'Sí, la escasez de suelo finalista y el crecimiento de la población en la provincia aseguran una demanda creciente de terrenos tanto para uso agrícola como para proyectos de turismo sostenible.' }
+            ]
+        },
+
         'sierra-blanca': {
             title: 'Mansiones de Lujo en Sierra Blanca, Marbella',
             description: `Sierra Blanca es conocida como el "Beverly Hills de Marbella". Enclavada a los pies de La Concha, esta exclusiva urbanización ofrece vistas panorámicas al mar y seguridad de alto nivel.
