@@ -135,9 +135,12 @@ Message: ${formData.message || 'Information request.'}
                     {loading ? 'Sending...' : 'Request Dossier'}
                 </button>
 
-                <p className="privacy-note">
-                    * Your data will be treated with strict confidentiality.
-                </p>
+                <div className="form-trust-indicators" style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.75rem', color: '#64748b' }}>
+                    <p style={{ margin: '0.25rem 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.25rem' }}>
+                        <CheckCircle size={12} color="#10b981" /> Data treated with strict confidentiality
+                    </p>
+                    <p style={{ margin: '0.25rem 0' }}>Join 500+ investors receiving our private dossiers.</p>
+                </div>
             </form>
         </div>
     );

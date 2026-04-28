@@ -22,6 +22,7 @@ import AdminLogin from './pages/AdminLogin';
 import AdminDashboard from './pages/AdminDashboard';
 import DossierView from './pages/DossierView';
 import LocationSEOContent from './components/LocationSEOContent';
+import ExitIntentPopup from './components/ExitIntentPopup';
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -47,6 +48,7 @@ function App() {
         <BlogProvider>
           <LeadsProvider>
             <GTMTracker />
+            <ExitIntentPopup />
             <Routes>
               {/* Public Routes */}
               <Route path="/" element={<Layout />}>
