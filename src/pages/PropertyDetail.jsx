@@ -353,6 +353,31 @@ const PropertyDetail = () => {
                         <div className="agent-card" style={{ padding: 0, border: 'none', boxShadow: 'none' }}>
                             <PropertyInquiryForm propertyId={property.id} propertyTitle={property.title} />
                         </div>
+                        
+                        {/* QUICK CONTACT BUTTONS */}
+                        <div className="quick-contact-actions" style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                            <a 
+                                href={`https://wa.me/34600000000?text=Hola,%20estoy%20interesado%20en%20la%20propiedad:%20${encodeURIComponent(property.title)}`}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="whatsapp-btn"
+                                style={{ 
+                                    display: 'flex', 
+                                    alignItems: 'center', 
+                                    justifyContent: 'center', 
+                                    gap: '0.5rem', 
+                                    background: '#25D366', 
+                                    color: '#fff', 
+                                    padding: '0.75rem', 
+                                    borderRadius: '0.5rem', 
+                                    fontWeight: '600', 
+                                    textDecoration: 'none',
+                                    transition: 'opacity 0.2s'
+                                }}
+                            >
+                                <Phone size={18} /> Contactar por WhatsApp
+                            </a>
+                        </div>
                     </div>
                 </div>
 
