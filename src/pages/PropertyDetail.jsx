@@ -162,7 +162,7 @@ const PropertyDetail = () => {
             </Helmet>
 
             {/* Breadcrumbs UI */}
-            <div className="container" style={{ marginTop: '2rem' }}>
+            <div className="container property-header-container">
                 <nav className="breadcrumbs" aria-label="Breadcrumb" style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '1.5rem' }}>
                     <ol style={{ listStyle: 'none', padding: 0, display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
                         <li><Link to="/" style={{ color: '#64748b', textDecoration: 'none' }}>Inicio</Link></li>
