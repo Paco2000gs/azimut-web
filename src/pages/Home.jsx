@@ -65,10 +65,10 @@ const Home = () => {
     return (
         <div className="page home">
             <SEO
-                title="Fincas, Cortijos y Villas en Andalucía | Azimut Property"
-                description="Propiedades rurales y de lujo en Cádiz, Huelva, Sevilla y Marbella. Fincas, cortijos, haciendas y villas exclusivas. Asesoría personalizada para compradores nacionales e internacionales."
+                title="Casas Rurales y Chalets en Cádiz, Huelva y Sevilla | Azimut Property"
+                description="Descubre casas rurales, chalets y fincas en Cádiz, Huelva y Sevilla. Propiedades únicas con terreno, piscina y carácter rural. Asesoría personalizada."
                 url="/"
-                keywords="fincas Andalucía, comprar cortijo Sevilla, casa rural Cádiz, chalet con terreno Huelva, propiedad rural inversión Andalucía, villas Marbella, luxury real estate Andalusia, hacienda olivar Sevilla"
+                keywords="casa rural Cádiz, chalet Huelva, finca Sevilla, propiedad rural Andalucía, chalet con terreno, comprar casa campo, cortijo Sevilla, hacienda Cádiz"
             />
             <Helmet>
                 <script type="application/ld+json">

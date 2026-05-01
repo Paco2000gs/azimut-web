@@ -7,7 +7,9 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
     const defaultImage = 'https://www.azimutproperty.com/azimut-logo-gold.png';
     const siteUrl = 'https://www.azimutproperty.com';
 
-    const fullTitle = title ? `${title} | Azimut Property` : siteTitle;
+    const fullTitle = title 
+        ? (title.includes('Azimut Property') ? title : `${title} | Azimut Property`) 
+        : siteTitle;
     const fullDescription = description || defaultDescription;
     const fullImage = image || defaultImage;
     const fullUrl = url ? `${siteUrl}${url}` : siteUrl;

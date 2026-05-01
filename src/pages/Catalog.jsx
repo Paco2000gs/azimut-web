@@ -114,23 +114,23 @@ const Catalog = () => {
     // Per-province SEO data for rural Andalusia focus
     const PROVINCE_SEO = {
         'cadiz': {
-            title: 'Comprar Casa Rural y Finca en Cádiz | Azimut',
-            description: 'Casas rurales, fincas agrícolas y cortijos en venta en Cádiz. Propiedades exclusivas en Vejer, Tarifa, Medina-Sidonia y Sierra de Grazalema.',
-            keywords: 'comprar casa rural Cádiz, finca agrícola Cádiz, cortijo aceite oliva Cádiz, propiedad rural Cádiz, casa campo Cádiz, casa rural con piscina Cádiz, villa Cádiz',
+            title: 'Casas Rurales y Chalets en Cádiz | Azimut Property',
+            description: 'Encuentra tu casa rural en Cádiz: chalets, fincas y cortijos con piscina y terreno. Propiedades únicas en la campiña gaditana.',
+            keywords: 'casa rural Cádiz, chalet Cádiz, finca Cádiz, cortijo Cádiz',
             h1: 'Casas Rurales y Fincas en Venta en Cádiz',
             hero: 'Encuentra tu propiedad rural en la provincia más auténtica de Andalucía',
         },
         'huelva': {
-            title: 'Comprar Finca y Chalet con Terreno en Huelva',
-            description: 'Chalets con terreno, fincas y casas de campo en venta en Huelva. Propiedades rurales en Aracena, Sierra de Aracena y Costa de la Luz.',
-            keywords: 'chalet con terreno Huelva, finca agrícola Huelva, casa campo Huelva, chalet con terreno 10 hectáreas Huelva, casa lujo Huelva, finca equina Sevilla Huelva',
+            title: 'Chalets y Fincas en Huelva | Azimut Property',
+            description: 'Propiedades rurales en Huelva: chalets con terreno, fincas agrícolas y casas de campo. Inversión segura en el campo onubense.',
+            keywords: 'chalet Huelva, finca Huelva, casa rural Huelva, propiedad rural Huelva',
             h1: 'Fincas y Chalets con Terreno en Venta en Huelva',
             hero: 'Propiedades rurales únicas entre el Parque Nacional de Doñana y la Sierra de Aracena',
         },
         'sevilla': {
-            title: 'Comprar Cortijo y Hacienda en Sevilla | Azimut',
-            description: 'Cortijos, haciendas y fincas agrícolas en venta en Sevilla. Propiedades con olivar, viñedo o uso ecuestre en el corazón de Andalucía.',
-            keywords: 'comprar cortijo Sevilla, finca agrícola Sevilla, hacienda olivar Sevilla, finca equina Sevilla, propiedad rural inversión Andalucía, finca orgánica Andalucía',
+            title: 'Fincas y Cortijos en Sevilla | Azimut Property',
+            description: 'Fincas, cortijos y haciendas en Sevilla. Propiedades con olivar, piscina y encanto rural a 35 min de Sevilla capital.',
+            keywords: 'finca Sevilla, cortijo Sevilla, hacienda Sevilla, casa rural Sevilla',
             h1: 'Cortijos, Haciendas y Fincas en Venta en Sevilla',
             hero: 'Adquiere una hacienda, cortijo u olivar en la provincia sevillana',
         },
