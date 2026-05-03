@@ -374,7 +374,7 @@ const Catalog = () => {
 
             <LeadMagnet />
 
-            {!loading && <LocationSEOContent city={city} area={urlArea} />}
+            {!loading && <LocationSEOContent city={city || urlCity} area={urlArea} />}
         </div>
     );
 };
