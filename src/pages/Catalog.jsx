@@ -9,6 +9,7 @@ import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
 import LocationSEOContent from '../components/LocationSEOContent';
+import LeadMagnet from '../components/LeadMagnet';
 
 const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();
@@ -370,6 +371,8 @@ const Catalog = () => {
                     )}
                 </div>
             </div>
+
+            <LeadMagnet />
 
             {!loading && <LocationSEOContent city={city} area={urlArea} />}
         </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 
 const LocationSEOContent = ({ city, area }) => {
     // Content database for major locations
@@ -210,10 +211,31 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
     if (!city) return null;
 
-    const isRuralProvince = ['cadiz', 'huelva', 'sevilla'].includes(city?.toLowerCase());
+    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga'].includes(city?.toLowerCase());
+
+    // Generate FAQ Schema for Google/AI
+    const faqSchema = currentContent.faqs ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": currentContent.faqs.map(faq => ({
+            "@type": "Question",
+            "name": faq.q,
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.a
+            }
+        }))
+    } : null;
 
     return (
         <div className="location-seo-content container" style={{ marginTop: '4rem', paddingBottom: '4rem', borderTop: '1px solid #e2e8f0', paddingTop: '4rem' }}>
+            <Helmet>
+                {faqSchema && (
+                    <script type="application/ld+json">
+                        {JSON.stringify(faqSchema)}
+                    </script>
+                )}
+            </Helmet>
 
             {/* Province badge for rural pages */}
             {isRuralProvince && currentContent.intro && (

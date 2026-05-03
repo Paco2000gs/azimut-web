@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
 import SEO from '../components/SEO';
+import LeadMagnet from '../components/LeadMagnet';
 import { Compass, Shield, Key } from 'lucide-react';
 import '../styles/Home.css';
 
@@ -184,6 +185,8 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            <LeadMagnet />
         </div>
     );
 };

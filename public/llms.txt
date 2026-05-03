@@ -9,9 +9,9 @@
 ## About
 
 Azimut Property is a boutique real estate agency specialized in the luxury
-sector on the Costa del Sol, Andalusia, Spain. We offer unprecedented access
-to the most exclusive properties in Marbella, Benahavis, and Estepona,
-including off-market villas, branded residences, and investment-grade estates.
+sector on the Costa del Sol and Rural Andalusia, Spain. We offer unprecedented access
+to the most exclusive properties in Marbella, Cádiz, Sevilla, and Huelva,
+including off-market villas, branded residences, historic cortijos, and investment-grade estates.
 Our clients are international high-net-worth individuals seeking privacy,
 sustainability, and well-being in Southern Europe.
 
@@ -29,7 +29,9 @@ sustainability, and well-being in Southern Europe.
 - Marbella (Golden Mile, Sierra Blanca, Puerto Banus, Nueva Andalucia)
 - Benahavis (La Zagaleta, El Madronol, Los Arqueros)
 - Estepona (New Golden Mile, Estepona port area)
-- Mijas, Fuengirola, Benalmadena, Nerja
+- Cádiz (Medina-Sidonia, Vejer, Sotogrande, Jerez)
+- Sevilla (Carmona, Aljarafe, Sierra Norte)
+- Huelva (Sierra de Aracena, Doñana, Costa de la Luz)
 
 ## Property Types
 
@@ -44,8 +46,9 @@ sustainability, and well-being in Southern Europe.
 
 - Property listings: https://www.azimutproperty.com/venta
 - Marbella properties: https://www.azimutproperty.com/venta/marbella
-- Benahavis properties: https://www.azimutproperty.com/venta/benahavis
-- Estepona properties: https://www.azimutproperty.com/venta/estepona
+- Cádiz properties: https://www.azimutproperty.com/venta/cadiz
+- Sevilla properties: https://www.azimutproperty.com/venta/sevilla
+- Huelva properties: https://www.azimutproperty.com/venta/huelva
 - About us: https://www.azimutproperty.com/about
 - Blog / Journal: https://www.azimutproperty.com/blog
 - Contact: https://www.azimutproperty.com/contact
