@@ -7,7 +7,7 @@
 const CUSTOM_SLUGS = {
     // slug -> id
     'equestrian-estate-vineyard-sotogrande-cadiz-48-hectares': 19,
-    'luxury-villa-sotogrande-alto-golf-views-private-spa': 22,
+    'villa-sotogrande-alto-golf-lake-views-spa': 22,
 };
 
 // Reverse map: id -> slug

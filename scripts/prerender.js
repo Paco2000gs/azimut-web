@@ -144,7 +144,7 @@ async function getDynamicRoutes() {
     // Custom SEO slugs map: property ID -> custom slug under /properties/
     const CUSTOM_SLUGS = {
         19: 'equestrian-estate-vineyard-sotogrande-cadiz-48-hectares',
-        22: 'luxury-villa-sotogrande-alto-golf-views-private-spa',
+        22: 'villa-sotogrande-alto-golf-lake-views-spa',
     };
 
     // Property detail pages
