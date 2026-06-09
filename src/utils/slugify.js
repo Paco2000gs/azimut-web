@@ -1,10 +1,46 @@
 /**
- * Generates a SEO-friendly slug from a property object
- * Format: {type}-{city}-{id}
+ * Custom SEO slugs for properties.
+ * Maps: custom slug -> property ID, and property ID -> custom slug.
+ * When a property has a custom slug, it uses /properties/{custom-slug}
+ * instead of the default /property/{type}-{city}-{id} format.
+ */
+const CUSTOM_SLUGS = {
+    // slug -> id
+    'equestrian-estate-vineyard-sotogrande-cadiz-48-hectares': 19,
+};
+
+// Reverse map: id -> slug
+const ID_TO_CUSTOM_SLUG = Object.fromEntries(
+    Object.entries(CUSTOM_SLUGS).map(([slug, id]) => [id, slug])
+);
+
+/**
+ * Check if a slug is a custom SEO slug
+ */
+export const isCustomSlug = (slug) => slug in CUSTOM_SLUGS;
+
+/**
+ * Get property ID from a custom slug
+ */
+export const getIdFromCustomSlug = (slug) => CUSTOM_SLUGS[slug] || null;
+
+/**
+ * Get custom slug for a property ID (if one exists)
+ */
+export const getCustomSlugForId = (id) => ID_TO_CUSTOM_SLUG[id] || null;
+
+/**
+ * Generates a SEO-friendly slug from a property object.
+ * If the property has a custom slug, returns that instead.
+ * Format (default): {type}-{city}-{id}
  * Example: villa-marbella-11, penthouse-sotogrande-23
  */
 export const generatePropertySlug = (property) => {
     if (!property) return '';
+
+    // Check for custom slug first
+    const customSlug = getCustomSlugForId(property.id);
+    if (customSlug) return customSlug;
 
     const type = property.type || 'property';
     const city = property.city || 'location';
@@ -27,13 +63,29 @@ export const generatePropertySlug = (property) => {
 };
 
 /**
- * Extracts the property ID from a slug
+ * Generates the full path for a property (includes the base path).
+ * Custom slugs use /properties/, default slugs use /property/.
+ */
+export const generatePropertyPath = (property) => {
+    if (!property) return '';
+    const customSlug = getCustomSlugForId(property.id);
+    if (customSlug) return `/properties/${customSlug}`;
+    return `/property/${generatePropertySlug(property)}`;
+};
+
+/**
+ * Extracts the property ID from a slug (default or custom).
  * Example: "villa-marbella-11" -> 11
+ * Example: "equestrian-estate-vineyard-sotogrande-cadiz-48-hectares" -> 19
  */
 export const extractIdFromSlug = (slug) => {
     if (!slug) return null;
 
-    // The ID is always the last part after the last hyphen
+    // Check custom slugs first
+    const customId = getIdFromCustomSlug(slug);
+    if (customId !== null) return customId;
+
+    // Default: ID is the last part after the last hyphen
     const parts = slug.split('-');
     const id = parts[parts.length - 1];
 

@@ -10,7 +10,10 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
     const fullTitle = title 
         ? (title.includes('Azimut Property') ? title : `${title} | Azimut Property`) 
         : siteTitle;
-    const fullDescription = description || defaultDescription;
+    const rawDescription = description || defaultDescription;
+    const fullDescription = rawDescription.length > 320
+        ? rawDescription.substring(0, rawDescription.lastIndexOf(' ', 320)) + '...'
+        : rawDescription;
     const fullImage = image || defaultImage;
     const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
 

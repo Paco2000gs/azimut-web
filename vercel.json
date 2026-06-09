@@ -41,6 +41,11 @@
       "source": "/blog/7",
       "destination": "/blog/introduction-to-real-estate-marbella-sotogrande-house-land-andalusian-state-equestrian-estate-olive-grove-7",
       "permanent": true
+    },
+    {
+      "source": "/property/finca-jimena-de-la-frontera-19",
+      "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
+      "permanent": true
     }
   ],
   "headers": [

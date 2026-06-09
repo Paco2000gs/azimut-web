@@ -8,6 +8,7 @@ import SEO from '../components/SEO';
 import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
+import { generatePropertyPath } from '../utils/slugify';
 import LocationSEOContent from '../components/LocationSEOContent';
 import LeadMagnet from '../components/LeadMagnet';
 
@@ -200,7 +201,7 @@ const Catalog = () => {
             "itemListElement": filteredProperties.slice(0, 10).map((prop, idx) => ({
                 "@type": "ListItem",
                 "position": idx + 1,
-                "url": `https://www.azimutproperty.com/property/${(prop.type || 'property').toLowerCase().replace(/\s+/g, '-')}-${(prop.city || 'location').toLowerCase().replace(/\s+/g, '-')}-${prop.id}`,
+                "url": `https://www.azimutproperty.com${generatePropertyPath(prop)}`,
                 "name": prop.title
             }))
         };

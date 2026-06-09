@@ -187,6 +187,40 @@ Este pueblo-montaña ofrece privacidad, seguridad y vistas impresionantes al Med
 Con infraestructura mejorada y un bello casco histórico rehabilitado, Estepona es una de las zonas más emocionantes para invertir en la Costa del Sol.`
         },
 
+        'jimena-de-la-frontera': {
+            title: 'Comprar Finca Ecuestre y Propiedad Rural en Jimena de la Frontera',
+            intro: 'Jimena de la Frontera: el secreto mejor guardado del Campo de Gibraltar para fincas de lujo',
+            description: `Jimena de la Frontera, enclavada en el corazón del Parque Natural de los Alcornocales, es uno de los municipios más singulares de la provincia de Cádiz para la adquisición de fincas rurales y propiedades ecuestres de alto nivel. Su posición estratégica — a 30 minutos de Sotogrande, 45 minutos de Gibraltar y 90 minutos de Málaga — la convierte en un enclave de máxima privacidad con conectividad internacional.
+
+**¿Por qué comprar una finca en Jimena de la Frontera?**
+
+El término municipal de Jimena de la Frontera abarca más de 34.000 hectáreas de paisaje protegido, con alcornocales centenarios, ríos de aguas cristalinas y una biodiversidad excepcional. Las propiedades rurales en Jimena ofrecen parcelas de gran extensión — desde 10 hasta más de 500 hectáreas — a precios por hectárea significativamente inferiores a los de la Costa del Sol.
+
+- **Fincas ecuestres**: Jimena es referencia para la cría de caballos y la práctica del polo. Las fincas con campos de polo, cuadras profesionales y paddocks son muy demandadas por compradores internacionales, especialmente del Reino Unido, Escandinavia y Alemania.
+- **Proximidad a Sotogrande**: A menos de 30 minutos del resort de polo y golf más exclusivo de Europa, las fincas de Jimena ofrecen el entorno rural que Sotogrande no puede proporcionar, con acceso a sus servicios de élite.
+- **Parque Natural de los Alcornocales**: El mayor alcornocal de Europa ofrece un entorno paisajístico sin igual. Las fincas dentro o colindantes al parque natural son activos con protección legal que garantiza la preservación del entorno.
+- **Inversión con potencial**: El creciente interés de compradores internacionales por la España rural auténtica, combinado con la escasez de grandes fincas en venta, proyecta una revalorización sostenida.
+
+**Tipos de propiedades en Jimena de la Frontera**
+
+*Fincas ecuestres con campo de polo*: Las propiedades más exclusivas de la zona incluyen campos de polo reglamentarios, cuadras para 20+ caballos, pistas de entrenamiento y vivienda principal de lujo. Ideales para jinetes profesionales o como inversión en turismo ecuestre.
+
+*Cortijos de alcornocal*: Las fincas productivas de corcho en los Alcornocales generan ingresos recurrentes por la saca del corcho (cada 9 años) además de su valor patrimonial. El corcho de Jimena es de los más valorados del mundo.
+
+*Fincas ganaderas de dehesa*: La dehesa mediterránea de Jimena soporta ganadería extensiva de cerdo ibérico, vacuno retinto y caprino payoyo. Las fincas de dehesa son activos productivos con alta demanda.
+
+*Casas de campo rehabilitadas*: Las casas rurales de Jimena, rehabilitadas con materiales tradicionales y modernas comodidades, son ideales como segunda residencia o para turismo rural de lujo.
+
+En Azimut Property disponemos de una cartera exclusiva de fincas y propiedades rurales en Jimena de la Frontera. Nuestros especialistas en el Campo de Gibraltar le acompañarán en todo el proceso de adquisición.`,
+            cta: '¿Buscas una finca ecuestre o propiedad rural en Jimena de la Frontera? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta una finca en Jimena de la Frontera?', a: 'Las fincas en Jimena de la Frontera oscilan entre 500.000€ para propiedades de 10-20 hectáreas y más de 3.000.000€ para grandes fincas ecuestres con campo de polo e instalaciones profesionales. El precio por hectárea varía entre 5.000€ y 30.000€ según la ubicación y las infraestructuras.' },
+                { q: '¿Cuánto se tarda de Jimena de la Frontera a Sotogrande?', a: 'Jimena de la Frontera se encuentra a solo 25-30 minutos en coche de Sotogrande, lo que permite disfrutar de la privacidad rural con acceso rápido a los servicios de lujo, campos de golf y polo de la urbanización más exclusiva de Andalucía.' },
+                { q: '¿Es Jimena de la Frontera buena inversión para comprar finca?', a: 'Sí. Jimena ofrece precios por hectárea un 40-60% inferiores a zonas comparables de Málaga, con un entorno natural protegido por el Parque de los Alcornocales que garantiza la preservación del paisaje. La demanda creciente de compradores internacionales y la escasez de oferta proyectan una revalorización significativa.' },
+                { q: '¿Puede un extranjero comprar una finca en Jimena de la Frontera?', a: 'Sí, sin restricciones. Los compradores extranjeros, tanto de la UE como de terceros países, pueden adquirir libremente propiedades rurales en Jimena de la Frontera. Azimut Property gestiona el NIE, la due diligence urbanística y rural, y el cierre notarial para compradores internacionales.' }
+            ]
+        },
+
         'sotogrande': {
             title: 'Propiedades Exclusivas y Vida en la Marina de Sotogrande',
             description: `Sotogrande es un resort residencial de lujo de renombre mundial conocido por el polo, el golf (incluyendo Valderrama) y su bella marina.
@@ -211,7 +245,7 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
     if (!city) return null;
 
-    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga'].includes(city?.toLowerCase());
+    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera'].includes(city?.toLowerCase().replace(/\s+/g, '-'));
 
     // Generate FAQ Schema for Google/AI
     const faqSchema = currentContent.faqs ? {

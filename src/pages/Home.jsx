@@ -28,7 +28,7 @@ const Home = () => {
         "name": "Azimut Property",
         "description": "Boutique real estate agency specialized in luxury assets and rural estates across Andalusia. Specialists in Marbella, Cádiz, Sevilla, and Huelva.",
         "url": "https://www.azimutproperty.com/",
-        "telephone": "+34-600-000-000",
+        "email": "info@azimutproperty.com",
         "logo": {
             "@type": "ImageObject",
             "url": "https://www.azimutproperty.com/azimut-logo-gold.png"

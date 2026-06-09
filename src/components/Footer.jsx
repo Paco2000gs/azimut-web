@@ -51,6 +51,24 @@ const Footer = () => {
                     </div>
                 </div>
 
+                {/* Strategic Partner */}
+                <div className="footer-partner">
+                    <span className="partner-label">Socio Estratégico</span>
+                    <span className="partner-divider" aria-hidden="true"></span>
+                    <a
+                        href="https://www.dudley-estates.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="partner-link"
+                    >
+                        Dudley Estates
+                        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true" style={{ marginLeft: '6px', opacity: 0.5 }}>
+                            <path d="M3.5 1.5H10.5V8.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                            <path d="M10.5 1.5L1.5 10.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+
                 <div className="footer-bottom">
                     <div className="copyright">
                         &copy; {new Date().getFullYear()} Azimut Property. All rights reserved.

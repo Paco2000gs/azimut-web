@@ -58,6 +58,7 @@ function App() {
                 <Route path="venta/:city" element={<Catalog />} />
                 <Route path="venta/:city/:area" element={<Catalog />} />
                 <Route path="property/:id" element={<PropertyDetail />} />
+                <Route path="properties/:id" element={<PropertyDetail />} />
                 <Route path="about" element={<About />} />
                 <Route path="blog" element={<Blog />} />
                 <Route path="blog/:id" element={<BlogPost />} />

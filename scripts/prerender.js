@@ -141,6 +141,11 @@ async function getDynamicRoutes() {
     const supabase = createClient(supabaseUrl, supabaseKey);
     const routes = [];
 
+    // Custom SEO slugs map: property ID -> custom slug under /properties/
+    const CUSTOM_SLUGS = {
+        19: 'equestrian-estate-vineyard-sotogrande-cadiz-48-hectares',
+    };
+
     // Property detail pages
     try {
         const { data: properties, error } = await supabase
@@ -150,9 +155,14 @@ async function getDynamicRoutes() {
         if (error) throw error;
 
         properties.forEach(prop => {
-            const typeSlug = normalize(prop.type || 'property');
-            const citySlug = normalize(prop.city || 'location');
-            routes.push(`/property/${typeSlug}-${citySlug}-${prop.id}`);
+            // Use custom slug if available, otherwise default format
+            if (CUSTOM_SLUGS[prop.id]) {
+                routes.push(`/properties/${CUSTOM_SLUGS[prop.id]}`);
+            } else {
+                const typeSlug = normalize(prop.type || 'property');
+                const citySlug = normalize(prop.city || 'location');
+                routes.push(`/property/${typeSlug}-${citySlug}-${prop.id}`);
+            }
         });
 
         // Extra city pages from properties not in core list

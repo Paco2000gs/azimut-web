@@ -1,17 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Maximize } from 'lucide-react';
-import { generatePropertySlug } from '../utils/slugify';
+import { generatePropertyPath } from '../utils/slugify';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import '../styles/PropertyCard.css';
 
 const PropertyCard = ({ property }) => {
-    const slug = generatePropertySlug(property);
+    const propertyPath = generatePropertyPath(property);
     const imgUrl = property.image || property.property_media?.find(m => m.type === 'image')?.url || '';
     const altText = `${property.type} in ${property.city} — ${property.bedrooms} bed, ${Number(property.area).toLocaleString()} m²`;
 
     return (
-        <Link to={`/property/${slug}`} className="property-card">
+        <Link to={propertyPath} className="property-card">
             <div className="card-image">
                 <img
                     src={getOptimizedImageUrl(imgUrl, { width: 400, height: 300, resize: 'cover' })}

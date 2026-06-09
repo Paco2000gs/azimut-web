@@ -51,6 +51,50 @@
     padding-left: 5px;
 }
 
+/* Strategic Partner Bar */
+.footer-partner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    margin-bottom: 1.5rem;
+}
+
+.partner-label {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.partner-divider {
+    width: 24px;
+    height: 1px;
+    background: rgba(197, 160, 89, 0.25);
+}
+
+.partner-link {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    opacity: 0.7;
+}
+
+.partner-link:hover {
+    opacity: 1;
+    letter-spacing: 0.16em;
+}
+
 .footer-bottom {
     border-top: 1px solid rgba(255, 255, 255, 0.1);
     padding-top: 2rem;
