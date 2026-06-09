@@ -222,10 +222,24 @@ En Azimut Property disponemos de una cartera exclusiva de fincas y propiedades r
         },
 
         'sotogrande': {
-            title: 'Propiedades Exclusivas y Vida en la Marina de Sotogrande',
-            description: `Sotogrande es un resort residencial de lujo de renombre mundial conocido por el polo, el golf (incluyendo Valderrama) y su bella marina.
+            title: 'Propiedades Exclusivas en Sotogrande — Villas, Golf y Marina',
+            description: `Sotogrande es la urbanización residencial más exclusiva de Andalucía y uno de los enclaves de lujo más reconocidos del sur de Europa. Situado en el municipio de San Roque (Cádiz), entre el Mediterráneo y las montañas del Parque Natural de Los Alcornocales, Sotogrande combina un estilo de vida deportivo, cosmopolita y profundamente privado.
 
-Ofrece un estilo de vida caracterizado por el lujo discreto, la privacidad y una sólida comunidad internacional. Ideal para familias y amantes del deporte que buscan un entorno de alta calidad.`
+**Sotogrande Alto** es la zona residencial más prestigiosa, con villas independientes de gran parcela, vistas panorámicas al campo de golf de Valderrama y al lago, y acceso directo al International School of Sotogrande — uno de los colegios internacionales más valorados de España. Las propiedades en Sotogrande Alto combinan privacidad absoluta con proximidad a todos los servicios del resort.
+
+- **Golf de élite**: Valderrama (sede de la Ryder Cup 1997), Real Club de Golf Sotogrande, La Reserva, La Cañada y Almenara. Más de 5 campos de golf a menos de 10 minutos.
+- **Polo internacional**: El Santa María Polo Club acoge el torneo de polo más importante de Europa y atrae a jugadores de Argentina, Reino Unido y Oriente Medio cada verano.
+- **Marina y gastronomía**: El puerto deportivo de Sotogrande ofrece restaurantes de primer nivel, tiendas de diseño y amarres para embarcaciones de gran eslora.
+- **Conectividad**: A 25 minutos del aeropuerto de Gibraltar, 90 minutos de Málaga-Costa del Sol, y 30 minutos de las playas vírgenes de Tarifa y la Costa de la Luz.
+- **Comunidad internacional**: Sotogrande alberga una comunidad residente de familias británicas, escandinavas, alemanas y del Golfo Pérsico, creando un entorno multicultural con servicios de nivel internacional.
+
+El mercado inmobiliario de Sotogrande ofrece villas de alto standing desde €1M hasta €15M, con parcelas generosas (1.000-5.000 m²), jardines maduros, piscinas privadas y, en muchos casos, spa interior y vistas al golf. La demanda internacional se mantiene estable gracias a la combinación única de clima, deporte, educación y privacidad.`,
+            faqs: [
+                { q: '¿Cuánto cuesta una villa en Sotogrande Alto?', a: 'Las villas en Sotogrande Alto oscilan entre €1.200.000 y €8.000.000 dependiendo del tamaño, vistas y amenidades. Una villa de 5 dormitorios con piscina y vistas al golf se sitúa típicamente entre €1.500.000 y €3.000.000. Las propiedades con spa privado o parcelas superiores a 2.000 m² alcanzan precios más elevados.' },
+                { q: '¿Qué colegios internacionales hay en Sotogrande?', a: 'El International School of Sotogrande (ISS) es un colegio IB World School que ofrece educación desde infantil hasta bachillerato internacional en inglés. Es uno de los factores clave que atrae a familias internacionales a la zona. También hay acceso al colegio británico de San Roque y opciones en Gibraltar a 25 minutos.' },
+                { q: '¿Es Sotogrande buena inversión inmobiliaria?', a: 'Sí. Sotogrande ha demostrado ser una inversión resiliente con revalorización media del 4-6% anual en la última década. La demanda internacional estable, la oferta limitada de suelo urbanizable y la calidad del entorno deportivo y educativo sostienen los precios incluso en periodos de incertidumbre económica.' },
+                { q: '¿Puede un extranjero comprar propiedad en Sotogrande?', a: 'Sí, no hay restricciones para compradores extranjeros en España. Ciudadanos de la UE y no-UE pueden comprar libremente. Azimut Property gestiona todo el proceso: solicitud de NIE, due diligence, escritura notarial y asesoramiento fiscal.' }
+            ]
         },
 
         // Generic Fallback for other locations
@@ -245,7 +259,7 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
     if (!city) return null;
 
-    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera'].includes(city?.toLowerCase().replace(/\s+/g, '-'));
+    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande'].includes(city?.toLowerCase().replace(/\s+/g, '-'));
 
     // Generate FAQ Schema for Google/AI
     const faqSchema = currentContent.faqs ? {

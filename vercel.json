@@ -46,6 +46,11 @@
       "source": "/property/finca-jimena-de-la-frontera-19",
       "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
       "permanent": true
+    },
+    {
+      "source": "/property/villa-sotogrande-22",
+      "destination": "/properties/luxury-villa-sotogrande-alto-golf-spa-5bed",
+      "permanent": true
     }
   ],
   "headers": [
