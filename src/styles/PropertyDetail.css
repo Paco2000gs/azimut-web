@@ -4,9 +4,13 @@
     padding-bottom: 4rem;
 }
 
-.property-header-container {
-    padding-top: calc(var(--header-height) + 2rem);
-    padding-bottom: 1rem;
+.app-wrapper:has(.property-detail-page) .header {
+    background-color: var(--color-primary);
+}
+
+.property-detail-page .property-header-container {
+    padding-top: calc(var(--header-height) + 3rem);
+    padding-bottom: 2rem;
 }
 
 /* Header & Back Link */
