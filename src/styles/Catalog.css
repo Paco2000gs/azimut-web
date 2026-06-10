@@ -7,7 +7,7 @@
 /* Header Section */
 .catalog-header {
     background-color: #ffffff;
-    padding: 3rem 0;
+    padding: calc(var(--header-height) + 2rem) 0 3rem;
     text-align: center;
     /* Moving to left as per "parte superior izquierda" hint/alignment with logo */
     border-bottom: 1px solid #f0f0f0;
@@ -40,8 +40,8 @@
     border-bottom: 1px solid #e2e8f0;
     padding: 1.5rem 0;
     position: sticky;
-    top: 0;
-    /* Sticky header if needed, verify with header height */
+    top: var(--header-height);
+    /* Below fixed header */
     z-index: 10;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
 }
