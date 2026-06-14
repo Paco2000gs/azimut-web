@@ -12,6 +12,10 @@ import { generatePropertyPath } from '../utils/slugify';
 import LocationSEOContent from '../components/LocationSEOContent';
 import LeadMagnet from '../components/LeadMagnet';
 
+// Slugify a city name to match URL params (e.g., "Jimena de la Frontera" -> "jimena-de-la-frontera")
+const slugifyCity = (s) => s.toLowerCase().normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
 const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();
     const [searchParams] = useSearchParams();
@@ -36,8 +40,21 @@ const Catalog = () => {
         'cuenca': 'Cuenca',
     };
 
+    // Reverse lookup: city slug -> its real province. Without this, city pages
+    // defaulted to 'Málaga' and the province filter hid every non-Málaga listing
+    // (Jimena, Sotogrande, Sanlúcar, Constantina, Olivenza, Almonte...).
+    const CITY_TO_PROVINCE = useMemo(() => {
+        const map = {};
+        for (const [prov, cities] of Object.entries(CITIES)) {
+            for (const c of cities) map[slugifyCity(c)] = prov;
+        }
+        return map;
+    }, []);
+
     const isProvincePage = urlCity ? !!PROVINCE_SLUGS[urlCity.toLowerCase()] : false;
-    const detectedProvince = urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || 'Málaga') : '';
+    const detectedProvince = urlCity
+        ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || CITY_TO_PROVINCE[slugifyCity(urlCity)] || '')
+        : '';
 
     // Filter states - Priority to URL parameters for Silo Architecture
     const [province, setProvince] = useState(urlCity ? detectedProvince : (searchParams.get('province') || ''));

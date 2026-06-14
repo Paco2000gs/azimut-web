@@ -3,7 +3,7 @@ import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import SEO from '../components/SEO';
-import { MapPin, Bed, Bath, Maximize, Home, Check, ArrowLeft, Phone, Mail, Grid, FileText, X } from 'lucide-react';
+import { MapPin, Bed, Bath, Maximize, Home, Check, ArrowLeft, Mail, Grid, FileText, X } from 'lucide-react';
 import '../styles/Home.css'; // Reusing global styles
 import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
@@ -456,26 +456,24 @@ const PropertyDetail = () => {
                         
                         {/* QUICK CONTACT BUTTONS */}
                         <div className="quick-contact-actions" style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                            <a 
-                                href={`https://wa.me/34600000000?text=Hola,%20estoy%20interesado%20en%20la%20propiedad:%20${encodeURIComponent(property.title)}`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="whatsapp-btn"
-                                style={{ 
-                                    display: 'flex', 
-                                    alignItems: 'center', 
-                                    justifyContent: 'center', 
-                                    gap: '0.5rem', 
-                                    background: '#25D366', 
-                                    color: '#fff', 
-                                    padding: '0.75rem', 
-                                    borderRadius: '0.5rem', 
-                                    fontWeight: '600', 
+                            <a
+                                href={`mailto:info@azimutproperty.com?subject=${encodeURIComponent('Interés en la propiedad: ' + property.title)}`}
+                                className="email-contact-btn"
+                                style={{
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    gap: '0.5rem',
+                                    background: '#1A1A1A',
+                                    color: '#fff',
+                                    padding: '0.75rem',
+                                    borderRadius: '0.5rem',
+                                    fontWeight: '600',
                                     textDecoration: 'none',
                                     transition: 'opacity 0.2s'
                                 }}
                             >
-                                <Phone size={18} /> Contactar por WhatsApp
+                                <Mail size={18} /> Contactar por email
                             </a>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useProperties } from '../context/PropertiesContext';
-import { MapPin, Bed, Bath, Maximize, Printer, Phone, Mail, Globe } from 'lucide-react'; // Import icons
+import { MapPin, Bed, Bath, Maximize, Printer, Mail, Globe } from 'lucide-react'; // Import icons
 // import { getOptimizedImageUrl } from '../utils/imageOptimizer'; // Keep consistent if available
 import '../styles/DossierView.css';
 
@@ -68,7 +68,6 @@ const DossierView = () => {
                         <img src="/assets/azimut-logos.png" alt="Azimut Real Estate" className="logo-img" />
                     </div>
                     <div className="contact-info">
-                        <div className="contact-item"><Phone size={14} /> +34 999 999 999</div>
                         <div className="contact-item"><Mail size={14} /> info@azimutproperty.com</div>
                         <div className="contact-item"><Globe size={14} /> www.azimutproperty.com</div>
                     </div>
