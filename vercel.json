@@ -8,6 +8,16 @@
       "permanent": true
     },
     {
+      "source": "/en",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/en/:path*",
+      "destination": "/:path*",
+      "permanent": true
+    },
+    {
       "source": "/blog/1",
       "destination": "/blog/inmobiliaria-azimut-en-andalucia-cadiz-malaga-y-sevilla-1",
       "permanent": true

@@ -17,9 +17,6 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
     const fullImage = image || defaultImage;
     const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
 
-    // Build the English URL equivalent for hreflang
-    const enUrl = url ? `${siteUrl}/en${url === '/' ? '' : url}` : `${siteUrl}/en`;
-
     const ogLocale = lang === 'en' ? 'en_GB' : 'es_ES';
 
     return (
@@ -34,9 +31,10 @@ const SEO = ({ title, description, image, url, type = 'website', noindex = false
             {noindex && <meta name="robots" content="noindex, nofollow" />}
             {keywords && <meta name="keywords" content={keywords} />}
 
-            {/* Hreflang tags for multilingual SEO */}
+            {/* Hreflang: site has a single (Spanish) URL version. Do NOT point
+                hreflang="en" at /en/* — those routes don't exist and Google was
+                indexing them as noindex 404s. Re-add when a real /en/ exists. */}
             <link rel="alternate" hreflang="es" href={fullUrl} />
-            <link rel="alternate" hreflang="en" href={enUrl} />
             <link rel="alternate" hreflang="x-default" href={fullUrl} />
 
             {/* Open Graph / Facebook */}
