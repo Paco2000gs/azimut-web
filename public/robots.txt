@@ -3,6 +3,8 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/login
 Disallow: /dossier/
+Disallow: /en/
+Disallow: /en$
 
 # AI Search Crawlers — explicitly allowed for AI search visibility
 User-agent: GPTBot

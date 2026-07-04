@@ -61,6 +61,21 @@
       "source": "/property/villa-sotogrande-22",
       "destination": "/properties/villa-sotogrande-alto-golf-lake-views-spa",
       "permanent": true
+    },
+    {
+      "source": "/properties/:id(\\d+)",
+      "destination": "/venta",
+      "permanent": false
+    },
+    {
+      "source": "/property/:id(\\d+)",
+      "destination": "/venta",
+      "permanent": false
+    },
+    {
+      "source": "/blog/hidden-gems-vistahermosa-costa-ballena",
+      "destination": "/blog",
+      "permanent": true
     }
   ],
   "headers": [
@@ -70,6 +85,15 @@
         {
           "key": "Cache-Control",
           "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/en/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
         }
       ]
     },
