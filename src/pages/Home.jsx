@@ -149,7 +149,7 @@ const Home = () => {
                     )}
 
                     <div className="view-all-container">
-                        <Link to="/catalog" className="btn btn-gold">VIEW ALL PROPERTIES</Link>
+                        <Link to="/venta" className="btn btn-gold">VIEW ALL PROPERTIES</Link>
                     </div>
                 </div>
             </section>

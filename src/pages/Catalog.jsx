@@ -70,8 +70,15 @@ const Catalog = () => {
             setCity(isProvincePage ? '' : formatSlug(urlCity));
         }
         if (urlArea) {
-            // Check if urlArea is a property type (e.g., /venta/cadiz/finca)
-            const typeMatch = PROPERTY_TYPES.find(t => t.toLowerCase().replace(/\s+/g, '-') === urlArea.toLowerCase());
+            // Check if urlArea is a property type (e.g., /venta/cadiz/finca).
+            // Accept both singular and plural slugs so sitemap URLs like
+            // /venta/cadiz/fincas, /venta/malaga/villas, /venta/sevilla/mansions
+            // filter correctly instead of serving an unfiltered (duplicate) page.
+            const areaSlug = urlArea.toLowerCase();
+            const typeMatch = PROPERTY_TYPES.find(t => {
+                const s = t.toLowerCase().replace(/\s+/g, '-');
+                return s === areaSlug || `${s}s` === areaSlug;
+            });
             if (typeMatch) {
                 setType(typeMatch);
             }

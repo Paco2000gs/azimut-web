@@ -3,6 +3,7 @@ import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
 import path from 'path';
 import 'dotenv/config';
+import { generatePropertyPath } from '../src/utils/slugify.js';
 
 const supabaseUrl = process.env.VITE_SUPABASE_URL;
 const supabaseAnonKey = process.env.VITE_SUPABASE_ANON_KEY;
@@ -77,17 +78,37 @@ async function generateSitemap() {
 
             console.log(`Found ${properties.length} properties.`);
 
+            const typeSilos = new Set();
             properties.forEach(property => {
                 const typeSlug = normalize(property.type || 'property');
                 const citySlug = normalize(property.city || 'location');
-                const slug = `${typeSlug}-${citySlug}-${property.id}`;
 
+                // Use the canonical path (respects custom /properties/ slugs) so
+                // sitemap URLs never diverge from each page's canonical tag.
                 sitemap += `
   <url>
-    <loc>${baseUrl}/property/${slug}</loc>
+    <loc>${baseUrl}${generatePropertyPath(property)}</loc>
     <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod>
   </url>`;
+
+                // Collect city+type combos that actually have listings, so the
+                // silo pages (/venta/{city}/{type}) are never thin/empty. These
+                // match the singular type slugs the Catalog filter expects.
+                if (property.city && property.type) {
+                    typeSilos.add(`${citySlug}|${typeSlug}`);
+                }
             });
+
+            // Emit one silo URL per real city+type combination.
+            typeSilos.forEach(combo => {
+                const [citySlug, typeSlug] = combo.split('|');
+                sitemap += `
+  <url>
+    <loc>${baseUrl}/venta/${citySlug}/${typeSlug}</loc>
+    <lastmod>${today}</lastmod>
+  </url>`;
+            });
+            console.log(`Added ${typeSilos.size} city+type silo pages to sitemap.`);
         } catch (err) {
             console.error('Error fetching properties for sitemap:', err);
         }

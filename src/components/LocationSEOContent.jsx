@@ -255,11 +255,17 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
         }
     };
 
-    const currentContent = content[city?.toLowerCase().replace(/\s+/g, '-')] || content['default'];
+    // Slugify city for URLs so multi-word cities (e.g. "Jimena de la Frontera")
+    // produce valid links like /venta/jimena-de-la-frontera/finca instead of a
+    // broken URL containing spaces and accents.
+    const citySlug = city?.toLowerCase().normalize('NFD')
+        .replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+
+    const currentContent = content[citySlug] || content['default'];
 
     if (!city) return null;
 
-    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande'].includes(city?.toLowerCase().replace(/\s+/g, '-'));
+    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande'].includes(citySlug);
 
     // Generate FAQ Schema for Google/AI
     const faqSchema = currentContent.faqs ? {
@@ -312,13 +318,13 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
             {/* Internal Silo Links */}
             <div className="silo-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
-                <a href={`/venta/${city?.toLowerCase()}/finca`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                <a href={`/venta/${citySlug}/finca`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
                     Fincas en {city}
                 </a>
-                <a href={`/venta/${city?.toLowerCase()}/plot`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                <a href={`/venta/${citySlug}/plot`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
                     Terrenos en {city}
                 </a>
-                <a href={`/venta/${city?.toLowerCase()}/villa`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                <a href={`/venta/${citySlug}/villa`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
                     Villas en {city}
                 </a>
             </div>
