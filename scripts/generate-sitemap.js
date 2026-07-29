@@ -72,7 +72,7 @@ async function generateSitemap() {
         try {
             const { data: properties, error } = await supabase
                 .from('properties')
-                .select('id, type, city, created_at');
+                .select('id, type, city, province, created_at');
 
             if (error) throw error;
 
@@ -91,11 +91,14 @@ async function generateSitemap() {
     <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod>
   </url>`;
 
-                // Collect city+type combos that actually have listings, so the
-                // silo pages (/venta/{city}/{type}) are never thin/empty. These
-                // match the singular type slugs the Catalog filter expects.
-                if (property.city && property.type) {
-                    typeSilos.add(`${citySlug}|${typeSlug}`);
+                // Collect city+type AND province+type combos that actually have
+                // listings, so silo pages (/venta/{city|province}/{type}) are
+                // never thin/empty. Province+type covers the silo links rendered
+                // on province landing pages; city+type covers town pages. Singular
+                // type slugs match the Catalog filter.
+                if (property.type) {
+                    if (property.city) typeSilos.add(`${citySlug}|${typeSlug}`);
+                    if (property.province) typeSilos.add(`${normalize(property.province)}|${typeSlug}`);
                 }
             });
 

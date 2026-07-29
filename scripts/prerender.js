@@ -152,7 +152,7 @@ async function getDynamicRoutes() {
     try {
         const { data: properties, error } = await supabase
             .from('properties')
-            .select('id, type, city');
+            .select('id, type, city, province');
 
         if (error) throw error;
 
@@ -183,9 +183,10 @@ async function getDynamicRoutes() {
         // canonical (which would make Google treat them as duplicates of home).
         const typeSilos = new Set();
         properties.forEach(p => {
-            if (p.city && p.type) {
-                typeSilos.add(`${normalize(p.city)}/${normalize(p.type)}`);
-            }
+            if (!p.type) return;
+            const t = normalize(p.type);
+            if (p.city) typeSilos.add(`${normalize(p.city)}/${t}`);
+            if (p.province) typeSilos.add(`${normalize(p.province)}/${t}`);
         });
         typeSilos.forEach(combo => routes.push(`/venta/${combo}`));
 
