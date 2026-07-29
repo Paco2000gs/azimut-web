@@ -50,6 +50,7 @@ const CORE_LOCATION_ROUTES = [
     '/venta/cadiz',
     '/venta/huelva',
     '/venta/sevilla',
+    '/venta/malaga',
 ];
 
 const normalize = (str) =>
@@ -176,7 +177,19 @@ async function getDynamicRoutes() {
             }
         });
 
-        console.log(`  Found ${properties.length} properties`);
+        // Type-silo pages (/venta/{city}/{type}) for each city+type combo that
+        // has listings — MUST match the sitemap's silo URLs so those pages ship
+        // with a correct per-page canonical instead of falling back to the home
+        // canonical (which would make Google treat them as duplicates of home).
+        const typeSilos = new Set();
+        properties.forEach(p => {
+            if (p.city && p.type) {
+                typeSilos.add(`${normalize(p.city)}/${normalize(p.type)}`);
+            }
+        });
+        typeSilos.forEach(combo => routes.push(`/venta/${combo}`));
+
+        console.log(`  Found ${properties.length} properties, ${typeSilos.size} type-silo pages`);
     } catch (err) {
         console.error('  Error fetching properties:', err.message);
     }
