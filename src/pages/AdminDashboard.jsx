@@ -4,7 +4,7 @@ import { useProperties } from '../context/PropertiesContext';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, Phone, Mail, Filter, LogOut, Plus, Home, Users, MapPin, Loader, Upload, X, Image as ImageIcon, FileText, Video, Edit, Star, BookOpen, Calendar, Eye } from 'lucide-react';
+import { Trash2, Phone, Mail, Filter, LogOut, Plus, Home, Users, MapPin, Loader, Upload, X, Image as ImageIcon, FileText, Video, Edit, Star, BookOpen, Calendar, Eye, Download } from 'lucide-react';
 import { geocodeAddress } from '../utils/geocoding';
 import { uploadFile } from '../utils/storage';
 import { PROVINCES, CITIES, PROPERTY_TYPES, PROPERTY_FEATURES } from '../constants/propertyOptions';
@@ -138,6 +138,26 @@ const AdminDashboard = () => {
             }));
         } else {
             alert('Error eliminando archivo: ' + result.error);
+        }
+    };
+
+    const handleDownloadMedia = async (url, filename) => {
+        try {
+            const res = await fetch(url);
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+            const blob = await res.blob();
+            const blobUrl = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = blobUrl;
+            a.download = filename || 'video.mp4';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+            console.error('Error downloading file:', error);
+            // Fallback: open in a new tab so the user can save manually
+            window.open(url, '_blank');
         }
     };
 
@@ -751,6 +771,31 @@ const AdminDashboard = () => {
                                                                 <button type="button" onClick={() => handleDeleteMedia(media.id, 'plans')} style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer' }}>
                                                                     <X size={14} />
                                                                 </button>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {/* Videos */}
+                                            {existingMedia.videos.length > 0 && (
+                                                <div style={{ marginBottom: '1rem' }}>
+                                                    <p style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '0.5rem' }}>Videos guardados:</p>
+                                                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                                                        {existingMedia.videos.map(media => (
+                                                            <div key={media.id} style={{ background: '#f1f5f9', padding: '0.5rem', borderRadius: '6px', width: '180px' }}>
+                                                                <video src={media.url} controls preload="metadata" style={{ width: '100%', height: '100px', objectFit: 'cover', borderRadius: '4px', background: '#000' }} />
+                                                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.3rem', marginTop: '0.4rem' }}>
+                                                                    <span style={{ fontSize: '0.75rem', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{media.title || 'Video'}</span>
+                                                                    <button type="button" onClick={() => handleDownloadMedia(media.url, media.title)} title="Descargar video"
+                                                                        style={{ color: '#3b82f6', background: 'none', border: 'none', cursor: 'pointer', display: 'flex' }}>
+                                                                        <Download size={16} />
+                                                                    </button>
+                                                                    <button type="button" onClick={() => handleDeleteMedia(media.id, 'videos')} title="Quitar video"
+                                                                        style={{ color: 'red', background: 'none', border: 'none', cursor: 'pointer', display: 'flex' }}>
+                                                                        <X size={16} />
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         ))}
                                                     </div>
