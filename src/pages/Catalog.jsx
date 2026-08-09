@@ -178,19 +178,27 @@ const Catalog = () => {
     // self-referencing. Distinct subsets (a city with several types) keep self-canonical.
     const canonicalPath = useMemo(() => {
         const selfPath = urlCity ? `/venta/${urlCity}${urlArea ? `/${urlArea}` : ''}` : '/venta';
-        if (!urlCity || !urlArea || !type || loading || !properties?.length) return selfPath;
-        const inScope = (p) => {
-            const matchProvince = province ? p.province === province : true;
-            const matchCity = city ? p.city?.toLowerCase() === city?.toLowerCase() : true;
-            return matchProvince && matchCity;
+        if (!urlCity || !urlArea || loading || !properties?.length) return selfPath;
+        // Compare on slugs (accent-insensitive) and derive scope from the URL, not
+        // from the `type`/`city` UI state — those are set asynchronously in an
+        // effect and may not be populated yet at prerender-capture time, which
+        // would silently fall back to a self-canonical.
+        const wanted = slugifyCity(urlCity);
+        const areaSlug = urlArea.toLowerCase();
+        const inScope = (p) => isProvincePage
+            ? slugifyCity(p.province || '') === wanted
+            : slugifyCity(p.city || '') === wanted;
+        const matchesType = (p) => {
+            const s = (p.type || '').toLowerCase().replace(/\s+/g, '-');
+            return s === areaSlug || `${s}s` === areaSlug;
         };
         const cityScoped = properties.filter(inScope);
-        const typeScoped = cityScoped.filter(p => p.type?.toLowerCase() === type.toLowerCase());
+        const typeScoped = cityScoped.filter(matchesType);
         if (cityScoped.length > 0 && cityScoped.length === typeScoped.length) {
             return `/venta/${urlCity}`;
         }
         return selfPath;
-    }, [urlCity, urlArea, type, province, city, properties, loading]);
+    }, [urlCity, urlArea, isProvincePage, properties, loading]);
 
     // Dynamic SEO data
     const seoTitle = useMemo(() => {
