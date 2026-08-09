@@ -78,7 +78,13 @@ async function generateSitemap() {
 
             console.log(`Found ${properties.length} properties.`);
 
-            const typeSilos = new Set();
+            // Track which distinct types each parent (city or province) has, so we
+            // can tell a MEANINGFUL filter page apart from a duplicate one.
+            const parentTypes = {}; // parentSlug -> Set(typeSlug)
+            const addParentType = (parentSlug, typeSlug) => {
+                (parentTypes[parentSlug] ||= new Set()).add(typeSlug);
+            };
+
             properties.forEach(property => {
                 const typeSlug = normalize(property.type || 'property');
                 const citySlug = normalize(property.city || 'location');
@@ -91,27 +97,31 @@ async function generateSitemap() {
     <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod>
   </url>`;
 
-                // Collect city+type AND province+type combos that actually have
-                // listings, so silo pages (/venta/{city|province}/{type}) are
-                // never thin/empty. Province+type covers the silo links rendered
-                // on province landing pages; city+type covers town pages. Singular
-                // type slugs match the Catalog filter.
                 if (property.type) {
-                    if (property.city) typeSilos.add(`${citySlug}|${typeSlug}`);
-                    if (property.province) typeSilos.add(`${normalize(property.province)}|${typeSlug}`);
+                    if (property.city) addParentType(citySlug, typeSlug);
+                    if (property.province) addParentType(normalize(property.province), typeSlug);
                 }
             });
 
-            // Emit one silo URL per real city+type combination.
-            typeSilos.forEach(combo => {
-                const [citySlug, typeSlug] = combo.split('|');
-                sitemap += `
+            // Emit a /venta/{parent}/{type} silo URL ONLY when the parent has 2+
+            // distinct types. A single-type parent (e.g. Ronda has only villas)
+            // produces a filter page whose listing is identical to the parent city
+            // page — a duplicate. Those pages still render (with a canonical pointing
+            // to the parent, see Catalog.jsx) but must NOT be advertised in the
+            // sitemap, otherwise we'd be submitting non-canonical URLs to Google.
+            let siloCount = 0;
+            Object.entries(parentTypes).forEach(([parentSlug, types]) => {
+                if (types.size < 2) return;
+                types.forEach(typeSlug => {
+                    sitemap += `
   <url>
-    <loc>${baseUrl}/venta/${citySlug}/${typeSlug}</loc>
+    <loc>${baseUrl}/venta/${parentSlug}/${typeSlug}</loc>
     <lastmod>${today}</lastmod>
   </url>`;
+                    siloCount++;
+                });
             });
-            console.log(`Added ${typeSilos.size} city+type silo pages to sitemap.`);
+            console.log(`Added ${siloCount} city+type silo pages to sitemap (multi-type parents only).`);
         } catch (err) {
             console.error('Error fetching properties for sitemap:', err);
         }

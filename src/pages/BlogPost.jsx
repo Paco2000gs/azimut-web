@@ -47,7 +47,7 @@ const BlogPost = () => {
     if (!post) {
         return (
             <div className="page blog-post-page">
-                <SEO title="Article Not Found" />
+                <SEO title="Article Not Found" noindex={true} />
                 <div className="container" style={{ textAlign: 'center', padding: '100px 0' }}>
                     <h2>Article not found</h2>
                     <Link to="/blog" className="btn">Return to Journal</Link>

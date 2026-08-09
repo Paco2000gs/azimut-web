@@ -3,7 +3,12 @@
   "redirects": [
     {
       "source": "/:path(.*)",
-      "has": [{ "type": "host", "value": "azimutproperty.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "azimutproperty.com"
+        }
+      ],
       "destination": "https://www.azimutproperty.com/:path",
       "permanent": true
     },
@@ -15,6 +20,166 @@
     {
       "source": "/en/:path*",
       "destination": "/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/catalog",
+      "destination": "/venta",
+      "permanent": true
+    },
+    {
+      "source": "/property/finca-jimena-de-la-frontera-19",
+      "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
+      "permanent": true
+    },
+    {
+      "source": "/property/villa-sotogrande-22",
+      "destination": "/properties/villa-sotogrande-alto-golf-lake-views-spa",
+      "permanent": true
+    },
+    {
+      "source": "/blog/introduction-to-real-estate-marbella-sotogrande-house-land-andalusian-state-equestrian-estate-olive-grove-7",
+      "destination": "/blog/marbella-sotogrande-y-finca-andaluza-guia-para-el-comprador-internacional-de-lujo-7",
+      "permanent": true
+    },
+    {
+      "source": "/property/7",
+      "destination": "/property/villa-ronda-7",
+      "permanent": true
+    },
+    {
+      "source": "/properties/7",
+      "destination": "/property/villa-ronda-7",
+      "permanent": true
+    },
+    {
+      "source": "/property/6",
+      "destination": "/property/finca-olivenza-6",
+      "permanent": true
+    },
+    {
+      "source": "/properties/6",
+      "destination": "/property/finca-olivenza-6",
+      "permanent": true
+    },
+    {
+      "source": "/property/5",
+      "destination": "/property/finca-constantina-5",
+      "permanent": true
+    },
+    {
+      "source": "/properties/5",
+      "destination": "/property/finca-constantina-5",
+      "permanent": true
+    },
+    {
+      "source": "/property/8",
+      "destination": "/property/finca-jimena-de-la-frontera-8",
+      "permanent": true
+    },
+    {
+      "source": "/properties/8",
+      "destination": "/property/finca-jimena-de-la-frontera-8",
+      "permanent": true
+    },
+    {
+      "source": "/property/13",
+      "destination": "/property/finca-gaucin-13",
+      "permanent": true
+    },
+    {
+      "source": "/properties/13",
+      "destination": "/property/finca-gaucin-13",
+      "permanent": true
+    },
+    {
+      "source": "/property/9",
+      "destination": "/property/mansion-estepa-9",
+      "permanent": true
+    },
+    {
+      "source": "/properties/9",
+      "destination": "/property/mansion-estepa-9",
+      "permanent": true
+    },
+    {
+      "source": "/property/14",
+      "destination": "/property/finca-marchena-14",
+      "permanent": true
+    },
+    {
+      "source": "/properties/14",
+      "destination": "/property/finca-marchena-14",
+      "permanent": true
+    },
+    {
+      "source": "/property/15",
+      "destination": "/property/finca-jimena-de-la-frontera-15",
+      "permanent": true
+    },
+    {
+      "source": "/properties/15",
+      "destination": "/property/finca-jimena-de-la-frontera-15",
+      "permanent": true
+    },
+    {
+      "source": "/property/17",
+      "destination": "/property/finca-sanlucar-de-barrameda-17",
+      "permanent": true
+    },
+    {
+      "source": "/properties/17",
+      "destination": "/property/finca-sanlucar-de-barrameda-17",
+      "permanent": true
+    },
+    {
+      "source": "/property/18",
+      "destination": "/property/finca-san-roque-18",
+      "permanent": true
+    },
+    {
+      "source": "/properties/18",
+      "destination": "/property/finca-san-roque-18",
+      "permanent": true
+    },
+    {
+      "source": "/property/16",
+      "destination": "/property/villa-cuenca-16",
+      "permanent": true
+    },
+    {
+      "source": "/properties/16",
+      "destination": "/property/villa-cuenca-16",
+      "permanent": true
+    },
+    {
+      "source": "/property/12",
+      "destination": "/property/finca-almonte-12",
+      "permanent": true
+    },
+    {
+      "source": "/properties/12",
+      "destination": "/property/finca-almonte-12",
+      "permanent": true
+    },
+    {
+      "source": "/property/11",
+      "destination": "/property/finca-jimena-de-la-frontera-11",
+      "permanent": true
+    },
+    {
+      "source": "/properties/11",
+      "destination": "/property/finca-jimena-de-la-frontera-11",
+      "permanent": true
+    },
+    {
+      "source": "/property/23",
+      "destination": "/property/finca-cartama-23",
+      "permanent": true
+    },
+    {
+      "source": "/properties/23",
+      "destination": "/property/finca-cartama-23",
       "permanent": true
     },
     {
@@ -49,32 +214,62 @@
     },
     {
       "source": "/blog/7",
-      "destination": "/blog/introduction-to-real-estate-marbella-sotogrande-house-land-andalusian-state-equestrian-estate-olive-grove-7",
+      "destination": "/blog/marbella-sotogrande-y-finca-andaluza-guia-para-el-comprador-internacional-de-lujo-7",
       "permanent": true
     },
     {
-      "source": "/property/finca-jimena-de-la-frontera-19",
+      "source": "/blog/9",
+      "destination": "/blog/invertir-en-el-marco-de-jerez-el-valor-estrategico-de-las-fincas-de-menos-de-10-hectareas-9",
+      "permanent": true
+    },
+    {
+      "source": "/blog/8",
+      "destination": "/blog/inversion-en-sotogrande-por-que-el-suelo-rustico-en-cadiz-sigue-revalorizandose-en-2026-8",
+      "permanent": true
+    },
+    {
+      "source": "/blog/12",
+      "destination": "/blog/finca-con-rio-o-agua-permanente-en-andalucia-por-que-vale-un-40-mas-y-como-encontrarla-12",
+      "permanent": true
+    },
+    {
+      "source": "/blog/11",
+      "destination": "/blog/cortijo-andaluz-en-venta-que-valorar-que-evitar-y-como-negociar-en-2026-11",
+      "permanent": true
+    },
+    {
+      "source": "/blog/10",
+      "destination": "/blog/como-comprar-una-finca-rustica-en-cadiz-guia-completa-para-el-comprador-internacional-10",
+      "permanent": true
+    },
+    {
+      "source": "/blog/13",
+      "destination": "/blog/el-mercado-inmobiliario-en-la-provincia-de-cadiz-en-2026-precios-en-maximos-demanda-desbordada-y-cinco-municipios-en-el-foco-nacional-13",
+      "permanent": true
+    },
+    {
+      "source": "/blog/14",
+      "destination": "/blog/why-investors-are-buying-in-jimena-de-la-frontera-in-2026-14",
+      "permanent": true
+    },
+    {
+      "source": "/property/19",
       "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
       "permanent": true
     },
     {
-      "source": "/property/villa-sotogrande-22",
+      "source": "/properties/19",
+      "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
+      "permanent": true
+    },
+    {
+      "source": "/property/22",
       "destination": "/properties/villa-sotogrande-alto-golf-lake-views-spa",
       "permanent": true
     },
     {
-      "source": "/properties/:id(\\d+)",
-      "destination": "/venta",
-      "permanent": false
-    },
-    {
-      "source": "/property/:id(\\d+)",
-      "destination": "/venta",
-      "permanent": false
-    },
-    {
-      "source": "/blog/hidden-gems-vistahermosa-costa-ballena",
-      "destination": "/blog",
+      "source": "/properties/22",
+      "destination": "/properties/villa-sotogrande-alto-golf-lake-views-spa",
       "permanent": true
     }
   ],
@@ -121,7 +316,15 @@
   ],
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/admin",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/dossier/:path*",
       "destination": "/index.html"
     }
   ]

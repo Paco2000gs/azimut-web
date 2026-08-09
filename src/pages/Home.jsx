@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
+import { useBlog } from '../context/BlogContext';
+import { generateBlogSlug } from '../utils/slugify';
 import PropertyCard from '../components/PropertyCard';
 import SEO from '../components/SEO';
 import LeadMagnet from '../components/LeadMagnet';
@@ -10,8 +12,13 @@ import '../styles/Home.css';
 
 const Home = () => {
     const { properties, loading } = useProperties();
+    const { posts } = useBlog();
     // Get 3 properties for the featured section
     const featuredProperties = properties.slice(0, 3);
+    // Latest journal articles — surfaces internal links to blog posts from the
+    // home page so Google can discover and crawl them (they were previously only
+    // linked from /blog).
+    const latestPosts = (posts || []).slice(0, 3);
 
     // Scroll to top on mount
     useEffect(() => {
@@ -185,6 +192,47 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* From the Journal — internal links to latest blog articles */}
+            {latestPosts.length > 0 && (
+                <section className="section journal-preview-section">
+                    <div className="container">
+                        <div className="section-header decorative-header">
+                            <h2>FROM THE JOURNAL</h2>
+                        </div>
+                        <div className="featured-grid">
+                            {latestPosts.map(post => (
+                                <Link
+                                    key={post.id}
+                                    to={`/blog/${generateBlogSlug(post)}`}
+                                    className="journal-card"
+                                    style={{ textDecoration: 'none', color: 'inherit', display: 'block', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', background: '#fff' }}
+                                >
+                                    {post.image && (
+                                        <img
+                                            src={post.image}
+                                            alt={post.title}
+                                            loading="lazy"
+                                            style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+                                        />
+                                    )}
+                                    <div style={{ padding: '1.25rem' }}>
+                                        <h3 style={{ fontSize: '1.125rem', margin: '0 0 0.5rem', color: '#1e293b', lineHeight: 1.4 }}>{post.title}</h3>
+                                        {post.excerpt && (
+                                            <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0, lineHeight: 1.6 }}>
+                                                {post.excerpt.length > 120 ? post.excerpt.substring(0, 120) + '…' : post.excerpt}
+                                            </p>
+                                        )}
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                        <div className="view-all-container">
+                            <Link to="/blog" className="btn btn-gold">READ THE JOURNAL</Link>
+                        </div>
+                    </div>
+                </section>
+            )}
 
             <LeadMagnet />
         </div>

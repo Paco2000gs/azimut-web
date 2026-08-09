@@ -81,8 +81,9 @@ const PropertyDetail = () => {
     if (!property) {
         return (
             <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
+                <SEO title="Property Not Found" noindex={true} />
                 <h2>Property not found</h2>
-                <Link to="/catalog" className="btn">Back to listing</Link>
+                <Link to="/venta" className="btn">Back to listing</Link>
             </div>
         );
     }

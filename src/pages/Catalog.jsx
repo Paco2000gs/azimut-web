@@ -171,6 +171,27 @@ const Catalog = () => {
 
     const provinceSeo = urlCity ? PROVINCE_SEO[urlCity.toLowerCase()] : null;
 
+    // Canonical URL. A city+type silo (e.g. /venta/ronda/villa) whose result set
+    // is IDENTICAL to its parent city/province page (e.g. /venta/ronda) is a
+    // duplicate — Google was picking the parent as canonical on its own. Point the
+    // canonical at the parent explicitly so the signal is consolidated instead of
+    // self-referencing. Distinct subsets (a city with several types) keep self-canonical.
+    const canonicalPath = useMemo(() => {
+        const selfPath = urlCity ? `/venta/${urlCity}${urlArea ? `/${urlArea}` : ''}` : '/venta';
+        if (!urlCity || !urlArea || !type || loading || !properties?.length) return selfPath;
+        const inScope = (p) => {
+            const matchProvince = province ? p.province === province : true;
+            const matchCity = city ? p.city?.toLowerCase() === city?.toLowerCase() : true;
+            return matchProvince && matchCity;
+        };
+        const cityScoped = properties.filter(inScope);
+        const typeScoped = cityScoped.filter(p => p.type?.toLowerCase() === type.toLowerCase());
+        if (cityScoped.length > 0 && cityScoped.length === typeScoped.length) {
+            return `/venta/${urlCity}`;
+        }
+        return selfPath;
+    }, [urlCity, urlArea, type, province, city, properties, loading]);
+
     // Dynamic SEO data
     const seoTitle = useMemo(() => {
         if (provinceSeo) return provinceSeo.title;
@@ -236,7 +257,7 @@ const Catalog = () => {
             <SEO
                 title={seoTitle}
                 description={seoDescription}
-                url={urlCity ? `/venta/${urlCity}${urlArea ? `/${urlArea}` : ''}` : "/venta"}
+                url={canonicalPath}
                 keywords={seoKeywords}
             />
             <Helmet>
