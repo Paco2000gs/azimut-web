@@ -89,7 +89,7 @@ const PropertyDetail = () => {
     }
 
     const { images } = media;
-    const displayImages = images.length > 0 ? images : [{ url: property.image || 'https://via.placeholder.com/1200x600?text=No+Image', id: 'placeholder' }];
+    const displayImages = images.length > 0 ? images : [{ url: property.image || '/media/placeholder.svg', id: 'placeholder' }];
 
     // Safe Coordinate Handling
     const lat = parseFloat(property.latitude);

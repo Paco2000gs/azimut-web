@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600" role="img" aria-label="No image available">
+  <rect width="800" height="600" fill="#F2EEE5"/>
+  <g stroke="#C5A059" stroke-width="1" fill="none">
+    <line x1="300" y1="300" x2="374" y2="300"/>
+    <line x1="426" y1="300" x2="500" y2="300"/>
+    <rect x="390" y="290" width="20" height="20" transform="rotate(45 400 300)"/>
+  </g>
+</svg>

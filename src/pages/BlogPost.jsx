@@ -112,7 +112,7 @@ const BlogPost = () => {
             </Helmet>
 
             {/* Hero del artículo */}
-            <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || 'https://via.placeholder.com/1200x600?text=No+Image'})` }}>
+            <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || '/media/placeholder.svg'})` }}>
                 <div className="overlay"></div>
                 <div className="container">
                     <Link to="/blog" className="back-link"><ArrowLeft size={20} /> Back to Journal</Link>

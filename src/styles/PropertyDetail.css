@@ -108,9 +108,9 @@
     align-items: center;
     gap: 0.5rem;
     color: var(--gold-ink);
-    background: #eff6ff;
+    background: var(--gold-veil);
     padding: 0.5rem 1rem;
-    border-radius: 20px;
+    border-radius: var(--radius-sm);
     margin-bottom: 1rem;
     font-weight: 500;
     font-size: 0.9rem;
@@ -195,8 +195,8 @@
 }
 
 .check-icon {
-    background: #dcfce7;
-    color: #16a34a;
+    background: rgba(63, 107, 68, 0.12);
+    color: var(--state-success);
     padding: 4px;
     border-radius: 50%;
     display: flex;

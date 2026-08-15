@@ -46,7 +46,7 @@ const Blog = () => {
                         {posts.map(post => (
                             <article key={post.id} className="blog-card">
                                 <div className="blog-image">
-                                    <img src={post.image || 'https://via.placeholder.com/800x600?text=No+Image'} alt={post.title} />
+                                    <img src={post.image || '/media/placeholder.svg'} alt={post.title} loading="lazy" decoding="async" />
                                 </div>
                                 <div className="blog-content">
                                     <div className="blog-date">{new Date(post.published_at).toLocaleDateString()}</div>

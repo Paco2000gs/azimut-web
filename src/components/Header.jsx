@@ -63,7 +63,7 @@ const Header = () => {
         >
             <div className="container header-container">
                 <Link to="/" className="logo" aria-label="Azimut Property - Home" onClick={closeMenu}>
-                    <img src="/azimut-logo-gold.png" alt="" className="logo-img" width="48" height="50" />
+                    <img src="/azimut-logo-96.png" alt="" className="logo-img" width="48" height="50" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>
                 </Link>
 

@@ -10,7 +10,8 @@ const Footer = () => {
                 <div className="footer-content">
                     <div className="footer-column">
                         <div className="footer-logo">
-                            <img src="/azimut-logo-gold.png" alt="Azimut Property - Luxury Real Estate" width="48" height="48" />
+                            {/* alt="" — the heading beside it already names the brand. */}
+                            <img src="/azimut-logo-96.png" alt="" width="48" height="50" loading="lazy" decoding="async" />
                             <h3>AZIMUT PROPERTY</h3>
                         </div>
                         <p>Exclusive real estate in Andalusia. We curate the finest properties for the most discerning clients.</p>

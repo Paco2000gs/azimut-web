@@ -471,3 +471,51 @@
     padding: 4rem 2rem;
     color: #94a3b8;
 }
+
+/* Narrow screens.
+   The data tables are deliberately left at their min-width: .table-responsive
+   already scrolls them horizontally, which beats reflowing columns that only
+   make sense read across. What breaks on a phone is the chrome around them:
+   a 2rem page gutter, a header that puts the title and the logout button on
+   one row, and a filter bar that never wraps. */
+@media (max-width: 768px) {
+    .admin-page {
+        padding: 1rem;
+    }
+
+    .admin-header {
+        flex-wrap: wrap;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .admin-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .filters-section {
+        flex-wrap: wrap;
+        align-items: stretch;
+    }
+
+    .filters-section .filter-select {
+        flex: 1 1 100%;
+        max-width: none;
+    }
+
+    .stats-grid {
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-header {
+        flex-direction: column;
+    }
+
+    .logout-btn {
+        width: 100%;
+    }
+}

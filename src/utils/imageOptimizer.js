@@ -8,7 +8,9 @@
  */
 
 export const getOptimizedImageUrl = (url, options = {}) => {
-    if (!url) return 'https://via.placeholder.com/800x600?text=No+Image';
+    // Own asset, not a third-party placeholder service: a missing photo should
+    // read as a quiet gap in the brand, not as a broken grey box from elsewhere.
+    if (!url) return '/media/placeholder.svg';
     if (!url.includes('supabase.co')) return url; // Return original if not Supabase
 
     const {

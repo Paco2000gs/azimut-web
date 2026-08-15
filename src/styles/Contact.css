@@ -31,8 +31,9 @@
 }
 
 .info-icon {
-    color: var(--gold);
-    /* Gold accent */
+    /* gold-ink, not gold: plain gold is 2.29:1 on --surface, under the 3:1
+       that WCAG 1.4.11 asks of meaningful non-text. */
+    color: var(--gold-ink);
     flex-shrink: 0;
     padding-top: 0.25rem;
 }

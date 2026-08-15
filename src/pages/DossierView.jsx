@@ -78,7 +78,7 @@ const DossierView = () => {
                     {/* HERO IMAGE (No textual overlay) */}
                     <div className="hero-image-container-clean">
                         <img
-                            src={property.image || 'https://via.placeholder.com/1200x800'}
+                            src={property.image || '/media/placeholder.svg'}
                             alt={property.title}
                             className="hero-image-clean"
                         />
