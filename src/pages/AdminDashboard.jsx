@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLeads } from '../context/LeadsContext';
 import { useProperties } from '../context/PropertiesContext';
 import { useBlog } from '../context/BlogContext';
@@ -11,7 +11,11 @@ import { PROVINCES, CITIES, PROPERTY_TYPES, PROPERTY_FEATURES } from '../constan
 import '../styles/Admin.css';
 
 const AdminDashboard = () => {
-    const { leads, deleteLead, updateLeadStatus, getLeadsStats } = useLeads();
+    const { leads, fetchLeads, deleteLead, updateLeadStatus, getLeadsStats } = useLeads();
+
+    useEffect(() => {
+        fetchLeads();
+    }, []);
 
     const { properties, addProperty, deleteProperty, addPropertyMedia, updateProperty, getPropertyMedia, deletePropertyMedia } = useProperties();
     const { posts, addPost, updatePost, deletePost } = useBlog();

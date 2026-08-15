@@ -44,18 +44,50 @@ const About = () => {
                         <p>Our name, "Azimut", reflects our mission: to guide our clients towards their perfect horizon. Whether you are looking for a seafront villa on the Cadiz coast or a historic estate in the Sierra Norte de Sevilla, we navigate the market with precision and care.</p>
                     </div>
                     <div className="about-image">
-                        <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000&auto=format&fit=crop" alt="Luxury Interior" />
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcSet="/media/about-story-560.webp 560w, /media/about-story-818.webp 818w"
+                                sizes="(max-width: 768px) 100vw, 536px"
+                            />
+                            <img
+                                src="/media/about-story-818.jpg"
+                                srcSet="/media/about-story-560.jpg 560w, /media/about-story-818.jpg 818w"
+                                sizes="(max-width: 768px) 100vw, 536px"
+                                alt="Aerial view of an Andalusian estate: terracotta rooftops, pool and terraced garden cut into the hillside"
+                                width="818"
+                                height="1022"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </picture>
                     </div>
                 </div>
 
-                <div className="about-grid" style={{ direction: 'rtl' }}>
-                    <div className="about-text" style={{ direction: 'ltr' }}>
+                <div className="about-grid about-grid--reverse">
+                    <div className="about-text">
                         <h2>Our Philosophy</h2>
                         <p>We believe that true luxury lies in the details. It's not just about square meters or amenities; it's about the feeling of a home. We take the time to understand your lifestyle, your tastes, and your dreams.</p>
                         <p>Our portfolio is strictly curated. We turn down more listings than we accept, ensuring that every property we represent meets our high standards of quality, design, and location.</p>
                     </div>
                     <div className="about-image">
-                        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=1000&auto=format&fit=crop" alt="Modern Architecture" />
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcSet="/media/about-philosophy-560.webp 560w, /media/about-philosophy-1047.webp 1047w"
+                                sizes="(max-width: 768px) 100vw, 536px"
+                            />
+                            <img
+                                src="/media/about-philosophy-1047.jpg"
+                                srcSet="/media/about-philosophy-560.jpg 560w, /media/about-philosophy-1047.jpg 1047w"
+                                sizes="(max-width: 768px) 100vw, 536px"
+                                alt="The original press machinery under the restored timber ceiling of a historic Andalusian oil mill"
+                                width="1047"
+                                height="1309"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </picture>
                     </div>
                 </div>
             </div>

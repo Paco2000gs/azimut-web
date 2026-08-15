@@ -86,17 +86,34 @@ const Home = () => {
 
             {/* Hero Section */}
             <section className="hero">
+                <picture className="hero-media">
+                    <source
+                        type="image/webp"
+                        srcSet="/media/hero-estate-960.webp 960w, /media/hero-estate-1440.webp 1440w, /media/hero-estate-1920.webp 1920w"
+                        sizes="100vw"
+                    />
+                    <img
+                        src="/media/hero-estate-1440.jpg"
+                        srcSet="/media/hero-estate-960.jpg 960w, /media/hero-estate-1440.jpg 1440w, /media/hero-estate-1920.jpg 1920w"
+                        sizes="100vw"
+                        alt="Olive terraces at sunset on a historic estate in the Andalusian interior"
+                        fetchPriority="high"
+                        decoding="async"
+                        width="1920"
+                        height="1080"
+                    />
+                </picture>
                 <div className="hero-overlay"></div>
                 <div className="container hero-content">
                     <header className="hero-header-branded">
-                        <span className="eyebrow-text">Exclusive Estates and Investment Opportunities in Andalusia</span>
                         <h1 className="hero-title">
-                            <span className="hero-subtitle">ELEVATE YOUR PORTFOLIO</span>
-                            WITH THE MOST UNIQUE <br /> PROPERTIES IN SOUTHERN SPAIN
+                            <span className="hero-title-lead">Elevate your portfolio</span>
+                            with the most unique <br /> properties in Southern Spain
                         </h1>
                         <p className="main-value-proposition">
-                            From contemporary villas in the Golden Triangle to historic cortijos 
-                            and high-yield agricultural land in Cádiz and Sevilla.
+                            Exclusive estates and investment opportunities in Andalusia — from
+                            contemporary villas in the Golden Triangle to historic cortijos and
+                            high-yield agricultural land in Cádiz and Sevilla.
                         </p>
                     </header>
 
@@ -106,7 +123,7 @@ const Home = () => {
                     </div>
 
                     <div className="trust-indicators">
-                        <span>RICS Regulated Standards</span>
+                        <span>Discreet Representation</span>
                         <span className="separator">•</span>
                         <span>Global Network Excellence</span>
                     </div>
@@ -130,9 +147,10 @@ const Home = () => {
                             lifestyle excellence and long-term capital preservation.
                         </p>
                         <p>
-                            In a competitive landscape, our off-market access and RICS-regulated 
-                            standards ensure that our clients secure the most coveted opportunities 
-                            in Southern Europe with absolute discretion.
+                            In a competitive landscape, off-market access is what separates a
+                            secured acquisition from a missed one. We work quietly, for a limited
+                            number of clients, to reach the most coveted opportunities in Southern
+                            Europe before they are ever advertised.
                         </p>
                     </div>
                 </div>
@@ -200,26 +218,22 @@ const Home = () => {
                         <div className="section-header decorative-header">
                             <h2>FROM THE JOURNAL</h2>
                         </div>
-                        <div className="featured-grid">
+                        <div className="journal-grid">
                             {latestPosts.map(post => (
                                 <Link
                                     key={post.id}
                                     to={`/blog/${generateBlogSlug(post)}`}
                                     className="journal-card"
-                                    style={{ textDecoration: 'none', color: 'inherit', display: 'block', border: '1px solid #e2e8f0', borderRadius: '0.75rem', overflow: 'hidden', background: '#fff' }}
                                 >
                                     {post.image && (
-                                        <img
-                                            src={post.image}
-                                            alt={post.title}
-                                            loading="lazy"
-                                            style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-                                        />
+                                        <div className="journal-card-media">
+                                            <img src={post.image} alt="" loading="lazy" />
+                                        </div>
                                     )}
-                                    <div style={{ padding: '1.25rem' }}>
-                                        <h3 style={{ fontSize: '1.125rem', margin: '0 0 0.5rem', color: '#1e293b', lineHeight: 1.4 }}>{post.title}</h3>
+                                    <div className="journal-card-body">
+                                        <h3>{post.title}</h3>
                                         {post.excerpt && (
-                                            <p style={{ fontSize: '0.9rem', color: '#64748b', margin: 0, lineHeight: 1.6 }}>
+                                            <p>
                                                 {post.excerpt.length > 120 ? post.excerpt.substring(0, 120) + '…' : post.excerpt}
                                             </p>
                                         )}

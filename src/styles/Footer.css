@@ -1,11 +1,9 @@
 .footer {
-    background-color: var(--color-primary);
-    /* Dark background */
+    background-color: var(--surface-dark);
     color: #fff;
     padding: 4rem 0 2rem;
     margin-top: auto;
-    border-top: 3px solid var(--color-secondary);
-    /* Gold top border */
+    border-top: 1px solid var(--gold);
 }
 
 .footer-content {
@@ -37,18 +35,19 @@
 }
 
 .footer-links li {
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.25rem;
 }
 
 .footer-links a {
-    color: rgba(255, 255, 255, 0.7);
+    display: inline-block;
+    padding: 0.35rem 0;
+    color: rgba(255, 255, 255, 0.75);
     font-size: 0.95rem;
-    transition: var(--transition);
+    transition: color 0.3s var(--ease-out);
 }
 
 .footer-links a:hover {
-    color: var(--color-secondary);
-    padding-left: 5px;
+    color: var(--gold);
 }
 
 /* Strategic Partner Bar */
@@ -150,4 +149,8 @@
     /* Override default h3 margin */
     font-size: 1.5rem;
     color: var(--gold);
+}
+
+.footer-partner .partner-label {
+    color: rgba(255, 255, 255, 0.6);
 }

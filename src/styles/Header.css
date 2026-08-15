@@ -4,18 +4,32 @@
     left: 0;
     width: 100%;
     z-index: 1000;
-    transition: all 0.4s ease;
-    background-color: transparent;
-    /* Start transparent for Hero */
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.header.scrolled {
-    background-color: var(--color-primary);
-    /* Dark background on scroll */
+.header[data-ready="true"] {
+    transition: background-color 0.4s var(--ease-out), border-color 0.4s var(--ease-out), box-shadow 0.4s var(--ease-out);
+}
+
+/* Over a dark hero: transparent, white type. */
+.header[data-over-hero="true"]:not([data-scrolled="true"]) {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+    --header-ink: rgba(255, 255, 255, 0.92);
+    --header-ink-strong: #ffffff;
+}
+
+/* Everywhere else: a solid bar, so the nav is never white on white. */
+.header[data-over-hero="false"] {
+    background-color: var(--surface-dark);
+    border-bottom: 1px solid var(--border-dark);
+    --header-ink: rgba(255, 255, 255, 0.88);
+    --header-ink-strong: #ffffff;
+}
+
+.header[data-scrolled="true"] {
+    background-color: var(--surface-dark);
+    border-bottom: 1px solid var(--border-dark);
     box-shadow: var(--shadow-md);
-    padding: 10px 0;
-    border-bottom: none;
 }
 
 .header-container {
@@ -23,12 +37,6 @@
     justify-content: space-between;
     align-items: center;
     height: var(--header-height);
-    transition: var(--transition);
-}
-
-.header.scrolled .header-container {
-    height: 60px;
-    /* Shrink on scroll */
 }
 
 .logo {
@@ -36,79 +44,74 @@
     align-items: center;
     gap: 0.75rem;
     font-family: var(--font-heading);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 600;
-    color: #fff;
-    letter-spacing: 2px;
+    color: var(--header-ink-strong);
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     text-decoration: none;
 }
 
 .logo-img {
-    height: 48px;
+    height: 44px;
     width: auto;
 }
 
-.header.scrolled .logo,
-.header.scrolled .logo-accent {
-    color: var(--color-secondary);
-    /* Gold logo on scroll if desired, or keep white */
-}
-
 .logo-accent {
-    color: var(--color-secondary);
+    color: var(--gold);
     font-weight: 400;
 }
 
 .nav {
     display: flex;
-    gap: 2rem;
+    gap: 2.25rem;
     align-items: center;
 }
 
 .nav a {
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: 0.78rem;
     font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--header-ink);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.14em;
     position: relative;
-    transition: var(--transition);
+    padding: 0.5rem 0;
+    transition: color 0.3s var(--ease-out);
 }
 
 .nav a:hover,
 .nav a.active {
-    color: var(--color-secondary);
+    color: var(--gold);
 }
 
 .nav a::after {
     content: '';
     position: absolute;
-    width: 0;
+    inset-inline: 0;
+    bottom: 0;
     height: 1px;
-    bottom: -4px;
-    left: 0;
-    background-color: var(--color-secondary);
-    transition: width 0.3s ease;
+    background-color: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s var(--ease-out);
 }
 
 .nav a:hover::after,
 .nav a.active::after {
-    width: 100%;
+    transform: scaleX(1);
 }
 
 .btn-nav {
-    padding: 10px 24px;
-    border: 1px solid var(--color-secondary);
-    color: var(--color-secondary) !important;
-    border-radius: 0;
-    /* Sharp corners for luxury feel */
+    padding: 11px 24px;
+    border: 1px solid var(--gold);
+    color: var(--gold) !important;
+    border-radius: var(--radius-sm);
 }
 
 .btn-nav:hover {
-    background-color: var(--color-secondary);
-    color: #fff !important;
+    background-color: var(--gold);
+    color: var(--ink-900) !important;
 }
 
 .btn-nav::after {
@@ -119,8 +122,10 @@
     display: none;
     background: none;
     border: none;
-    color: #fff;
+    color: var(--header-ink-strong);
     cursor: pointer;
+    padding: 10px;
+    margin-right: -10px;
 }
 
 /* Mobile Responsive */
@@ -128,18 +133,31 @@
     .nav {
         position: fixed;
         top: 0;
-        right: -100%;
-        width: 80%;
-        height: 100vh;
-        background-color: var(--color-primary);
+        right: 0;
+        width: min(82%, 340px);
+        height: 100dvh;
+        background-color: var(--surface-dark);
         flex-direction: column;
         justify-content: center;
-        transition: right 0.4s ease;
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
+        gap: 2rem;
+        /* Hidden from pointer and assistive tech when closed, so the links
+           are not focusable off-screen. */
+        visibility: hidden;
+        transform: translateX(100%);
+        transition: transform 0.4s var(--ease-out), visibility 0.4s;
+        box-shadow: -12px 0 40px rgba(0, 0, 0, 0.45);
+        --header-ink: rgba(255, 255, 255, 0.88);
+        --header-ink-strong: #ffffff;
     }
 
     .nav.open {
-        right: 0;
+        visibility: visible;
+        transform: translateX(0);
+    }
+
+    .nav a {
+        font-size: 0.95rem;
+        padding: 0.75rem 1rem;
     }
 
     .menu-toggle {

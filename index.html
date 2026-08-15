@@ -26,8 +26,10 @@
   <link rel="preconnect" href="https://www.googletagmanager.com" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:wght@400;600&display=swap" />
 
-  <!-- LCP preload: hero background image (largest contentful paint element) -->
-  <link rel="preload" as="image" href="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000" fetchpriority="high" />
+  <!-- No LCP preload here. This file is the template for every prerendered
+       route, so a preload would fetch one page's hero on all of them. The home
+       hero is a <picture> in the prerendered markup with fetchpriority="high",
+       which the preload scanner picks up in the same parse. -->
 
   <link rel="icon" type="image/png" href="/favicon.png" />
   <link rel="apple-touch-icon" href="/azimut-logo-gold.png" />

@@ -14,10 +14,12 @@ const PropertyInquiryForm = ({ propertyTitle }) => {
     });
     const [submitted, setSubmitted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setError('');
 
         const fullMessage = `
 Budget: ${formData.budget || 'Not specified'}
@@ -36,9 +38,9 @@ Message: ${formData.message || 'Information request.'}
             });
             setSubmitted(true);
             setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
-        } catch (error) {
-            console.error('Error submitting form:', error);
-            alert('Error sending inquiry. Please try again.');
+        } catch (err) {
+            console.error('Error submitting form:', err);
+            setError('We could not send your request. Please try again, or write to info@azimutproperty.com.');
         } finally {
             setLoading(false);
         }
@@ -50,9 +52,9 @@ Message: ${formData.message || 'Information request.'}
 
     if (submitted) {
         return (
-            <div className="inquiry-success">
-                <CheckCircle size={48} color="#10b981" />
-                <h3>Request Received!</h3>
+            <div className="inquiry-success" role="status">
+                <CheckCircle size={40} strokeWidth={1.25} aria-hidden="true" />
+                <h3>Request received</h3>
                 <p>We will send the private dossier to your email shortly.</p>
                 <button onClick={() => setSubmitted(false)} className="btn-text">
                     Send another inquiry
@@ -70,10 +72,12 @@ Message: ${formData.message || 'Information request.'}
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
+                    <label htmlFor="inq-name">Full name</label>
                     <input
+                        id="inq-name"
                         type="text"
                         name="name"
-                        placeholder="Full Name"
+                        autoComplete="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
@@ -82,10 +86,12 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <div className="form-group">
+                    <label htmlFor="inq-email">Email</label>
                     <input
+                        id="inq-email"
                         type="email"
                         name="email"
-                        placeholder="Preferred Email"
+                        autoComplete="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
@@ -94,10 +100,12 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <div className="form-group">
+                    <label htmlFor="inq-phone">Phone <span className="label-optional">optional</span></label>
                     <input
+                        id="inq-phone"
                         type="tel"
                         name="phone"
-                        placeholder="Phone (Optional)"
+                        autoComplete="tel"
                         value={formData.phone}
                         onChange={handleChange}
                         className="minimal-input"
@@ -105,41 +113,44 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <div className="form-group">
+                    <label htmlFor="inq-budget">Investment range</label>
                     <select
+                        id="inq-budget"
                         name="budget"
                         value={formData.budget}
                         onChange={handleChange}
                         className="minimal-input"
                         required
                     >
-                        <option value="" disabled>Investment Range</option>
+                        <option value="" disabled>Select a range</option>
                         <option value="< 500k">Below €500k</option>
-                        <option value="500k - 1M">€500k - €1M</option>
-                        <option value="1M - 3M">€1M - €3M</option>
+                        <option value="500k - 1M">€500k – €1M</option>
+                        <option value="1M - 3M">€1M – €3M</option>
                         <option value="> 3M">Above €3M</option>
                     </select>
                 </div>
 
                 <div className="form-group">
+                    <label htmlFor="inq-message">Message <span className="label-optional">optional</span></label>
                     <textarea
+                        id="inq-message"
                         name="message"
-                        placeholder="Short message (optional)"
                         value={formData.message}
                         onChange={handleChange}
                         className="minimal-input"
-                        rows="2"
+                        rows="3"
                     ></textarea>
                 </div>
 
                 <button type="submit" className="btn-gold-full" disabled={loading}>
-                    {loading ? 'Sending...' : 'Request Dossier'}
+                    {loading ? 'Sending…' : 'Request Dossier'}
                 </button>
 
-                <div className="form-trust-indicators" style={{ marginTop: '1rem', textAlign: 'center', fontSize: '0.75rem', color: '#64748b' }}>
-                    <p style={{ margin: '0.25rem 0', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.25rem' }}>
-                        <CheckCircle size={12} color="#10b981" /> Data treated with strict confidentiality
-                    </p>
-                    <p style={{ margin: '0.25rem 0' }}>Join 500+ investors receiving our private dossiers.</p>
+                {error && <p className="form-error" role="alert">{error}</p>}
+
+                <div className="form-trust-indicators">
+                    <p>Treated with strict confidentiality.</p>
+                    <p>Join a growing community of investors receiving our private dossiers.</p>
                 </div>
             </form>
         </div>

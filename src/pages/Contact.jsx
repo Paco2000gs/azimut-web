@@ -93,62 +93,72 @@ const Contact = () => {
                     <div className="contact-form-section">
                         <h3>Send us a Message</h3>
                         {submitted ? (
-                            <div style={{ backgroundColor: '#d1fae5', color: '#065f46', padding: '1rem', borderRadius: '4px', marginBottom: '1rem' }}>
-                                Thank you! Your message has been sent. We will contact you shortly.
+                            <div className="contact-success" role="status">
+                                Thank you — your message has been sent. We will be in touch shortly.
                             </div>
                         ) : (
                             <form className="contact-form" onSubmit={handleSubmit}>
                                 <div className="form-group">
+                                    <label htmlFor="contact-name">Full name</label>
                                     <input
+                                        id="contact-name"
                                         type="text"
                                         name="name"
-                                        placeholder="Full Name"
+                                        autoComplete="name"
                                         value={formData.name}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor="contact-email">Email</label>
                                     <input
+                                        id="contact-email"
                                         type="email"
                                         name="email"
-                                        placeholder="Email Address"
+                                        autoComplete="email"
                                         value={formData.email}
                                         onChange={handleChange}
                                         required
                                     />
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor="contact-phone">Phone <span className="label-optional">optional</span></label>
                                     <input
+                                        id="contact-phone"
                                         type="tel"
                                         name="phone"
-                                        placeholder="Phone Number"
+                                        autoComplete="tel"
                                         value={formData.phone}
                                         onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor="contact-interest">I am interested in</label>
                                     <select
+                                        id="contact-interest"
                                         name="interest"
                                         value={formData.interest}
                                         onChange={handleChange}
                                     >
-                                        <option value="">I am interested in...</option>
-                                        <option value="buying">Buying a Property</option>
-                                        <option value="selling">Selling a Property</option>
-                                        <option value="other">General Inquiry</option>
+                                        <option value="">Select an option</option>
+                                        <option value="buying">Buying a property</option>
+                                        <option value="selling">Selling a property</option>
+                                        <option value="other">General enquiry</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
+                                    <label htmlFor="contact-message">How can we help?</label>
                                     <textarea
+                                        id="contact-message"
                                         name="message"
-                                        placeholder="How can we help you?"
+                                        rows="4"
                                         value={formData.message}
                                         onChange={handleChange}
                                         required
                                     ></textarea>
                                 </div>
-                                <button type="submit" className="btn" style={{ width: '100%' }}>Send Message</button>
+                                <button type="submit" className="btn btn-contact-submit">Send message</button>
                             </form>
                         )}
                     </div>

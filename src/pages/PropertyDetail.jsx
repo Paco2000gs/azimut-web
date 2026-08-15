@@ -255,25 +255,25 @@ const PropertyDetail = () => {
 
             {/* Breadcrumbs UI */}
             <div className="container property-header-container">
-                <nav className="breadcrumbs" aria-label="Breadcrumb" style={{ fontSize: '0.875rem', color: '#64748b', marginBottom: '1.5rem' }}>
-                    <ol style={{ listStyle: 'none', padding: 0, display: 'flex', gap: '0.5rem', flexWrap: 'wrap', alignItems: 'center' }}>
-                        <li><Link to="/" style={{ color: '#64748b', textDecoration: 'none' }}>Inicio</Link></li>
-                        <li style={{ color: '#cbd5e1' }}>/</li>
-                        <li><Link to="/venta" style={{ color: '#64748b', textDecoration: 'none' }}>Propiedades</Link></li>
-                        <li style={{ color: '#cbd5e1' }}>/</li>
+                <nav className="breadcrumbs" aria-label="Breadcrumb">
+                    <ol>
+                        <li><Link to="/">Home</Link></li>
+                        <li aria-hidden="true" className="breadcrumb-sep">/</li>
+                        <li><Link to="/venta">Properties</Link></li>
+                        <li aria-hidden="true" className="breadcrumb-sep">/</li>
                         <li>
-                            <Link to={`/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: '#64748b', textDecoration: 'none' }}>
+                            <Link to={`/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}`}>
                                 {property.province}
                             </Link>
                         </li>
-                        <li style={{ color: '#cbd5e1' }}>/</li>
+                        <li aria-hidden="true" className="breadcrumb-sep">/</li>
                         <li>
-                            <Link to={`/venta/${property.city?.toLowerCase().replace(/\s+/g, '-')}`} style={{ color: '#64748b', textDecoration: 'none' }}>
+                            <Link to={`/venta/${property.city?.toLowerCase().replace(/\s+/g, '-')}`}>
                                 {property.city}
                             </Link>
                         </li>
-                        <li style={{ color: '#cbd5e1' }}>/</li>
-                        <li style={{ color: '#1e293b', fontWeight: '600' }}>{property.title}</li>
+                        <li aria-hidden="true" className="breadcrumb-sep">/</li>
+                        <li><span aria-current="page">{property.title}</span></li>
                     </ol>
                 </nav>
             </div>
@@ -312,7 +312,7 @@ const PropertyDetail = () => {
                                 onClick={() => setActiveImage(idx)}
                                 style={{
                                     opacity: activeImage === idx ? 1 : 0.6,
-                                    border: activeImage === idx ? '2px solid #3b82f6' : 'none',
+                                    border: activeImage === idx ? '2px solid var(--gold-ink)' : 'none',
                                 }}
                             >
                                 <img
@@ -339,21 +339,21 @@ const PropertyDetail = () => {
                         {/* Specs Bar */}
                         <div className="specs-bar">
                             <div className="spec-item">
-                                <Bed size={24} color="#64748b" />
+                                <Bed size={24} color="var(--ink-500)" />
                                 <div>
                                     <span className="spec-value">{property.bedrooms}</span>
                                     <span className="spec-label">Bedrooms</span>
                                 </div>
                             </div>
                             <div className="spec-item">
-                                <Bath size={24} color="#64748b" />
+                                <Bath size={24} color="var(--ink-500)" />
                                 <div>
                                     <span className="spec-value">{property.bathrooms}</span>
                                     <span className="spec-label">Bathrooms</span>
                                 </div>
                             </div>
                             <div className="spec-item">
-                                <Maximize size={24} color="#64748b" />
+                                <Maximize size={24} color="var(--ink-500)" />
                                 <div>
                                     <span className="spec-value">{Number(property.area).toLocaleString()} m²</span>
                                     <span className="spec-label">Built</span>
@@ -361,7 +361,7 @@ const PropertyDetail = () => {
                             </div>
                             {property.plot > 0 && (
                                 <div className="spec-item">
-                                    <Home size={24} color="#64748b" />
+                                    <Home size={24} color="var(--ink-500)" />
                                     <div>
                                         <span className="spec-value">
                                             {property.type?.trim().toLowerCase() === 'finca'
@@ -409,7 +409,7 @@ const PropertyDetail = () => {
                                 <div className="plans-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                                     {media.plans.map(plan => (
                                         <a key={plan.id} href={plan.url} className="plan-link" target="_blank" rel="noopener noreferrer">
-                                            <FileText size={24} color="#3b82f6" />
+                                            <FileText size={24} color="var(--gold-ink)" />
                                             <span>{plan.title || 'View Plan'}</span>
                                         </a>
                                     ))}
@@ -440,7 +440,7 @@ const PropertyDetail = () => {
                             <div className="content-section">
                                 <h3 className="section-title">Location</h3>
                                 <div className="map-container" style={{ height: '400px' }}>
-                                    <Suspense fallback={<div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f1f5f9' }}>Loading map...</div>}>
+                                    <Suspense fallback={<div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface-sunken)' }}>Loading map...</div>}>
                                         <PropertyMap lat={lat} lng={lng} title={property.title} />
                                     </Suspense>
                                 </div>
@@ -465,7 +465,7 @@ const PropertyDetail = () => {
                                     alignItems: 'center',
                                     justifyContent: 'center',
                                     gap: '0.5rem',
-                                    background: '#1A1A1A',
+                                    background: 'var(--surface-dark)',
                                     color: '#fff',
                                     padding: '0.75rem',
                                     borderRadius: '0.5rem',
@@ -481,21 +481,21 @@ const PropertyDetail = () => {
                 </div>
 
                 {/* FAQ SECTION — Boosts AI citation & GEO visibility */}
-                <div className="property-faqs" style={{ marginTop: '4rem', borderTop: '1px solid #e2e8f0', paddingTop: '3rem' }}>
-                    <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: '#1e293b' }}>Frequently Asked Questions</h2>
+                <div className="property-faqs" style={{ marginTop: '4rem', borderTop: '1px solid var(--border)', paddingTop: '3rem' }}>
+                    <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--ink-800)' }}>Frequently Asked Questions</h2>
                     <div style={{ display: 'grid', gap: '1rem' }}>
                         {propertyFaqs.map((faq, idx) => (
-                            <details key={idx} style={{ background: '#f8fafc', padding: '1.25rem 1.5rem', borderRadius: '0.75rem', cursor: 'pointer' }}>
-                                <summary style={{ fontWeight: '600', color: '#1e293b', fontSize: '1rem' }}>{faq.q}</summary>
-                                <p style={{ color: '#64748b', marginTop: '0.75rem', lineHeight: '1.7' }}>{faq.a}</p>
+                            <details key={idx} style={{ background: 'var(--surface-sunken)', padding: '1.25rem 1.5rem', borderRadius: '0.75rem', cursor: 'pointer' }}>
+                                <summary style={{ fontWeight: '600', color: 'var(--ink-800)', fontSize: '1rem' }}>{faq.q}</summary>
+                                <p style={{ color: 'var(--ink-500)', marginTop: '0.75rem', lineHeight: '1.7' }}>{faq.a}</p>
                             </details>
                         ))}
                     </div>
                 </div>
 
                 {/* RELATED PROPERTIES SECTION */}
-                <div className="related-properties" style={{ marginTop: '5rem', borderTop: '1px solid #e2e8f0', paddingTop: '4rem' }}>
-                    <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: '#1e293b' }}>Propiedades Similares en {property.province}</h3>
+                <div className="related-properties" style={{ marginTop: '5rem', borderTop: '1px solid var(--border)', paddingTop: '4rem' }}>
+                    <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>Propiedades Similares en {property.province}</h3>
                     <div className="related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                         {useProperties().properties
                             .filter(p => p.province === property.province && p.id !== property.id)
@@ -509,11 +509,11 @@ const PropertyDetail = () => {
                                             style={{ width: '100%', height: '200px', objectFit: 'cover' }}
                                         />
                                         <div style={{ padding: '1.25rem' }}>
-                                            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: '#1e293b' }}>{related.title}</h4>
-                                            <div style={{ fontSize: '0.875rem', color: '#64748b', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                                            <h4 style={{ fontSize: '1.125rem', marginBottom: '0.5rem', color: 'var(--ink-800)' }}>{related.title}</h4>
+                                            <div style={{ fontSize: '0.875rem', color: 'var(--ink-500)', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                                                 <MapPin size={14} /> {related.city}
                                             </div>
-                                            <div style={{ marginTop: '1rem', fontWeight: '700', color: '#b8860b' }}>
+                                            <div style={{ marginTop: '1rem', fontWeight: '700', color: 'var(--gold-ink)' }}>
                                                 {related.price_on_demand ? "Consultar Precio" : `€${related.price?.toLocaleString()}`}
                                             </div>
                                         </div>

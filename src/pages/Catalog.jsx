@@ -288,26 +288,26 @@ const Catalog = () => {
             </div>
 
             {/* Breadcrumbs UI */}
-            <div className="container" style={{ marginTop: '1.5rem' }}>
-                <nav className="breadcrumbs" aria-label="Breadcrumb" style={{ fontSize: '0.875rem', color: '#64748b' }}>
-                    <ol style={{ listStyle: 'none', padding: 0, display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                        <li><a href="/" style={{ color: '#64748b', textDecoration: 'none' }}>Inicio</a></li>
-                        <li style={{ color: '#cbd5e1' }}>/</li>
-                        <li><a href="/venta" style={{ color: '#64748b', textDecoration: 'none' }}>Propiedades</a></li>
+            <div className="container">
+                <nav className="breadcrumbs" aria-label="Breadcrumb">
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li aria-hidden="true" className="breadcrumb-sep">/</li>
+                        <li><a href="/venta">Properties</a></li>
                         {urlCity && (
                             <>
-                                <li style={{ color: '#cbd5e1' }}>/</li>
+                                <li aria-hidden="true" className="breadcrumb-sep">/</li>
                                 <li>
-                                    <a href={`/venta/${urlCity}`} style={{ color: type ? '#64748b' : '#1e293b', fontWeight: type ? '400' : '600', textDecoration: 'none' }}>
-                                        {formatSlug(urlCity)}
-                                    </a>
+                                    {type
+                                        ? <a href={`/venta/${urlCity}`}>{formatSlug(urlCity)}</a>
+                                        : <span aria-current="page">{formatSlug(urlCity)}</span>}
                                 </li>
                             </>
                         )}
                         {type && (
                             <>
-                                <li style={{ color: '#cbd5e1' }}>/</li>
-                                <li style={{ color: '#1e293b', fontWeight: '600' }}>{type}s</li>
+                                <li aria-hidden="true" className="breadcrumb-sep">/</li>
+                                <li><span aria-current="page">{type}s</span></li>
                             </>
                         )}
                     </ol>
@@ -319,8 +319,8 @@ const Catalog = () => {
                 <div className="container">
                     <div className="search-filters">
                         <div className="filter-item">
-                            <label>Province</label>
-                            <select value={province} onChange={handleProvinceChange} className="filter-select">
+                            <label htmlFor="filter-province">Province</label>
+                            <select id="filter-province" value={province} onChange={handleProvinceChange} className="filter-select">
                                 <option value="">All</option>
                                 {PROVINCES.map(prov => (
                                     <option key={prov} value={prov}>{prov}</option>
@@ -329,8 +329,8 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label>City / Area</label>
-                            <select value={city} onChange={(e) => setCity(e.target.value)} disabled={!province} className="filter-select">
+                            <label htmlFor="filter-city">City / Area</label>
+                            <select id="filter-city" value={city} onChange={(e) => setCity(e.target.value)} disabled={!province} className="filter-select">
                                 <option value="">
                                     {!province
                                         ? "Select Province"
@@ -345,8 +345,8 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label>Type</label>
-                            <select value={type} onChange={(e) => setType(e.target.value)} className="filter-select">
+                            <label htmlFor="filter-type">Type</label>
+                            <select id="filter-type" value={type} onChange={(e) => setType(e.target.value)} className="filter-select">
                                 <option value="">All</option>
                                 {availableTypes.map(t => (
                                     <option key={t} value={t}>{t}</option>
@@ -355,8 +355,9 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label>Min Price (€)</label>
+                            <label htmlFor="filter-min">Min Price (€)</label>
                             <input
+                                id="filter-min"
                                 type="number"
                                 placeholder="Min"
                                 value={minPrice}
@@ -366,8 +367,9 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label>Max Price (€)</label>
+                            <label htmlFor="filter-max">Max Price (€)</label>
                             <input
+                                id="filter-max"
                                 type="number"
                                 placeholder="Max"
                                 value={maxPrice}
@@ -379,22 +381,22 @@ const Catalog = () => {
                 </div>
             </div>
 
-            <div className="container" style={{ marginTop: '3rem', paddingBottom: '4rem' }}>
+            <div className="container catalog-results">
                 {/* Results Count */}
-                <div className="results-header" style={{ marginBottom: '2rem', color: '#64748b' }}>
+                <div className="results-header" aria-live="polite">
                     {loading ? (
-                        <span>Searching...</span>
+                        <span>Searching…</span>
                     ) : (
-                        <span>Showing {filteredProperties.length} exclusive properties</span>
+                        <span>{filteredProperties.length} {filteredProperties.length === 1 ? 'property' : 'properties'} available</span>
                     )}
                 </div>
 
                 {/* Property Grid (Single Column for Wide Cards) */}
                 <div className="property-list-wide">
                     {loading ? (
-                        <div className="loading-state">
-                            <div className="spinner"></div>
-                            <h2>Loading properties...</h2>
+                        <div className="loading-state" role="status">
+                            <div className="spinner" aria-hidden="true"></div>
+                            <p>Loading properties…</p>
                         </div>
                     ) : filteredProperties.length > 0 ? (
                         <div className="wide-grid">
@@ -408,7 +410,9 @@ const Catalog = () => {
                         </div>
                     ) : (
                         <div className="no-results">
-                            <h3>No properties found with these criteria.</h3>
+                            <h2>No properties match these filters</h2>
+                            <p>Widen the price range or choose another province — our off-market
+                                register often holds assets that are not listed here.</p>
                             <button
                                 onClick={() => {
                                     setProvince('');

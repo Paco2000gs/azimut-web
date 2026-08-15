@@ -14,9 +14,9 @@ const NotFound = () => {
             padding: '2rem'
         }}>
             <SEO title="Página No Encontrada" noindex={true} />
-            <h1 style={{ fontSize: '4rem', marginBottom: '1rem', color: '#1e293b' }}>404</h1>
-            <h2 style={{ marginBottom: '1.5rem', color: '#64748b' }}>Page Not Found</h2>
-            <p style={{ marginBottom: '2rem', maxWidth: '400px', color: '#94a3b8' }}>
+            <h1 style={{ fontSize: '4rem', marginBottom: '1rem', color: 'var(--ink-800)' }}>404</h1>
+            <h2 style={{ marginBottom: '1.5rem', color: 'var(--ink-500)' }}>Page Not Found</h2>
+            <p style={{ marginBottom: '2rem', maxWidth: '400px', color: 'var(--ink-400)' }}>
                 The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
             </p>
             <Link to="/" className="btn">Return Home</Link>

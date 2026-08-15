@@ -1,20 +1,27 @@
 .about-hero {
     height: 50vh;
-    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2000&auto=format&fit=crop');
+    min-height: 380px;
+    /* Plain url() first as the fallback; image-set serves webp where supported. */
+    background-image: linear-gradient(rgba(20, 19, 15, 0.55), rgba(20, 19, 15, 0.55)),
+        url('/media/about-hero-1653.jpg');
+    background-image: linear-gradient(rgba(20, 19, 15, 0.55), rgba(20, 19, 15, 0.55)),
+        image-set(url('/media/about-hero-1653.webp') type('image/webp'),
+            url('/media/about-hero-1653.jpg') type('image/jpeg'));
     background-size: cover;
     background-position: center;
+    background-color: var(--surface-dark);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: var(--ink-inverse);
     text-align: center;
     margin-top: calc(var(--header-height) * -1);
     padding-top: var(--header-height);
 }
 
 .about-hero h1 {
-    font-size: 3.5rem;
-    color: white;
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+    color: var(--ink-inverse);
     margin-bottom: var(--spacing-md);
 }
 
@@ -43,7 +50,10 @@
 
 .about-image img {
     width: 100%;
-    border-radius: 4px;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    border-radius: var(--radius-md);
     box-shadow: var(--shadow-lg);
 }
 
@@ -66,7 +76,7 @@
     object-fit: cover;
     margin-bottom: var(--spacing-md);
     filter: grayscale(100%);
-    transition: filter 0.3s ease;
+    transition: filter 0.3s var(--ease-out);
 }
 
 .team-member:hover img {
@@ -79,14 +89,24 @@
 }
 
 .team-member p {
-    color: var(--color-secondary);
+    /* gold-ink, not gold: plain gold is 2.46:1 on this surface and fails AA. */
+    color: var(--gold-ink);
     font-size: 0.9rem;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
 
+/* Alternating layout. Handled by grid order, not by `direction: rtl`, which
+   reverses the bidirectional algorithm and reorders punctuation. */
+@media (min-width: 769px) {
+    .about-grid--reverse .about-image {
+        order: -1;
+    }
+}
+
 @media (max-width: 768px) {
     .about-grid {
         grid-template-columns: 1fr;
+        gap: var(--spacing-xl);
     }
 }

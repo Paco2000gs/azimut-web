@@ -1,136 +1,130 @@
-import React, { useState, useEffect } from 'react';
-import { X, BookOpen, Send, CheckCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { X, Send, CheckCircle } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
+import '../styles/ExitIntentPopup.css';
+
+const SEEN_KEY = 'azimut:guide-prompt-seen';
 
 const ExitIntentPopup = () => {
     const [isVisible, setIsVisible] = useState(false);
-    const [hasBeenShown, setHasBeenShown] = useState(false);
     const [email, setEmail] = useState('');
-    const [submitted, setSubmitted] = useState(false);
+    const [status, setStatus] = useState('idle');
     const { addLead } = useLeads();
+    const dialogRef = useRef(null);
+    const closeRef = useRef(null);
 
     useEffect(() => {
+        if (sessionStorage.getItem(SEEN_KEY)) return;
         const handleMouseOut = (e) => {
-            if (e.clientY <= 0 && !hasBeenShown) {
-                setIsVisible(true);
-                setHasBeenShown(true);
-            }
+            if (e.clientY > 0 || e.relatedTarget) return;
+            sessionStorage.setItem(SEEN_KEY, '1');
+            setIsVisible(true);
         };
-
         document.addEventListener('mouseout', handleMouseOut);
         return () => document.removeEventListener('mouseout', handleMouseOut);
-    }, [hasBeenShown]);
+    }, []);
 
-    const handleClose = () => {
-        setIsVisible(false);
-    };
+    useEffect(() => {
+        if (!isVisible) return;
+        closeRef.current?.focus();
+        const onKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setIsVisible(false);
+                return;
+            }
+            if (e.key !== 'Tab') return;
+            const focusable = dialogRef.current?.querySelectorAll('button, input, a[href]');
+            if (!focusable?.length) return;
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        };
+        document.addEventListener('keydown', onKeyDown);
+        document.body.style.overflow = 'hidden';
+        return () => {
+            document.removeEventListener('keydown', onKeyDown);
+            document.body.style.overflow = '';
+        };
+    }, [isVisible]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (status === 'sending') return;
+        setStatus('sending');
         try {
             await addLead({
-                name: 'Lead Magnet Subscriber',
-                email: email,
-                interest: 'Andalusia Investment Guide 2026',
-                message: 'Requested the Investment Guide via Exit Intent Popup.',
-                source: 'Exit Intent'
+                name: 'Investment Guide request',
+                email,
+                interest: 'Rural Asset Investment Guide 2026',
+                message: 'Requested the Investment Guide via exit intent.',
+                source: 'Exit intent'
             });
-            setSubmitted(true);
-            setTimeout(() => {
-                setIsVisible(false);
-            }, 3000);
-        } catch (err) {
-            console.error('Error subscribing to lead magnet:', err);
+            setStatus('done');
+            setTimeout(() => setIsVisible(false), 3500);
+        } catch {
+            setStatus('error');
         }
     };
 
     if (!isVisible) return null;
 
     return (
-        <div className="exit-intent-overlay" style={{
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: 'rgba(0,0,0,0.7)',
-            zIndex: 10000,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            padding: '1rem'
-        }}>
-            <div className="exit-intent-modal" style={{
-                backgroundColor: '#fff',
-                borderRadius: '1rem',
-                maxWidth: '500px',
-                width: '100%',
-                padding: '2.5rem',
-                position: 'relative',
-                boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)',
-                textAlign: 'center'
-            }}>
-                <button 
-                    onClick={handleClose}
-                    style={{ position: 'absolute', top: '1rem', right: '1rem', border: 'none', background: 'none', cursor: 'pointer', color: '#64748b' }}
-                >
-                    <X size={24} />
+        <div className="exit-overlay" onMouseDown={(e) => e.target === e.currentTarget && setIsVisible(false)}>
+            <div
+                className="exit-modal"
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-labelledby="exit-modal-title"
+            >
+                <button ref={closeRef} className="exit-close" onClick={() => setIsVisible(false)} aria-label="Close">
+                    <X size={20} aria-hidden="true" />
                 </button>
 
-                {!submitted ? (
+                {status === 'done' ? (
+                    <div className="exit-done" role="status">
+                        <CheckCircle size={36} strokeWidth={1.25} aria-hidden="true" />
+                        <h2 id="exit-modal-title">On its way</h2>
+                        <p>Check your inbox in the next few minutes.</p>
+                    </div>
+                ) : (
                     <>
-                        <div style={{ backgroundColor: '#fef3c7', width: '64px', height: '64px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem' }}>
-                            <BookOpen size={32} color="#b45309" />
-                        </div>
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#1e293b', marginBottom: '1rem' }}>
-                            ¿Te vas sin tu Guía de Inversión?
-                        </h2>
-                        <p style={{ color: '#64748b', marginBottom: '2rem' }}>
-                            Descarga gratis nuestra **Guía de Inversión Rural 2026** y descubre las zonas con mayor potencial en Andalucía.
+                        <h2 id="exit-modal-title">Before you go — the 2026 land report</h2>
+                        <p className="exit-intro">
+                            Where value is moving in the Andalusian interior: price per hectare by
+                            municipality, the five areas we are buying in, and what non-resident
+                            buyers pay in tax.
                         </p>
-                        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                            <input 
-                                type="email" 
-                                placeholder="Tu mejor email" 
+                        <form onSubmit={handleSubmit} className="exit-form">
+                            <label htmlFor="exit-email" className="visual-hidden">Email address</label>
+                            <input
+                                id="exit-email"
+                                type="email"
+                                name="email"
+                                autoComplete="email"
+                                placeholder="Your email address"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
-                                style={{ padding: '0.75rem 1rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0', fontSize: '1rem' }}
                             />
-                            <button 
-                                type="submit"
-                                style={{ 
-                                    backgroundColor: '#b8860b', 
-                                    color: '#fff', 
-                                    padding: '0.75rem', 
-                                    borderRadius: '0.5rem', 
-                                    border: 'none', 
-                                    fontWeight: '600', 
-                                    fontSize: '1rem',
-                                    cursor: 'pointer',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: '0.5rem'
-                                }}
-                            >
-                                <Send size={18} /> Enviar Guía Gratis
+                            <button type="submit" className="btn btn-gold" disabled={status === 'sending'}>
+                                <Send size={16} aria-hidden="true" />
+                                {status === 'sending' ? 'Sending…' : 'Send me the report'}
                             </button>
                         </form>
-                        <p style={{ marginTop: '1.5rem', fontSize: '0.75rem', color: '#94a3b8' }}>
-                            * No hacemos spam. Solo enviamos valor inmobiliario.
-                        </p>
+                        {status === 'error' && (
+                            <p className="exit-error" role="alert">
+                                We could not register your request. Please email info@azimutproperty.com.
+                            </p>
+                        )}
+                        <p className="exit-note">No newsletters. We write when we have something worth reading.</p>
                     </>
-                ) : (
-                    <div style={{ padding: '2rem 0' }}>
-                        <CheckCircle size={64} color="#10b981" style={{ margin: '0 auto 1.5rem' }} />
-                        <h2 style={{ fontSize: '1.5rem', fontWeight: '700', color: '#1e293b', marginBottom: '0.5rem' }}>
-                            ¡Enviado con éxito!
-                        </h2>
-                        <p style={{ color: '#64748b' }}>
-                            Revisa tu bandeja de entrada en unos minutos.
-                        </p>
-                    </div>
                 )}
             </div>
         </div>

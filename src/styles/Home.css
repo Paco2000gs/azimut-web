@@ -1,376 +1,373 @@
-/* Hero Styles */
+/* Hero */
 .hero {
     position: relative;
-    height: 90vh;
-    min-height: 600px;
+    height: 92vh;
+    min-height: 620px;
     display: flex;
     align-items: center;
-    background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000');
-    /* Fallback high quality villa image */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #ffffff !important;
+    background-color: var(--ink-900);
+    color: var(--ink-inverse);
+    overflow: hidden;
+}
+
+.hero-media {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 60%;
 }
 
 .hero-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 100%);
-    /* Darker, solid black gradient for extreme contrast */
+    inset: 0;
+    background:
+        linear-gradient(to top, rgba(12, 11, 9, 0.92) 0%, rgba(12, 11, 9, 0.55) 45%, rgba(12, 11, 9, 0.35) 100%),
+        linear-gradient(105deg, rgba(12, 11, 9, 0.75) 0%, rgba(12, 11, 9, 0.15) 70%);
 }
 
 .hero-content {
     position: relative;
     z-index: 10;
-    text-align: center;
-    max-width: 900px;
+    max-width: 940px;
 }
 
 .hero-header-branded {
-    margin-bottom: 3rem;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+    margin-bottom: 2.75rem;
 }
 
-.hero-title,
-.hero h1,
-.hero-subtitle,
-.eyebrow-text,
-.main-value-proposition {
-    color: #ffffff !important;
-    /* Force white color to override any inheritance */
-}
-
-.eyebrow-text {
-    display: block;
-    font-family: var(--font-body);
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--color-secondary);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    margin-bottom: 1.5rem;
-}
-
-.hero h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-}
-
-.hero-subtitle {
-    display: block;
-    font-size: 1.1rem;
+.hero-title {
+    font-size: clamp(2.25rem, 4.6vw, 3.9rem);
     font-weight: 400;
-    letter-spacing: 8px;
-    margin-bottom: 1rem;
-    color: var(--color-secondary-light);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    color: var(--ink-inverse);
+    margin-bottom: 1.75rem;
+    text-wrap: balance;
+}
+
+/* The first line carries the brand voice; the rest states the offer. */
+.hero-title-lead {
+    display: block;
+    font-style: italic;
+    color: var(--gold-champagne);
 }
 
 .main-value-proposition {
-    font-size: 1.25rem;
-    color: rgba(255, 255, 255, 0.9);
-    line-height: 1.6;
-    max-width: 700px;
-    margin: 0 auto;
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.86);
+    line-height: 1.65;
+    max-width: 62ch;
 }
 
 .cta-group-luxury {
     display: flex;
-    gap: 1.5rem;
-    justify-content: center;
-    margin-bottom: 4rem;
-}
-
-.btn-primary-gold {
-    background-color: var(--color-secondary);
-    color: #fff;
-}
-
-.btn-secondary-outline {
-    background-color: transparent;
-    border: 1px solid #fff;
-    color: #fff;
+    gap: 1rem;
+    margin-bottom: 3.5rem;
+    flex-wrap: wrap;
 }
 
 .trust-indicators {
     display: flex;
-    justify-content: center;
-    gap: 1.5rem;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
+    gap: 1.25rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .trust-indicators .separator {
-    color: var(--color-secondary);
+    color: var(--gold);
+}
+
+/* Hero buttons */
+.btn-hero {
+    padding: 16px 34px;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    letter-spacing: 0.14em;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+
+.btn-primary-gold {
+    background-color: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--ink-900);
+}
+
+.btn-primary-gold:hover {
+    background-color: var(--gold-champagne);
+    border-color: var(--gold-champagne);
+    color: var(--ink-900);
+}
+
+.btn-secondary-outline {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.55);
+    color: #fff;
+}
+
+.btn-secondary-outline:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: var(--ink-900);
 }
 
 /* Authority Section */
 .authority-section {
-    background-color: var(--color-primary);
+    background-color: var(--surface-dark);
     color: #fff;
-    padding: 6rem 0;
+    padding: 6.5rem 0;
 }
 
 .authority-content {
-    max-width: 800px;
+    max-width: 68ch;
     margin: 0 auto;
-    text-align: center;
 }
 
 .authority-content p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: rgba(255, 255, 255, 0.8);
-    margin-bottom: 2rem;
+    font-size: 1.05rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 1.75rem;
+}
+
+.authority-content p:last-child {
+    margin-bottom: 0;
 }
 
 .authority-content .lead-text {
-    font-size: 1.4rem;
+    font-size: clamp(1.35rem, 2.2vw, 1.75rem);
     font-family: var(--font-heading);
-    color: var(--color-secondary-light);
     font-style: italic;
+    line-height: 1.45;
+    color: var(--gold-champagne);
     margin-bottom: 2.5rem;
 }
 
-/* Featured Section */
-.featured-section {
-    padding: var(--spacing-xxl) 0;
-    background-color: var(--color-bg);
-}
-
-.featured-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-bottom: 3rem;
-}
-
-/* Hero Button */
-.btn-hero {
-    background-color: transparent;
-    border: 1px solid var(--color-secondary);
-    color: white;
-    padding: 18px 40px;
-    font-size: 1rem;
-    letter-spacing: 2px;
-    transition: all 0.3s ease;
-}
-
-.btn-hero:hover {
-    background-color: rgba(197, 160, 89, 0.2);
-    transform: translateY(-2px);
-}
-
-/* Sections General */
+/* Sections */
 .section {
     padding: var(--spacing-xxl) 0;
 }
 
-/* Decorative Header "Curated Luxury..." */
+.featured-section {
+    background-color: var(--surface);
+}
+
+.journal-preview-section {
+    background-color: var(--surface-sunken);
+}
+
+/* Section headers — a rule that stops at the title rather than crossing it */
 .decorative-header {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
 }
 
 .decorative-header h2 {
     font-family: var(--font-heading);
-    font-size: 2.5rem;
-    color: var(--color-text);
-    /* Dark Grey */
-    text-transform: uppercase;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
     font-weight: 400;
-    letter-spacing: 3px;
-    padding: 0 2rem;
-    background-color: var(--color-bg);
-    /* Match section bg */
-    z-index: 2;
-    margin: 0;
+    color: var(--ink-800);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 1rem;
 }
 
-/* The horizontal line */
-.decorative-header::before {
+.decorative-header::after {
     content: '';
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
+    display: block;
+    width: 64px;
     height: 1px;
-    background-color: var(--color-secondary);
-    /* Gold line */
-    z-index: 1;
-    opacity: 0.5;
+    background-color: var(--gold);
 }
 
-/* Featured Grid */
 .featured-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
     gap: 2rem;
-    margin-bottom: 4rem;
+    margin-bottom: 3.5rem;
 }
 
 .view-all-container {
-    text-align: center;
+    display: flex;
 }
 
 .btn-gold {
-    background-color: var(--color-secondary);
-    color: white;
-    border: none;
-    padding: 16px 36px;
-    font-size: 0.9rem;
+    background-color: var(--gold);
+    border: 1px solid var(--gold);
+    color: var(--ink-900);
 }
 
 .btn-gold:hover {
-    background-color: #b08d4b;
-    /* Darker gold */
-    color: white;
+    background-color: transparent;
+    border-color: var(--gold-ink);
+    color: var(--gold-ink);
 }
 
-/* Why Choose Section (Dark) */
+/* Why Choose */
 .why-choose-section {
-    background-color: var(--color-primary);
-    /* Dark */
+    background-color: var(--surface-dark);
     color: white;
-    text-align: center;
-    position: relative;
-    /* Add subtle texture if desired, e.g., patterns */
-    background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.02) 0px, rgba(255, 255, 255, 0.02) 1px, transparent 1px, transparent 10px);
 }
 
 .why-choose-section .section-header h2 {
     color: white;
-    font-size: 2.2rem;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    letter-spacing: 0.08em;
     margin-bottom: 4rem;
-    letter-spacing: 2px;
 }
 
 .value-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 3.5rem;
 }
 
 .value-item {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .icon-wrapper {
-    color: var(--color-secondary);
-    /* Gold icons */
+    color: var(--gold);
     margin-bottom: 1.5rem;
-    padding: 1rem;
-    border: 1px solid rgba(197, 160, 89, 0.3);
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .value-item h3 {
+    font-family: var(--font-heading);
     font-size: 1.1rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     color: white;
-    letter-spacing: 1px;
+    letter-spacing: 0.06em;
     font-weight: 400;
+    text-transform: uppercase;
 }
 
 .value-item p {
-    color: rgba(255, 255, 255, 0.6);
+    color: rgba(255, 255, 255, 0.72);
     font-size: 0.95rem;
-    max-width: 300px;
-    line-height: 1.6;
+    line-height: 1.7;
+    max-width: 36ch;
+}
+
+/* Journal preview */
+.journal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3.5rem;
+}
+
+.journal-card {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.journal-card:hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+}
+
+.journal-card-media {
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    background: var(--surface-sunken);
+}
+
+.journal-card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--ease-out);
+}
+
+.journal-card:hover .journal-card-media img {
+    transform: scale(1.04);
+}
+
+.journal-card-body {
+    padding: 1.5rem;
+}
+
+.journal-card-body h3 {
+    font-size: 1.1rem;
+    line-height: 1.35;
+    margin: 0 0 0.65rem;
+    color: var(--ink-800);
+    text-wrap: balance;
+}
+
+.journal-card-body p {
+    font-size: 0.9rem;
+    color: var(--ink-500);
+    margin: 0;
+    line-height: 1.65;
+}
+
+.loading {
+    color: var(--ink-500);
+    padding: 3rem 0;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .hero {
         height: auto;
-        min-height: 100vh;
-        padding-top: 120px;
-        /* Space for the fixed header */
+        min-height: 100svh;
+        padding-top: 140px;
         padding-bottom: 4rem;
-        background-attachment: scroll;
-        /* Better performance on mobile */
-    }
-
-    .hero-content {
-        padding: 0 1.5rem;
-    }
-
-    .eyebrow-text {
-        font-size: 0.75rem;
-        letter-spacing: 2px;
-        margin-bottom: 1rem;
-    }
-
-    .hero h1 {
-        font-size: 1.8rem;
-        line-height: 1.2;
-        margin-bottom: 1rem;
-    }
-
-    .hero-subtitle {
-        font-size: 0.9rem;
-        letter-spacing: 4px;
-        margin-bottom: 0.5rem;
     }
 
     .hero-title br {
         display: none;
-        /* Let text flow naturally on narrow screens */
-    }
-
-    .main-value-proposition {
-        font-size: 1rem;
-        line-height: 1.5;
-        margin-bottom: 2rem;
     }
 
     .cta-group-luxury {
         flex-direction: column;
-        gap: 1rem;
-        width: 100%;
-        max-width: 300px;
-        margin-left: auto;
-        margin-right: auto;
+        align-items: stretch;
+        gap: 0.75rem;
     }
 
     .btn-hero {
+        text-align: center;
         width: 100%;
-        padding: 14px 20px;
-        font-size: 0.85rem;
     }
 
     .trust-indicators {
         flex-direction: column;
         gap: 0.5rem;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
     }
 
     .trust-indicators .separator {
         display: none;
     }
 
-    .decorative-header h2 {
-        font-size: 1.5rem;
-        padding: 0 1rem;
+    .section {
+        padding: 4.5rem 0;
     }
 
-    .featured-grid {
+    .value-grid {
+        gap: 2.5rem;
+    }
+
+    .featured-grid,
+    .journal-grid {
         grid-template-columns: 1fr;
     }
 }

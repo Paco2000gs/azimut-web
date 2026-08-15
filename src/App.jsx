@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LeadsProvider } from './context/LeadsContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -18,11 +18,21 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
-import AdminLogin from './pages/AdminLogin';
-import AdminDashboard from './pages/AdminDashboard';
-import DossierView from './pages/DossierView';
-import LocationSEOContent from './components/LocationSEOContent';
 import ExitIntentPopup from './components/ExitIntentPopup';
+
+// Split out of the public bundle: none of these are reachable from a visitor's
+// first paint, and together they carry the heaviest markup and CSS in the app.
+const AdminLogin = lazy(() => import('./pages/AdminLogin'));
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
+const DossierView = lazy(() => import('./pages/DossierView'));
+
+// Shown only while a lazy route's chunk is in flight. Deliberately quiet: a
+// spinner here would flash on fast connections and read as an error on slow ones.
+const RouteFallback = () => (
+  <div className="route-fallback" role="status" aria-live="polite">
+    <span className="visual-hidden">Loading</span>
+  </div>
+);
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -49,39 +59,41 @@ function App() {
           <LeadsProvider>
             <GTMTracker />
             <ExitIntentPopup />
-            <Routes>
-              {/* Public Routes */}
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="catalog" element={<Navigate to="/venta" replace />} />
-                <Route path="venta" element={<Catalog />} />
-                <Route path="venta/:city" element={<Catalog />} />
-                <Route path="venta/:city/:area" element={<Catalog />} />
-                <Route path="property/:id" element={<PropertyDetail />} />
-                <Route path="properties/:id" element={<PropertyDetail />} />
-                <Route path="about" element={<About />} />
-                <Route path="blog" element={<Blog />} />
-                <Route path="blog/:id" element={<BlogPost />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="privacy" element={<PrivacyPolicy />} />
-                <Route path="terms" element={<Terms />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
+            <Suspense fallback={<RouteFallback />}>
+              <Routes>
+                {/* Public Routes */}
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Home />} />
+                  <Route path="catalog" element={<Navigate to="/venta" replace />} />
+                  <Route path="venta" element={<Catalog />} />
+                  <Route path="venta/:city" element={<Catalog />} />
+                  <Route path="venta/:city/:area" element={<Catalog />} />
+                  <Route path="property/:id" element={<PropertyDetail />} />
+                  <Route path="properties/:id" element={<PropertyDetail />} />
+                  <Route path="about" element={<About />} />
+                  <Route path="blog" element={<Blog />} />
+                  <Route path="blog/:id" element={<BlogPost />} />
+                  <Route path="contact" element={<Contact />} />
+                  <Route path="privacy" element={<PrivacyPolicy />} />
+                  <Route path="terms" element={<Terms />} />
+                  <Route path="*" element={<NotFound />} />
+                </Route>
 
-              {/* Dossier Route (Public but Standalone) */}
-              <Route path="/dossier/:id" element={<DossierView />} />
+                {/* Dossier Route (Public but Standalone) */}
+                <Route path="/dossier/:id" element={<DossierView />} />
 
-              {/* Admin Routes */}
-              <Route path="/admin/login" element={<AdminLogin />} />
-              <Route
-                path="/admin"
-                element={
-                  <ProtectedRoute>
-                    <AdminDashboard />
-                  </ProtectedRoute>
-                }
-              />
-            </Routes>
+                {/* Admin Routes */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route
+                  path="/admin"
+                  element={
+                    <ProtectedRoute>
+                      <AdminDashboard />
+                    </ProtectedRoute>
+                  }
+                />
+              </Routes>
+            </Suspense>
           </LeadsProvider>
         </BlogProvider>
       </PropertiesProvider>

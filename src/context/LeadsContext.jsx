@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useContext } from 'react';
+import React, { createContext, useState, useContext } from 'react';
 import { supabase } from '../utils/supabaseClient';
 import { submitToHubSpot } from '../utils/hubspotService';
 
@@ -8,13 +8,13 @@ export const useLeads = () => useContext(LeadsContext);
 
 export const LeadsProvider = ({ children }) => {
     const [leads, setLeads] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
 
-    useEffect(() => {
-        fetchLeads();
-    }, []);
-
+    // Deliberately not fetched on mount: this provider wraps the whole app, so an
+    // eager fetch made every public page request the private leads table with the
+    // anon key. Only the admin dashboard calls fetchLeads().
     const fetchLeads = async () => {
+        setLoading(true);
         try {
             const { data, error } = await supabase
                 .from('leads')
@@ -37,21 +37,15 @@ export const LeadsProvider = ({ children }) => {
         };
 
         try {
-            // 1. Save to Supabase (Internal Admin Dashboard)
-            const { data, error } = await supabase
+            // No .select() on the insert: reading the row back would require the
+            // anon role to hold SELECT on leads, which would expose every lead.
+            const { error } = await supabase
                 .from('leads')
-                .insert([newLead])
-                .select()
-                .single();
+                .insert([newLead]);
 
             if (error) throw error;
 
-            setLeads(prev => [data, ...prev]);
-
-            // 2. Send to HubSpot (External CRM)
             submitToHubSpot(leadData).catch(err => console.error("HubSpot Error:", err));
-
-            return data;
         } catch (error) {
             console.error('Error adding lead:', error.message);
             throw error;
@@ -100,7 +94,7 @@ export const LeadsProvider = ({ children }) => {
     };
 
     return (
-        <LeadsContext.Provider value={{ leads, addLead, deleteLead, updateLeadStatus, getLeadsStats, loading }}>
+        <LeadsContext.Provider value={{ leads, fetchLeads, addLead, deleteLead, updateLeadStatus, getLeadsStats, loading }}>
             {children}
         </LeadsContext.Provider>
     );

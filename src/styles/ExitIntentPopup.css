@@ -1,0 +1,118 @@
+.exit-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(12, 11, 9, 0.72);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.exit-modal {
+    position: relative;
+    background-color: var(--surface);
+    border: 1px solid var(--border-strong);
+    border-top: 2px solid var(--gold);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-lg);
+    max-width: 520px;
+    width: 100%;
+    padding: clamp(2rem, 5vw, 3rem);
+}
+
+.exit-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: none;
+    cursor: pointer;
+    color: var(--ink-400);
+    transition: color 0.2s var(--ease-out);
+}
+
+.exit-close:hover {
+    color: var(--ink-800);
+}
+
+.exit-modal h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.4rem, 3.4vw, 1.85rem);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink-800);
+    margin: 0 2.5rem 1rem 0;
+    text-wrap: balance;
+}
+
+.exit-intro {
+    color: var(--ink-500);
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+}
+
+.exit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.exit-form input {
+    padding: 15px 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background: var(--surface-raised);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink-800);
+    transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.exit-form input::placeholder {
+    color: var(--ink-400);
+}
+
+.exit-form input:focus {
+    outline: none;
+    border-color: var(--gold-ink);
+    box-shadow: 0 0 0 3px var(--gold-veil);
+}
+
+.exit-form .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.exit-form .btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.exit-error {
+    margin-top: 1rem;
+    color: var(--state-error);
+    font-size: 0.875rem;
+}
+
+.exit-note {
+    margin-top: 1.25rem;
+    font-size: 0.78rem;
+    color: var(--ink-400);
+}
+
+.exit-done {
+    color: var(--gold-ink);
+    padding: 1rem 0;
+}
+
+.exit-done p {
+    color: var(--ink-500);
+}

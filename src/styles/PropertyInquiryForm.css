@@ -1,118 +1,157 @@
 .property-inquiry-form {
-    background: white;
+    background: var(--surface-raised);
     padding: 2rem;
-    border-radius: 8px;
-    border: 1px solid #f1f5f9;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.08);
-    /* Soft drop shadow */
-    font-family: 'Inter', sans-serif;
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold);
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md);
 }
 
 .form-header {
     margin-bottom: 2rem;
-    text-align: center;
 }
 
 .form-header h3 {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.5rem;
-    color: #0f172a;
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink-800);
     margin-bottom: 0.5rem;
-    font-weight: 500;
 }
 
 .form-header p {
     font-size: 0.9rem;
-    color: #64748b;
-    line-height: 1.5;
+    color: var(--ink-500);
+    line-height: 1.6;
 }
 
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.35rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 500;
+    color: var(--ink-500);
+    margin-bottom: 0.4rem;
+}
+
+.label-optional {
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 400;
+    color: var(--ink-400);
 }
 
 .minimal-input {
     width: 100%;
-    padding: 0.75rem 0;
+    padding: 0.65rem 0;
     border: none;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-strong);
     background: transparent;
+    font-family: var(--font-body);
     font-size: 0.95rem;
-    color: #334155;
-    transition: border-color 0.3s ease;
+    color: var(--ink-800);
+    transition: border-color 0.3s var(--ease-out);
     border-radius: 0;
+    min-height: 44px;
+}
+
+.minimal-input:hover {
+    border-bottom-color: var(--ink-400);
 }
 
 .minimal-input:focus {
     outline: none;
-    border-bottom-color: #d4af37;
-    /* Gold focus */
+    border-bottom-color: var(--gold-ink);
+    box-shadow: 0 1px 0 0 var(--gold-ink);
 }
 
-.minimal-input::placeholder {
-    color: #94a3b8;
-    font-weight: 300;
+textarea.minimal-input {
+    resize: vertical;
+    line-height: 1.6;
 }
 
 .btn-gold-full {
     width: 100%;
-    background-color: #0f172a;
-    /* Dark Navy */
-    color: white;
-    border: none;
+    background-color: var(--ink-800);
+    color: var(--ink-inverse);
+    border: 1px solid var(--ink-800);
+    border-radius: var(--radius-sm);
     padding: 1rem;
+    font-family: var(--font-body);
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    font-size: 0.85rem;
-    font-weight: 600;
+    letter-spacing: 0.12em;
+    font-size: 0.8rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
     margin-top: 1rem;
 }
 
-.btn-gold-full:hover {
-    background-color: #d4af37;
-    /* Gold */
+.btn-gold-full:hover:not(:disabled) {
+    background-color: var(--gold);
+    border-color: var(--gold);
+    color: var(--ink-900);
 }
 
 .btn-gold-full:disabled {
-    opacity: 0.7;
+    opacity: 0.55;
     cursor: not-allowed;
 }
 
-.privacy-note {
-    font-size: 0.75rem;
-    color: #cbd5e1;
-    text-align: center;
+.form-error {
     margin-top: 1rem;
-    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--state-error);
+    line-height: 1.5;
+}
+
+.form-trust-indicators {
+    margin-top: 1.25rem;
+    font-size: 0.75rem;
+    color: var(--ink-400);
+    line-height: 1.6;
+}
+
+.form-trust-indicators p {
+    margin: 0.15rem 0;
 }
 
 /* Success State */
 .inquiry-success {
-    text-align: center;
-    padding: 3rem 1rem;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+    padding: 2.5rem 2rem;
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-top: 2px solid var(--gold);
+    border-radius: var(--radius-sm);
+    color: var(--gold-ink);
 }
 
 .inquiry-success h3 {
-    font-family: 'Playfair Display', serif;
-    color: #0f172a;
+    font-family: var(--font-heading);
+    font-weight: 400;
+    color: var(--ink-800);
     margin: 1rem 0 0.5rem;
 }
 
 .inquiry-success p {
-    color: #64748b;
+    color: var(--ink-500);
     margin-bottom: 1.5rem;
+    line-height: 1.7;
 }
 
 .btn-text {
     background: none;
     border: none;
-    color: #3b82f6;
+    padding: 0;
+    color: var(--gold-ink);
     text-decoration: underline;
+    text-underline-offset: 0.25em;
     cursor: pointer;
+    font-family: var(--font-body);
     font-size: 0.9rem;
 }

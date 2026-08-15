@@ -11,7 +11,7 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     height: 370px;
     /* Fixed height for consistency in list view */
-    border: 1px solid #f0f0f0;
+    border: 1px solid var(--border);
 }
 
 .property-card-wide:hover {
@@ -61,7 +61,7 @@
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: #1a1a1a;
+    color: var(--ink-800);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -77,7 +77,7 @@
 }
 
 .card-header {
-    border-bottom: 1px solid #f0f0f0;
+    border-bottom: 1px solid var(--border);
     padding-bottom: 1rem;
     margin-bottom: 1rem;
 }
@@ -87,20 +87,20 @@
     font-weight: 500;
     margin: 0 0 0.5rem 0;
     font-family: 'Playfair Display', serif;
-    color: #1a1a1a;
+    color: var(--ink-800);
 }
 
 .card-location {
     display: flex;
     align-items: center;
     gap: 0.4rem;
-    color: #64748b;
+    color: var(--ink-500);
     font-size: 1rem;
 }
 
 .card-excerpt {
     font-size: 1rem;
-    color: #4b5563;
+    color: var(--ink-500);
     line-height: 1.6;
     margin: 0;
     display: -webkit-box;
@@ -115,7 +115,7 @@
     justify-content: space-between;
     align-items: center;
     padding-top: 1rem;
-    border-top: 1px solid #f0f0f0;
+    border-top: 1px solid var(--border);
     margin-top: 1rem;
 }
 
@@ -128,7 +128,7 @@
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    color: #475569;
+    color: var(--ink-500);
     font-size: 0.95rem;
 }
 
@@ -138,15 +138,22 @@
     gap: 0.5rem;
     font-size: 0.9rem;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--ink-800);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    transition: gap 0.2s ease;
+    transition: color 0.3s var(--ease-out);
+}
+
+.view-details-btn svg {
+    transition: transform 0.3s var(--ease-out);
 }
 
 .property-card-wide:hover .view-details-btn {
-    gap: 0.75rem;
-    color: #d4af37;
+    color: var(--gold-ink);
+}
+
+.property-card-wide:hover .view-details-btn svg {
+    transform: translateX(4px);
 }
 
 /* Mobile Responsiveness */

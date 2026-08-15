@@ -58,7 +58,7 @@ const Blog = () => {
                         ))}
                     </div>
                 ) : (
-                    <div style={{ textAlign: 'center', padding: '4rem', color: '#64748b' }}>
+                    <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--ink-500)' }}>
                         <p>No articles published yet.</p>
                     </div>
                 )}

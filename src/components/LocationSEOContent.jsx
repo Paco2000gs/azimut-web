@@ -282,7 +282,7 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
     } : null;
 
     return (
-        <div className="location-seo-content container" style={{ marginTop: '4rem', paddingBottom: '4rem', borderTop: '1px solid #e2e8f0', paddingTop: '4rem' }}>
+        <div className="location-seo-content container" style={{ marginTop: '4rem', paddingBottom: '4rem', borderTop: '1px solid var(--border)', paddingTop: '4rem' }}>
             <Helmet>
                 {faqSchema && (
                     <script type="application/ld+json">
@@ -293,14 +293,14 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
             {/* Province badge for rural pages */}
             {isRuralProvince && currentContent.intro && (
-                <p style={{ fontSize: '0.875rem', fontWeight: '600', color: '#b8860b', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
+                <p style={{ fontSize: '0.875rem', fontWeight: '600', color: 'var(--gold-ink)', textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: '0.75rem' }}>
                     {currentContent.intro}
                 </p>
             )}
 
-            <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: '#1e293b' }}>{currentContent.title}</h2>
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '1.5rem', color: 'var(--ink-800)' }}>{currentContent.title}</h2>
 
-            <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: '#475569', maxWidth: '800px' }}>
+            <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: 'var(--ink-500)', maxWidth: '800px' }}>
                 {currentContent.description.split('\n\n').map((paragraph, idx) => {
                     // Render paragraphs with bold via simple markdown **text**
                     const parts = paragraph.split(/(\*\*[^*]+\*\*)/g);
@@ -318,13 +318,13 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
             {/* Internal Silo Links */}
             <div className="silo-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
-                <a href={`/venta/${citySlug}/finca`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                <a href={`/venta/${citySlug}/finca`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
                     Fincas en {city}
                 </a>
-                <a href={`/venta/${citySlug}/plot`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                <a href={`/venta/${citySlug}/plot`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
                     Terrenos en {city}
                 </a>
-                <a href={`/venta/${citySlug}/villa`} style={{ background: '#f1f5f9', color: '#1e293b', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid #e2e8f0' }}>
+                <a href={`/venta/${citySlug}/villa`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
                     Villas en {city}
                 </a>
             </div>
@@ -333,7 +333,7 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
             {isRuralProvince && currentContent.cta && (
                 <div style={{ margin: '2rem 0', padding: '1.5rem 2rem', background: 'linear-gradient(135deg, #1e3a5f 0%, #2d5a8e 100%)', borderRadius: '0.75rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
                     <p style={{ color: '#fff', fontSize: '1.125rem', fontWeight: '500', margin: 0 }}>{currentContent.cta}</p>
-                    <a href="/contact" style={{ background: '#b8860b', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+                    <a href="/contact" style={{ background: 'var(--gold-ink)', color: '#fff', padding: '0.75rem 1.5rem', borderRadius: '0.5rem', fontWeight: '600', textDecoration: 'none', whiteSpace: 'nowrap' }}>
                         Contactar ahora
                     </a>
                 </div>
@@ -341,14 +341,14 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
             {currentContent.faqs && (
                 <div className="seo-faqs" style={{ marginTop: '3rem' }}>
-                    <h3 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: '#1e293b' }}>
+                    <h3 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--ink-800)' }}>
                         {isRuralProvince ? 'Preguntas Frecuentes' : 'Frequently Asked Questions'}
                     </h3>
                     <div className="faq-grid" style={{ display: 'grid', gap: '1.5rem' }}>
                         {currentContent.faqs.map((faq, idx) => (
-                            <div key={idx} className="faq-item" style={{ background: '#f8fafc', padding: '1.5rem', borderRadius: '0.75rem' }}>
-                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: '#1e293b' }}>{faq.q}</h4>
-                                <p style={{ color: '#64748b', margin: 0 }}>{faq.a}</p>
+                            <div key={idx} className="faq-item" style={{ background: 'var(--surface-sunken)', padding: '1.5rem', borderRadius: '0.75rem' }}>
+                                <h4 style={{ fontWeight: '600', marginBottom: '0.5rem', color: 'var(--ink-800)' }}>{faq.q}</h4>
+                                <p style={{ color: 'var(--ink-500)', margin: 0 }}>{faq.a}</p>
                             </div>
                         ))}
                     </div>

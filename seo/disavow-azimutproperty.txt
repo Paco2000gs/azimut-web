@@ -1,0 +1,26 @@
+# Disavow file — azimutproperty.com
+# Subir en: Google Search Console > Herramienta de disavow (https://search.google.com/search-console/disavow-links)
+# Formato oficial Google: una entrada por línea. Comentarios con '#'.
+# Regla: para PBN/link farms usar SIEMPRE 'domain:' (rechaza todo el dominio),
+# no URLs sueltas — las PBN rotan URLs pero mantienen el dominio.
+#
+# ESTADO: PENDIENTE de completar con la lista real de dominios de referencia.
+# El análisis Semrush (28 jul 2026) cortó por límite de solicitudes gratuitas y
+# NO exportó la lista completa de dominios. Para completar este fichero:
+#   1. Semrush > Backlink Analytics > azimutproperty.com > Referring Domains
+#      (o Backlink Audit > pestaña "Toxic") -> Export CSV.
+#   2. O bien GSC > Enlaces > Sitios que más enlazan -> Exportar.
+#   3. Pegar aquí como 'domain:ejemplo.com' cada dominio tóxico / PBN / sin categoría.
+#
+# Evidencia ya detectada (grupo de 6 backlinks / 6 dominios, activo desde 29 jun 2026),
+# anchor text firma de red PBN de pago:
+#   "high quality dofollow backlinks da 50 pa 40 premium pbn network service
+#    azimutproperty.com rank first page google fast seo link building buy backlinks
+#    online cheap"
+# -> Esos 6 dominios son los primeros candidatos a rechazar. Identificarlos en el
+#    export y añadirlos abajo con 'domain:'.
+
+# ---- Dominios PBN / link farm a rechazar (rellenar) ----
+# domain:ejemplo-pbn-1.com
+# domain:ejemplo-pbn-2.net
+# domain:ejemplo-pbn-3.xyz
