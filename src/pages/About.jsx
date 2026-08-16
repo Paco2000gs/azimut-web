@@ -22,6 +22,7 @@ const About = () => {
                 title="About Us - Redefining Luxury Real Estate in Marbella"
                 description="Meet the Azimut Property team. Boutique agency in Marbella and Costa del Sol specializing in luxury villas and off-market properties."
                 url="/about"
+                lang="en"
                 keywords="about Azimut Property, luxury real estate agency Marbella, international buyers Costa del Sol, boutique real estate"
             />
             <Helmet>

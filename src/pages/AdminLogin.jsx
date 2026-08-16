@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import '../styles/Contact.css'; // Reuse form styles
+import SEO from '../components/SEO';
+import '../styles/Auth.css';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState('');
@@ -21,43 +22,48 @@ const AdminLogin = () => {
         if (success) {
             navigate('/admin');
         } else {
-            setError('Invalid credentials');
+            setError('Those credentials did not match. Check the address and password, then try again.');
         }
         setLoading(false);
     };
 
     return (
-        <div className="page" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', backgroundColor: '#f5f5f5' }}>
-            <div className="contact-form-section" style={{ maxWidth: '400px', width: '100%', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-                <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>Admin Access</h2>
+        <div className="auth-page">
+            <SEO title="Admin Access" noindex={true} lang="en" />
+            <div className="auth-card">
+                <h1>Admin Access</h1>
 
                 {error && (
-                    <div style={{ backgroundColor: '#fee2e2', color: '#dc2626', padding: '1rem', borderRadius: '4px', marginBottom: '1rem', textAlign: 'center' }}>
-                        {error}
-                    </div>
+                    <p className="auth-error" role="alert">{error}</p>
                 )}
 
-                <form onSubmit={handleSubmit} className="contact-form">
-                    <div className="form-group">
+                <form onSubmit={handleSubmit}>
+                    <div className="auth-field">
+                        <label htmlFor="admin-email">Email address</label>
                         <input
+                            id="admin-email"
+                            name="email"
                             type="email"
-                            placeholder="Email"
+                            autoComplete="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className="form-group">
+                    <div className="auth-field">
+                        <label htmlFor="admin-password">Password</label>
                         <input
+                            id="admin-password"
+                            name="password"
                             type="password"
-                            placeholder="Password"
+                            autoComplete="current-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
                     </div>
-                    <button type="submit" className="btn" style={{ width: '100%' }} disabled={loading}>
-                        {loading ? 'Logging in...' : 'Login'}
+                    <button type="submit" className="btn auth-submit" disabled={loading}>
+                        {loading ? 'Signing in…' : 'Sign in'}
                     </button>
                 </form>
             </div>

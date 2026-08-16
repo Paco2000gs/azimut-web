@@ -1,0 +1,88 @@
+/* Terms and Privacy. Their own sheet: both pages used to import Home.css and
+   borrow whatever it happened to declare, so a change to the landing page could
+   silently restyle the legal text. */
+
+.legal-page {
+    padding: var(--spacing-xxl) var(--spacing-md);
+}
+
+/* Measured in ch, not px: the constraint is how many characters the eye tracks
+   per line, and that follows the font size rather than the viewport. */
+.legal-content {
+    max-width: 68ch;
+    margin: 0 auto;
+}
+
+.legal-content h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-bottom: var(--spacing-sm);
+}
+
+.legal-updated {
+    margin-bottom: var(--spacing-xl);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-400);
+}
+
+.legal-content section {
+    /* More room above a heading than below it: the gap belongs to the section
+       it opens, not to the paragraph it left behind. */
+    margin-top: var(--spacing-xl);
+}
+
+.legal-content section:first-of-type {
+    margin-top: 0;
+}
+
+.legal-content h2 {
+    font-size: 1.35rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.legal-content p {
+    margin-bottom: var(--spacing-md);
+    color: var(--ink-700);
+    line-height: 1.75;
+}
+
+.legal-content p:last-child {
+    margin-bottom: 0;
+}
+
+.legal-content ul {
+    margin: 0 0 var(--spacing-md) var(--spacing-md);
+    color: var(--ink-700);
+    line-height: 1.75;
+}
+
+.legal-content li {
+    margin-bottom: 0.4rem;
+    padding-left: var(--spacing-sm);
+    /* Drawn marker rather than a list-style glyph, so it takes the brand gold
+       without inheriting the bullet's typographic weight. */
+    position: relative;
+}
+
+.legal-content li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.7em;
+    width: 4px;
+    height: 1px;
+    background-color: var(--gold-ink);
+}
+
+.legal-content a {
+    color: var(--gold-ink);
+    border-bottom: 1px solid var(--border-strong);
+    transition: border-color 0.3s var(--ease-out);
+}
+
+.legal-content a:hover {
+    border-bottom-color: var(--gold-ink);
+}

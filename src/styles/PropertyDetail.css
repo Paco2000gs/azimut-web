@@ -1,6 +1,6 @@
 /* Property Detail Page Styles */
 .property-detail-page {
-    background-color: #ffffff;
+    background-color: var(--surface-raised);
     padding-bottom: 4rem;
 }
 
@@ -57,7 +57,7 @@
     bottom: 20px;
     left: 20px;
     background: rgba(0, 0, 0, 0.7);
-    color: white;
+    color: var(--ink-inverse);
     padding: 10px 20px;
     border-radius: 8px;
     font-size: 1.5rem;
@@ -120,7 +120,7 @@
     font-size: 2.5rem;
     margin-bottom: 2rem;
     line-height: 1.2;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     color: var(--ink-800);
 }
 
@@ -164,7 +164,7 @@
 .section-title {
     font-size: 1.5rem;
     margin-bottom: 1.5rem;
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     color: var(--ink-800);
     border-bottom: 1px solid var(--border);
     padding-bottom: 0.5rem;
@@ -264,7 +264,7 @@
     right: 2rem;
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    color: var(--ink-inverse);
     cursor: pointer;
     padding: 0.5rem 1rem;
     border-radius: 4px;

@@ -2,13 +2,6 @@
   "detector": {
     "ignoreRules": [],
     "ignoreFiles": [],
-    "ignoreValues": [
-      {
-        "rule": "overused-font",
-        "value": "inter",
-        "createdAt": "2026-08-15T16:43:20.757Z",
-        "reason": "Incumbent brand face: --font-body in variables.css, loaded in index.html, paired with Playfair Display across the whole site. User chose the 'unify the existing system' scope over a new visual world, which preserves the incumbent typography."
-      }
-    ]
+    "ignoreValues": []
   }
 }

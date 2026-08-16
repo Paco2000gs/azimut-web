@@ -27,8 +27,12 @@
   --border-strong: #CFC6B2;
   --border-dark: rgba(255, 255, 255, 0.12);
 
+  /* Status hues, muted to sit beside the gold rather than shout over it.
+     All four clear 4.5:1 on both --surface-raised and --surface-sunken.
+     There is no separate warning token: --gold-ink already plays that part. */
   --state-error: #A32E22;
   --state-success: #3F6B44;
+  --state-info: #2F5D7C;
 
   /* Typography */
   --font-heading: 'Playfair Display', serif;

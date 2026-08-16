@@ -6,6 +6,7 @@ import { useBlog } from '../context/BlogContext';
 import { generateBlogSlug, extractBlogId } from '../utils/slugify';
 import { formatBlogContent, calculateReadingTime } from '../utils/formatBlogContent';
 import SEO from '../components/SEO';
+import { detectLang } from '../utils/detectLang';
 import '../styles/Blog.css';
 
 const BlogPost = () => {
@@ -47,7 +48,7 @@ const BlogPost = () => {
     if (!post) {
         return (
             <div className="page blog-post-page">
-                <SEO title="Article Not Found" noindex={true} />
+                <SEO title="Article Not Found" noindex={true} lang="en" />
                 <div className="container" style={{ textAlign: 'center', padding: '100px 0' }}>
                     <h2>Article not found</h2>
                     <Link to="/blog" className="btn">Return to Journal</Link>
@@ -64,6 +65,7 @@ const BlogPost = () => {
                 image={post.image}
                 url={`/blog/${generateBlogSlug(post)}`}
                 type="article"
+                lang={detectLang(`${post.title} ${post.excerpt || ''}`)}
             />
             <Helmet>
                 <script type="application/ld+json">

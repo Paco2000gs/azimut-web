@@ -10,7 +10,7 @@
 
 /* Info Section */
 .contact-info-section h2 {
-    font-family: 'Playfair Display', serif;
+    font-family: var(--font-heading);
     font-size: 2.5rem;
     font-weight: 400;
     margin-bottom: 1.5rem;

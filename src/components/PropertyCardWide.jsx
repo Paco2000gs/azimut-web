@@ -17,8 +17,11 @@ const PropertyCardWide = ({ property, priority = false }) => {
                         { width: 800, height: 600, resize: 'cover' }
                     )}
                     alt={property.title}
+                    width={800}
+                    height={600}
                     loading={priority ? "eager" : "lazy"}
                     decoding={priority ? "sync" : "async"}
+                    fetchPriority={priority ? "high" : undefined}
                 />
                 <div className="card-overlay">
                     <span className="card-type-badge">{property.type}</span>

@@ -26,6 +26,7 @@ const Blog = () => {
                 title="Journal | Luxury Real Estate Trends & Market Insights"
                 description="Latest trends, analysis and guides about the luxury real estate market in Marbella and Costa del Sol. Expert insights for buyers."
                 url="/blog"
+                lang="en"
                 keywords="luxury real estate blog, Marbella property market, Costa del Sol investment guide, buying property Spain"
             />
             <Helmet>

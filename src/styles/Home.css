@@ -109,19 +109,19 @@
 .btn-secondary-outline {
     background-color: transparent;
     border: 1px solid rgba(255, 255, 255, 0.55);
-    color: #fff;
+    color: var(--ink-inverse);
 }
 
 .btn-secondary-outline:hover {
-    background-color: #fff;
-    border-color: #fff;
+    background-color: var(--ink-inverse);
+    border-color: var(--ink-inverse);
     color: var(--ink-900);
 }
 
 /* Authority Section */
 .authority-section {
     background-color: var(--surface-dark);
-    color: #fff;
+    color: var(--ink-inverse);
     padding: 6.5rem 0;
 }
 
@@ -212,11 +212,11 @@
 /* Why Choose */
 .why-choose-section {
     background-color: var(--surface-dark);
-    color: white;
+    color: var(--ink-inverse);
 }
 
 .why-choose-section .section-header h2 {
-    color: white;
+    color: var(--ink-inverse);
     font-family: var(--font-heading);
     font-weight: 400;
     font-size: clamp(1.6rem, 3vw, 2.2rem);
@@ -245,7 +245,7 @@
     font-family: var(--font-heading);
     font-size: 1.1rem;
     margin-bottom: 0.85rem;
-    color: white;
+    color: var(--ink-inverse);
     letter-spacing: 0.06em;
     font-weight: 400;
     text-transform: uppercase;

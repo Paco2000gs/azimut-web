@@ -15,7 +15,7 @@
     background-color: transparent;
     border-bottom: 1px solid rgba(255, 255, 255, 0.14);
     --header-ink: rgba(255, 255, 255, 0.92);
-    --header-ink-strong: #ffffff;
+    --header-ink-strong: var(--ink-inverse);
 }
 
 /* Everywhere else: a solid bar, so the nav is never white on white. */
@@ -23,7 +23,7 @@
     background-color: var(--surface-dark);
     border-bottom: 1px solid var(--border-dark);
     --header-ink: rgba(255, 255, 255, 0.88);
-    --header-ink-strong: #ffffff;
+    --header-ink-strong: var(--ink-inverse);
 }
 
 .header[data-scrolled="true"] {
@@ -147,7 +147,7 @@
         transition: transform 0.4s var(--ease-out), visibility 0.4s;
         box-shadow: -12px 0 40px rgba(0, 0, 0, 0.45);
         --header-ink: rgba(255, 255, 255, 0.88);
-        --header-ink-strong: #ffffff;
+        --header-ink-strong: var(--ink-inverse);
     }
 
     .nav.open {

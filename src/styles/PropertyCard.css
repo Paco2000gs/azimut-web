@@ -41,7 +41,7 @@
     left: 15px;
     background-color: rgba(26, 26, 26, 0.9);
     /* Dark background */
-    color: #fff;
+    color: var(--ink-inverse);
     padding: 6px 14px;
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -56,7 +56,7 @@
     right: 0;
     background-color: var(--color-secondary);
     /* Gold */
-    color: #fff;
+    color: var(--ink-inverse);
     padding: 8px 16px;
     font-family: var(--font-body);
     font-weight: 600;

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
-import '../styles/Home.css'; // Reusing general styles
+import '../styles/Legal.css';
 
 const PrivacyPolicy = () => {
     useEffect(() => {
@@ -19,22 +19,23 @@ const PrivacyPolicy = () => {
 
     return (
         <div className="page privacy-policy">
-            <SEO title="Privacy Policy" description="Privacy policy of Azimut Property. Learn how we handle your personal data in compliance with GDPR." url="/privacy" />
+            <SEO title="Privacy Policy" description="Privacy policy of Azimut Property. Learn how we handle your personal data in compliance with GDPR." url="/privacy" lang="en" />
             <Helmet>
                 <script type="application/ld+json">
                     {JSON.stringify(breadcrumbSchema)}
                 </script>
             </Helmet>
-            <div className="container" style={{ padding: '4rem 2rem', maxWidth: '800px' }}>
+            <div className="container legal-page">
+                <div className="legal-content">
                 <h1>Privacy Policy</h1>
-                <p className="last-updated">Last updated: December 1, 2025</p>
+                <p className="legal-updated">Last updated: December 1, 2025</p>
 
-                <section style={{ marginBottom: '2rem' }}>
+                <section>
                     <h2>1. Introduction</h2>
                     <p>Welcome to AzimutProperty. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
                 </section>
 
-                <section style={{ marginBottom: '2rem' }}>
+                <section>
                     <h2>2. Data We Collect</h2>
                     <p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:</p>
                     <ul>
@@ -45,7 +46,7 @@ const PrivacyPolicy = () => {
                     </ul>
                 </section>
 
-                <section style={{ marginBottom: '2rem' }}>
+                <section>
                     <h2>3. How We Use Your Data</h2>
                     <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
                     <ul>
@@ -55,20 +56,21 @@ const PrivacyPolicy = () => {
                     </ul>
                 </section>
 
-                <section style={{ marginBottom: '2rem' }}>
+                <section>
                     <h2>4. Data Security</h2>
                     <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
                 </section>
 
-                <section style={{ marginBottom: '2rem' }}>
+                <section>
                     <h2>5. Your Legal Rights</h2>
                     <p>Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to request access, correction, erasure, restriction, transfer, to object to processing, to portability of data and (where the lawful ground of processing is consent) to withdraw consent.</p>
                 </section>
 
-                <section style={{ marginBottom: '2rem' }}>
-                    <h2>6. Contact Us</h2>
-                    <p>If you have any questions about this privacy policy or our privacy practices, please contact us at: info@azimutproperty.com</p>
-                </section>
+                    <section>
+                        <h2>6. Contact Us</h2>
+                        <p>If you have any questions about this privacy policy or our privacy practices, please contact us at <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a>.</p>
+                    </section>
+                </div>
             </div>
         </div>
     );

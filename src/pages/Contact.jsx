@@ -55,6 +55,7 @@ const Contact = () => {
                 title="Contact Us | Luxury Real Estate Agency Marbella"
                 description="Contact Azimut Property to buy or sell luxury real estate in Marbella, Estepona, and Costa del Sol. Multilingual team. Email: info@azimutproperty.com."
                 url="/contact"
+                lang="en"
                 keywords="contact real estate Marbella, luxury property inquiry Costa del Sol, buy villa Marbella contact"
             />
             <Helmet>

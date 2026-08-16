@@ -1,0 +1,78 @@
+/* Admin sign-in. Its own sheet: it used to borrow Contact.css, so editing the
+   public contact form silently restyled the way the team gets into the panel. */
+
+.auth-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: var(--spacing-lg);
+    background-color: var(--surface-sunken);
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing-xl) var(--spacing-lg);
+    background-color: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+}
+
+.auth-card h1 {
+    font-size: 1.75rem;
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.auth-error {
+    margin-bottom: var(--spacing-md);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--state-error);
+    border-radius: var(--radius-sm);
+    color: var(--state-error);
+    font-size: 0.9rem;
+}
+
+.auth-field {
+    margin-bottom: var(--spacing-md);
+}
+
+.auth-field label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+}
+
+.auth-field input {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-raised);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--ink-800);
+    transition: border-color 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
+}
+
+.auth-field input:focus {
+    outline: none;
+    border-color: var(--gold-ink);
+    box-shadow: 0 0 0 3px var(--gold-veil);
+}
+
+.auth-submit {
+    width: 100%;
+    margin-top: var(--spacing-sm);
+}
+
+.auth-submit:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}

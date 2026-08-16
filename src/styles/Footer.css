@@ -1,6 +1,6 @@
 .footer {
     background-color: var(--surface-dark);
-    color: #fff;
+    color: var(--ink-inverse);
     padding: 4rem 0 2rem;
     margin-top: auto;
     border-top: 1px solid var(--gold);
@@ -128,7 +128,7 @@
 
 .social-links a:hover {
     background-color: var(--color-secondary);
-    color: white;
+    color: var(--ink-inverse);
     border-color: var(--color-secondary);
 }
 

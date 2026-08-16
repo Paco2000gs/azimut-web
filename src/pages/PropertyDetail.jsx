@@ -81,7 +81,7 @@ const PropertyDetail = () => {
     if (!property) {
         return (
             <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
-                <SEO title="Property Not Found" noindex={true} />
+                <SEO title="Property Not Found" noindex={true} lang="en" />
                 <h2>Property not found</h2>
                 <Link to="/venta" className="btn">Back to listing</Link>
             </div>
@@ -237,8 +237,10 @@ const PropertyDetail = () => {
                 title={`${property.title} — ${property.type} in ${property.city}, ${property.province}`}
                 description={seoDescription.substring(0, 320)}
                 image={getOptimizedImageUrl(displayImages[0]?.url, { width: 1200, height: 630, resize: 'cover' })}
+                imageDimensions={{ width: 1200, height: 630 }}
                 url={canonicalPropertyPath}
                 type="article"
+                lang="en"
                 keywords={`${property.type} ${property.city}, buy ${property.type?.toLowerCase()} ${property.city}, ${property.type?.toLowerCase()} for sale ${property.province}, luxury real estate ${property.city}, property ${property.city} Spain, finca ${property.city}, country estate ${property.province}`}
             />
             <Helmet>

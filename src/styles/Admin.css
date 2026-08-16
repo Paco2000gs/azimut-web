@@ -1,9 +1,9 @@
 /* Admin Dashboard Styles */
 .admin-page {
-    background-color: #f8fafc;
+    background-color: var(--surface-sunken);
     min-height: 100vh;
     padding: 2rem;
-    font-family: 'Inter', sans-serif;
+    font-family: var(--font-body);
 }
 
 .admin-header {
@@ -16,20 +16,20 @@
 .admin-header h1 {
     font-size: 1.875rem;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--ink-800);
     margin-bottom: 0.5rem;
     letter-spacing: -0.025em;
 }
 
 .admin-header p {
-    color: #64748b;
+    color: var(--ink-500);
     font-size: 0.95rem;
 }
 
 .logout-btn {
-    background-color: white;
-    color: #ef4444;
-    border: 1px solid #fee2e2;
+    background-color: var(--surface-raised);
+    color: var(--state-error);
+    border: 1px solid rgba(163, 46, 34, 0.22);
     padding: 0.6rem 1.2rem;
     border-radius: 8px;
     font-weight: 500;
@@ -41,10 +41,10 @@
 }
 
 .logout-btn:hover {
-    background-color: #fef2f2;
-    border-color: #fecaca;
+    background-color: rgba(163, 46, 34, 0.06);
+    border-color: rgba(163, 46, 34, 0.35);
     transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
+    box-shadow: 0 2px 4px rgba(163, 46, 34, 0.12);
 }
 
 /* Stats Grid */
@@ -56,7 +56,7 @@
 }
 
 .stat-card {
-    background: white;
+    background: var(--surface-raised);
     padding: 1.75rem;
     border-radius: 12px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -80,25 +80,25 @@
 .stat-value {
     font-size: 2.25rem;
     font-weight: 700;
-    color: #0f172a;
+    color: var(--ink-900);
     line-height: 1;
 }
 
 /* Colors for Stats */
 .stat-card.total .stat-title {
-    color: #64748b;
+    color: var(--ink-500);
 }
 
 .stat-card.new .stat-title {
-    color: #3b82f6;
+    color: var(--state-info);
 }
 
 .stat-card.contacted .stat-title {
-    color: #f59e0b;
+    color: var(--gold-ink);
 }
 
 .stat-card.qualified .stat-title {
-    color: #10b981;
+    color: var(--state-success);
 }
 
 /* Filters */
@@ -107,7 +107,7 @@
     align-items: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-    background: white;
+    background: var(--surface-raised);
     padding: 1rem;
     border-radius: 12px;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -117,9 +117,9 @@
 .filter-select {
     padding: 0.5rem 2rem 0.5rem 1rem;
     border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    background-color: #f8fafc;
-    color: #334155;
+    border: 1px solid var(--border-strong);
+    background-color: var(--surface-sunken);
+    color: var(--ink-700);
     font-size: 0.9rem;
     cursor: pointer;
     outline: none;
@@ -127,12 +127,12 @@
 }
 
 .filter-select:focus {
-    border-color: #94a3b8;
+    border-color: var(--ink-500);
 }
 
 /* Table */
 .leads-table-container {
-    background: white;
+    background: var(--surface-raised);
     border-radius: 12px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
     overflow: hidden;
@@ -151,21 +151,21 @@
 }
 
 .leads-table th {
-    background-color: #f8fafc;
+    background-color: var(--surface-sunken);
     padding: 1rem 1.5rem;
     text-align: left;
     font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    color: #64748b;
+    color: var(--ink-500);
     letter-spacing: 0.05em;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid var(--border-strong);
 }
 
 .leads-table td {
     padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
-    color: #334155;
+    border-bottom: 1px solid var(--border);
+    color: var(--ink-700);
     vertical-align: middle;
 }
 
@@ -174,19 +174,19 @@
 }
 
 .leads-table tr:hover td {
-    background-color: #f8fafc;
+    background-color: var(--surface-sunken);
 }
 
 /* Table Content Styles */
 .lead-date {
-    color: #64748b;
+    color: var(--ink-500);
     font-size: 0.9rem;
     font-variant-numeric: tabular-nums;
 }
 
 .lead-name {
     font-weight: 600;
-    color: #0f172a;
+    color: var(--ink-900);
 }
 
 .contact-info {
@@ -199,14 +199,14 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    color: #64748b;
+    color: var(--ink-500);
     font-size: 0.875rem;
     text-decoration: none;
     transition: color 0.2s;
 }
 
 .contact-link:hover {
-    color: #3b82f6;
+    color: var(--gold-ink);
 }
 
 .interest-badge {
@@ -219,213 +219,18 @@
 }
 
 .interest-badge.property {
-    background-color: #eff6ff;
-    color: #1d4ed8;
+    background-color: rgba(47, 93, 124, 0.12);
+    color: var(--state-info);
 }
 
 .interest-badge.general {
-    background-color: #f1f5f9;
-    color: #475569;
+    background-color: var(--border);
+    color: var(--ink-500);
 }
 
 .lead-message {
     font-size: 0.85rem;
-    color: #94a3b8;
-    font-style: italic;
-    max-width: 250px;
-}
-
-.logout-btn:hover {
-    background-color: #fef2f2;
-    border-color: #fecaca;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 4px rgba(239, 68, 68, 0.1);
-}
-
-/* Stats Grid */
-.stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 2.5rem;
-}
-
-.stat-card {
-    background: white;
-    padding: 1.75rem;
-    border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    border: 1px solid rgba(0, 0, 0, 0.02);
-}
-
-.stat-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025);
-}
-
-.stat-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 0.75rem;
-}
-
-.stat-value {
-    font-size: 2.25rem;
-    font-weight: 700;
-    color: #0f172a;
-    line-height: 1;
-}
-
-/* Colors for Stats */
-.stat-card.total .stat-title {
-    color: #64748b;
-}
-
-.stat-card.new .stat-title {
-    color: #3b82f6;
-}
-
-.stat-card.contacted .stat-title {
-    color: #f59e0b;
-}
-
-.stat-card.qualified .stat-title {
-    color: #10b981;
-}
-
-/* Filters */
-.filters-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-    background: white;
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-    width: fit-content;
-}
-
-.filter-select {
-    padding: 0.5rem 2rem 0.5rem 1rem;
-    border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    background-color: #f8fafc;
-    color: #334155;
-    font-size: 0.9rem;
-    cursor: pointer;
-    outline: none;
-    transition: border-color 0.2s;
-}
-
-.filter-select:focus {
-    border-color: #94a3b8;
-}
-
-/* Table */
-.leads-table-container {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-    overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.02);
-}
-
-.table-responsive {
-    overflow-x: auto;
-}
-
-.leads-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-    min-width: 900px;
-}
-
-.leads-table th {
-    background-color: #f8fafc;
-    padding: 1rem 1.5rem;
-    text-align: left;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: #64748b;
-    letter-spacing: 0.05em;
-    border-bottom: 1px solid #e2e8f0;
-}
-
-.leads-table td {
-    padding: 1.25rem 1.5rem;
-    border-bottom: 1px solid #f1f5f9;
-    color: #334155;
-    vertical-align: middle;
-}
-
-.leads-table tr:last-child td {
-    border-bottom: none;
-}
-
-.leads-table tr:hover td {
-    background-color: #f8fafc;
-}
-
-/* Table Content Styles */
-.lead-date {
-    color: #64748b;
-    font-size: 0.9rem;
-    font-variant-numeric: tabular-nums;
-}
-
-.lead-name {
-    font-weight: 600;
-    color: #0f172a;
-}
-
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-}
-
-.contact-link {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #64748b;
-    font-size: 0.875rem;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.contact-link:hover {
-    color: #3b82f6;
-}
-
-.interest-badge {
-    display: inline-flex;
-    padding: 0.25rem 0.75rem;
-    border-radius: 9999px;
-    font-size: 0.75rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-}
-
-.interest-badge.property {
-    background-color: #eff6ff;
-    color: #1d4ed8;
-}
-
-.interest-badge.general {
-    background-color: #f1f5f9;
-    color: #475569;
-}
-
-.lead-message {
-    font-size: 0.85rem;
-    color: #94a3b8;
+    color: var(--ink-500);
     font-style: italic;
     max-width: 250px;
     white-space: nowrap;
@@ -437,22 +242,22 @@
 .status-select {
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--border-strong);
     font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
-    background-color: white;
+    background-color: var(--surface-raised);
     transition: all 0.2s;
 }
 
 .status-select:focus {
-    box-shadow: 0 0 0 2px #e2e8f0;
+    box-shadow: 0 0 0 2px var(--border-strong);
     outline: none;
 }
 
 /* Actions */
 .delete-btn {
-    color: #94a3b8;
+    color: var(--ink-500);
     background: none;
     border: none;
     cursor: pointer;
@@ -462,14 +267,14 @@
 }
 
 .delete-btn:hover {
-    color: #ef4444;
-    background-color: #fef2f2;
+    color: var(--state-error);
+    background-color: rgba(163, 46, 34, 0.06);
 }
 
 .empty-state {
     text-align: center;
     padding: 4rem 2rem;
-    color: #94a3b8;
+    color: var(--ink-500);
 }
 
 /* Narrow screens.
