@@ -7,9 +7,10 @@ import { MapPin, Bed, Bath, Maximize, Home, Check, ArrowLeft, Mail, Grid, FileTe
 import '../styles/Home.css'; // Reusing global styles
 import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
+import ShortlistButton from '../components/ShortlistButton';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
-import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, getCustomSlugForId } from '../utils/slugify';
+import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, slugifyLocation } from '../utils/slugify';
 
 // Lazy-load Leaflet map — saves ~153KB from initial bundle
 const PropertyMap = lazy(() => import('../components/PropertyMap'));
@@ -191,8 +192,8 @@ const PropertyDetail = () => {
         "itemListElement": [
             { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
             { "@type": "ListItem", "position": 2, "name": "Properties", "item": "https://www.azimutproperty.com/venta" },
-            { "@type": "ListItem", "position": 3, "name": property.province, "item": `https://www.azimutproperty.com/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}` },
-            { "@type": "ListItem", "position": 4, "name": property.city, "item": `https://www.azimutproperty.com/venta/${property.city?.toLowerCase().replace(/\s+/g, '-')}` },
+            { "@type": "ListItem", "position": 3, "name": property.province, "item": `https://www.azimutproperty.com/venta/${slugifyLocation(property.province)}` },
+            { "@type": "ListItem", "position": 4, "name": property.city, "item": `https://www.azimutproperty.com/venta/${slugifyLocation(property.city)}` },
             { "@type": "ListItem", "position": 5, "name": property.title, "item": canonicalUrl }
         ]
     };
@@ -267,13 +268,13 @@ const PropertyDetail = () => {
                         <li><Link to="/venta">Properties</Link></li>
                         <li aria-hidden="true" className="breadcrumb-sep">/</li>
                         <li>
-                            <Link to={`/venta/${property.province?.toLowerCase().replace(/\s+/g, '-')}`}>
+                            <Link to={`/venta/${slugifyLocation(property.province)}`}>
                                 {property.province}
                             </Link>
                         </li>
                         <li aria-hidden="true" className="breadcrumb-sep">/</li>
                         <li>
-                            <Link to={`/venta/${property.city?.toLowerCase().replace(/\s+/g, '-')}`}>
+                            <Link to={`/venta/${slugifyLocation(property.city)}`}>
                                 {property.city}
                             </Link>
                         </li>
@@ -473,6 +474,7 @@ const PropertyDetail = () => {
                         
                         {/* QUICK CONTACT BUTTONS */}
                         <div className="quick-contact-actions" style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                            <ShortlistButton property={property} variant="labelled" />
                             <a
                                 href={`mailto:info@azimutproperty.com?subject=${encodeURIComponent('Enquiry: ' + property.title)}`}
                                 className="email-contact-btn"
@@ -507,6 +509,11 @@ const PropertyDetail = () => {
                             </details>
                         ))}
                     </div>
+                    <p className="faq-guide-link">
+                        <Link to="/buying-guide">
+                            The full process for a non-resident buyer — NIE, notary, taxes and timeline
+                        </Link>
+                    </p>
                 </div>
 
                 {/* RELATED PROPERTIES SECTION */}

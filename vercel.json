@@ -293,6 +293,15 @@
       ]
     },
     {
+      "source": "/shortlist",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -315,6 +324,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/shortlist",
+      "destination": "/index.html"
+    },
     {
       "source": "/admin",
       "destination": "/index.html"

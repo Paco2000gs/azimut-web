@@ -8,13 +8,13 @@ import SEO from '../components/SEO';
 import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
-import { generatePropertyPath } from '../utils/slugify';
+import { generatePropertyPath, slugifyLocation } from '../utils/slugify';
 import LocationSEOContent from '../components/LocationSEOContent';
 import LeadMagnet from '../components/LeadMagnet';
 
-// Slugify a city name to match URL params (e.g., "Jimena de la Frontera" -> "jimena-de-la-frontera")
-const slugifyCity = (s) => s.toLowerCase().normalize('NFD')
-    .replace(/\p{Diacritic}/gu, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+// Shared with the links other pages emit, so a breadcrumb always points at a URL
+// this page resolves.
+const slugifyCity = slugifyLocation;
 
 const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();

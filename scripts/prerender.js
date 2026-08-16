@@ -32,6 +32,7 @@ const STATIC_ROUTES = [
     '/about',
     '/contact',
     '/blog',
+    '/buying-guide',
     '/privacy',
     '/terms',
 ];

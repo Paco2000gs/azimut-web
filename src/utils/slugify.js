@@ -18,6 +18,21 @@ const ID_TO_CUSTOM_SLUG = Object.fromEntries(
 /**
  * Check if a slug is a custom SEO slug
  */
+/**
+ * Slug for the location segment of /venta/:city URLs.
+ *
+ * Accents are stripped because the sitemap declares the accent-free form
+ * (/venta/cadiz), while page links were being built with a plain lowercase
+ * replace that kept them (/venta/málaga). One page, two addresses, and the one
+ * we linked internally was not the one we declared.
+ */
+export const slugifyLocation = (value) => (value || '')
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/\p{Diacritic}/gu, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+
 export const isCustomSlug = (slug) => slug in CUSTOM_SLUGS;
 
 /**

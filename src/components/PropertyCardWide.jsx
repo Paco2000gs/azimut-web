@@ -4,7 +4,10 @@ import { MapPin, Bed, Bath, Maximize, ArrowRight } from 'lucide-react';
 import '../styles/PropertyCardWide.css';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { generatePropertyPath } from '../utils/slugify';
+import ShortlistButton from './ShortlistButton';
 
+// `fetchpriority` is deliberately lowercase: React 18 does not recognise the
+// camelCase spelling and warns on every render, though it forwards it either way.
 const PropertyCardWide = ({ property, priority = false }) => {
     const propertyPath = generatePropertyPath(property);
 
@@ -21,8 +24,9 @@ const PropertyCardWide = ({ property, priority = false }) => {
                     height={600}
                     loading={priority ? "eager" : "lazy"}
                     decoding={priority ? "sync" : "async"}
-                    fetchPriority={priority ? "high" : undefined}
+                    fetchpriority={priority ? "high" : undefined}
                 />
+                <ShortlistButton property={property} />
                 <div className="card-overlay">
                     <span className="card-type-badge">{property.type}</span>
                     <span className="card-price-badge">

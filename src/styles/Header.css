@@ -102,6 +102,31 @@
     transform: scaleX(1);
 }
 
+.nav-shortlist {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.nav-shortlist::after {
+    display: none;
+}
+
+.nav-shortlist-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 10px;
+    background-color: var(--gold);
+    color: var(--ink-900);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0;
+}
+
 .btn-nav {
     padding: 11px 24px;
     border: 1px solid var(--gold);

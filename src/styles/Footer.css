@@ -46,6 +46,25 @@
     transition: color 0.3s var(--ease-out);
 }
 
+/* 0.35rem of padding renders 36px tall — close, but under the touch minimum. */
+@media (pointer: coarse) {
+    .footer-links a {
+        display: inline-flex;
+        align-items: center;
+        min-height: 44px;
+    }
+
+    .contact-info a {
+        position: relative;
+    }
+
+    .contact-info a::after {
+        content: '';
+        position: absolute;
+        inset: -13px 0;
+    }
+}
+
 .footer-links a:hover {
     color: var(--gold);
 }
@@ -120,8 +139,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border: 1px solid rgba(197, 160, 89, 0.3);
     border-radius: 50%;
 }

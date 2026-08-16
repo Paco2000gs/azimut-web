@@ -203,6 +203,35 @@
     flex-shrink: 0;
 }
 
+/* Leaflet ships 30px zoom controls. On the surface where a buyer checks how far
+   the estate sits from an airport, those are the two most-tapped buttons. */
+@media (pointer: coarse) {
+    .leaflet-touch .leaflet-bar a,
+    .leaflet-control-zoom a {
+        width: 44px;
+        height: 44px;
+        line-height: 44px;
+    }
+}
+
+.faq-guide-link {
+    margin-top: var(--spacing-md);
+}
+
+.faq-guide-link a {
+    display: inline-block;
+    min-height: 44px;
+    padding: 0.7rem 0;
+    color: var(--gold-ink);
+    border-bottom: 1px solid var(--border-strong);
+    font-size: 0.95rem;
+    transition: border-color 0.3s var(--ease-out);
+}
+
+.faq-guide-link a:hover {
+    border-bottom-color: var(--gold-ink);
+}
+
 .video-caption {
     padding: 0.85rem 1rem;
     background-color: var(--surface-raised);

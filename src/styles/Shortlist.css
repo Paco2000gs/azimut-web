@@ -1,0 +1,188 @@
+.shortlist-page {
+    padding: calc(var(--header-height) + var(--spacing-xl)) 0 var(--spacing-xxl);
+}
+
+.shortlist-header {
+    margin-bottom: var(--spacing-xl);
+}
+
+.shortlist-header h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-bottom: var(--spacing-xs);
+}
+
+.shortlist-count {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+}
+
+.shortlist-status {
+    color: var(--ink-500);
+}
+
+/* Empty state carries the explanation the feature needs anyway: what it is for
+   and where the data goes. */
+.shortlist-empty {
+    max-width: 52ch;
+    padding: var(--spacing-xl) 0 var(--spacing-xxl);
+}
+
+.shortlist-empty h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.shortlist-empty p {
+    margin-bottom: var(--spacing-lg);
+    color: var(--ink-500);
+    line-height: 1.75;
+}
+
+/* Estates are columns and attributes are rows: comparison runs across a row,
+   and a fifth estate extends the scroll instead of breaking the layout. */
+.shortlist-table-scroll {
+    overflow-x: auto;
+    margin-bottom: var(--spacing-xl);
+}
+
+.shortlist-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.shortlist-table th,
+.shortlist-table td {
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+}
+
+/* The attribute column stays put while the estates scroll under it. */
+.shortlist-table tbody th[scope="row"],
+.shortlist-table thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    min-width: 9rem;
+    background-color: var(--surface);
+    font-size: 0.72rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+}
+
+.shortlist-table thead th {
+    vertical-align: top;
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--border-strong);
+}
+
+.shortlist-table td {
+    min-width: 13rem;
+    font-size: 1rem;
+    color: var(--ink-800);
+    font-variant-numeric: tabular-nums;
+}
+
+.shortlist-table tbody tr:nth-child(odd) td {
+    background-color: var(--surface-sunken);
+}
+
+.shortlist-estate {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: 13rem;
+}
+
+.shortlist-estate-media img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+}
+
+.shortlist-estate-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    line-height: 1.35;
+    color: var(--ink-800);
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.shortlist-estate-title:hover {
+    color: var(--gold-ink);
+}
+
+.shortlist-remove {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    align-self: flex-start;
+    min-height: 44px;
+    padding: 0 0.5rem 0 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+    transition: color 0.2s var(--ease-out);
+}
+
+.shortlist-remove:hover {
+    color: var(--state-error);
+}
+
+.shortlist-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.shortlist-clear {
+    min-height: 44px;
+    padding: 0 0.25rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-500);
+    text-decoration: underline;
+    text-underline-offset: 0.3em;
+    transition: color 0.2s var(--ease-out);
+}
+
+.shortlist-clear:hover {
+    color: var(--state-error);
+}
+
+@media (max-width: 768px) {
+    .shortlist-table th,
+    .shortlist-table td {
+        padding: 0.75rem 1rem;
+    }
+
+    .shortlist-estate,
+    .shortlist-table td {
+        width: 11rem;
+        min-width: 11rem;
+    }
+
+    .shortlist-table tbody th[scope="row"],
+    .shortlist-table thead th:first-child {
+        min-width: 7rem;
+    }
+}

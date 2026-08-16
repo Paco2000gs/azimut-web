@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Bookmark } from 'lucide-react';
+import { useShortlist } from '../context/ShortlistContext';
 import '../styles/Header.css';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { count: shortlistCount } = useShortlist();
     const location = useLocation();
     const headerRef = useRef(null);
     const toggleRef = useRef(null);
@@ -73,6 +75,18 @@ const Header = () => {
                     <NavLink to="/venta?type=finca" onClick={closeMenu}>Rural Estates</NavLink>
                     <NavLink to="/about" onClick={closeMenu}>About Us</NavLink>
                     <NavLink to="/blog" onClick={closeMenu}>Journal</NavLink>
+                    {/* Appears only once something is saved: an empty shortlist is
+                        a seventh navigation item earning nothing. */}
+                    {shortlistCount > 0 && (
+                        <NavLink to="/shortlist" className="nav-shortlist" onClick={closeMenu}>
+                            <Bookmark size={15} aria-hidden="true" />
+                            <span>Shortlist</span>
+                            <span className="nav-shortlist-count" aria-hidden="true">{shortlistCount}</span>
+                            <span className="visual-hidden">
+                                {shortlistCount} {shortlistCount === 1 ? 'estate' : 'estates'} saved
+                            </span>
+                        </NavLink>
+                    )}
                     <NavLink to="/contact" className="btn-nav" onClick={closeMenu}>Contact</NavLink>
                 </nav>
 

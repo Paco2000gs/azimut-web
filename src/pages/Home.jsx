@@ -107,7 +107,7 @@ const Home = () => {
                         srcSet="/media/hero-estate-960.jpg 960w, /media/hero-estate-1440.jpg 1440w, /media/hero-estate-1920.jpg 1920w"
                         sizes="100vw"
                         alt="Olive terraces at sunset on a historic estate in the Andalusian interior"
-                        fetchPriority="high"
+                        fetchpriority="high"
                         decoding="async"
                         width="1920"
                         height="1080"

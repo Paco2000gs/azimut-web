@@ -50,6 +50,7 @@ async function generateSitemap() {
         '/about',
         '/contact',
         '/blog',
+        '/buying-guide',
         '/privacy',
         '/terms'
     ];

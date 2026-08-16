@@ -1,0 +1,160 @@
+/* Read-mode surface: the visitor came to understand something, so the measure
+   and the rhythm matter more than anything expressive. */
+
+.guide-page {
+    padding: calc(var(--header-height) + var(--spacing-xl)) 0 var(--spacing-xxl);
+}
+
+.guide-container {
+    max-width: 70ch;
+}
+
+.guide-header {
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--spacing-xl);
+}
+
+.guide-header h1 {
+    font-size: clamp(2rem, 5.5vw, 3rem);
+    margin-bottom: var(--spacing-md);
+}
+
+.guide-standfirst {
+    font-size: 1.2rem;
+    line-height: 1.65;
+    color: var(--ink-700);
+}
+
+.guide-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.guide-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: var(--spacing-md);
+}
+
+.guide-section p {
+    margin-bottom: var(--spacing-md);
+    color: var(--ink-700);
+    line-height: 1.8;
+}
+
+.guide-section p:last-child {
+    margin-bottom: 0;
+}
+
+/* Numbered by a drawn counter rather than a list marker: the sequence is the
+   content here, so it earns the weight. */
+.guide-steps {
+    list-style: none;
+    counter-reset: guide-step;
+    margin: 0;
+    padding: 0;
+}
+
+.guide-steps > li {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+    border-top: 1px solid var(--border);
+}
+
+.guide-steps > li:last-child {
+    border-bottom: 1px solid var(--border);
+}
+
+.guide-step-index {
+    flex-shrink: 0;
+    width: 2rem;
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    color: var(--gold-ink);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+}
+
+.guide-steps h3 {
+    font-size: 1.15rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.guide-steps p {
+    margin: 0;
+    color: var(--ink-700);
+    line-height: 1.75;
+}
+
+.guide-costs {
+    margin: 0;
+}
+
+.guide-cost {
+    padding: var(--spacing-md) 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.guide-cost:first-child {
+    border-top: 1px solid var(--border);
+}
+
+.guide-cost dt {
+    margin-bottom: 0.35rem;
+    font-weight: 500;
+    color: var(--ink-800);
+}
+
+.guide-cost dd {
+    margin: 0;
+    color: var(--ink-500);
+    line-height: 1.7;
+}
+
+.guide-disclaimer {
+    padding: var(--spacing-md) var(--spacing-lg);
+    background-color: var(--surface-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--ink-500);
+    margin-bottom: var(--spacing-xl);
+}
+
+.guide-cta {
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--border-strong);
+}
+
+.guide-cta h2 {
+    font-size: 1.6rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.guide-cta p {
+    margin-bottom: var(--spacing-lg);
+    color: var(--ink-700);
+    line-height: 1.8;
+}
+
+.guide-cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+@media (max-width: 600px) {
+    .guide-steps > li {
+        gap: var(--spacing-sm);
+    }
+
+    .guide-step-index {
+        width: 1.5rem;
+    }
+
+    .guide-cta-actions .btn {
+        width: 100%;
+        text-align: center;
+    }
+}

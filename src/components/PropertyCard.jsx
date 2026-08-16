@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapPin, Bed, Bath, Maximize } from 'lucide-react';
 import { generatePropertyPath } from '../utils/slugify';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
+import ShortlistButton from './ShortlistButton';
 import '../styles/PropertyCard.css';
 
 const PropertyCard = ({ property }) => {
@@ -22,6 +23,7 @@ const PropertyCard = ({ property }) => {
                     height={300}
                     loading="lazy"
                 />
+                <ShortlistButton property={property} />
                 <span className="card-tag">{property.type}</span>
                 <span className="card-price">
                     {property.price_on_demand ? "Price On Demand" : `€${property.price.toLocaleString()}`}

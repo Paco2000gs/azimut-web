@@ -1,6 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 import { LeadsProvider } from './context/LeadsContext';
+import { ShortlistProvider } from './context/ShortlistContext';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { PropertiesProvider } from './context/PropertiesContext';
 import { isSupabaseConfigured } from './utils/supabaseClient';
@@ -18,6 +19,8 @@ import Contact from './pages/Contact';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import Terms from './pages/Terms';
 import NotFound from './pages/NotFound';
+import Shortlist from './pages/Shortlist';
+import BuyingGuide from './pages/BuyingGuide';
 import ExitIntentPopup from './components/ExitIntentPopup';
 
 // Split out of the public bundle: none of these are reachable from a visitor's
@@ -57,6 +60,7 @@ function App() {
       <PropertiesProvider>
         <BlogProvider>
           <LeadsProvider>
+            <ShortlistProvider>
             <GTMTracker />
             <ExitIntentPopup />
             <Suspense fallback={<RouteFallback />}>
@@ -74,6 +78,8 @@ function App() {
                   <Route path="blog" element={<Blog />} />
                   <Route path="blog/:id" element={<BlogPost />} />
                   <Route path="contact" element={<Contact />} />
+                  <Route path="shortlist" element={<Shortlist />} />
+                  <Route path="buying-guide" element={<BuyingGuide />} />
                   <Route path="privacy" element={<PrivacyPolicy />} />
                   <Route path="terms" element={<Terms />} />
                   <Route path="*" element={<NotFound />} />
@@ -94,6 +100,7 @@ function App() {
                 />
               </Routes>
             </Suspense>
+            </ShortlistProvider>
           </LeadsProvider>
         </BlogProvider>
       </PropertiesProvider>

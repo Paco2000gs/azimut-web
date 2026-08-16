@@ -154,6 +154,24 @@ img {
   color: var(--border-strong);
 }
 
+/* Touch pointers need a 44px target; mouse pointers do not, and padding the
+   crumbs on desktop would push every page's content down for nothing.
+   The hit area is grown with a pseudo-element rather than with height, so the
+   crumbs still read as one quiet line instead of a 44px band. Vertical only:
+   the gap between crumbs is 8px, so widening sideways would overlap them. */
+@media (pointer: coarse) {
+  .breadcrumbs a,
+  .breadcrumbs [aria-current="page"] {
+    position: relative;
+  }
+
+  .breadcrumbs a::after {
+    content: '';
+    position: absolute;
+    inset: -15px 0;
+  }
+}
+
 .btn {
   display: inline-block;
   padding: 14px 28px;
