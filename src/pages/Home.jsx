@@ -4,6 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import { useBlog } from '../context/BlogContext';
 import { generateBlogSlug } from '../utils/slugify';
+import { detectLang } from '../utils/detectLang';
 import PropertyCard from '../components/PropertyCard';
 import SEO from '../components/SEO';
 import LeadMagnet from '../components/LeadMagnet';
@@ -18,7 +19,16 @@ const Home = () => {
     // Latest journal articles — surfaces internal links to blog posts from the
     // home page so Google can discover and crawl them (they were previously only
     // linked from /blog).
-    const latestPosts = (posts || []).slice(0, 3);
+    //
+    // English articles lead, because everything else on this page reads in English
+    // and two of the three most recent articles were Spanish: an international
+    // buyer met a Journal he could not read. Spanish articles still fill the block
+    // if there are fewer than three English ones, and every article keeps its crawl
+    // path through /blog and the sitemap.
+    const allPosts = posts || [];
+    const englishPosts = allPosts.filter(p => detectLang(`${p.title} ${p.excerpt || ''}`) === 'en');
+    const otherPosts = allPosts.filter(p => !englishPosts.includes(p));
+    const latestPosts = [...englishPosts, ...otherPosts].slice(0, 3);
 
     // Scroll to top on mount
     useEffect(() => {
@@ -107,8 +117,10 @@ const Home = () => {
                 <div className="container hero-content">
                     <header className="hero-header-branded">
                         <h1 className="hero-title">
-                            <span className="hero-title-lead">Elevate your portfolio</span>
-                            with the most unique <br /> properties in Southern Spain
+                            {/* The space is explicit: JSX drops whitespace that spans a line
+                                break, which silently welded "portfolio" to "with". */}
+                            <span className="hero-title-lead">Elevate your portfolio</span>{' '}
+                            with the most unique <br />properties in Southern Spain
                         </h1>
                         <p className="main-value-proposition">
                             Exclusive estates and investment opportunities in Andalusia — from

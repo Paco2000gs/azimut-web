@@ -17,7 +17,10 @@ const PropertyMap = lazy(() => import('../components/PropertyMap'));
 const PropertyDetail = () => {
     const { id: urlParam } = useParams();
     const navigate = useNavigate();
-    const { getPropertyById, getPropertyMedia, loading: contextLoading } = useProperties();
+    // `properties` is taken here rather than by calling useProperties() again down
+    // in the JSX: that second call sits after an early return, so the hook count
+    // differed between renders.
+    const { properties, getPropertyById, getPropertyMedia, loading: contextLoading } = useProperties();
     const [property, setProperty] = useState(null);
     const [media, setMedia] = useState({ images: [], plans: [], videos: [] });
     const [loading, setLoading] = useState(true);
@@ -424,15 +427,26 @@ const PropertyDetail = () => {
                             <div className="content-section">
                                 <h3 className="section-title">Videos</h3>
                                 <div className="media-grid">
-                                    {media.videos.map(video => (
+                                    {media.videos.map((video, index) => {
+                                        // Uploaded titles are often just the file name ("25_en.mp4").
+                                        // Printing that on a listing reads as an unfinished page, so a
+                                        // filename is treated as no title at all.
+                                        const rawTitle = (video.title || '').trim();
+                                        const isFilename = /\.(mp4|mov|webm|m4v|avi)$/i.test(rawTitle);
+                                        const caption = isFilename ? '' : rawTitle;
+                                        const label = caption
+                                            ? `${property.title} — ${caption}`
+                                            : `${property.title} — video ${index + 1} of ${media.videos.length}`;
+                                        return (
                                         <div key={video.id} className="video-container">
-                                            <video controls style={{ width: '100%', maxHeight: '500px', display: 'block' }} crossOrigin="anonymous">
+                                            <video controls aria-label={label} style={{ width: '100%', maxHeight: '500px', display: 'block' }} crossOrigin="anonymous">
                                                 <source src={video.url} type="video/mp4" />
                                                 Your browser does not support the video tag.
                                             </video>
-                                            {video.title && <div style={{ padding: '1rem', background: 'white', fontWeight: '500' }}>{video.title}</div>}
+                                            {caption && <div className="video-caption">{caption}</div>}
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </div>
                         )}
@@ -460,7 +474,7 @@ const PropertyDetail = () => {
                         {/* QUICK CONTACT BUTTONS */}
                         <div className="quick-contact-actions" style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                             <a
-                                href={`mailto:info@azimutproperty.com?subject=${encodeURIComponent('Interés en la propiedad: ' + property.title)}`}
+                                href={`mailto:info@azimutproperty.com?subject=${encodeURIComponent('Enquiry: ' + property.title)}`}
                                 className="email-contact-btn"
                                 style={{
                                     display: 'flex',
@@ -468,7 +482,7 @@ const PropertyDetail = () => {
                                     justifyContent: 'center',
                                     gap: '0.5rem',
                                     background: 'var(--surface-dark)',
-                                    color: '#fff',
+                                    color: 'var(--ink-inverse)',
                                     padding: '0.75rem',
                                     borderRadius: '0.5rem',
                                     fontWeight: '600',
@@ -476,7 +490,7 @@ const PropertyDetail = () => {
                                     transition: 'opacity 0.2s'
                                 }}
                             >
-                                <Mail size={18} /> Contactar por email
+                                <Mail size={18} aria-hidden="true" /> Email us about this property
                             </a>
                         </div>
                     </div>
@@ -497,9 +511,9 @@ const PropertyDetail = () => {
 
                 {/* RELATED PROPERTIES SECTION */}
                 <div className="related-properties" style={{ marginTop: '5rem', borderTop: '1px solid var(--border)', paddingTop: '4rem' }}>
-                    <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>Propiedades Similares en {property.province}</h3>
+                    <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>More properties in {property.province}</h3>
                     <div className="related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
-                        {useProperties().properties
+                        {properties
                             .filter(p => p.province === property.province && p.id !== property.id)
                             .slice(0, 3)
                             .map(related => (

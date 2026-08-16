@@ -54,7 +54,7 @@ const Footer = () => {
 
                 {/* Strategic Partner */}
                 <div className="footer-partner">
-                    <span className="partner-label">Socio Estratégico</span>
+                    <span className="partner-label">Strategic Partner</span>
                     <span className="partner-divider" aria-hidden="true"></span>
                     <a
                         href="https://www.dudley-estates.com/"
