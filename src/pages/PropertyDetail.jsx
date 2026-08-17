@@ -23,15 +23,31 @@ const PropertyDetail = () => {
     // in the JSX: that second call sits after an early return, so the hook count
     // differed between renders.
     const { properties, getPropertyById, getPropertyMedia, loading: contextLoading } = useProperties();
-    const [property, setProperty] = useState(null);
+
+    // Resolved before the first render, not inside the effect. Returning a
+    // spinner first meant react-helmet-async's opening flush declared no tags,
+    // so it stripped the prerendered canonical, description and og tags and
+    // never put them back — every listing lost its head after hydration while
+    // BlogPost, which finds its post on the first render, kept all of its.
+    // With the prerendered data island seeded into the context this lookup
+    // succeeds immediately; without one it returns undefined and the effect
+    // fills it in as before.
+    const initialProperty = getPropertyById(
+        isNaN(parseInt(urlParam, 10)) ? extractIdFromSlug(urlParam) : urlParam
+    ) || null;
+
+    const [property, setProperty] = useState(initialProperty);
     const [media, setMedia] = useState({ images: [], plans: [], videos: [] });
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(!initialProperty);
     const [activeImage, setActiveImage] = useState(0);
     const [showLightbox, setShowLightbox] = useState(false);
 
     useEffect(() => {
         const loadData = async () => {
-            setLoading(true);
+            // Never swap a rendered listing back for a spinner: unmounting SEO
+            // would strip the head tags again, which is the bug this page just
+            // came out of. Media arrives into an already-painted page.
+            if (!initialProperty) setLoading(true);
 
             // Extract ID from URL parameter (could be slug or numeric ID)
             let propertyId = urlParam;
