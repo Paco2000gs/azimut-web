@@ -1,5 +1,5 @@
 import React, { useEffect, useState, lazy, Suspense } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import SEO from '../components/SEO';
@@ -18,6 +18,7 @@ const PropertyMap = lazy(() => import('../components/PropertyMap'));
 const PropertyDetail = () => {
     const { id: urlParam } = useParams();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     // `properties` is taken here rather than by calling useProperties() again down
     // in the JSX: that second call sits after an early return, so the hook count
     // differed between renders.
@@ -82,10 +83,23 @@ const PropertyDetail = () => {
 
     if (loading || contextLoading) return <div className="loading-screen"><div className="spinner"></div></div>;
 
+    // Deliberately NOT noindex, and the canonical stays on this URL.
+    //
+    // This branch does not only mean "no such listing". PropertiesContext swallows a
+    // failed Supabase query into `error` and leaves `properties` empty with `loading`
+    // false, so a network blip lands here too — and it declared BOTH
+    // `noindex, nofollow` AND (with no `url` prop) a canonical pointing at the home
+    // page, overriding the correct tags baked into the prerendered HTML. Search
+    // Console rejected /property/finca-jimena-de-la-frontera-8 on 17 Aug 2026 for
+    // exactly that, while the served HTML and a normal browser both showed
+    // "index, follow".
+    //
+    // Nothing is lost by dropping it: a URL that never existed never reaches React,
+    // because vercel.json's rewrites are scoped and the edge answers a real 404 first.
     if (!property) {
         return (
             <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
-                <SEO title="Property Not Found" noindex={true} lang="en" />
+                <SEO title="Property Not Found" url={pathname} lang="en" />
                 <h2>Property not found</h2>
                 <Link to="/venta" className="btn">Back to listing</Link>
             </div>

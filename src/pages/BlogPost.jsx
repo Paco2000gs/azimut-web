@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { ArrowLeft, Calendar, Clock } from 'lucide-react';
 import { useBlog } from '../context/BlogContext';
@@ -12,6 +12,7 @@ import '../styles/Blog.css';
 const BlogPost = () => {
     const { id: urlParam } = useParams();
     const navigate = useNavigate();
+    const { pathname } = useLocation();
     const { getPostById, loading } = useBlog();
 
     const postId = extractBlogId(urlParam);
@@ -45,10 +46,15 @@ const BlogPost = () => {
 
     if (loading) return <div className="loading-screen"><div className="spinner"></div></div>;
 
+    // Same reasoning as the not-found branch in PropertyDetail: BlogContext also
+    // swallows a failed query and leaves `posts` empty, so this renders on a network
+    // failure as well as on a genuinely missing article. Declaring noindex plus a
+    // home-page canonical here would let one bad fetch inside Googlebot's renderer
+    // undo the prerendered tags for an article that is perfectly fine.
     if (!post) {
         return (
             <div className="page blog-post-page">
-                <SEO title="Article Not Found" noindex={true} lang="en" />
+                <SEO title="Article Not Found" url={pathname} lang="en" />
                 <div className="container" style={{ textAlign: 'center', padding: '100px 0' }}>
                     <h2>Article not found</h2>
                     <Link to="/blog" className="btn">Return to Journal</Link>
