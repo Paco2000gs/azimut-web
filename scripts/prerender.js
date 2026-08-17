@@ -142,6 +142,9 @@ async function getDynamicRoutes() {
 
     const supabase = createClient(supabaseUrl, supabaseKey);
     const routes = [];
+    // Collected so prerender() can bake them into each page. See the data island
+    // below: Googlebot could not complete these same queries at render time.
+    const data = { properties: [], posts: [] };
 
     // Custom SEO slugs map: property ID -> custom slug under /properties/
     const CUSTOM_SLUGS = {
@@ -151,11 +154,15 @@ async function getDynamicRoutes() {
 
     // Property detail pages
     try {
+        // Must mirror the select in PropertiesContext, or the seeded objects
+        // would be missing fields the detail page reads.
         const { data: properties, error } = await supabase
             .from('properties')
-            .select('id, type, city, province');
+            .select('*, property_media(url, type)')
+            .order('created_at', { ascending: false });
 
         if (error) throw error;
+        data.properties = properties;
 
         properties.forEach(prop => {
             // Use custom slug if available, otherwise default format
@@ -198,11 +205,14 @@ async function getDynamicRoutes() {
 
     // Blog post pages (with SEO-friendly slugs)
     try {
+        // Mirrors the select in BlogContext, for the same reason.
         const { data: posts, error } = await supabase
             .from('posts')
-            .select('id, title');
+            .select('*')
+            .order('published_at', { ascending: false });
 
         if (error) throw error;
+        data.posts = posts;
 
         posts.forEach(post => {
             const titleSlug = normalize(post.title || 'post');
@@ -214,7 +224,32 @@ async function getDynamicRoutes() {
         console.error('  Error fetching blog posts:', err.message);
     }
 
-    return routes;
+    return { routes, data };
+}
+
+/**
+ * Bakes the data the page needs into the page itself.
+ *
+ * Search Console's live test (17 Aug 2026) showed Googlebot failing both
+ * Supabase XHRs — "TypeError: Failed to fetch", 18 of 35 resources unloaded —
+ * after which React swapped the correct prerendered markup for its "not found"
+ * branch and Google filed the listing as a Soft 404. With the data inline the
+ * first render needs no network at all, so a failed fetch can no longer undo
+ * a page that was already served correctly.
+ */
+function injectDataIsland(html, data) {
+    // The static server below falls back to already-written files, so a rerun
+    // without a fresh vite build could otherwise stack a second island.
+    if (html.includes('__AZIMUT_DATA__')) return html;
+
+    // A literal </script> inside JSON would close this tag early; escaping the
+    // angle bracket keeps the payload inert and still valid JSON.
+    const payload = JSON.stringify(data).replace(/</g, '\\u003c');
+    const island = `<script id="__AZIMUT_DATA__" type="application/json">${payload}</script>`;
+
+    return html.includes('</body>')
+        ? html.replace('</body>', `${island}</body>`)
+        : html + island;
 }
 
 // Simple static file server for the dist folder
@@ -258,7 +293,7 @@ async function prerender() {
 
     // Gather all routes
     console.log('Fetching dynamic routes from Supabase...');
-    const dynamicRoutes = await getDynamicRoutes();
+    const { routes: dynamicRoutes, data: seedData } = await getDynamicRoutes();
     const allRoutes = [...STATIC_ROUTES, ...CORE_LOCATION_ROUTES, ...dynamicRoutes];
 
     // Deduplicate
@@ -286,7 +321,12 @@ async function prerender() {
             // Wait for React Helmet to update the head
             await new Promise(r => setTimeout(r, 2000));
 
-            let html = await page.content();
+            // The whole dataset, not a per-route slice: the fields a route needs
+            // are not obvious from its path (the home page reads posts, listing
+            // pages read every property) and a slice that guesses wrong blanks
+            // real content on hydration, which is the exact failure this island
+            // exists to prevent. ~90KB gzips to a fraction of that.
+            let html = injectDataIsland(await page.content(), seedData);
 
             // Verify that Helmet set a per-page canonical (not the default homepage one)
             const hasHelmetCanonical = html.includes('data-rh="true"');

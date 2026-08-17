@@ -1,13 +1,17 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '../utils/supabaseClient';
+import { readPrerenderedData } from '../utils/prerenderedData';
 
 const BlogContext = createContext();
 
 export const useBlog = () => useContext(BlogContext);
 
+// See PropertiesContext: read once at module load, off the prerendered island.
+const SEED = readPrerenderedData('posts');
+
 export const BlogProvider = ({ children }) => {
-    const [posts, setPosts] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [posts, setPosts] = useState(SEED || []);
+    const [loading, setLoading] = useState(!SEED);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,7 +20,7 @@ export const BlogProvider = ({ children }) => {
 
     const fetchPosts = async () => {
         try {
-            setLoading(true);
+            if (!SEED) setLoading(true);
             const { data, error } = await supabase
                 .from('posts')
                 .select('*')

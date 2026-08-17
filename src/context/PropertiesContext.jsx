@@ -1,13 +1,20 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '../utils/supabaseClient';
+import { readPrerenderedData } from '../utils/prerenderedData';
 
 const PropertiesContext = createContext();
 
 export const useProperties = () => useContext(PropertiesContext);
 
+// Read once, at module load. Vite's module scripts are deferred, so the island
+// is already parsed by the time this runs.
+const SEED = readPrerenderedData('properties');
+
 export const PropertiesProvider = ({ children }) => {
-    const [properties, setProperties] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [properties, setProperties] = useState(SEED || []);
+    // Seeded pages are never "loading": the data they need is already here, so
+    // detail pages skip the spinner and never reach their not-found branch.
+    const [loading, setLoading] = useState(!SEED);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,7 +23,10 @@ export const PropertiesProvider = ({ children }) => {
 
     const fetchProperties = async () => {
         try {
-            setLoading(true);
+            // A seeded page already has its content painted. Flipping back to
+            // loading would swap it for a spinner for no reason, and if this
+            // refresh then fails the page would be worse off than before it ran.
+            if (!SEED) setLoading(true);
             const { data, error } = await supabase
                 .from('properties')
                 .select('*, property_media(url, type)')
