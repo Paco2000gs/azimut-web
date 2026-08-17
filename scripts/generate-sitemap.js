@@ -26,22 +26,26 @@ const normalize = (str) => {
         .replace(/^-+|-+$/g, '');
 };
 
+// A city page carrying one or two listings is ~90 words of its own text wrapped in
+// the same template as every other city. Google crawled /venta/constantina and
+// /venta/sotogrande on 15 Aug 2026 and left both as "Crawled - currently not
+// indexed", while 38 URLs that DO earn their place (every blog post, 12 property
+// pages) sat undiscovered because the crawl budget went here first. Below this
+// threshold a city still renders and stays internally linked — it just stops being
+// advertised in the sitemap.
+const MIN_CITY_LISTINGS = 3;
+
 async function generateSitemap() {
     console.log('Generating sitemap...');
     const baseUrl = 'https://www.azimutproperty.com';
 
     // 1. Static & Silo Routes
+    // Province landing pages stay unconditionally: they are indexed, they carry the
+    // Spanish keywords that bring what little traffic exists ("fincas sevilla",
+    // "cortijos en venta en sevilla"), and they aggregate every city beneath them.
     const staticRoutes = [
         '/',
         '/venta',
-        // Costa del Sol
-        '/venta/marbella',
-        '/venta/benahavis',
-        '/venta/estepona',
-        '/venta/mijas',
-        '/venta/fuengirola',
-        '/venta/benalmadena',
-        '/venta/nerja',
         // Rural Andalucía — province landing pages
         '/venta/cadiz',
         '/venta/huelva',
@@ -67,6 +71,15 @@ async function generateSitemap() {
     <lastmod>${today}</lastmod>
   </url>`;
     });
+
+    // Provinces are emitted above as static routes, so the threshold below must
+    // never apply to them and they must never be emitted a second time.
+    const provinceSlugs = new Set(
+        staticRoutes
+            .filter(r => r.startsWith('/venta/'))
+            .map(r => r.replace('/venta/', ''))
+    );
+    const listingsPerCity = {}; // citySlug -> number of listings
 
     // 2. Dynamic Routes (Properties)
     if (supabase) {
@@ -98,6 +111,10 @@ async function generateSitemap() {
     <lastmod>${new Date(property.created_at).toISOString().split('T')[0]}</lastmod>
   </url>`;
 
+                if (property.city) {
+                    listingsPerCity[citySlug] = (listingsPerCity[citySlug] || 0) + 1;
+                }
+
                 if (property.type) {
                     if (property.city) addParentType(citySlug, typeSlug);
                     if (property.province) addParentType(normalize(property.province), typeSlug);
@@ -113,6 +130,12 @@ async function generateSitemap() {
             let siloCount = 0;
             Object.entries(parentTypes).forEach(([parentSlug, types]) => {
                 if (types.size < 2) return;
+
+                // Never advertise /venta/{city}/{type} for a city whose own page is
+                // too thin to be advertised — the child cannot be worth more than
+                // the parent it filters.
+                if (!provinceSlugs.has(parentSlug) && (listingsPerCity[parentSlug] || 0) < MIN_CITY_LISTINGS) return;
+
                 types.forEach(typeSlug => {
                     sitemap += `
   <url>
@@ -127,28 +150,31 @@ async function generateSitemap() {
             console.error('Error fetching properties for sitemap:', err);
         }
 
-        // 3. Silo Routes (Unique cities from properties)
-        try {
-            const { data: locations, error: locError } = await supabase
-                .from('properties')
-                .select('city')
-                .not('city', 'is', null);
+        // 3. Silo Routes (cities from properties, thin ones excluded)
+        {
+            const included = [];
+            const skipped = [];
+            Object.entries(listingsPerCity).forEach(([citySlug, count]) => {
+                // Provinces are already emitted as static routes — never twice.
+                if (provinceSlugs.has(citySlug)) return;
 
-            if (locError) throw locError;
+                if (count < MIN_CITY_LISTINGS) {
+                    skipped.push(`${citySlug} (${count})`);
+                    return;
+                }
 
-            const uniqueCities = [...new Set(locations.map(l => l.city))].filter(Boolean);
-            uniqueCities.forEach(city => {
-                const citySlug = normalize(city);
-
+                included.push(citySlug);
                 sitemap += `
   <url>
     <loc>${baseUrl}/venta/${citySlug}</loc>
     <lastmod>${today}</lastmod>
   </url>`;
             });
-            console.log(`Added ${uniqueCities.length} location silos to sitemap.`);
-        } catch (err) {
-            console.error('Error fetching locations for sitemap silos:', err);
+
+            console.log(`Added ${included.length} location silos to sitemap (>= ${MIN_CITY_LISTINGS} listings): ${included.join(', ') || 'none'}`);
+            if (skipped.length) {
+                console.log(`Skipped ${skipped.length} thin city pages: ${skipped.join(', ')}`);
+            }
         }
 
         // 4. Dynamic Routes (Blog Posts — SEO-friendly slugs)
