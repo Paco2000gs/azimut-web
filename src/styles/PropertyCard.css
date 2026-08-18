@@ -54,9 +54,8 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    background-color: var(--color-secondary);
-    /* Gold */
-    color: var(--ink-inverse);
+    background-color: var(--gold);
+    color: var(--ink-900);
     padding: 8px 16px;
     font-family: var(--font-body);
     font-weight: 600;

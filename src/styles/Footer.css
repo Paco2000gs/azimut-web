@@ -146,9 +146,9 @@
 }
 
 .social-links a:hover {
-    background-color: var(--color-secondary);
-    color: var(--ink-inverse);
-    border-color: var(--color-secondary);
+    background-color: var(--gold);
+    color: var(--ink-900);
+    border-color: var(--gold);
 }
 
 .footer-logo {

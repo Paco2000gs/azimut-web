@@ -350,8 +350,8 @@
     top: 0.1em;
     width: 1.6em;
     height: 1.6em;
-    background: var(--color-secondary);
-    color: var(--ink-inverse);
+    background: var(--gold);
+    color: var(--ink-900);
     font-size: 0.78rem;
     font-weight: 700;
     border-radius: 50%;
