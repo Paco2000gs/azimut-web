@@ -1,4 +1,4 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react';
+import React, { useEffect, useState, useRef, lazy, Suspense } from 'react';
 import { useParams, Link, useNavigate, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
@@ -41,6 +41,44 @@ const PropertyDetail = () => {
     const [loading, setLoading] = useState(!initialProperty);
     const [activeImage, setActiveImage] = useState(0);
     const [showLightbox, setShowLightbox] = useState(false);
+
+    // The map is already a lazy chunk, but lazy only defers the download — the
+    // component still mounts on load, and mounting is what fires ~14 tile
+    // requests to openstreetmap.org. Googlebot's renderer cannot fetch those
+    // (OSM's robots.txt disallows it), so they burned its resource budget on
+    // every listing. Hold the mount until the section is actually near the
+    // viewport: a crawler that never scrolls never pays for a map nobody saw.
+    const mapRef = useRef(null);
+    // A browser without IntersectionObserver starts with the map already
+    // enabled, decided here rather than switched on from inside the effect so
+    // the effect carries no synchronous setState.
+    const [mapInView, setMapInView] = useState(
+        typeof IntersectionObserver === 'undefined'
+    );
+
+    // One element for both the not-yet-observed and the chunk-loading states, so
+    // the panel never changes height between them.
+    const mapPlaceholder = (
+        <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface-sunken)' }}>
+            Loading map...
+        </div>
+    );
+
+    useEffect(() => {
+        const node = mapRef.current;
+        if (!node || mapInView) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting) {
+                    setMapInView(true);
+                    observer.disconnect();
+                }
+            },
+            { rootMargin: '300px' }
+        );
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [mapInView, property]);
 
     useEffect(() => {
         const loadData = async () => {
@@ -486,10 +524,12 @@ const PropertyDetail = () => {
                         {hasCoordinates && (
                             <div className="content-section">
                                 <h3 className="section-title">Location</h3>
-                                <div className="map-container" style={{ height: '400px' }}>
-                                    <Suspense fallback={<div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--surface-sunken)' }}>Loading map...</div>}>
-                                        <PropertyMap lat={lat} lng={lng} title={property.title} />
-                                    </Suspense>
+                                <div className="map-container" ref={mapRef} style={{ height: '400px' }}>
+                                    {mapInView ? (
+                                        <Suspense fallback={mapPlaceholder}>
+                                            <PropertyMap lat={lat} lng={lng} title={property.title} />
+                                        </Suspense>
+                                    ) : mapPlaceholder}
                                 </div>
                             </div>
                         )}

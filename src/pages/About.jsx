@@ -1,9 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
 import '../styles/About.css';
-import joseImg from '../assets/team/jose-rey.png';
-import franciscoImg from '../assets/team/francisco-garrido.jpg';
-import joaquinImg from '../assets/team/joaquin-castro.png';
 import SEO from '../components/SEO';
 
 const About = () => {
@@ -99,17 +96,65 @@ const About = () => {
                     <h2>Meet The Team</h2>
                     <div className="team-grid">
                         <div className="team-member">
-                            <img src={joseImg} alt="Jose Rey" />
+                            <picture>
+                                <source
+                                    type="image/webp"
+                                    srcSet="/media/team-jose-rey-400.webp 400w, /media/team-jose-rey-800.webp 796w"
+                                    sizes="(max-width: 768px) 100vw, 360px"
+                                />
+                                <img
+                                    src="/media/team-jose-rey-800.jpg"
+                                    srcSet="/media/team-jose-rey-400.jpg 400w, /media/team-jose-rey-800.jpg 796w"
+                                    sizes="(max-width: 768px) 100vw, 360px"
+                                    alt="Jose Rey"
+                                    width="796"
+                                    height="1024"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
                             <h3>Jose Rey</h3>
                             <p>Founding Partner</p>
                         </div>
                         <div className="team-member">
-                            <img src={franciscoImg} alt="Francisco Garrido" />
+                            <picture>
+                                <source
+                                    type="image/webp"
+                                    srcSet="/media/team-francisco-garrido-400.webp 400w, /media/team-francisco-garrido-800.webp 800w"
+                                    sizes="(max-width: 768px) 100vw, 360px"
+                                />
+                                <img
+                                    src="/media/team-francisco-garrido-800.jpg"
+                                    srcSet="/media/team-francisco-garrido-400.jpg 400w, /media/team-francisco-garrido-800.jpg 800w"
+                                    sizes="(max-width: 768px) 100vw, 360px"
+                                    alt="Francisco Garrido"
+                                    width="800"
+                                    height="907"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
                             <h3>Francisco Garrido</h3>
                             <p>Founding Partner</p>
                         </div>
                         <div className="team-member">
-                            <img src={joaquinImg} alt="Joaquin Castro" />
+                            <picture>
+                                <source
+                                    type="image/webp"
+                                    srcSet="/media/team-joaquin-castro-400.webp 400w, /media/team-joaquin-castro-800.webp 682w"
+                                    sizes="(max-width: 768px) 100vw, 360px"
+                                />
+                                <img
+                                    src="/media/team-joaquin-castro-800.jpg"
+                                    srcSet="/media/team-joaquin-castro-400.jpg 400w, /media/team-joaquin-castro-800.jpg 682w"
+                                    sizes="(max-width: 768px) 100vw, 360px"
+                                    alt="Joaquin Castro"
+                                    width="682"
+                                    height="1024"
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </picture>
                             <h3>Joaquin Castro</h3>
                             <p>Founding Partner & Architect</p>
                         </div>
