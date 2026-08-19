@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '../utils/supabaseClient';
 import { readPrerenderedData } from '../utils/prerenderedData';
+import { deleteFile } from '../utils/storage';
 
 const PropertiesContext = createContext();
 
@@ -79,12 +80,26 @@ export const PropertiesProvider = ({ children }) => {
 
     const deleteProperty = async (id) => {
         try {
+            // Read the media rows while they still exist: once the property is
+            // gone, nothing points at those files any more and the only way to
+            // find them again is by hand in the Supabase dashboard.
+            const { data: media } = await supabase
+                .from('property_media')
+                .select('url')
+                .eq('property_id', id);
+
             const { error } = await supabase
                 .from('properties')
                 .delete()
                 .eq('id', id);
 
             if (error) throw error;
+
+            // Files after the row, never before: a failed delete leaves an
+            // orphan in storage, which is cheaper than a listing pointing at a
+            // file that no longer exists.
+            await Promise.all((media || []).map(m => deleteFile(m.url)));
+
             setProperties(prev => prev.filter(p => p.id !== id));
             return { success: true };
         } catch (err) {
@@ -125,13 +140,22 @@ export const PropertiesProvider = ({ children }) => {
 
     const deletePropertyMedia = async (mediaId) => {
         try {
+            const { data: media } = await supabase
+                .from('property_media')
+                .select('url')
+                .eq('id', mediaId)
+                .single();
+
             const { error } = await supabase
                 .from('property_media')
                 .delete()
                 .eq('id', mediaId);
 
             if (error) throw error;
-            return { success: true };
+
+            const fileRemoved = media?.url ? await deleteFile(media.url) : true;
+
+            return { success: true, fileRemoved };
         } catch (err) {
             console.error('Error deleting property media:', err.message);
             return { success: false, error: err.message };

@@ -1,6 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { supabase } from '../utils/supabaseClient';
 import { readPrerenderedData } from '../utils/prerenderedData';
+import { deleteFile } from '../utils/storage';
 
 const BlogContext = createContext();
 
@@ -73,12 +74,22 @@ export const BlogProvider = ({ children }) => {
 
     const deletePost = async (id) => {
         try {
+            const { data: post } = await supabase
+                .from('posts')
+                .select('image')
+                .eq('id', id)
+                .single();
+
             const { error } = await supabase
                 .from('posts')
                 .delete()
                 .eq('id', id);
 
             if (error) throw error;
+
+            // Same rule as property media: the row goes first, the file second.
+            if (post?.image) await deleteFile(post.image);
+
             setPosts(prev => prev.filter(p => p.id !== id));
             return { success: true };
         } catch (err) {

@@ -40,17 +40,26 @@ export const deleteFile = async (url) => {
         // Extract path from URL
         // URL format: https://.../storage/v1/object/public/properties/folder/filename.ext
         const path = url.split('/properties/')[1];
-        if (!path) return;
+        // Not one of ours (an external image pasted into a post, say): nothing
+        // is left behind, so this counts as clean rather than as a failure.
+        if (!path) return true;
 
-        const { error } = await supabase.storage
+        const { data, error } = await supabase.storage
             .from('properties')
             .remove([path]);
 
         if (error) {
             throw error;
         }
+
+        // A storage policy that denies the delete does not always come back as
+        // an error: it can return an empty list instead, which reads as success
+        // and leaves the file paying for itself in the bucket forever. Treat
+        // "nothing was removed" as the failure it is.
+        return Array.isArray(data) && data.length > 0;
     } catch (error) {
         console.error('Error deleting file:', error.message);
         // Don't throw here, just log it. We don't want to block DB deletion if image deletion fails.
+        return false;
     }
 };

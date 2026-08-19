@@ -140,6 +140,9 @@ const AdminDashboard = () => {
                 ...prev,
                 [type]: prev[type].filter(m => m.id !== mediaId)
             }));
+            if (result.fileRemoved === false) {
+                alert('Quitado de la ficha, pero el archivo NO se ha borrado de Supabase Storage y sigue ocupando espacio. Revisa la política de borrado del bucket "properties".');
+            }
         } else {
             alert('Error eliminando archivo: ' + result.error);
         }
