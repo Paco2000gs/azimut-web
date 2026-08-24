@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { Helmet } from 'react-helmet-async';
 import { useBlog } from '../context/BlogContext';
 import { generateBlogSlug } from '../utils/slugify';
@@ -47,7 +48,7 @@ const Blog = () => {
                         {posts.map(post => (
                             <article key={post.id} className="blog-card">
                                 <div className="blog-image">
-                                    <img src={post.image || '/media/placeholder.svg'} alt={post.title} loading="lazy" decoding="async" />
+                                    <img src={getOptimizedImageUrl(post.image, { width: 400 })} alt={post.title} loading="lazy" decoding="async" />
                                 </div>
                                 <div className="blog-content">
                                     <div className="blog-date">{new Date(post.published_at).toLocaleDateString()}</div>

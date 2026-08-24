@@ -184,7 +184,7 @@ const PropertyDetail = () => {
 
     const imageObjects = displayImages.map((img, idx) => ({
         "@type": "ImageObject",
-        "url": getOptimizedImageUrl(img.url, { width: 1200, height: 800, resize: 'cover' }),
+        "url": getOptimizedImageUrl(img.url, { raw: true }),
         "width": 1200,
         "height": 800,
         "caption": `${property.title} — photo ${idx + 1}, ${property.city}, ${property.province}`
@@ -308,7 +308,7 @@ const PropertyDetail = () => {
             <SEO
                 title={`${property.title} — ${property.type} in ${property.city}, ${property.province}`}
                 description={seoDescription.substring(0, 320)}
-                image={getOptimizedImageUrl(displayImages[0]?.url, { width: 1200, height: 630, resize: 'cover' })}
+                image={getOptimizedImageUrl(displayImages[0]?.url, { raw: true })}
                 imageDimensions={{ width: 1200, height: 630 }}
                 url={canonicalPropertyPath}
                 type="article"

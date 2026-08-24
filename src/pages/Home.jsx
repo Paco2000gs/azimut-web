@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import { useBlog } from '../context/BlogContext';
@@ -239,7 +240,7 @@ const Home = () => {
                                 >
                                     {post.image && (
                                         <div className="journal-card-media">
-                                            <img src={post.image} alt="" loading="lazy" />
+                                            <img src={getOptimizedImageUrl(post.image, { width: 400 })} alt="" loading="lazy" decoding="async" />
                                         </div>
                                     )}
                                     <div className="journal-card-body">

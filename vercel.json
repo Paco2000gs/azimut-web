@@ -340,5 +340,23 @@
       "source": "/dossier/:path*",
       "destination": "/index.html"
     }
-  ]
+  ],
+  "images": {
+    "sizes": [
+      400,
+      800,
+      1600
+    ],
+    "remotePatterns": [
+      {
+        "protocol": "https",
+        "hostname": "qqabgznfpersgtiiacms.supabase.co",
+        "pathname": "/storage/v1/object/public/**"
+      }
+    ],
+    "minimumCacheTTL": 2592000,
+    "formats": [
+      "image/webp"
+    ]
+  }
 }

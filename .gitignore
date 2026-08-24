@@ -25,3 +25,8 @@ graphify-out
 *.njsproj
 *.sln
 *.sw?
+
+.vercel
+
+.claude/
+*.bak
