@@ -75,8 +75,41 @@
     /* Space for scrollbar */
 }
 
+/* Both gallery controls are <button> so they answer to a keyboard. The reset
+   below is what keeps them looking exactly like the divs they replaced. */
+.gallery-main-trigger,
 .thumbnail-item {
+    display: block;
+    padding: 0;
+    background: none;
+    border: none;
+    font: inherit;
+    color: inherit;
     cursor: pointer;
+    width: 100%;
+}
+
+/* The button now sits between .gallery-main and its image, so it has to carry
+   the height through or the image's own height:100% resolves against nothing. */
+.gallery-main-trigger {
+    height: 100%;
+}
+
+.gallery-main-trigger img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery-main-trigger:focus-visible,
+.thumbnail-item:focus-visible,
+.mobile-enquiry-button:focus-visible {
+    outline: 2px solid var(--gold-ink);
+    outline-offset: 2px;
+}
+
+.thumbnail-item {
     border-radius: 8px;
     overflow: hidden;
     height: 120px;
@@ -173,8 +206,23 @@
 .description-text {
     line-height: 1.8;
     color: var(--ink-700);
-    white-space: pre-line;
     font-size: 1.05rem;
+}
+
+/* Subheadings inside the description ("### ..." in the source text).
+   Quieter than .section-title on purpose: they sit under it, and a listing
+   that shouted every heading would read like a brochure template. */
+.description-heading {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--ink-800);
+    margin: 2.25rem 0 0.85rem;
+    text-wrap: balance;
+}
+
+.description-heading:first-child {
+    margin-top: 0;
 }
 
 .features-grid {
@@ -416,5 +464,93 @@
         top: 1rem;
         right: 1rem;
         padding: 0.5rem;
+    }
+}
+/* ---------------------------------------------------------------------------
+   Mobile enquiry bar
+
+   On a phone the enquiry form is the last block on the page — measured at
+   4.320px down on the Constantina listing, past description, features, videos
+   and map. Anyone convinced by the photos had to scroll the whole listing to
+   act on it. This bar keeps the ask within reach and steps aside once the form
+   itself is on screen.
+   --------------------------------------------------------------------------- */
+.mobile-enquiry-bar {
+    display: none;
+}
+
+@media (max-width: 900px) {
+    .mobile-enquiry-bar {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 900;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+        background: var(--surface-raised);
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
+        transition: transform 0.25s ease, opacity 0.25s ease;
+    }
+
+    .mobile-enquiry-bar.is-hidden {
+        transform: translateY(110%);
+        opacity: 0;
+        pointer-events: none;
+    }
+
+    .mobile-enquiry-price {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.25;
+        min-width: 0;
+    }
+
+    .mobile-enquiry-price strong {
+        font-size: 1.05rem;
+        color: var(--ink-800);
+        white-space: nowrap;
+    }
+
+    .mobile-enquiry-label {
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-500);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    /* Gold ground with dark ink on top: the house rule is that gold never
+       carries white text. */
+    .mobile-enquiry-button {
+        flex: 0 0 auto;
+        min-height: 44px;
+        padding: 0.7rem 1.35rem;
+        border: none;
+        border-radius: var(--radius-sm);
+        background: var(--gold);
+        color: var(--ink-800);
+        font-family: inherit;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    /* The bar floats over the end of the page; without this the footer's last
+       line hides behind it. */
+    .property-detail-page {
+        padding-bottom: 5rem;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .mobile-enquiry-bar {
+        transition: none;
     }
 }

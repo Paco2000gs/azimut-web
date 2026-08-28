@@ -15,6 +15,72 @@ import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, slugifyL
 // Lazy-load Leaflet map — saves ~153KB from initial bundle
 const PropertyMap = lazy(() => import('../components/PropertyMap'));
 
+/**
+ * Descriptions are written in Markdown and were being dumped straight into
+ * <p> tags, so "### Jardines italianos, lago y gruta" printed its hashes on
+ * the page — 6 of them on the Constantina hacienda, 3 on the Sotogrande
+ * palace — and every one of those headings, the ones carrying the words a
+ * buyer actually searches for, counted as plain text.
+ *
+ * They render as <h3> because the section they live under ("Description") is
+ * the <h2>: a heading must not outrank its own section.
+ *
+ * Single newlines inside a block are the author's hard wrap at ~90 columns,
+ * not line breaks the reader should see. They collapse to spaces here so the
+ * paragraph reflows on a phone instead of breaking mid-sentence.
+ */
+const renderDescription = (description) => {
+    if (!description) return null;
+
+    return description.split('\n\n').map((block, idx) => {
+        const text = block.trim();
+        if (!text) return null;
+
+        const [firstLine, ...rest] = text.split('\n');
+        const heading = firstLine.match(/^#{2,4}\s+(.+)$/);
+
+        if (heading) {
+            const body = rest.join(' ').replace(/\s+/g, ' ').trim();
+            return (
+                <React.Fragment key={idx}>
+                    <h3 className="description-heading">{heading[1].trim()}</h3>
+                    {body && <p style={{ marginBottom: '1rem', lineHeight: '1.8' }}>{body}</p>}
+                </React.Fragment>
+            );
+        }
+
+        return (
+            <p key={idx} style={{ marginBottom: '1rem', lineHeight: '1.8' }}>
+                {text.replace(/\s+/g, ' ')}
+            </p>
+        );
+    });
+};
+
+/**
+ * property_media.title holds the uploaded file name, and the names are
+ * descriptive: "hacienda-constantina-05-piscina-olivos.webp" says exactly what
+ * is in the frame. That was being thrown away in favour of "photo 5 of 14",
+ * which tells a blind visitor — and Google Images — nothing.
+ *
+ * Everything up to and including the sequence number is the property slug, so
+ * only what follows describes the shot. Names with no hyphens are the legacy
+ * random uploads ("f3qx6ftjnpf.jpg") and carry no meaning: those fall back to
+ * the numbered template at the call site.
+ */
+const captionFromFilename = (name) => {
+    const base = (name || '').replace(/\.[a-z0-9]+$/i, '');
+    const words = base.split('-').filter(Boolean);
+    if (words.length < 3) return '';
+
+    const sequence = words.findIndex(word => /^\d+$/.test(word));
+    const described = sequence === -1 ? [] : words.slice(sequence + 1);
+    if (described.length < 1) return '';
+
+    const text = described.join(' ');
+    return text.charAt(0).toUpperCase() + text.slice(1);
+};
+
 const PropertyDetail = () => {
     const { id: urlParam } = useParams();
     const navigate = useNavigate();
@@ -41,6 +107,46 @@ const PropertyDetail = () => {
     const [loading, setLoading] = useState(!initialProperty);
     const [activeImage, setActiveImage] = useState(0);
     const [showLightbox, setShowLightbox] = useState(false);
+
+    // The enquiry form sits in the right column on desktop and below the whole
+    // listing on a phone — 4.320px down, past description, features, videos and
+    // map. The sticky bar at the bottom of this page jumps here instead.
+    const formRef = useRef(null);
+    const lightboxCloseRef = useRef(null);
+
+    const scrollToForm = () => {
+        const reduced = typeof window !== 'undefined'
+            && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        formRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
+    };
+
+    // A lightbox that only closes by clicking its backdrop is a trap for anyone
+    // on a keyboard: Escape closes it, and focus moves to the close button so
+    // the next Tab stays inside the overlay instead of wandering the page under it.
+    // The sticky bar steps aside once the form it points at is on screen, so it
+    // never covers the fields the visitor came down to fill in.
+    const [formInView, setFormInView] = useState(false);
+
+    useEffect(() => {
+        const node = formRef.current;
+        if (!node || typeof IntersectionObserver === 'undefined') return;
+        const observer = new IntersectionObserver(
+            ([entry]) => setFormInView(entry.isIntersecting),
+            { rootMargin: '-80px 0px 0px 0px' }
+        );
+        observer.observe(node);
+        return () => observer.disconnect();
+    }, [property]);
+
+    useEffect(() => {
+        if (!showLightbox) return;
+        const onKeyDown = (event) => {
+            if (event.key === 'Escape') setShowLightbox(false);
+        };
+        document.addEventListener('keydown', onKeyDown);
+        lightboxCloseRef.current?.focus();
+        return () => document.removeEventListener('keydown', onKeyDown);
+    }, [showLightbox]);
 
     // The map is already a lazy chunk, but lazy only defers the download — the
     // component still mounts on load, and mounting is what fires ~14 tile
@@ -163,6 +269,22 @@ const PropertyDetail = () => {
     const { images } = media;
     const displayImages = images.length > 0 ? images : [{ url: property.image || '/media/placeholder.svg', id: 'placeholder' }];
 
+    // Lead with what the photo shows, then say which property it belongs to.
+    // Photos with no usable file name keep the numbered form so the alt is
+    // never empty and never a duplicate of its neighbour.
+    const imageAlt = (img, idx) => {
+        const caption = captionFromFilename(img?.title);
+        if (!caption) {
+            return `${property.title} — ${property.type} in ${property.city}, photo ${idx + 1} of ${displayImages.length}`;
+        }
+        // Several titles already name the town ("...en Constantina, Sevilla"),
+        // and repeating it would end the alt with "Constantina, Sevilla, Constantina".
+        const namesCity = property.title?.toLowerCase().includes((property.city || '').toLowerCase());
+        return namesCity
+            ? `${caption} — ${property.title}`
+            : `${caption} — ${property.title}, ${property.city}`;
+    };
+
     // Safe Coordinate Handling
     const lat = parseFloat(property.latitude);
     const lng = parseFloat(property.longitude);
@@ -187,7 +309,7 @@ const PropertyDetail = () => {
         "url": getOptimizedImageUrl(img.url, { raw: true }),
         "width": 1200,
         "height": 800,
-        "caption": `${property.title} — photo ${idx + 1}, ${property.city}, ${property.province}`
+        "caption": imageAlt(img, idx)
     }));
 
     const schemaData = {
@@ -358,15 +480,21 @@ const PropertyDetail = () => {
                 <div className="property-gallery-container">
                     {/* Main Image */}
                     <div className="gallery-main">
-                        <img
-                            src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })}
-                            srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800, height: 533, resize: 'cover' })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })} 1200w`}
-                            sizes="(max-width: 768px) 100vw, 1200px"
-                            alt={`${property.title} — ${property.type} in ${property.city}, ${property.province}`}
-                            width={1200}
-                            height={800}
+                        <button
+                            type="button"
+                            className="gallery-main-trigger"
                             onClick={() => setShowLightbox(true)}
-                        />
+                            aria-label={`Open full screen view — ${imageAlt(displayImages[activeImage], activeImage)}`}
+                        >
+                            <img
+                                src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })}
+                                srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800, height: 533, resize: 'cover' })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })} 1200w`}
+                                sizes="(max-width: 768px) 100vw, 1200px"
+                                alt={imageAlt(displayImages[activeImage], activeImage)}
+                                width={1200}
+                                height={800}
+                            />
+                        </button>
                         <div className="price-tag">
                             {property.price_on_demand ? "Price On Demand" : `€${property.price?.toLocaleString()}`}
                             {!property.price_on_demand && property.price && property.area > 0 && (
@@ -380,10 +508,12 @@ const PropertyDetail = () => {
                     {/* Thumbnails Grid */}
                     <div className="gallery-thumbnails">
                         {displayImages.map((img, idx) => (
-                            <div
+                            <button
+                                type="button"
                                 key={img.id}
                                 className="thumbnail-item"
                                 onClick={() => setActiveImage(idx)}
+                                aria-current={activeImage === idx ? 'true' : undefined}
                                 style={{
                                     opacity: activeImage === idx ? 1 : 0.6,
                                     border: activeImage === idx ? '2px solid var(--gold-ink)' : 'none',
@@ -391,12 +521,12 @@ const PropertyDetail = () => {
                             >
                                 <img
                                     src={getOptimizedImageUrl(img.url, { width: 200, height: 150, resize: 'cover' })}
-                                    alt={`${property.title} — photo ${idx + 1} of ${displayImages.length}`}
+                                    alt={imageAlt(img, idx)}
                                     width={200}
                                     height={150}
                                     loading="lazy"
                                 />
-                            </div>
+                            </button>
                         ))}
                     </div>
                 </div>
@@ -451,18 +581,16 @@ const PropertyDetail = () => {
 
                         {/* Description */}
                         <div className="content-section">
-                            <h3 className="section-title">Description</h3>
+                            <h2 className="section-title">Description</h2>
                             <div className="description-text">
-                                {property.description?.split('\n\n').map((paragraph, idx) => (
-                                    <p key={idx} style={{ marginBottom: '1rem', lineHeight: '1.8' }}>{paragraph}</p>
-                                ))}
+                                {renderDescription(property.description)}
                             </div>
                         </div>
 
                         {/* Features */}
                         {property.features && property.features.length > 0 && (
                             <div className="content-section">
-                                <h3 className="section-title">Features</h3>
+                                <h2 className="section-title">Features</h2>
                                 <div className="features-grid">
                                     {property.features.map((feature, idx) => (
                                         <div key={idx} className="feature-tag">
@@ -479,7 +607,7 @@ const PropertyDetail = () => {
                         {/* Plans Section */}
                         {media.plans.length > 0 && (
                             <div className="content-section">
-                                <h3 className="section-title">Floor Plans</h3>
+                                <h2 className="section-title">Floor Plans</h2>
                                 <div className="plans-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                                     {media.plans.map(plan => (
                                         <a key={plan.id} href={plan.url} className="plan-link" target="_blank" rel="noopener noreferrer">
@@ -494,7 +622,7 @@ const PropertyDetail = () => {
                         {/* Videos Section */}
                         {media.videos.length > 0 && (
                             <div className="content-section">
-                                <h3 className="section-title">Videos</h3>
+                                <h2 className="section-title">Videos</h2>
                                 <div className="media-grid">
                                     {media.videos.map((video, index) => {
                                         // Uploaded titles are often just the file name ("25_en.mp4").
@@ -508,7 +636,18 @@ const PropertyDetail = () => {
                                             : `${property.title} — video ${index + 1} of ${media.videos.length}`;
                                         return (
                                         <div key={video.id} className="video-container">
-                                            <video controls aria-label={label} style={{ width: '100%', maxHeight: '500px', display: 'block' }} crossOrigin="anonymous">
+                                            {/* Without a poster the player is a black rectangle until
+                                                someone gambles on it. The listing's own first photo is
+                                                the frame most likely to earn that click, and preload
+                                                stays off so a 22MB file is never fetched unasked. */}
+                                            <video
+                                                controls
+                                                aria-label={label}
+                                                poster={getOptimizedImageUrl(displayImages[0]?.url, { width: 1200, height: 800, resize: 'cover' })}
+                                                preload="none"
+                                                style={{ width: '100%', maxHeight: '500px', display: 'block' }}
+                                                crossOrigin="anonymous"
+                                            >
                                                 <source src={video.url} type="video/mp4" />
                                                 Your browser does not support the video tag.
                                             </video>
@@ -523,7 +662,7 @@ const PropertyDetail = () => {
                         {/* Map Section */}
                         {hasCoordinates && (
                             <div className="content-section">
-                                <h3 className="section-title">Location</h3>
+                                <h2 className="section-title">Location</h2>
                                 <div className="map-container" ref={mapRef} style={{ height: '400px' }}>
                                     {mapInView ? (
                                         <Suspense fallback={mapPlaceholder}>
@@ -537,7 +676,7 @@ const PropertyDetail = () => {
                     </div>
 
                     {/* RIGHT COLUMN: Contact Agent */}
-                    <div className="property-sidebar-wrapper">
+                    <div className="property-sidebar-wrapper" ref={formRef}>
                         <div className="agent-card" style={{ padding: 0, border: 'none', boxShadow: 'none' }}>
                             <PropertyInquiryForm propertyId={property.id} propertyTitle={property.title} />
                         </div>
@@ -588,7 +727,7 @@ const PropertyDetail = () => {
 
                 {/* RELATED PROPERTIES SECTION */}
                 <div className="related-properties" style={{ marginTop: '5rem', borderTop: '1px solid var(--border)', paddingTop: '4rem' }}>
-                    <h3 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>More properties in {property.province}</h3>
+                    <h2 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>More properties in {property.province}</h2>
                     <div className="related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                         {properties
                             .filter(p => p.province === property.province && p.id !== property.id)
@@ -616,18 +755,37 @@ const PropertyDetail = () => {
                     </div>
                 </div>
             </div>
+            {/* Mobile enquiry bar. On a phone the form is the last thing on the
+                page; this keeps the ask one tap away from wherever the visitor
+                stopped scrolling. Hidden from 900px up, where the form is
+                already in the right-hand column. */}
+            <div className={`mobile-enquiry-bar${formInView ? ' is-hidden' : ''}`}>
+                <div className="mobile-enquiry-price">
+                    <span className="mobile-enquiry-label">{property.city}</span>
+                    <strong>{property.price_on_demand ? 'Price on demand' : `€${property.price?.toLocaleString()}`}</strong>
+                </div>
+                <button type="button" className="mobile-enquiry-button" onClick={scrollToForm}>
+                    Request dossier
+                </button>
+            </div>
+
             {/* Lightbox Overlay */}
             {showLightbox && (
                 <div
                     className="lightbox-overlay"
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`${property.title} — full screen photo`}
                     onClick={() => setShowLightbox(false)}
                 >
                     <img
                         className="lightbox-image"
                         src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1600, quality: 90 })}
-                        alt={`${property.title} — full screen view`}
+                        alt={imageAlt(displayImages[activeImage], activeImage)}
+                        onClick={(event) => event.stopPropagation()}
                     />
                     <button
+                        ref={lightboxCloseRef}
                         className="lightbox-close"
                         onClick={() => setShowLightbox(false)}
                     >

@@ -1,5 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+
+/**
+ * Sets a meta tag in place, creating it only if the prerendered head lacks it.
+ * Editing the existing node matters: Helmet marks its own tags with data-rh and
+ * appending duplicates would leave two competing descriptions in the head.
+ */
+const setMeta = (attr, key, value) => {
+    if (!value) return;
+    let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+    if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+    }
+    el.setAttribute('content', value);
+};
+
+const setLink = (selector, rel, href, hreflang) => {
+    let el = document.head.querySelector(selector);
+    if (!el) {
+        el = document.createElement('link');
+        el.setAttribute('rel', rel);
+        if (hreflang) el.setAttribute('hreflang', hreflang);
+        document.head.appendChild(el);
+    }
+    el.setAttribute('href', href);
+};
 
 const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, keywords = '', lang = 'es' }) => {
     const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
@@ -23,6 +50,59 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
     const fullUrl = url ? `${siteUrl}${url}` : siteUrl;
 
     const ogLocale = lang === 'en' ? 'en_GB' : 'es_ES';
+
+    // react-helmet-async writes this head correctly during the prerender, but in
+    // the browser it only ever applies once. Verified in production on 28 Aug
+    // 2026: navigating /venta -> a listing, or /about -> /contact, left the
+    // previous page's <title>, canonical and og tags untouched while the body
+    // rendered the new route. Indexing is unaffected (crawlers read the
+    // prerendered HTML), but GA4 filed every listing view as "Property
+    // Catalogue", and a link copied from inside the app carried the wrong title.
+    //
+    // Rather than fight the library's lifecycle, the same values are written
+    // straight to the live head on every route change. Helmet still owns the
+    // prerender; this only keeps the client honest afterwards.
+    useEffect(() => {
+        if (typeof document === 'undefined') return;
+
+        document.title = fullTitle;
+        document.documentElement.lang = lang;
+
+        setMeta('name', 'description', fullDescription);
+        setMeta('name', 'keywords', keywords);
+
+        // The site-wide robots directive lives in index.html. Only a noindex
+        // page may overwrite it, and leaving that page must put it back.
+        const robots = document.head.querySelector('meta[name="robots"]');
+        if (noindex) {
+            setMeta('name', 'robots', 'noindex, nofollow');
+        } else if (robots && /noindex/i.test(robots.getAttribute('content') || '')) {
+            robots.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
+        }
+
+        setLink('link[rel="canonical"]', 'canonical', fullUrl);
+        setLink('link[rel="alternate"][hreflang="x-default"]', 'alternate', fullUrl, 'x-default');
+        const selfHreflang = document.head.querySelector(`link[rel="alternate"][hreflang="${lang}"]`)
+            || document.head.querySelector('link[rel="alternate"]:not([hreflang="x-default"])');
+        if (selfHreflang) {
+            selfHreflang.setAttribute('hreflang', lang);
+            selfHreflang.setAttribute('href', fullUrl);
+        } else {
+            setLink(`link[rel="alternate"][hreflang="${lang}"]`, 'alternate', fullUrl, lang);
+        }
+
+        setMeta('property', 'og:type', type);
+        setMeta('property', 'og:url', fullUrl);
+        setMeta('property', 'og:title', fullTitle);
+        setMeta('property', 'og:description', fullDescription);
+        setMeta('property', 'og:image', fullImage);
+        setMeta('property', 'og:locale', ogLocale);
+
+        setMeta('name', 'twitter:url', fullUrl);
+        setMeta('name', 'twitter:title', fullTitle);
+        setMeta('name', 'twitter:description', fullDescription);
+        setMeta('name', 'twitter:image', fullImage);
+    }, [fullTitle, fullDescription, fullUrl, fullImage, ogLocale, lang, type, keywords, noindex]);
 
     return (
         <Helmet>
