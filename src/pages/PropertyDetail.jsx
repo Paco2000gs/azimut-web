@@ -58,18 +58,26 @@ const renderDescription = (description) => {
 };
 
 /**
- * property_media.title holds the uploaded file name, and the names are
- * descriptive: "hacienda-constantina-05-piscina-olivos.webp" says exactly what
- * is in the frame. That was being thrown away in favour of "photo 5 of 14",
- * which tells a blind visitor — and Google Images — nothing.
+ * What a photo shows, for its alt text. property_media.title holds one of two
+ * things, and both carry that information:
  *
- * Everything up to and including the sequence number is the property slug, so
- * only what follows describes the shot. Names with no hyphens are the legacy
- * random uploads ("f3qx6ftjnpf.jpg") and carry no meaning: those fall back to
- * the numbered template at the call site.
+ *   "Pool seen through the olive trees"           a caption someone wrote
+ *   "hacienda-constantina-05-piscina-olivos.webp" the uploaded file name
+ *
+ * A written caption is used as it stands. A file name is unpacked: everything
+ * up to and including the sequence number is the property slug, so only what
+ * follows describes the shot. Names with no hyphens are the legacy random
+ * uploads ("f3qx6ftjnpf.jpg") and mean nothing — those return empty and the
+ * call site falls back to the numbered template.
  */
-const captionFromFilename = (name) => {
-    const base = (name || '').replace(/\.[a-z0-9]+$/i, '');
+const captionFromMedia = (title) => {
+    const raw = (title || '').trim();
+    if (!raw) return '';
+
+    // Spaces and no file extension: already prose, leave it alone.
+    if (/\s/.test(raw) && !/\.[a-z0-9]{2,5}$/i.test(raw)) return raw;
+
+    const base = raw.replace(/\.[a-z0-9]+$/i, '');
     const words = base.split('-').filter(Boolean);
     if (words.length < 3) return '';
 
@@ -120,9 +128,6 @@ const PropertyDetail = () => {
         formRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
     };
 
-    // A lightbox that only closes by clicking its backdrop is a trap for anyone
-    // on a keyboard: Escape closes it, and focus moves to the close button so
-    // the next Tab stays inside the overlay instead of wandering the page under it.
     // The sticky bar steps aside once the form it points at is on screen, so it
     // never covers the fields the visitor came down to fill in.
     const [formInView, setFormInView] = useState(false);
@@ -138,6 +143,9 @@ const PropertyDetail = () => {
         return () => observer.disconnect();
     }, [property]);
 
+    // A lightbox that only closes by clicking its backdrop is a trap for anyone
+    // on a keyboard: Escape closes it, and focus moves to the close button so
+    // the next Tab stays inside the overlay instead of wandering the page under it.
     useEffect(() => {
         if (!showLightbox) return;
         const onKeyDown = (event) => {
@@ -273,7 +281,7 @@ const PropertyDetail = () => {
     // Photos with no usable file name keep the numbered form so the alt is
     // never empty and never a duplicate of its neighbour.
     const imageAlt = (img, idx) => {
-        const caption = captionFromFilename(img?.title);
+        const caption = captionFromMedia(img?.title);
         if (!caption) {
             return `${property.title} — ${property.type} in ${property.city}, photo ${idx + 1} of ${displayImages.length}`;
         }
