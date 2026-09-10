@@ -442,15 +442,21 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
             <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: 'var(--ink-500)', maxWidth: '800px' }}>
                 {currentContent.description.split('\n\n').map((paragraph, idx) => {
-                    // Render paragraphs with bold via simple markdown **text**
-                    const parts = paragraph.split(/(\*\*[^*]+\*\*)/g);
+                    // Render paragraphs with simple markdown: **bold** and *italic*.
+                    // The bold alternative is listed first so a **x** token is
+                    // matched whole before the single-asterisk rule can split it.
+                    const parts = paragraph.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
                     return (
                         <p key={idx} style={{ marginBottom: '1.5rem' }}>
-                            {parts.map((part, i) =>
-                                part.startsWith('**') && part.endsWith('**')
-                                    ? <strong key={i}>{part.slice(2, -2)}</strong>
-                                    : part
-                            )}
+                            {parts.map((part, i) => {
+                                if (part.startsWith('**') && part.endsWith('**')) {
+                                    return <strong key={i}>{part.slice(2, -2)}</strong>;
+                                }
+                                if (part.startsWith('*') && part.endsWith('*')) {
+                                    return <em key={i}>{part.slice(1, -1)}</em>;
+                                }
+                                return part;
+                            })}
                         </p>
                     );
                 })}
