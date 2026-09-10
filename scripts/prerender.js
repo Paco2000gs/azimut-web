@@ -52,6 +52,12 @@ const CORE_LOCATION_ROUTES = [
     '/venta/huelva',
     '/venta/sevilla',
     '/venta/malaga',
+    '/venta/almeria',
+    // Almería — Levante almeriense (Vera y poblaciones destacadas)
+    '/venta/vera',
+    '/venta/mojacar',
+    '/venta/cuevas-del-almanzora',
+    '/venta/garrucha',
 ];
 
 const normalize = (str) =>

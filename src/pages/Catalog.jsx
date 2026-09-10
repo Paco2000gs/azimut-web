@@ -167,6 +167,13 @@ const Catalog = () => {
             h1: 'Fincas y Terrenos en Venta en Málaga Interior',
             hero: 'Descubre el potencial de inversión en el interior de la provincia de Málaga',
         },
+        'almeria': {
+            title: 'Fincas, Villas y Casas en Almería | Azimut Property',
+            description: 'Propiedades en Almería: fincas y cortijos en el valle del Almanzora, villas de golf en Desert Springs y casas frente al mar en Vera, Mojácar y Garrucha. Sol, precio y rentabilidad.',
+            keywords: 'propiedades Almería, finca Almería, villa Mojácar, casa Vera, comprar Garrucha, chalet Almanzora, Desert Springs golf',
+            h1: 'Fincas, Villas y Casas en Venta en Almería',
+            hero: 'Del cortijo del Almanzora a la villa frente al mar: la costa más luminosa de España',
+        },
     };
 
     const provinceSeo = urlCity ? PROVINCE_SEO[urlCity.toLowerCase()] : null;

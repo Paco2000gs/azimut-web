@@ -242,6 +242,146 @@ El mercado inmobiliario de Sotogrande ofrece villas de alto standing desde €1M
             ]
         },
 
+        'almeria': {
+            title: 'Comprar Finca, Cortijo y Casa de Campo en Almería',
+            intro: 'Almería: sol, precio y rentabilidad en el sureste más luminoso de España',
+            description: `La provincia de Almería es la gran oportunidad emergente del mercado inmobiliario del sureste español. Con más de 3.000 horas de sol al año —el clima más seco y luminoso de Europa continental—, precios muy inferiores a los de Málaga o Cádiz y un litoral en buena parte protegido, Almería combina como ninguna otra provincia andaluza rentabilidad, calidad de vida y potencial de revalorización.
+
+**¿Por qué comprar propiedad en Almería?**
+
+- **Precio y recorrido**: El precio medio por metro cuadrado en Almería es de los más bajos de Andalucía, lo que ofrece un margen de revalorización muy superior al de mercados ya maduros. Una finca con casa de campo o un chalet con terreno cuesta aquí una fracción de lo que valdría en la Costa del Sol.
+- **Clima excepcional**: El microclima subtropical del Levante almeriense y del valle del Almanzora garantiza inviernos suaves y veranos secos, lo que convierte a la provincia en destino preferente de compradores del norte de Europa.
+- **Demanda internacional consolidada**: El interior del valle del Almanzora (Albox, Arboleas, Zurgena) y la costa de Mojácar, Vera y Garrucha concentran una de las comunidades británicas y nórdicas más numerosas de España, con un mercado de segunda residencia muy activo.
+- **Naturaleza protegida**: El Parque Natural de Cabo de Gata-Níjar, el desierto de Tabernas y la sierra de los Filabres ofrecen paisajes únicos y un litoral sin masificar.
+
+**Tipos de propiedad en Almería**
+
+*Fincas rústicas y cortijos*: El interior almeriense —valle del Almanzora, comarca de los Vélez y campo de Níjar— concentra cortijos tradicionales y fincas de secano y regadío a precios muy competitivos, ideales para proyecto de vida, turismo rural o producción agrícola.
+
+*Chalets y casas de campo con terreno*: Muy demandados por compradores internacionales, combinan parcela, piscina y vistas a la sierra o al mar a precios inalcanzables en otras provincias del litoral mediterráneo.
+
+*Propiedades costeras*: Mojácar, Vera Playa, Garrucha y Carboneras ofrecen villas, apartamentos y áticos frente al Mediterráneo, con fuerte demanda de alquiler vacacional.
+
+*Villas de golf*: El resort Desert Springs, en Cuevas del Almanzora, es el único campo de golf de desierto de Europa y un enclave de villas de lujo ya consolidado.
+
+En Azimut Property seleccionamos activos en toda la provincia de Almería, del cortijo del Almanzora a la villa frente al mar, con acceso a propiedades fuera de mercado y asesoramiento integral para el comprador nacional e internacional.`,
+            cta: '¿Buscas una finca, cortijo o villa en Almería? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Por qué es Almería más económica que el resto de Andalucía?', a: 'Almería partió de precios más bajos y su mercado se ha internacionalizado más tarde que la Costa del Sol. El resultado es un precio por metro cuadrado un 40-60% inferior al de Málaga para propiedades equivalentes, con un recorrido de revalorización superior a medida que crece la demanda extranjera.' },
+                { q: '¿Qué zonas de Almería son mejores para comprar?', a: 'El Levante almeriense (Vera, Mojácar y Garrucha) concentra la demanda costera de lujo y segunda residencia. El valle del Almanzora (Cuevas del Almanzora, Albox, Arboleas) es el gran foco de compradores británicos de interior. Cabo de Gata-Níjar es la referencia para propiedades en entorno natural protegido.' },
+                { q: '¿Es Almería una buena inversión inmobiliaria?', a: 'Sí. La combinación de precios bajos, clima excepcional, demanda internacional creciente y alta ocupación de alquiler vacacional en la costa convierte a Almería en uno de los mercados con mayor potencial de revalorización de España.' },
+                { q: '¿Puede un extranjero comprar una propiedad en Almería?', a: 'Sí, sin restricciones. Los compradores de la UE y de terceros países pueden adquirir libremente inmuebles en Almería. Azimut Property gestiona el NIE, la due diligence urbanística y rural y el cierre notarial para compradores internacionales.' }
+            ]
+        },
+
+        'vera': {
+            title: 'Comprar Casa, Finca y Villa en Vera (Almería)',
+            intro: 'Vera: el corazón del Levante almeriense, entre la huerta y el mar',
+            description: `Vera es uno de los municipios más dinámicos del Levante almeriense y una de las mejores puertas de entrada al mercado inmobiliario de la provincia. Situada a pocos kilómetros del Mediterráneo, entre la vega fértil y la costa de Vera Playa, combina la autenticidad de un pueblo andaluz con servicios completos y una comunidad internacional consolidada.
+
+**¿Por qué comprar en Vera?**
+
+Vera ofrece una relación calidad-precio difícil de igualar en el litoral mediterráneo. Su ubicación —a 10 minutos de las playas, 15 de Mojácar y Garrucha y con acceso rápido a la autovía del Mediterráneo y al aeropuerto de Almería— la convierte en un punto estratégico para vivir todo el año o como segunda residencia.
+
+- **Vera Playa**: Uno de los complejos residenciales y turísticos más consolidados de la costa almeriense, con apartamentos, áticos y villas de primera línea, además del célebre enclave naturista, único en su categoría en España.
+- **Fincas y casas de campo**: La vega de Vera y su entorno rural concentran fincas de regadío, casas de campo con terreno y parcelas a precios muy competitivos, ideales para huerta, caballos o proyecto de turismo rural.
+- **Clima y salud**: El microclima seco y templado de Vera, con más de 300 días de sol al año, ha impulsado un turismo de bienestar y salud muy valorado por compradores del norte de Europa.
+
+**Tipos de propiedad en Vera**
+
+Desde apartamentos y áticos en Vera Playa hasta villas independientes con piscina, cortijos rehabilitados en la vega y parcelas rústicas para construir, Vera cubre todo el espectro de comprador, del inversor en alquiler vacacional a la familia que busca residencia permanente.
+
+En Azimut Property disponemos de una selección de propiedades en Vera y su entorno, con acceso a inmuebles fuera de mercado y asesoramiento para compradores nacionales e internacionales.`,
+            cta: '¿Buscas una casa, finca o villa en Vera? Habla con nuestros especialistas del Levante almeriense.',
+            faqs: [
+                { q: '¿Cuánto cuesta una propiedad en Vera?', a: 'Los apartamentos en Vera Playa parten de unos 90.000€-150.000€, mientras que las villas independientes con piscina se sitúan entre 250.000€ y 600.000€. Las fincas y casas de campo con terreno en la vega oscilan entre 120.000€ y 450.000€ según la superficie y las edificaciones.' },
+                { q: '¿Está Vera junto a la playa?', a: 'El casco urbano de Vera se encuentra a unos 8-10 minutos en coche de Vera Playa, su franja litoral sobre el Mediterráneo. Esto permite disfrutar de la vida de pueblo y los servicios del interior con la playa a pocos minutos.' },
+                { q: '¿Es Vera una buena inversión?', a: 'Sí. La combinación de precios accesibles, demanda internacional estable y alta ocupación de alquiler vacacional en Vera Playa hace de Vera una de las inversiones más sólidas del Levante almeriense.' },
+                { q: '¿Qué hay cerca de Vera?', a: 'Vera limita con Garrucha (puerto y paseo marítimo), Mojácar (pueblo blanco y playas) y Cuevas del Almanzora (golf de desierto Desert Springs), formando el núcleo turístico y residencial más importante del Levante de Almería.' }
+            ]
+        },
+
+        'mojacar': {
+            title: 'Comprar Villa, Apartamento y Casa en Mojácar (Almería)',
+            intro: 'Mojácar: el pueblo blanco frente al Mediterráneo más codiciado de Almería',
+            description: `Mojácar es el destino residencial de referencia de la costa de Almería y uno de los pueblos más bellos y reconocibles de todo el litoral mediterráneo. Su casco antiguo de casas blancas encaramadas a la colina —Mojácar Pueblo— y sus 17 kilómetros de playa —Mojácar Playa— conforman un binomio único que atrae a compradores internacionales desde hace décadas.
+
+**¿Por qué comprar en Mojácar?**
+
+Mojácar combina el encanto del pueblo blanco andaluz con una oferta costera moderna y una comunidad internacional muy asentada, especialmente británica y del norte de Europa. Su marca turística, consolidada y estable, sostiene un mercado de segunda residencia y alquiler vacacional entre los más activos de la provincia.
+
+- **Mojácar Pueblo**: Casas tradicionales encaladas, calles estrechas y vistas panorámicas al Mediterráneo y a la sierra de Cabrera. Muy demandadas por quienes buscan carácter y autenticidad.
+- **Mojácar Playa**: Villas, apartamentos y áticos en primera y segunda línea de playa, con paseo marítimo, servicios y una temporada turística prolongada por el clima suave.
+- **Entorno**: A pocos minutos de Garrucha, Vera y del Parque Natural de Cabo de Gata, con campos de golf cercanos y aeropuertos de Almería y Murcia-Corvera a poco más de una hora.
+
+**Tipos de propiedad en Mojácar**
+
+El mercado de Mojácar abarca desde casas de pueblo con encanto y villas con piscina y vistas al mar hasta apartamentos y áticos en complejos frente a la playa. Es un mercado especialmente líquido para el alquiler vacacional gracias a su notoriedad internacional.
+
+En Azimut Property ofrecemos propiedades seleccionadas en Mojácar Pueblo y Mojácar Playa, con acceso a oportunidades fuera de mercado y acompañamiento completo al comprador internacional.`,
+            cta: '¿Buscas una villa o apartamento en Mojácar? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta una villa en Mojácar?', a: 'Las villas con piscina y vistas al mar en Mojácar oscilan habitualmente entre 350.000€ y 900.000€. Los apartamentos en Mojácar Playa parten de unos 120.000€ y las casas con encanto en Mojácar Pueblo se sitúan entre 180.000€ y 450.000€ según ubicación y estado.' },
+                { q: '¿Cuál es la diferencia entre Mojácar Pueblo y Mojácar Playa?', a: 'Mojácar Pueblo es el casco histórico en la colina, con casas blancas tradicionales y vistas panorámicas. Mojácar Playa es la franja costera, con 17 km de playa, paseo marítimo y propiedades modernas frente al mar. Están conectados y a pocos minutos en coche.' },
+                { q: '¿Es Mojácar buena inversión para alquiler?', a: 'Sí. La fuerte notoriedad turística de Mojácar y su larga temporada garantizan una demanda de alquiler vacacional muy alta, con ocupaciones elevadas en temporada y rentabilidades atractivas para el inversor.' },
+                { q: '¿Puede un extranjero comprar en Mojácar?', a: 'Sí, sin restricciones. Mojácar cuenta con una de las comunidades internacionales más consolidadas de Almería. Azimut Property gestiona el NIE, la due diligence y el cierre notarial para compradores extranjeros.' }
+            ]
+        },
+
+        'cuevas-del-almanzora': {
+            title: 'Comprar Finca, Villa de Golf y Casa en Cuevas del Almanzora',
+            intro: 'Cuevas del Almanzora: golf de desierto, valle fértil y costa virgen',
+            description: `Cuevas del Almanzora es uno de los municipios más extensos y singulares del Levante almeriense, un territorio que reúne golf de lujo, valle agrícola fértil, embalse y una costa aún poco masificada en Villaricos y Palomares. Su combinación de campo, deporte y mar la convierte en un enclave con múltiples perfiles de comprador.
+
+**¿Por qué comprar en Cuevas del Almanzora?**
+
+El municipio destaca por su diversidad: el valle del Almanzora ofrece fincas y casas de campo a precios muy competitivos, mientras que el resort Desert Springs aporta un mercado de villas de golf de perfil internacional.
+
+- **Desert Springs Resort**: El único campo de golf de desierto de Europa, un complejo residencial consolidado con villas, apartamentos y servicios de alto nivel que atrae a compradores del Reino Unido y el norte de Europa.
+- **Valle del Almanzora**: Fincas de regadío, cortijos y casas de campo con terreno a precios accesibles, en pleno foco de la demanda británica de interior.
+- **Costa de Villaricos y Palomares**: Un litoral tranquilo y menos masificado, con propiedades frente al mar y a pocos minutos de Vera y Garrucha.
+
+**Tipos de propiedad en Cuevas del Almanzora**
+
+Desde villas y apartamentos en el resort de golf hasta fincas rústicas en el valle y casas frente al mar en la costa, Cuevas del Almanzora ofrece una gama amplia que cubre tanto la inversión de lujo como la compra de valor.
+
+En Azimut Property disponemos de propiedades seleccionadas en Cuevas del Almanzora, del entorno de Desert Springs a las fincas del valle, con asesoramiento integral al comprador internacional.`,
+            cta: '¿Buscas una villa de golf o una finca en Cuevas del Almanzora? Consúltanos.',
+            faqs: [
+                { q: '¿Qué es Desert Springs?', a: 'Desert Springs es el único resort de golf de desierto de Europa, situado en Cuevas del Almanzora. Es un complejo residencial de lujo con villas y apartamentos, campo de golf de 18 hoyos, club y servicios, muy demandado por compradores internacionales.' },
+                { q: '¿Cuánto cuesta una propiedad en Cuevas del Almanzora?', a: 'Las fincas y casas de campo en el valle del Almanzora parten de unos 90.000€-250.000€. Las villas y apartamentos en Desert Springs se sitúan habitualmente entre 200.000€ y 700.000€ según tipología, vistas y proximidad al campo de golf.' },
+                { q: '¿Está Cuevas del Almanzora cerca de la playa?', a: 'Sí. El municipio cuenta con litoral propio en Villaricos y Palomares, y está a pocos minutos de las playas de Vera y Garrucha, combinando interior de valle, golf y costa en un mismo término municipal.' },
+                { q: '¿Es buena zona para compradores extranjeros?', a: 'Muy buena. El valle del Almanzora y Desert Springs concentran una comunidad británica y del norte de Europa muy asentada, con servicios orientados al comprador internacional. Azimut Property gestiona todo el proceso, incluido el NIE y el cierre notarial.' }
+            ]
+        },
+
+        'garrucha': {
+            title: 'Comprar Piso, Ático y Villa en Garrucha (Almería)',
+            intro: 'Garrucha: puerto, paseo marítimo y vida mediterránea en el Levante almeriense',
+            description: `Garrucha es el puerto por excelencia del Levante almeriense y uno de los enclaves costeros con más vida y demanda de la provincia. Su puerto pesquero y deportivo, su animado paseo marítimo y su famosa gamba roja hacen de Garrucha un destino residencial y turístico muy apreciado, con propiedades de primera línea frente al Mediterráneo.
+
+**¿Por qué comprar en Garrucha?**
+
+Pequeña en extensión pero intensa en servicios, Garrucha ofrece una vida mediterránea completa durante todo el año: puerto, playa, gastronomía y comercio a pie de calle, junto a Vera y Mojácar.
+
+- **Primera línea de mar**: Apartamentos, áticos y edificios frente al paseo marítimo con vistas directas al Mediterráneo, muy demandados para segunda residencia y alquiler vacacional.
+- **Puerto y marina**: El puerto deportivo y pesquero aporta actividad, restaurantes y amarres, un valor diferencial frente a otros núcleos del Levante.
+- **Ubicación**: A pocos minutos de Mojácar, Vera y Cuevas del Almanzora, en pleno corazón del Levante almeriense y con acceso rápido a la autovía del Mediterráneo.
+
+**Tipos de propiedad en Garrucha**
+
+El mercado de Garrucha se orienta sobre todo a apartamentos y áticos frente al mar, con villas y adosados en las zonas altas. Es un mercado muy líquido para el alquiler vacacional gracias a su vida de puerto y su paseo marítimo.
+
+En Azimut Property ofrecemos propiedades seleccionadas en Garrucha, con acceso a oportunidades de primera línea de playa y asesoramiento al comprador nacional e internacional.`,
+            cta: '¿Buscas un piso o ático frente al mar en Garrucha? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta un piso en Garrucha?', a: 'Los apartamentos en Garrucha parten de unos 100.000€, y los áticos y pisos en primera línea de paseo marítimo se sitúan habitualmente entre 180.000€ y 450.000€ según superficie, altura y vistas al mar.' },
+                { q: '¿Qué hace especial a Garrucha?', a: 'Garrucha combina puerto pesquero y deportivo, un largo paseo marítimo, gastronomía marinera —su gamba roja es famosa en toda España— y una vida de pueblo mediterráneo activa todo el año, algo poco frecuente en núcleos costeros de su tamaño.' },
+                { q: '¿Es Garrucha buena para alquiler vacacional?', a: 'Sí. Su vida de puerto, su paseo marítimo y su cercanía a Mojácar y Vera generan una demanda de alquiler vacacional muy alta, especialmente para propiedades en primera línea de mar.' },
+                { q: '¿Puede un extranjero comprar en Garrucha?', a: 'Sí, sin restricciones. Garrucha forma parte del Levante almeriense, con una comunidad internacional consolidada. Azimut Property gestiona el NIE, la due diligence y el cierre notarial para compradores extranjeros.' }
+            ]
+        },
+
         // Generic Fallback for other locations
         'default': {
             title: `Propiedades Exclusivas en Venta en ${city}`,
@@ -265,7 +405,7 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
     if (!city) return null;
 
-    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande'].includes(citySlug);
+    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande', 'almeria', 'vera', 'mojacar', 'cuevas-del-almanzora', 'garrucha'].includes(citySlug);
 
     // Generate FAQ Schema for Google/AI
     const faqSchema = currentContent.faqs ? {

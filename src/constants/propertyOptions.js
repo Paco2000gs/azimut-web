@@ -67,7 +67,7 @@ export const CITIES = {
     "Almería": [
         "Almería", "Roquetas de Mar", "El Ejido", "Níjar", "Vícar", "Adra",
         "Huércal-Overa", "Huércal de Almería", "Vera", "Cuevas del Almanzora",
-        "Berja", "Albox", "La Mojonera", "Mojácar", "Carboneras", "Arboleas"
+        "Berja", "Albox", "La Mojonera", "Mojácar", "Carboneras", "Arboleas", "Garrucha"
     ],
     "Granada": [
         "Granada", "Motril", "Almuñécar", "Armilla", "Maracena", "Loja", "Baza",
