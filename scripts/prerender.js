@@ -58,6 +58,12 @@ const CORE_LOCATION_ROUTES = [
     '/venta/mojacar',
     '/venta/cuevas-del-almanzora',
     '/venta/garrucha',
+    // Almería — Cabo de Gata, Poniente y valle del Almanzora
+    '/venta/nijar',
+    '/venta/carboneras',
+    '/venta/roquetas-de-mar',
+    '/venta/albox',
+    '/venta/arboleas',
 ];
 
 const normalize = (str) =>

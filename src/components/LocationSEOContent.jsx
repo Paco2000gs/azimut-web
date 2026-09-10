@@ -382,6 +382,137 @@ En Azimut Property ofrecemos propiedades seleccionadas en Garrucha, con acceso a
             ]
         },
 
+        'nijar': {
+            title: 'Comprar Casa, Cortijo y Villa en Níjar y Cabo de Gata (Almería)',
+            intro: 'Níjar y Cabo de Gata: la costa virgen más protegida del Mediterráneo español',
+            description: `Níjar es uno de los municipios más singulares y codiciados de Almería, puerta del Parque Natural de Cabo de Gata-Níjar: el mayor espacio protegido del litoral mediterráneo andaluz y una de las pocas costas vírgenes que quedan en España. Comprar en Níjar significa acceder a un entorno de playas volcánicas, calas cristalinas y pueblos blancos sin masificar.
+
+**¿Por qué comprar en Níjar y Cabo de Gata?**
+
+- **Costa protegida y exclusiva**: La condición de parque natural limita la construcción, lo que preserva el paisaje y sostiene el valor de la propiedad existente. Playas como San José, Los Genoveses, Mónsul o Agua Amarga están entre las más bellas del país.
+- **Autenticidad**: El casco de Níjar, con su cerámica y sus jarapas artesanales, y los cortijos del campo de Níjar conservan la esencia andaluza más pura.
+- **Clima y naturaleza**: El microclima subdesértico —el más seco de Europa— y la biodiversidad del parque atraen a compradores que buscan sol, mar y naturaleza sin turismo de masas.
+
+**Tipos de propiedad en Níjar**
+
+*Propiedades costeras*: Casas y apartamentos en los núcleos de San José, Las Negras o Agua Amarga, muy demandados y escasos por la protección del parque.
+
+*Cortijos y casas de campo*: En el campo de Níjar, con terreno y a precios más accesibles, ideales para rehabilitación, turismo rural o proyecto de vida.
+
+En Azimut Property seleccionamos propiedades en Níjar y Cabo de Gata, con acceso a inmuebles fuera de mercado en una de las costas más exclusivas de España.`,
+            cta: '¿Buscas una casa o cortijo en Níjar o Cabo de Gata? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Se puede construir en Cabo de Gata?', a: 'El Parque Natural de Cabo de Gata-Níjar restringe con fuerza la nueva construcción. El valor se concentra en la propiedad ya existente y en el suelo con licencia, lo que hace que la oferta sea escasa y esté muy bien valorada.' },
+                { q: '¿Cuánto cuesta una casa en San José (Níjar)?', a: 'Los apartamentos en los núcleos costeros parten de unos 150.000€, mientras que las villas y casas con vistas al mar dentro del entorno del parque se sitúan habitualmente entre 350.000€ y 900.000€ o más, según ubicación y proximidad a la playa.' },
+                { q: '¿Qué playas tiene Níjar?', a: 'San José, Los Genoveses, Mónsul, Agua Amarga y Las Negras son algunas de las playas y calas más famosas de España, todas dentro del Parque Natural de Cabo de Gata-Níjar.' },
+                { q: '¿Es Níjar buena inversión?', a: 'Sí. La condición de costa protegida limita la oferta, lo que sostiene el valor de la propiedad y garantiza una demanda alta de alquiler vacacional en uno de los litorales más singulares del Mediterráneo.' }
+            ]
+        },
+
+        'carboneras': {
+            title: 'Comprar Casa, Apartamento y Villa en Carboneras (Almería)',
+            intro: 'Carboneras: playas de cine y vida marinera junto a Cabo de Gata',
+            description: `Carboneras es un municipio costero del Levante almeriense, en el límite del Parque Natural de Cabo de Gata-Níjar, célebre por su puerto pesquero y por la Playa de los Muertos, considerada una de las mejores playas de España. Combina vida marinera auténtica con un litoral de gran belleza y precios más accesibles que otros destinos costeros.
+
+**¿Por qué comprar en Carboneras?**
+
+- **Playas excepcionales**: La Playa de los Muertos y las calas del entorno, de aguas turquesa, son un reclamo turístico de primer nivel.
+- **Puerto y autenticidad**: Su carácter de pueblo pesquero, menos urbanizado que otros destinos, aporta autenticidad y una relación calidad-precio muy competitiva.
+- **Ubicación**: A pocos minutos de Mojácar y del Parque de Cabo de Gata, con acceso a la autovía del Mediterráneo.
+
+**Tipos de propiedad en Carboneras**
+
+Apartamentos y áticos cerca de la playa, villas y adosados con vistas al mar y casas en el casco urbano. Un mercado atractivo para segunda residencia y alquiler vacacional por la calidad de su litoral.
+
+En Azimut Property ofrecemos propiedades seleccionadas en Carboneras, con asesoramiento integral al comprador nacional e internacional.`,
+            cta: '¿Buscas una casa o apartamento en Carboneras? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta un apartamento en Carboneras?', a: 'Los apartamentos en Carboneras parten de unos 100.000€-150.000€, y las villas o casas con vistas al mar se sitúan habitualmente entre 200.000€ y 500.000€ según ubicación, superficie y proximidad a la playa.' },
+                { q: '¿Dónde está la Playa de los Muertos?', a: 'La Playa de los Muertos se encuentra en el término de Carboneras, junto al Parque Natural de Cabo de Gata-Níjar. Es una playa virgen de aguas cristalinas, repetidamente elegida entre las mejores de España.' },
+                { q: '¿Está Carboneras cerca de Mojácar?', a: 'Sí, Carboneras se encuentra a unos 20-25 minutos en coche de Mojácar, en pleno Levante almeriense, lo que permite combinar la tranquilidad marinera con los servicios de los núcleos turísticos vecinos.' },
+                { q: '¿Puede un extranjero comprar en Carboneras?', a: 'Sí, sin restricciones. Azimut Property gestiona el NIE, la due diligence y el cierre notarial para compradores internacionales.' }
+            ]
+        },
+
+        'roquetas-de-mar': {
+            title: 'Comprar Piso, Villa y Apartamento en Roquetas de Mar (Almería)',
+            intro: 'Roquetas de Mar: la gran playa urbana de Almería, con puerto deportivo y golf',
+            description: `Roquetas de Mar es el principal destino turístico y residencial de la costa de Poniente almeriense, al suroeste de la capital. Con kilómetros de playa, paseo marítimo, puerto deportivo y campo de golf, es uno de los mercados inmobiliarios más líquidos y consolidados de la provincia.
+
+**¿Por qué comprar en Roquetas de Mar?**
+
+- **Playa y servicios todo el año**: Amplias playas de arena, paseo marítimo, comercio y hostelería con actividad durante toda la temporada.
+- **Puerto deportivo y golf**: La marina de Aguadulce y el golf de Playa Serena aportan un perfil de comprador de ocio y segunda residencia.
+- **Mercado líquido**: Fuerte demanda nacional e internacional de apartamentos y villas, con un alquiler vacacional muy activo.
+
+**Tipos de propiedad en Roquetas de Mar**
+
+Apartamentos y áticos en primera línea de playa, villas y adosados en urbanizaciones de playa y golf, y pisos en el núcleo urbano. Una oferta amplia y especialmente adecuada para la inversión en alquiler.
+
+En Azimut Property seleccionamos propiedades en Roquetas de Mar, con acceso a oportunidades de primera línea de playa y golf.`,
+            cta: '¿Buscas un piso o villa en Roquetas de Mar? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta un piso en Roquetas de Mar?', a: 'Los apartamentos parten de unos 90.000€-140.000€, los áticos y pisos en primera línea se sitúan entre 150.000€ y 350.000€, y las villas en urbanizaciones de playa o golf oscilan entre 300.000€ y 700.000€ según ubicación y superficie.' },
+                { q: '¿Qué es Aguadulce?', a: 'Aguadulce es un núcleo de Roquetas de Mar con puerto deportivo, playa y paseo marítimo, muy demandado para segunda residencia por su marina y su proximidad a la capital de Almería.' },
+                { q: '¿Es Roquetas buena para alquiler vacacional?', a: 'Sí. Su condición de destino turístico consolidado, con playa, golf y servicios todo el año, garantiza una demanda de alquiler vacacional alta y un mercado muy líquido para el inversor.' },
+                { q: '¿Puede un extranjero comprar en Roquetas de Mar?', a: 'Sí, sin restricciones. Azimut Property gestiona el NIE, la due diligence y el cierre notarial para compradores internacionales.' }
+            ]
+        },
+
+        'albox': {
+            title: 'Comprar Cortijo, Villa y Casa de Campo en Albox (Almería)',
+            intro: 'Albox: el corazón del valle del Almanzora, referencia de compradores internacionales',
+            description: `Albox es uno de los municipios más activos del interior del Levante almeriense y un foco histórico de compradores británicos y del norte de Europa. En pleno valle del Almanzora, ofrece cortijos, villas y casas de campo con terreno a precios muy competitivos, con una comunidad internacional muy asentada y servicios orientados al residente extranjero.
+
+**¿Por qué comprar en Albox?**
+
+- **Precio imbatible**: Villas con piscina y parcela, y cortijos rehabilitados, a precios impensables en la costa mediterránea.
+- **Comunidad internacional**: Décadas de compra británica han creado comercios, servicios y asesoría orientados al comprador extranjero.
+- **Clima y calidad de vida**: Más de 300 días de sol, entorno tranquilo de valle y buena conexión con la costa (Vera, Mojácar) y el aeropuerto de Almería.
+
+**Tipos de propiedad en Albox**
+
+*Cortijos y casas de campo*: Con terreno, ideales para rehabilitación, huerta o proyecto de vida.
+
+*Villas con piscina*: En las afueras, con parcela y a precios muy accesibles.
+
+*Casas de pueblo*: En el casco urbano, perfectas para residencia permanente o inversión de valor.
+
+En Azimut Property disponemos de propiedades en Albox y el valle del Almanzora, con asesoramiento completo al comprador internacional.`,
+            cta: '¿Buscas un cortijo o villa en Albox? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta una villa o cortijo en Albox?', a: 'Las villas con piscina y parcela parten de unos 120.000€-200.000€, y los cortijos con terreno se sitúan habitualmente entre 90.000€ y 300.000€ según superficie, estado y edificaciones. Es uno de los mercados más económicos del sureste español.' },
+                { q: '¿Por qué hay tantos británicos en Albox?', a: 'El valle del Almanzora atrajo desde hace décadas a compradores británicos por sus precios bajos, su clima y su tranquilidad. Hoy existe una comunidad muy consolidada, con servicios, comercios y asesoría orientados al residente internacional.' },
+                { q: '¿A qué distancia está Albox de la playa?', a: 'Albox está a unos 30-40 minutos en coche de las playas de Vera, Mojácar y Garrucha, y a poco más de una hora del aeropuerto de Almería, combinando vida de valle con acceso rápido a la costa.' },
+                { q: '¿Puede un extranjero comprar en Albox?', a: 'Sí, sin restricciones. Azimut Property gestiona el NIE, la due diligence y el cierre notarial para compradores internacionales.' }
+            ]
+        },
+
+        'arboleas': {
+            title: 'Comprar Cortijo, Villa y Casa con Terreno en Arboleas (Almería)',
+            intro: 'Arboleas: vida de valle junto al río Almanzora, hogar de la comunidad británica',
+            description: `Arboleas es uno de los municipios más apreciados del valle del Almanzora, atravesado por el río Almanzora y con una de las comunidades británicas más consolidadas del interior de Almería. Sus cortijos y villas con terreno, a precios muy accesibles, lo convierten en destino preferente de compradores que buscan espacio, sol y tranquilidad.
+
+**¿Por qué comprar en Arboleas?**
+
+- **Casas con terreno asequibles**: Cortijos rehabilitados y villas con parcela y piscina a una fracción del precio de la costa.
+- **Entorno de río y huerta**: El valle del Almanzora ofrece un paisaje verde y fértil poco habitual en Almería, con vida rural tranquila.
+- **Comunidad y servicios**: Amplia comunidad británica y del norte de Europa, con servicios orientados al residente internacional, a 30-40 minutos de las playas de Vera y Mojácar.
+
+**Tipos de propiedad en Arboleas**
+
+Cortijos y casas de campo con terreno, villas independientes con piscina y casas de pueblo. Un mercado orientado a residencia permanente, jubilación al sol e inversión de valor.
+
+En Azimut Property ofrecemos propiedades en Arboleas y el valle del Almanzora, con asesoramiento integral al comprador internacional.`,
+            cta: '¿Buscas un cortijo o villa con terreno en Arboleas? Consúltanos sin compromiso.',
+            faqs: [
+                { q: '¿Cuánto cuesta una casa con terreno en Arboleas?', a: 'Los cortijos y casas de campo con terreno parten de unos 90.000€, y las villas con piscina y parcela se sitúan habitualmente entre 130.000€ y 300.000€ según superficie, estado y ubicación en el valle.' },
+                { q: '¿Es Arboleas bueno para compradores británicos?', a: 'Sí. Arboleas cuenta con una de las comunidades británicas más asentadas del valle del Almanzora, con servicios y comercios orientados al residente internacional, lo que facilita mucho la integración y el día a día.' },
+                { q: '¿Qué tiene de especial el valle del Almanzora?', a: 'El río Almanzora aporta un paisaje verde y fértil poco habitual en Almería, con huerta y vida rural tranquila, a la vez que mantiene precios muy competitivos y buena conexión con la costa del Levante.' },
+                { q: '¿Puede un extranjero comprar en Arboleas?', a: 'Sí, sin restricciones. Azimut Property gestiona el NIE, la due diligence y el cierre notarial para compradores internacionales.' }
+            ]
+        },
+
         // Generic Fallback for other locations
         'default': {
             title: `Propiedades Exclusivas en Venta en ${city}`,
@@ -405,7 +536,7 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
     if (!city) return null;
 
-    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande', 'almeria', 'vera', 'mojacar', 'cuevas-del-almanzora', 'garrucha'].includes(citySlug);
+    const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande', 'almeria', 'vera', 'mojacar', 'cuevas-del-almanzora', 'garrucha', 'nijar', 'carboneras', 'roquetas-de-mar', 'albox', 'arboleas'].includes(citySlug);
 
     // Generate FAQ Schema for Google/AI
     const faqSchema = currentContent.faqs ? {
