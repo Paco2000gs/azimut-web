@@ -28,7 +28,7 @@ const setLink = (selector, rel, href, hreflang) => {
     el.setAttribute('href', href);
 };
 
-const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, keywords = '', lang = 'es' }) => {
+const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, keywords = '', lang = 'es', alternates = null }) => {
     const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
     const defaultDescription = 'Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers.';
     // A real 1200x630 card, not the logo: social platforms lay the preview out
@@ -81,14 +81,31 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
         }
 
         setLink('link[rel="canonical"]', 'canonical', fullUrl);
-        setLink('link[rel="alternate"][hreflang="x-default"]', 'alternate', fullUrl, 'x-default');
-        const selfHreflang = document.head.querySelector(`link[rel="alternate"][hreflang="${lang}"]`)
-            || document.head.querySelector('link[rel="alternate"]:not([hreflang="x-default"])');
-        if (selfHreflang) {
-            selfHreflang.setAttribute('hreflang', lang);
-            selfHreflang.setAttribute('href', fullUrl);
+
+        // A page that has a real translated counterpart passes the explicit
+        // en/es/x-default set; every hreflang URL below is a route that is
+        // actually prerendered, so this no longer risks the /en/-404 problem the
+        // Helmet block warns about. Rebuild the set from scratch on each route
+        // change so a stale alternate from the previous page can't linger.
+        if (alternates && alternates.length) {
+            document.head.querySelectorAll('link[rel="alternate"]').forEach(el => el.remove());
+            alternates.forEach(a => {
+                const el = document.createElement('link');
+                el.setAttribute('rel', 'alternate');
+                el.setAttribute('hreflang', a.hreflang);
+                el.setAttribute('href', a.url);
+                document.head.appendChild(el);
+            });
         } else {
-            setLink(`link[rel="alternate"][hreflang="${lang}"]`, 'alternate', fullUrl, lang);
+            setLink('link[rel="alternate"][hreflang="x-default"]', 'alternate', fullUrl, 'x-default');
+            const selfHreflang = document.head.querySelector(`link[rel="alternate"][hreflang="${lang}"]`)
+                || document.head.querySelector('link[rel="alternate"]:not([hreflang="x-default"])');
+            if (selfHreflang) {
+                selfHreflang.setAttribute('hreflang', lang);
+                selfHreflang.setAttribute('href', fullUrl);
+            } else {
+                setLink(`link[rel="alternate"][hreflang="${lang}"]`, 'alternate', fullUrl, lang);
+            }
         }
 
         setMeta('property', 'og:type', type);
@@ -102,7 +119,7 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
         setMeta('name', 'twitter:title', fullTitle);
         setMeta('name', 'twitter:description', fullDescription);
         setMeta('name', 'twitter:image', fullImage);
-    }, [fullTitle, fullDescription, fullUrl, fullImage, ogLocale, lang, type, keywords, noindex]);
+    }, [fullTitle, fullDescription, fullUrl, fullImage, ogLocale, lang, type, keywords, noindex, alternates]);
 
     return (
         <Helmet>
@@ -116,12 +133,19 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
             {noindex && <meta name="robots" content="noindex, nofollow" />}
             {keywords && <meta name="keywords" content={keywords} />}
 
-            {/* Hreflang self-references this page in whatever language it is
-                actually written in. There is still ONE url per page: do NOT point
-                hreflang at /en/* — those routes don't exist and Google was
-                indexing them as noindex 404s. Re-add when a real /en/ exists. */}
-            <link rel="alternate" hreflang={lang} href={fullUrl} />
-            <link rel="alternate" hreflang="x-default" href={fullUrl} />
+            {/* Hreflang. By default a page self-references in its own language
+                (there is ONE url per page — do NOT invent /en/* routes that don't
+                exist; Google was indexing those as noindex 404s). When a page has
+                a real translated counterpart it passes `alternates`, and the
+                effect above is the SOLE writer of those links — Helmet must not
+                also emit them here, or the two race and the head ends up with
+                each hreflang duplicated. */}
+            {(!alternates || !alternates.length) && (
+                <>
+                    <link rel="alternate" hreflang={lang} href={fullUrl} />
+                    <link rel="alternate" hreflang="x-default" href={fullUrl} />
+                </>
+            )}
 
             {/* Open Graph / Facebook */}
             <meta property="og:type" content={type} />

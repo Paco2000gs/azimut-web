@@ -57,6 +57,11 @@ async function generateSitemap() {
         '/mansions-sotogrande',
         '/equestrian-estates-jimena-de-la-frontera',
         '/olive-estates-sevilla',
+        // Spanish versions of the landing pages (SEO audit, priority #4)
+        '/es/villas-de-lujo-marbella',
+        '/es/mansiones-sotogrande',
+        '/es/fincas-ecuestres-jimena-de-la-frontera',
+        '/es/haciendas-y-olivares-sevilla',
         '/about',
         '/contact',
         '/blog',
