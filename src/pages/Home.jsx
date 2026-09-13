@@ -83,11 +83,20 @@ const Home = () => {
 
     return (
         <div className="page home">
+            {/* Metadata must match the page's real product and language. The home
+                content is 100% English and sells off-market luxury estates
+                (Marbella Golden Triangle, Sotogrande, historic haciendas and
+                equestrian/olive estates in Cádiz & Sevilla) — NOT the "casa rural /
+                chalet" mid-market the previous Spanish tags described. That
+                title/content and es/en mismatch was the SEO audit's headline
+                finding, so title, description and keywords are English and lang
+                is "en" to send Google a single, consistent signal. */}
             <SEO
-                title="Casas Rurales y Chalets en Cádiz, Huelva y Sevilla | Azimut Property"
-                description="Descubre casas rurales, chalets y fincas en Cádiz, Huelva y Sevilla. Propiedades únicas con terreno, piscina y carácter rural. Asesoría personalizada."
+                title="Off-Market Luxury Estates in Marbella, Sotogrande & Andalusia | Azimut Property"
+                description="Off-market luxury estates in Andalusia: villas in Marbella's Golden Triangle, mansions in Sotogrande, historic haciendas and equestrian estates in Cádiz and Sevilla. Discreet consultancy for international buyers."
                 url="/"
-                keywords="casa rural Cádiz, chalet Huelva, finca Sevilla, propiedad rural Andalucía, chalet con terreno, comprar casa campo, cortijo Sevilla, hacienda Cádiz"
+                lang="en"
+                keywords="off-market luxury estates Andalusia, luxury villas Marbella Golden Triangle, mansion for sale Sotogrande, historic hacienda for sale Spain, equestrian estate Jimena de la Frontera, olive grove estate for sale Andalusia, rural investment estate Cadiz Sevilla, Azimut Property"
             />
             <Helmet>
                 <script type="application/ld+json">

@@ -11,6 +11,7 @@ import Home from './pages/Home';
 import GTMTracker from './components/GTMTracker';
 
 import Catalog from './pages/Catalog';
+import LandingPage from './pages/LandingPage';
 import PropertyDetail from './pages/PropertyDetail';
 import About from './pages/About';
 import Blog from './pages/Blog';
@@ -72,6 +73,13 @@ function App() {
                   <Route path="venta" element={<Catalog />} />
                   <Route path="venta/:city" element={<Catalog />} />
                   <Route path="venta/:city/:area" element={<Catalog />} />
+                  {/* Zone × typology landing pages (SEO audit, priority #2) —
+                      clean, keyword-first URLs targeting the English luxury
+                      niche the Spanish /venta silos don't reach. */}
+                  <Route path="villas-marbella" element={<LandingPage slug="villas-marbella" />} />
+                  <Route path="mansions-sotogrande" element={<LandingPage slug="mansions-sotogrande" />} />
+                  <Route path="equestrian-estates-jimena-de-la-frontera" element={<LandingPage slug="equestrian-estates-jimena-de-la-frontera" />} />
+                  <Route path="olive-estates-sevilla" element={<LandingPage slug="olive-estates-sevilla" />} />
                   <Route path="property/:id" element={<PropertyDetail />} />
                   <Route path="properties/:id" element={<PropertyDetail />} />
                   <Route path="about" element={<About />} />
