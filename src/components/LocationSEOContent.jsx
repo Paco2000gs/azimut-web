@@ -18,11 +18,11 @@ El mercado inmobiliario de Marbella ha experimentado una revalorización sosteni
         },
 
         'cadiz': {
-            title: 'Comprar Casa Rural, Finca y Cortijo en Cádiz',
-            intro: 'Cádiz: la provincia más auténtica de Andalucía para la inversión rural',
+            title: 'Fincas de Lujo, Haciendas y Fincas Ecuestres en Cádiz',
+            intro: 'Cádiz: haciendas históricas, cortijos de olivar y fincas ecuestres junto a Sotogrande',
             description: `La provincia de Cádiz concentra algunas de las propiedades rurales más singulares y mejor conservadas de todo el sur de España. Desde los cortijos de campiña en Medina-Sidonia hasta las fincas ganaderas de Alcalá de los Gazules, pasando por las casas payesas de Vejer de la Frontera, comprar una propiedad rural en Cádiz significa acceder a un patrimonio histórico y natural sin igual.
 
-**¿Por qué comprar casa rural en Cádiz?**
+**¿Por qué comprar una finca de lujo en Cádiz?**
 
 La provincia gaditana ofrece una combinación única de factores que la convierten en el destino ideal para compradores nacionales e internacionales que buscan propiedades rurales de inversión:
 
@@ -91,8 +91,8 @@ En Azimut Property disponemos de una selección exclusiva de propiedades rurales
         },
 
         'sevilla': {
-            title: 'Comprar Cortijo, Hacienda y Finca en Sevilla',
-            intro: 'Sevilla: el corazón de la propiedad rural andaluza, entre olivares y dehesas',
+            title: 'Haciendas, Cortijos de Olivar y Fincas de Lujo en Sevilla',
+            intro: 'Sevilla: haciendas históricas, cortijos de olivar de inversión y fincas ecuestres',
             description: `La provincia de Sevilla es sinónimo de hacienda andaluza, cortijo señorial y finca agrícola de alta productividad. Comprar una propiedad rural en Sevilla significa adquirir parte del alma de Andalucía: un cortijo entre olivares centenarios, una hacienda rehabilitada con arquitectura histórica, o una finca agrícola con plenas posibilidades de explotación.
 
 **El mercado de propiedades rurales en Sevilla**
