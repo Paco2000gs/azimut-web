@@ -52,6 +52,11 @@ async function generateSitemap() {
         '/venta/sevilla',
         '/venta/malaga',
         '/venta/almeria',
+        // Zone × typology landing pages (SEO audit, priority #2)
+        '/villas-marbella',
+        '/mansions-sotogrande',
+        '/equestrian-estates-jimena-de-la-frontera',
+        '/olive-estates-sevilla',
         '/about',
         '/contact',
         '/blog',

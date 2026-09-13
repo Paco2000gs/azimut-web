@@ -41,6 +41,16 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-column">
+                        <h3>Collections</h3>
+                        <ul className="footer-links">
+                            <li><Link to="/villas-marbella">Villas in Marbella</Link></li>
+                            <li><Link to="/mansions-sotogrande">Mansions in Sotogrande</Link></li>
+                            <li><Link to="/equestrian-estates-jimena-de-la-frontera">Equestrian Estates, Jimena</Link></li>
+                            <li><Link to="/olive-estates-sevilla">Olive Estates, Seville</Link></li>
+                        </ul>
+                    </div>
+
+                    <div className="footer-column">
                         <h3>Company</h3>
                         <ul className="footer-links">
                             <li><Link to="/about">About Us</Link></li>
