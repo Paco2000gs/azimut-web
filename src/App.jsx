@@ -75,11 +75,18 @@ function App() {
                   <Route path="venta/:city/:area" element={<Catalog />} />
                   {/* Zone × typology landing pages (SEO audit, priority #2) —
                       clean, keyword-first URLs targeting the English luxury
-                      niche the Spanish /venta silos don't reach. */}
-                  <Route path="villas-marbella" element={<LandingPage slug="villas-marbella" />} />
-                  <Route path="mansions-sotogrande" element={<LandingPage slug="mansions-sotogrande" />} />
-                  <Route path="equestrian-estates-jimena-de-la-frontera" element={<LandingPage slug="equestrian-estates-jimena-de-la-frontera" />} />
-                  <Route path="olive-estates-sevilla" element={<LandingPage slug="olive-estates-sevilla" />} />
+                      niche the Spanish /venta silos don't reach. Each has a real
+                      Spanish counterpart under /es/* (priority #4), paired with
+                      hreflang. */}
+                  <Route path="villas-marbella" element={<LandingPage slug="villas-marbella" lang="en" />} />
+                  <Route path="mansions-sotogrande" element={<LandingPage slug="mansions-sotogrande" lang="en" />} />
+                  <Route path="equestrian-estates-jimena-de-la-frontera" element={<LandingPage slug="equestrian-estates-jimena-de-la-frontera" lang="en" />} />
+                  <Route path="olive-estates-sevilla" element={<LandingPage slug="olive-estates-sevilla" lang="en" />} />
+                  {/* Spanish versions (SEO audit, priority #4) */}
+                  <Route path="es/villas-de-lujo-marbella" element={<LandingPage slug="villas-marbella" lang="es" />} />
+                  <Route path="es/mansiones-sotogrande" element={<LandingPage slug="mansions-sotogrande" lang="es" />} />
+                  <Route path="es/fincas-ecuestres-jimena-de-la-frontera" element={<LandingPage slug="equestrian-estates-jimena-de-la-frontera" lang="es" />} />
+                  <Route path="es/haciendas-y-olivares-sevilla" element={<LandingPage slug="olive-estates-sevilla" lang="es" />} />
                   <Route path="property/:id" element={<PropertyDetail />} />
                   <Route path="properties/:id" element={<PropertyDetail />} />
                   <Route path="about" element={<About />} />
