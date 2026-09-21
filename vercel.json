@@ -28,6 +28,36 @@
       "permanent": true
     },
     {
+      "source": "/venta/málaga",
+      "destination": "/venta/malaga",
+      "permanent": true
+    },
+    {
+      "source": "/venta/cádiz",
+      "destination": "/venta/cadiz",
+      "permanent": true
+    },
+    {
+      "source": "/venta/almería",
+      "destination": "/venta/almeria",
+      "permanent": true
+    },
+    {
+      "source": "/venta/cártama",
+      "destination": "/venta/cartama",
+      "permanent": true
+    },
+    {
+      "source": "/venta/gaucín",
+      "destination": "/venta/gaucin",
+      "permanent": true
+    },
+    {
+      "source": "/venta/sanlúcar-de-barrameda",
+      "destination": "/venta/sanlucar-de-barrameda",
+      "permanent": true
+    },
+    {
       "source": "/property/finca-jimena-de-la-frontera-19",
       "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
       "permanent": true
