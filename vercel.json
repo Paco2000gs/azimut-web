@@ -58,6 +58,26 @@
       "permanent": true
     },
     {
+      "source": "/venta/cádiz/:type*",
+      "destination": "/venta/cadiz",
+      "permanent": true
+    },
+    {
+      "source": "/blog/hidden-gems-vistahermosa-costa-ballena",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/property/2",
+      "destination": "/venta",
+      "permanent": true
+    },
+    {
+      "source": "/properties/2",
+      "destination": "/venta",
+      "permanent": true
+    },
+    {
       "source": "/property/finca-jimena-de-la-frontera-19",
       "destination": "/properties/equestrian-estate-vineyard-sotogrande-cadiz-48-hectares",
       "permanent": true
