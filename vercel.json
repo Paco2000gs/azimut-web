@@ -28,37 +28,37 @@
       "permanent": true
     },
     {
-      "source": "/venta/málaga",
+      "source": "/venta/m%C3%A1laga",
       "destination": "/venta/malaga",
       "permanent": true
     },
     {
-      "source": "/venta/cádiz",
+      "source": "/venta/c%C3%A1diz",
       "destination": "/venta/cadiz",
       "permanent": true
     },
     {
-      "source": "/venta/almería",
+      "source": "/venta/almer%C3%ADa",
       "destination": "/venta/almeria",
       "permanent": true
     },
     {
-      "source": "/venta/cártama",
+      "source": "/venta/c%C3%A1rtama",
       "destination": "/venta/cartama",
       "permanent": true
     },
     {
-      "source": "/venta/gaucín",
+      "source": "/venta/gauc%C3%ADn",
       "destination": "/venta/gaucin",
       "permanent": true
     },
     {
-      "source": "/venta/sanlúcar-de-barrameda",
+      "source": "/venta/sanl%C3%BAcar-de-barrameda",
       "destination": "/venta/sanlucar-de-barrameda",
       "permanent": true
     },
     {
-      "source": "/venta/cádiz/:type*",
+      "source": "/venta/c%C3%A1diz/:type*",
       "destination": "/venta/cadiz",
       "permanent": true
     },
