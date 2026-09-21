@@ -3,8 +3,10 @@ Allow: /
 Disallow: /admin
 Disallow: /admin/login
 Disallow: /dossier/
-Disallow: /en/
-Disallow: /en$
+# Legacy /en/* URLs are 301-redirected to their canonical (see vercel.json).
+# They must stay crawlable so Googlebot can follow the 301 and drop the old
+# URL; blocking them left those URLs stuck as "Blocked by robots.txt". The
+# current Spanish pages live under /es/*, which is not affected.
 
 # AI Search Crawlers — explicitly allowed for AI search visibility
 User-agent: GPTBot
