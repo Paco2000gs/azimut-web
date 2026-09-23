@@ -125,9 +125,26 @@
     padding: 6.5rem 0;
 }
 
+.authority-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 5rem;
+    align-items: center;
+}
+
 .authority-content {
-    max-width: 68ch;
-    margin: 0 auto;
+    max-width: 60ch;
+}
+
+.authority-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    object-position: center 30%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
 }
 
 .authority-content p {
@@ -322,6 +339,29 @@
 .loading {
     color: var(--ink-500);
     padding: 3rem 0;
+}
+
+/* Between mobile and the width where 3 cards actually fit at their minimum
+   340px/300px track size, auto-fill lands on 2 columns for a 3-item grid and
+   strands the third card alone with an empty cell beside it. Collapse to a
+   single column through that whole dead zone instead of only below 768px. */
+@media (max-width: 1120px) and (min-width: 769px) {
+    .featured-grid,
+    .journal-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 860px) {
+    .authority-grid {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+    }
+
+    .authority-media {
+        max-width: 400px;
+        margin: 0 auto;
+    }
 }
 
 /* Responsive */

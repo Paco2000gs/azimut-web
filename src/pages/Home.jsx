@@ -154,18 +154,18 @@ const Home = () => {
 
             {/* Authority Text Section */}
             <section className="section authority-section">
-                <div className="container">
+                <div className="container authority-grid">
                     <div className="authority-content">
                         <p className="lead-text">
                             Specialists in premium real estate assets across Andalusia.
-                            Azimut Property provides expert consultancy for luxury residences, 
+                            Azimut Property provides expert consultancy for luxury residences,
                             rural estates, and strategic land investments.
                         </p>
                         <p>
-                            While our roots are deep in the Golden Triangle of Marbella, Benahavís, and Estepona, 
-                            we have expanded our expertise to the emerging high-value markets of Cádiz and Sevilla. 
-                            From historic haciendas with productive olive groves to coastal plots with 
-                            unparalleled development potential, we identify assets that offer both 
+                            While our roots are deep in the Golden Triangle of Marbella, Benahavís, and Estepona,
+                            we have expanded our expertise to the emerging high-value markets of Cádiz and Sevilla.
+                            From historic haciendas with productive olive groves to coastal plots with
+                            unparalleled development potential, we identify assets that offer both
                             lifestyle excellence and long-term capital preservation.
                         </p>
                         <p>
@@ -174,6 +174,25 @@ const Home = () => {
                             number of clients, to reach the most coveted opportunities in Southern
                             Europe before they are ever advertised.
                         </p>
+                    </div>
+                    <div className="authority-media">
+                        <picture>
+                            <source
+                                type="image/webp"
+                                srcSet="/media/authority-estate-560.webp 560w, /media/authority-estate-1030.webp 1030w"
+                                sizes="(max-width: 768px) 100vw, 480px"
+                            />
+                            <img
+                                src="/media/authority-estate-1030.jpg"
+                                srcSet="/media/authority-estate-560.jpg 560w, /media/authority-estate-1030.jpg 1030w"
+                                sizes="(max-width: 768px) 100vw, 480px"
+                                alt="Terraced olive groves on a historic Andalusian hillside estate"
+                                width="1030"
+                                height="2000"
+                                loading="lazy"
+                                decoding="async"
+                            />
+                        </picture>
                     </div>
                 </div>
             </section>
