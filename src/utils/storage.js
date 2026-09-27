@@ -1,4 +1,5 @@
 import { supabase } from './supabaseClient';
+import { compressImage } from './imageCompression';
 
 /**
  * Uploads a file to Supabase Storage
@@ -8,13 +9,19 @@ import { supabase } from './supabaseClient';
  */
 export const uploadFile = async (file, folder) => {
     try {
-        const fileExt = file.name.split('.').pop();
+        // Downscale + re-encode images before they hit the bucket. This is a
+        // no-op for videos/PDFs (and returns the original if it can't help), so
+        // it is safe to run on every upload — it's the main defence against the
+        // 1 GB Storage cap.
+        const toUpload = await compressImage(file);
+
+        const fileExt = toUpload.name.split('.').pop();
         const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
         const filePath = `${folder}/${fileName}`;
 
         const { error: uploadError } = await supabase.storage
             .from('properties') // Bucket name
-            .upload(filePath, file);
+            .upload(filePath, toUpload);
 
         if (uploadError) {
             throw uploadError;
