@@ -63,3 +63,75 @@ export const deleteFile = async (url) => {
         return false;
     }
 };
+
+const BUCKET = 'properties';
+// Supabase honours a list() page of 100 exactly, so "fewer than a full page"
+// reliably means the last page. A bigger requested limit can be silently capped
+// by the server, which would make that end-of-page test miss files.
+const PAGE = 100;
+// A runaway bucket must not hang the panel with thousands of list calls. 800
+// pages of 100 covers up to ~80k files; past that we report the total as
+// partial rather than spinning forever.
+const MAX_PAGES = 800;
+
+/**
+ * Totals the REAL bytes stored in the `properties` bucket by walking it
+ * recursively, so the admin can watch the Supabase free-tier cap (1 GB of
+ * Storage) without opening the Supabase dashboard.
+ *
+ * Storage — not the tiny Postgres database — is what actually fills up on this
+ * project: originals are uploaded uncompressed (see uploadFile above), and a
+ * denied delete can leave orphans behind. This is the number that matters.
+ *
+ * Layout walked: properties/<id>/{photos,plans,videos}/... and posts/...
+ *
+ * @returns {Promise<{ totalBytes:number, fileCount:number,
+ *   byTopFolder: Record<string, number>, truncated:boolean }>}
+ *   `truncated` is true if the page cap was hit before the walk finished.
+ */
+export const getBucketUsage = async () => {
+    if (!supabase) throw new Error('Supabase is not configured');
+
+    let totalBytes = 0;
+    let fileCount = 0;
+    const byTopFolder = {};
+    let pages = 0;
+    let truncated = false;
+
+    // Depth-first walk. `top` is the root folder the bytes roll up to (a
+    // property id, or "posts"), so nested photos/plans/videos group under
+    // their property in the breakdown.
+    const walk = async (prefix, top) => {
+        let offset = 0;
+        for (;;) {
+            if (pages >= MAX_PAGES) { truncated = true; return; }
+            pages++;
+            const { data, error } = await supabase.storage
+                .from(BUCKET)
+                .list(prefix, { limit: PAGE, offset, sortBy: { column: 'name', order: 'asc' } });
+            if (error) throw error;
+            if (!data || data.length === 0) break;
+
+            for (const entry of data) {
+                const size = entry?.metadata?.size;
+                if (typeof size === 'number') {
+                    // A real file (folders come back with no metadata).
+                    totalBytes += size;
+                    fileCount++;
+                    const key = top || entry.name;
+                    byTopFolder[key] = (byTopFolder[key] || 0) + size;
+                } else {
+                    const childPrefix = prefix ? `${prefix}/${entry.name}` : entry.name;
+                    await walk(childPrefix, top || entry.name);
+                    if (truncated) return;
+                }
+            }
+
+            if (data.length < PAGE) break; // last page
+            offset += PAGE;
+        }
+    };
+
+    await walk('', '');
+    return { totalBytes, fileCount, byTopFolder, truncated };
+};

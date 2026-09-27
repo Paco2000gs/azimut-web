@@ -324,3 +324,140 @@
         width: 100%;
     }
 }
+
+/* Storage meter — tracks the Supabase 1 GB free-tier cap */
+.storage-meter {
+    background-color: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--state-success);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.storage-meter.warn { border-left-color: var(--gold-ink); }
+.storage-meter.danger { border-left-color: var(--state-error); }
+
+.storage-meter-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.storage-meter-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: var(--ink-800);
+}
+
+.storage-refresh {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--surface-sunken);
+    color: var(--ink-700);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.storage-refresh:hover:not(:disabled) { border-color: var(--ink-500); }
+.storage-refresh:disabled { opacity: 0.6; cursor: default; }
+
+.storage-refresh .spin { animation: storage-spin 0.9s linear infinite; }
+@keyframes storage-spin { to { transform: rotate(360deg); } }
+
+.storage-meter-figures {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin: 0.9rem 0 0.5rem;
+}
+
+.storage-used {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ink-900);
+    letter-spacing: -0.02em;
+}
+
+.storage-cap { color: var(--ink-500); font-size: 0.95rem; }
+
+.storage-pct {
+    margin-left: auto;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--ink-500);
+}
+
+.storage-bar {
+    width: 100%;
+    height: 8px;
+    background-color: var(--surface-sunken);
+    border-radius: 9999px;
+    overflow: hidden;
+}
+
+.storage-bar-fill {
+    height: 100%;
+    border-radius: 9999px;
+    background-color: var(--state-success);
+    transition: width 0.4s ease;
+}
+
+.storage-meter.warn .storage-bar-fill { background-color: var(--gold-ink); }
+.storage-meter.danger .storage-bar-fill { background-color: var(--state-error); }
+
+.storage-meter-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.6rem;
+    font-size: 0.85rem;
+    color: var(--ink-500);
+}
+
+.storage-partial { color: var(--gold-ink); }
+
+.storage-breakdown {
+    list-style: none;
+    margin: 0.9rem 0 0;
+    padding: 0.9rem 0 0;
+    border-top: 1px solid var(--border);
+    display: grid;
+    gap: 0.4rem;
+}
+
+.storage-breakdown li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.88rem;
+    color: var(--ink-700);
+}
+
+.storage-folder-size { color: var(--ink-500); font-variant-numeric: tabular-nums; }
+
+.storage-meter-note {
+    margin-top: 0.8rem;
+    font-size: 0.85rem;
+    color: var(--ink-700);
+    line-height: 1.4;
+}
+
+.storage-meter-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 0.8rem;
+    font-size: 0.88rem;
+    color: var(--state-error);
+    line-height: 1.4;
+}

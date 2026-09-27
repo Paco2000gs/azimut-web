@@ -4,11 +4,29 @@ import { useProperties } from '../context/PropertiesContext';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, Phone, Mail, Filter, LogOut, Plus, Home, Users, MapPin, Loader, Upload, X, Image as ImageIcon, FileText, Video, Edit, Star, BookOpen, Calendar, Eye, Download } from 'lucide-react';
+import { Trash2, Phone, Mail, Filter, LogOut, Plus, Home, Users, MapPin, Loader, Upload, X, Image as ImageIcon, FileText, Video, Edit, Star, BookOpen, Calendar, Eye, Download, Database, RefreshCw, AlertTriangle } from 'lucide-react';
 import { geocodeAddress } from '../utils/geocoding';
-import { uploadFile } from '../utils/storage';
+import { uploadFile, getBucketUsage } from '../utils/storage';
 import { PROVINCES, CITIES, PROPERTY_TYPES, PROPERTY_FEATURES } from '../constants/propertyOptions';
 import '../styles/Admin.css';
+
+// Supabase free tier gives 1 GB of Storage. That is the wall this project keeps
+// hitting (uncompressed originals), so the meter measures against it.
+const STORAGE_CAP_BYTES = 1024 * 1024 * 1024;
+
+const formatBytes = (b) => {
+    if (b == null || Number.isNaN(b)) return '—';
+    if (b < 1024) return `${b} B`;
+    const kb = b / 1024;
+    if (kb < 1024) return `${Math.round(kb)} KB`;
+    const mb = kb / 1024;
+    if (mb < 1024) return `${mb < 10 ? mb.toFixed(1) : Math.round(mb)} MB`;
+    return `${(mb / 1024).toFixed(2)} GB`;
+};
+
+// Root folders are property ids (numeric) or "posts". Give the numeric ones a
+// human label so the breakdown reads like the catalogue, not the bucket.
+const folderLabel = (name) => (/^\d+$/.test(name) ? `Propiedad #${name}` : name);
 
 const AdminDashboard = () => {
     const { leads, fetchLeads, deleteLead, updateLeadStatus, getLeadsStats } = useLeads();
@@ -72,6 +90,23 @@ const AdminDashboard = () => {
         plans: [],
         videos: []
     });
+
+    // Storage usage (Supabase 1 GB cap)
+    const [storage, setStorage] = useState({ loading: true, error: null, data: null });
+
+    const loadStorage = async () => {
+        setStorage(prev => ({ ...prev, loading: true, error: null }));
+        try {
+            const data = await getBucketUsage();
+            setStorage({ loading: false, error: null, data });
+        } catch (err) {
+            setStorage({ loading: false, error: err.message || 'Error', data: null });
+        }
+    };
+
+    useEffect(() => {
+        loadStorage();
+    }, []);
 
     const handleLogout = async () => {
         try {
@@ -322,6 +357,15 @@ const AdminDashboard = () => {
         }
     };
 
+    // Storage meter derived values
+    const su = storage.data;
+    const usedBytes = su ? su.totalBytes : 0;
+    const usedPct = Math.min(100, (usedBytes / STORAGE_CAP_BYTES) * 100);
+    const storageLevel = usedPct >= 90 ? 'danger' : usedPct >= 70 ? 'warn' : 'ok';
+    const topFolders = su
+        ? Object.entries(su.byTopFolder).sort((a, b) => b[1] - a[1]).slice(0, 5)
+        : [];
+
     return (
         <div className="admin-page">
             <div className="container">
@@ -334,6 +378,69 @@ const AdminDashboard = () => {
                     <button onClick={handleLogout} className="logout-btn">
                         <LogOut size={16} /> Salir
                     </button>
+                </div>
+
+                {/* Storage meter — Supabase 1 GB free-tier cap */}
+                <div className={`storage-meter ${storageLevel}`}>
+                    <div className="storage-meter-head">
+                        <div className="storage-meter-title">
+                            <Database size={18} />
+                            <span>Almacenamiento · Supabase</span>
+                        </div>
+                        <button
+                            onClick={loadStorage}
+                            className="storage-refresh"
+                            disabled={storage.loading}
+                            title="Recalcular"
+                        >
+                            <RefreshCw size={14} className={storage.loading ? 'spin' : ''} />
+                            {storage.loading ? 'Calculando…' : 'Actualizar'}
+                        </button>
+                    </div>
+
+                    {storage.error ? (
+                        <div className="storage-meter-error">
+                            <AlertTriangle size={16} />
+                            <span>No se pudo leer el bucket: {storage.error}. Puede que una policy de Storage impida listarlo.</span>
+                        </div>
+                    ) : storage.loading && !su ? (
+                        <p className="storage-meter-note">Calculando el tamaño real del bucket…</p>
+                    ) : su ? (
+                        <>
+                            <div className="storage-meter-figures">
+                                <span className="storage-used">{formatBytes(usedBytes)}</span>
+                                <span className="storage-cap">/ 1 GB</span>
+                                <span className="storage-pct">{usedPct.toFixed(1)}%</span>
+                            </div>
+                            <div className="storage-bar">
+                                <div className="storage-bar-fill" style={{ width: `${usedPct}%` }} />
+                            </div>
+                            <div className="storage-meter-meta">
+                                <span>{su.fileCount} archivos</span>
+                                {su.truncated && <span className="storage-partial">· conteo parcial (bucket muy grande)</span>}
+                                {su.fileCount === 0 && (
+                                    <span className="storage-partial">· 0 archivos: revisa que la policy permita listar</span>
+                                )}
+                            </div>
+                            {topFolders.length > 0 && (
+                                <ul className="storage-breakdown">
+                                    {topFolders.map(([name, bytes]) => (
+                                        <li key={name}>
+                                            <span className="storage-folder">{folderLabel(name)}</span>
+                                            <span className="storage-folder-size">{formatBytes(bytes)}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            )}
+                            {storageLevel !== 'ok' && (
+                                <p className="storage-meter-note">
+                                    {storageLevel === 'danger'
+                                        ? 'Cerca del límite de 1 GB. Conviene comprimir las fotos al subir y limpiar archivos huérfanos.'
+                                        : 'Uso elevado. Vigila el crecimiento; las fotos se guardan sin comprimir.'}
+                                </p>
+                            )}
+                        </>
+                    ) : null}
                 </div>
 
                 {/* Navigation Tabs */}
