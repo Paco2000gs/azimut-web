@@ -28,5 +28,6 @@ graphify-out
 
 .vercel
 
-.claude/
+.claude/*
+!.claude/skills/
 *.bak
