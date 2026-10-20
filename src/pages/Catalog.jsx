@@ -208,23 +208,28 @@ const Catalog = () => {
     }, [urlCity, urlArea, isProvincePage, properties, loading]);
 
     // Dynamic SEO data
+    // Spanish, like the page itself. The English fallbacks here were shipping as
+    // the <title>/description of every city and silo page under a Spanish H1 and
+    // body, which is the mixed-language signal Google weighs when it decides
+    // "Crawled - currently not indexed". Province pages already use Spanish
+    // (PROVINCE_SEO above), so the city and catalogue fallbacks follow suit.
     const seoTitle = useMemo(() => {
         if (provinceSeo) return provinceSeo.title;
-        if (city) return `Luxury Real Estate & Villas for Sale in ${city}`;
-        if (type) return `Exclusive ${type}s for Sale in Andalusia`;
-        return "Property Catalogue | Luxury Real Estate";
+        if (city) return `Propiedades de Lujo en Venta en ${city} | Azimut Property`;
+        if (type) return `${type}s de Lujo en Venta en Andalucía | Azimut Property`;
+        return "Catálogo de Propiedades de Lujo en Venta en Andalucía | Azimut Property";
     }, [city, type, provinceSeo]);
 
     const seoDescription = useMemo(() => {
         if (provinceSeo) return provinceSeo.description;
-        if (city) return `Discover the most exclusive luxury properties for sale in ${city}. High-end villas, apartments, and off-market listings in ${city}, Costa del Sol.`;
-        return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
+        if (city) return `Propiedades exclusivas en venta en ${city}, Costa del Sol: villas, fincas y casas de lujo, incluidas operaciones fuera de mercado para compradores internacionales.`;
+        return "Catálogo de villas, fincas y casas de lujo en venta en Andalucía y Costa del Sol, con acceso exclusivo para compradores internacionales.";
     }, [city, provinceSeo]);
 
     const seoKeywords = useMemo(() => {
         if (provinceSeo) return provinceSeo.keywords;
-        if (city) return `properties ${city}, villas ${city}, luxury real estate ${city}, Costa del Sol`;
-        return "luxury properties Costa del Sol, villas Marbella, apartments Estepona, real estate Andalusia";
+        if (city) return `propiedades ${city}, villas ${city}, inmobiliaria de lujo ${city}, Costa del Sol`;
+        return "propiedades de lujo Costa del Sol, villas Marbella, casas Estepona, inmobiliaria Andalucía";
     }, [city, provinceSeo]);
 
     const breadcrumbSchema = useMemo(() => {
