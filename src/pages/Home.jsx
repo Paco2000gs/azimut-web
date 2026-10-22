@@ -83,20 +83,17 @@ const Home = () => {
 
     return (
         <div className="page home">
-            {/* Metadata must match the page's real product and language. The home
-                content is 100% English and sells off-market luxury estates
-                (Marbella Golden Triangle, Sotogrande, historic haciendas and
-                equestrian/olive estates in Cádiz & Sevilla) — NOT the "casa rural /
-                chalet" mid-market the previous Spanish tags described. That
-                title/content and es/en mismatch was the SEO audit's headline
-                finding, so title, description and keywords are English and lang
-                is "en" to send Google a single, consistent signal. */}
+            {/* Metadata must match the page's real language. The home is Spanish
+                (the site's primary language, where the search demand is), so the
+                title, description and keywords are Spanish and lang is "es". The
+                English versions of the collections are reached through their own
+                paired URLs with hreflang. */}
             <SEO
-                title="Off-Market Luxury Estates in Marbella, Sotogrande & Andalusia | Azimut Property"
-                description="Off-market luxury estates in Andalusia: villas in Marbella's Golden Triangle, mansions in Sotogrande, historic haciendas and equestrian estates in Cádiz and Sevilla. Discreet consultancy for international buyers."
+                title="Fincas y villas de lujo fuera de mercado en Marbella, Sotogrande y Andalucía | Azimut Property"
+                description="Villas en el Golden Triangle de Marbella, mansiones en Sotogrande, haciendas históricas y fincas ecuestres en Cádiz y Sevilla. Asesoramiento discreto para compradores internacionales."
                 url="/"
-                lang="en"
-                keywords="off-market luxury estates Andalusia, luxury villas Marbella Golden Triangle, mansion for sale Sotogrande, historic hacienda for sale Spain, equestrian estate Jimena de la Frontera, olive grove estate for sale Andalusia, rural investment estate Cadiz Sevilla, Azimut Property"
+                lang="es"
+                keywords="fincas de lujo fuera de mercado Andalucía, villas de lujo Marbella Golden Triangle, mansión en venta Sotogrande, hacienda histórica en venta España, finca ecuestre Jimena de la Frontera, finca de olivar en venta Andalucía, finca rústica en venta Cádiz Sevilla, Azimut Property"
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -129,25 +126,25 @@ const Home = () => {
                         <h1 className="hero-title">
                             {/* The space is explicit: JSX drops whitespace that spans a line
                                 break, which silently welded "portfolio" to "with". */}
-                            <span className="hero-title-lead">Elevate your portfolio</span>{' '}
-                            with the most unique <br />properties in Southern Spain
+                            <span className="hero-title-lead">Eleve su patrimonio</span>{' '}
+                            con los inmuebles más singulares <br />del sur de España
                         </h1>
                         <p className="main-value-proposition">
-                            Exclusive estates and investment opportunities in Andalusia — from
-                            contemporary villas in the Golden Triangle to historic cortijos and
-                            high-yield agricultural land in Cádiz and Sevilla.
+                            Fincas y oportunidades de inversión exclusivas en Andalucía: desde
+                            villas contemporáneas en el Golden Triangle hasta cortijos históricos
+                            y tierra agrícola de alto rendimiento en Cádiz y Sevilla.
                         </p>
                     </header>
 
                     <div className="cta-group-luxury">
-                        <Link to="/venta" className="btn btn-hero btn-primary-gold">View Property Portfolio</Link>
-                        <Link to="/venta?type=finca" className="btn btn-hero btn-secondary-outline">Explore Rural Estates</Link>
+                        <Link to="/venta" className="btn btn-hero btn-primary-gold">Ver el catálogo</Link>
+                        <Link to="/venta?type=finca" className="btn btn-hero btn-secondary-outline">Explorar fincas rústicas</Link>
                     </div>
 
                     <div className="trust-indicators">
-                        <span>Discreet Representation</span>
+                        <span>Representación discreta</span>
                         <span className="separator">•</span>
-                        <span>Global Network Excellence</span>
+                        <span>Red internacional de primer nivel</span>
                     </div>
                 </div>
             </section>
@@ -201,11 +198,11 @@ const Home = () => {
             <section className="section featured-section">
                 <div className="container">
                     <div className="section-header decorative-header">
-                        <h2>CURATED LUXURY RESIDENCES</h2>
+                        <h2>RESIDENCIAS DE LUJO SELECCIONADAS</h2>
                     </div>
 
                     {loading ? (
-                        <div className="loading" role="status" aria-label="Loading properties">Loading exclusive listings...</div>
+                        <div className="loading" role="status" aria-label="Cargando inmuebles">Cargando inmuebles exclusivos...</div>
                     ) : (
                         <div className="featured-grid">
                             {featuredProperties.map(property => (
@@ -215,7 +212,7 @@ const Home = () => {
                     )}
 
                     <div className="view-all-container">
-                        <Link to="/venta" className="btn btn-gold">VIEW ALL PROPERTIES</Link>
+                        <Link to="/venta" className="btn btn-gold">VER TODOS LOS INMUEBLES</Link>
                     </div>
                 </div>
             </section>
@@ -224,29 +221,29 @@ const Home = () => {
             <section className="section why-choose-section">
                 <div className="container">
                     <div className="section-header">
-                        <h2>WHY CHOOSE AZIMUT PROPERTY?</h2>
+                        <h2>¿POR QUÉ ELEGIR AZIMUT PROPERTY?</h2>
                     </div>
                     <div className="value-grid">
                         <div className="value-item">
                             <div className="icon-wrapper">
                                 <Compass size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>UNPARALLELED EXPERTISE</h3>
-                            <p>Refined and deep knowledge of the luxury real estate market in Andalusia's most exclusive locations.</p>
+                            <h3>EXPERIENCIA PROFUNDA</h3>
+                            <p>Conocimiento detallado del mercado de lujo en las zonas más exclusivas de Andalucía.</p>
                         </div>
                         <div className="value-item">
                             <div className="icon-wrapper">
                                 <Shield size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>CONFIDENTIAL SERVICE</h3>
-                            <p>Absolute discretion and confidentiality in every transaction. Your privacy is our top priority.</p>
+                            <h3>SERVICIO CONFIDENCIAL</h3>
+                            <p>Total discreción y confidencialidad en cada operación. Su privacidad es nuestra prioridad.</p>
                         </div>
                         <div className="value-item">
                             <div className="icon-wrapper">
                                 <Key size={40} strokeWidth={1} aria-hidden="true" />
                             </div>
-                            <h3>EXCLUSIVE LISTINGS ACCESS</h3>
-                            <p>Privileged access to off-market properties and unique opportunities before they are published.</p>
+                            <h3>ACCESO A INMUEBLES EXCLUSIVOS</h3>
+                            <p>Acceso privilegiado a propiedades fuera de mercado y oportunidades únicas antes de su publicación.</p>
                         </div>
                     </div>
                 </div>
@@ -257,7 +254,7 @@ const Home = () => {
                 <section className="section journal-preview-section">
                     <div className="container">
                         <div className="section-header decorative-header">
-                            <h2>FROM THE JOURNAL</h2>
+                            <h2>DEL BLOG</h2>
                         </div>
                         <div className="journal-grid">
                             {latestPosts.map(post => (
@@ -283,7 +280,7 @@ const Home = () => {
                             ))}
                         </div>
                         <div className="view-all-container">
-                            <Link to="/blog" className="btn btn-gold">READ THE JOURNAL</Link>
+                            <Link to="/blog" className="btn btn-gold">LEER EL BLOG</Link>
                         </div>
                     </div>
                 </section>

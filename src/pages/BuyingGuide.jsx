@@ -6,41 +6,41 @@ import '../styles/Guide.css';
 
 const STEPS = [
     {
-        title: 'Get your NIE',
-        body: `The Número de Identidad de Extranjero is the tax number every foreign buyer needs before a purchase can be registered. You can apply at a Spanish consulate in your own country or at a police station in Spain. Start it early: it is the step most likely to add weeks to a purchase, and it holds up everything after it.`,
+        title: 'Obtenga su NIE',
+        body: `El Número de Identidad de Extranjero es el número fiscal que todo comprador extranjero necesita antes de que la compra pueda inscribirse. Puede solicitarlo en un consulado español en su país o en una comisaría en España. Empiece pronto: es el paso con más probabilidades de añadir semanas a la compra, y de él depende todo lo que viene después.`,
     },
     {
-        title: 'Appoint an independent lawyer',
-        body: `Not the seller's, not the agency's. Your lawyer runs the checks that decide whether a rural estate is what it appears to be: that the boundaries on the deed match the land, that the buildings are legally registered, that there are no debts attached to the property, and that water rights and access are real rather than customary.`,
+        title: 'Contrate a un abogado independiente',
+        body: `No el del vendedor ni el de la agencia. Su abogado realiza las comprobaciones que determinan si una finca rústica es lo que aparenta: que los linderos de la escritura coincidan con el terreno, que las edificaciones estén legalmente inscritas, que no haya deudas vinculadas a la propiedad, y que los derechos de agua y el acceso sean reales y no meramente de costumbre.`,
     },
     {
-        title: 'Reservation contract',
-        body: `A modest deposit takes the property off the market while the checks run. It is normally a few thousand euros and is set against the price.`,
+        title: 'Contrato de reserva',
+        body: `Un depósito moderado retira la propiedad del mercado mientras se realizan las comprobaciones. Suele ser de algunos miles de euros y se descuenta del precio.`,
     },
     {
-        title: 'Private contract, the "contrato de arras"',
-        body: `Usually 10% of the price. Under the Spanish Civil Code, the common form of these deposits means that a buyer who withdraws loses it and a seller who withdraws returns double. Read what you are signing: the consequences differ by the type of arras used.`,
+        title: 'Contrato privado, el «contrato de arras»',
+        body: `Normalmente, el 10 % del precio. Según el Código Civil español, la forma habitual de estos depósitos significa que un comprador que desiste lo pierde, y un vendedor que desiste devuelve el doble. Lea lo que firma: las consecuencias varían según el tipo de arras utilizado.`,
     },
     {
-        title: 'Completion before a notary',
-        body: `The escritura pública is signed in person or by power of attorney, the balance is paid, and the keys change hands the same day. The notary is a public official, neutral between the parties: they confirm identity and legality, they do not act for you.`,
+        title: 'Firma ante notario',
+        body: `La escritura pública se firma en persona o mediante apoderado, se paga el resto del precio y las llaves cambian de manos el mismo día. El notario es un funcionario público, neutral entre las partes: verifica la identidad y la legalidad, pero no actúa en su nombre.`,
     },
     {
-        title: 'Registration and taxes',
-        body: `Your lawyer files the purchase taxes and registers the deed at the Registro de la Propiedad. Registration is what makes your ownership enforceable against third parties.`,
+        title: 'Inscripción e impuestos',
+        body: `Su abogado presenta los impuestos de la compra e inscribe la escritura en el Registro de la Propiedad. La inscripción es lo que hace que su titularidad sea oponible frente a terceros.`,
     },
     {
-        title: 'Utilities and the running of the place',
-        body: `Water, electricity, waste and, on an estate, whatever the land itself needs — a borehole licence, an agricultural register entry, a caretaker. This is the step buyers underestimate on rural property.`,
+        title: 'Suministros y puesta en marcha del inmueble',
+        body: `Agua, electricidad, residuos y, en una finca, lo que requiera el propio terreno: una licencia de pozo, la inscripción en el registro agrícola, un guarda. Es el paso que más subestiman los compradores de propiedades rurales.`,
     },
 ];
 
 const COSTS = [
-    ['Transfer tax (ITP) on a resale property', 'Andalusia applies a flat regional rate. Confirm the current figure with your lawyer before you budget.'],
-    ['VAT and stamp duty on a new build', 'A new-build purchase is taxed differently: VAT plus stamp duty rather than transfer tax.'],
-    ['Notary and land registry', 'Set by official scales and driven by the price and complexity of the deed.'],
-    ['Legal fees', 'Commonly around 1% of the price, sometimes a fixed fee on larger purchases.'],
-    ['Survey and technical checks', 'Optional and, on a rural estate with old buildings, the best money you will spend.'],
+    ['Impuesto de transmisiones patrimoniales (ITP) en vivienda de segunda mano', 'Andalucía aplica un tipo autonómico fijo. Confirme la cifra vigente con su abogado antes de presupuestar.'],
+    ['IVA y AJD en obra nueva', 'La compra de obra nueva tributa de otra forma: IVA más impuesto de actos jurídicos documentados, en lugar de ITP.'],
+    ['Notaría y registro de la propiedad', 'Se fijan según aranceles oficiales y dependen del precio y de la complejidad de la escritura.'],
+    ['Honorarios de abogado', 'Habitualmente alrededor del 1 % del precio, a veces una tarifa fija en compras de mayor importe.'],
+    ['Peritaje y comprobaciones técnicas', 'Opcional y, en una finca con edificaciones antiguas, el dinero mejor invertido.'],
 ];
 
 const BuyingGuide = () => {
@@ -54,26 +54,26 @@ const BuyingGuide = () => {
         mainEntity: [
             {
                 '@type': 'Question',
-                name: 'Can a non-resident foreigner buy property in Spain?',
+                name: '¿Puede un extranjero no residente comprar un inmueble en España?',
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Yes. There is no restriction on foreign nationals buying property in Spain, whether or not they are resident. You need a Spanish tax number (NIE) before the purchase can be registered.',
+                    text: 'Sí. No existe ninguna restricción para que los extranjeros compren inmuebles en España, sean o no residentes. Necesita un número de identificación fiscal español (NIE) antes de que la compra pueda inscribirse.',
                 },
             },
             {
                 '@type': 'Question',
-                name: 'Does buying property in Spain give you residency?',
+                name: '¿Comprar un inmueble en España da derecho a residencia?',
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'No. Spain ended its golden visa residency-by-property-investment route in 2025. Buying property no longer grants a residency permit, and any guide that says otherwise is out of date.',
+                    text: 'No. España puso fin en 2025 a la ruta de residencia por inversión inmobiliaria del visado dorado. Comprar un inmueble ya no concede un permiso de residencia, y cualquier guía que diga lo contrario está desactualizada.',
                 },
             },
             {
                 '@type': 'Question',
-                name: 'How long does buying a property in Spain take?',
+                name: '¿Cuánto tarda la compra de un inmueble en España?',
                 acceptedAnswer: {
                     '@type': 'Answer',
-                    text: 'Two to three months from accepted offer to completion is typical. Obtaining a NIE, arranging finance, or resolving irregularities in the registration of rural buildings are the usual reasons it takes longer.',
+                    text: 'Lo habitual es de dos a tres meses desde la oferta aceptada hasta la firma. Obtener el NIE, gestionar la financiación o resolver irregularidades en la inscripción de edificaciones rurales son los motivos más frecuentes de retraso.',
                 },
             },
         ],
@@ -82,11 +82,11 @@ const BuyingGuide = () => {
     return (
         <div className="page guide-page">
             <SEO
-                title="Buying Property in Spain: A Guide for Non-Resident Buyers"
-                description="What a foreign buyer needs to know before purchasing an estate in Andalusia: the NIE, the notary, purchase taxes, timeline, and the checks that matter on rural property."
+                title="Comprar inmueble en España: guía para compradores no residentes | Azimut Property"
+                description="Lo que necesita saber un comprador extranjero antes de adquirir una finca en Andalucía: el NIE, la notaría, los impuestos de compra, los plazos y las comprobaciones que importan en una propiedad rural."
                 url="/buying-guide"
-                lang="en"
-                keywords="buying property in Spain as a foreigner, NIE number, Spanish property purchase tax, buying a finca in Andalusia, non-resident property Spain"
+                lang="es"
+                keywords="comprar inmueble en España siendo extranjero, número NIE, impuesto compraventa inmueble España, comprar finca en Andalucía, compra de inmueble no residente España"
             />
             <Helmet>
                 <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
@@ -94,33 +94,34 @@ const BuyingGuide = () => {
 
             <div className="container guide-container">
                 <header className="guide-header">
-                    <h1>Buying in Spain as a non-resident</h1>
+                    <h1>Comprar en España siendo no residente</h1>
                     <p className="guide-standfirst">
-                        Nothing here is difficult. It is simply unfamiliar, and unfamiliar is
-                        where money gets lost. This is the sequence a purchase actually follows in
-                        Andalusia, what it costs beyond the asking price, and the checks that
-                        matter more on a rural estate than on an apartment.
+                        Nada de esto es difícil. Simplemente es desconocido, y lo desconocido es
+                        donde se pierde dinero. Esta es la secuencia que sigue realmente una compra
+                        en Andalucía, lo que cuesta más allá del precio de venta y las comprobaciones
+                        que pesan más en una finca rústica que en un piso.
                     </p>
                 </header>
 
                 <section className="guide-section">
-                    <h2>The short answer</h2>
+                    <h2>La respuesta corta</h2>
                     <p>
-                        A foreign buyer, resident or not, can buy property in Spain without
-                        restriction. You will need a Spanish tax number, an independent lawyer, and
-                        roughly ten to twelve per cent on top of the price to cover taxes and fees.
-                        From accepted offer to keys is usually two to three months.
+                        Un comprador extranjero, sea o no residente, puede adquirir inmuebles en
+                        España sin restricciones. Necesitará un número de identificación fiscal
+                        español, un abogado independiente y, aproximadamente, entre un diez y un
+                        doce por ciento sobre el precio para cubrir impuestos y gastos. Desde la
+                        oferta aceptada hasta la entrega de llaves suele haber de dos a tres meses.
                     </p>
                     <p>
-                        One thing has changed and is worth stating plainly, because a great deal of
-                        published advice has not caught up: <strong>buying property in Spain no
-                        longer grants residency</strong>. The golden visa route closed in 2025.
-                        Property is an asset here, not an immigration strategy.
+                        Hay un cambio que conviene decir claramente, porque buena parte de los
+                        consejos publicados aún no lo recogen: <strong>comprar un inmueble en España
+                        ya no concede residencia</strong>. La ruta del visado dorado se cerró en
+                        2025. Aquí el inmueble es un activo, no una estrategia migratoria.
                     </p>
                 </section>
 
                 <section className="guide-section">
-                    <h2>The seven steps</h2>
+                    <h2>Los siete pasos</h2>
                     <ol className="guide-steps">
                         {STEPS.map((step, index) => (
                             <li key={step.title}>
@@ -135,11 +136,12 @@ const BuyingGuide = () => {
                 </section>
 
                 <section className="guide-section">
-                    <h2>What it costs beyond the price</h2>
+                    <h2>Lo que cuesta además del precio</h2>
                     <p>
-                        Budget ten to twelve per cent of the purchase price for a resale property in
-                        Andalusia. Rates are set regionally and change, so treat the list below as
-                        the shape of the bill rather than the bill itself.
+                        Presupueste entre un diez y un doce por ciento del precio de compra para una
+                        vivienda de segunda mano en Andalucía. Los tipos los fijan las comunidades
+                        autónomas y cambian, así que trate la lista siguiente como la estructura de
+                        la factura y no como la factura en sí.
                     </p>
                     <dl className="guide-costs">
                         {COSTS.map(([term, detail]) => (
@@ -152,51 +154,54 @@ const BuyingGuide = () => {
                 </section>
 
                 <section className="guide-section">
-                    <h2>What rural property asks that a villa does not</h2>
+                    <h2>Lo que exige una finca y una villa no</h2>
                     <p>
-                        A finca is bought on its land, and land carries questions a built plot never
-                        raises. Whether the registered surface matches what is fenced. Whether the
-                        farmhouse, the store and the pool are all declared. Whether water is a legal
-                        right or a neighbour's goodwill. Whether the access track is public, private
-                        with a registered easement, or neither.
+                        Una finca se compra por su terreno, y el terreno plantea preguntas que una
+                        parcela edificada nunca suscita. Si la superficie registrada coincide con lo
+                        que está vallado. Si la casa de labor, el almacén y la piscina están todos
+                        declarados. Si el agua es un derecho legal o la cortesía del vecino. Si el
+                        camino de acceso es público, privado con servidumbre inscrita, o ninguna de
+                        las dos cosas.
                     </p>
                     <p>
-                        None of these are unusual and none of them are deal-breakers when they are
-                        found early. They are only expensive when they are found after completion.
+                        Ninguna de estas cuestiones es inusual, y ninguna es un obstáculo insalvable
+                        cuando se detecta a tiempo. Solo resultan costosas cuando aparecen después de
+                        la firma.
                     </p>
                 </section>
 
                 <section className="guide-section">
-                    <h2>Once you own it</h2>
+                    <h2>Una vez que es suyo</h2>
                     <p>
-                        A non-resident owner files an annual return on the property even when it is
-                        not let, pays the municipal property tax, and may fall within wealth tax
-                        depending on the value held in Spain. Your lawyer or a gestor will normally
-                        handle this as a small annual retainer.
+                        Un propietario no residente presenta una declaración anual sobre el inmueble
+                        aunque no esté alquilado, paga el impuesto municipal sobre bienes inmuebles y
+                        puede estar sujeto al impuesto sobre el patrimonio según el valor que posea en
+                        España. Su abogado o un gestor suelen encargarse de esto con una pequeña
+                        minuta anual.
                     </p>
                     <p>
-                        If your money is not in euros, the exchange rate will move more than the
-                        agency fee ever will. On a purchase of this size, speak to a currency broker
-                        before you sign the private contract, not after.
+                        Si su dinero no está en euros, el tipo de cambio se moverá más que cualquier
+                        comisión de agencia. En una compra de este tamaño, hable con un bróker de
+                        divisas antes de firmar el contrato privado, no después.
                     </p>
                 </section>
 
                 <p className="guide-disclaimer">
-                    This guide is general information about how property purchases work in
-                    Andalusia. It is not legal or tax advice, tax rates and rules change, and your
-                    own position may differ. Take advice from an independent lawyer and a tax
-                    adviser before you commit to a purchase.
+                    Esta guía ofrece información general sobre cómo funcionan las compraventas de
+                    inmuebles en Andalucía. No constituye asesoramiento jurídico ni fiscal, los tipos
+                    y las normas cambian, y su situación puede ser diferente. Consulte con un abogado
+                    independiente y con un asesor fiscal antes de comprometerse con una compra.
                 </p>
 
                 <div className="guide-cta">
-                    <h2>Ask us the specific question</h2>
+                    <h2>Háganos la pregunta concreta</h2>
                     <p>
-                        We work with a small number of buyers at a time, which means the answer you
-                        get is about your purchase rather than about purchases in general.
+                        Trabajamos con un número reducido de compradores a la vez, así que la
+                        respuesta que recibe se refiere a su compra y no a las compras en general.
                     </p>
                     <div className="guide-cta-actions">
-                        <Link to="/contact" className="btn btn-gold">Speak to us</Link>
-                        <Link to="/venta" className="btn btn-secondary">See the portfolio</Link>
+                        <Link to="/contact" className="btn btn-gold">Hable con nosotros</Link>
+                        <Link to="/venta" className="btn btn-secondary">Ver la cartera</Link>
                     </div>
                 </div>
             </div>

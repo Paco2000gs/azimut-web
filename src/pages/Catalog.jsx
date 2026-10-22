@@ -307,11 +307,11 @@ const Catalog = () => {
 
             {/* Breadcrumbs UI */}
             <div className="container">
-                <nav className="breadcrumbs" aria-label="Breadcrumb">
+                <nav className="breadcrumbs" aria-label="Ruta de navegación">
                     <ol>
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Inicio</a></li>
                         <li aria-hidden="true" className="breadcrumb-sep">/</li>
-                        <li><a href="/venta">Properties</a></li>
+                        <li><a href="/venta">Propiedades</a></li>
                         {urlCity && (
                             <>
                                 <li aria-hidden="true" className="breadcrumb-sep">/</li>
@@ -337,9 +337,9 @@ const Catalog = () => {
                 <div className="container">
                     <div className="search-filters">
                         <div className="filter-item">
-                            <label htmlFor="filter-province">Province</label>
+                            <label htmlFor="filter-province">Provincia</label>
                             <select id="filter-province" value={province} onChange={handleProvinceChange} className="filter-select">
-                                <option value="">All</option>
+                                <option value="">Todas</option>
                                 {PROVINCES.map(prov => (
                                     <option key={prov} value={prov}>{prov}</option>
                                 ))}
@@ -347,14 +347,14 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-city">City / Area</label>
+                            <label htmlFor="filter-city">Ciudad / Zona</label>
                             <select id="filter-city" value={city} onChange={(e) => setCity(e.target.value)} disabled={!province} className="filter-select">
                                 <option value="">
                                     {!province
-                                        ? "Select Province"
+                                        ? "Seleccione una provincia"
                                         : availableCities.length === 0
-                                            ? "No properties"
-                                            : "All cities"}
+                                            ? "Sin inmuebles"
+                                            : "Todas las ciudades"}
                                 </option>
                                 {availableCities.map(c => (
                                     <option key={c} value={c}>{c}</option>
@@ -363,9 +363,9 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-type">Type</label>
+                            <label htmlFor="filter-type">Tipo</label>
                             <select id="filter-type" value={type} onChange={(e) => setType(e.target.value)} className="filter-select">
-                                <option value="">All</option>
+                                <option value="">Todas</option>
                                 {availableTypes.map(t => (
                                     <option key={t} value={t}>{t}</option>
                                 ))}
@@ -373,11 +373,11 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-min">Min Price (€)</label>
+                            <label htmlFor="filter-min">Precio mín. (€)</label>
                             <input
                                 id="filter-min"
                                 type="number"
-                                placeholder="Min"
+                                placeholder="Mín."
                                 value={minPrice}
                                 onChange={(e) => setMinPrice(e.target.value)}
                                 className="filter-input"
@@ -385,11 +385,11 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-max">Max Price (€)</label>
+                            <label htmlFor="filter-max">Precio máx. (€)</label>
                             <input
                                 id="filter-max"
                                 type="number"
-                                placeholder="Max"
+                                placeholder="Máx."
                                 value={maxPrice}
                                 onChange={(e) => setMaxPrice(e.target.value)}
                                 className="filter-input"
@@ -403,9 +403,9 @@ const Catalog = () => {
                 {/* Results Count */}
                 <div className="results-header" aria-live="polite">
                     {loading ? (
-                        <span>Searching…</span>
+                        <span>Buscando…</span>
                     ) : (
-                        <span>{filteredProperties.length} {filteredProperties.length === 1 ? 'property' : 'properties'} available</span>
+                        <span>{filteredProperties.length} {filteredProperties.length === 1 ? 'inmueble disponible' : 'inmuebles disponibles'}</span>
                     )}
                 </div>
 
@@ -414,7 +414,7 @@ const Catalog = () => {
                     {loading ? (
                         <div className="loading-state" role="status">
                             <div className="spinner" aria-hidden="true"></div>
-                            <p>Loading properties…</p>
+                            <p>Cargando inmuebles…</p>
                         </div>
                     ) : filteredProperties.length > 0 ? (
                         <div className="wide-grid">
@@ -428,9 +428,9 @@ const Catalog = () => {
                         </div>
                     ) : (
                         <div className="no-results">
-                            <h2>No properties match these filters</h2>
-                            <p>Widen the price range or choose another province — our off-market
-                                register often holds assets that are not listed here.</p>
+                            <h2>Ningún inmueble coincide con estos filtros</h2>
+                            <p>Amplíe el rango de precios o elija otra provincia: nuestro registro fuera de mercado
+                                suele incluir inmuebles que no aparecen aquí.</p>
                             <button
                                 onClick={() => {
                                     setProvince('');

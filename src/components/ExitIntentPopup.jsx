@@ -90,32 +90,32 @@ const ExitIntentPopup = () => {
                 {status === 'done' ? (
                     <div className="exit-done" role="status">
                         <CheckCircle size={36} strokeWidth={1.25} aria-hidden="true" />
-                        <h2 id="exit-modal-title">On its way</h2>
-                        <p>Check your inbox in the next few minutes.</p>
+                        <h2 id="exit-modal-title">En camino</h2>
+                        <p>Revise su bandeja de entrada en los próximos minutos.</p>
                     </div>
                 ) : (
                     <>
-                        <h2 id="exit-modal-title">Before you go — the 2026 land report</h2>
+                        <h2 id="exit-modal-title">Antes de irse: el informe de fincas de 2026</h2>
                         <p className="exit-intro">
-                            Where value is moving in the Andalusian interior: price per hectare by
-                            municipality, the five areas we are buying in, and what non-resident
-                            buyers pay in tax.
+                            Hacia dónde se mueve el valor en el interior andaluz: precio por hectárea y
+                            municipio, las cinco zonas donde estamos comprando y lo que pagan en impuestos
+                            los compradores no residentes.
                         </p>
                         <form onSubmit={handleSubmit} className="exit-form">
-                            <label htmlFor="exit-email" className="visual-hidden">Email address</label>
+                            <label htmlFor="exit-email" className="visual-hidden">Correo electrónico</label>
                             <input
                                 id="exit-email"
                                 type="email"
                                 name="email"
                                 autoComplete="email"
-                                placeholder="Your email address"
+                                placeholder="Su correo electrónico"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required
                             />
                             <button type="submit" className="btn btn-gold" disabled={status === 'sending'}>
                                 <Send size={16} aria-hidden="true" />
-                                {status === 'sending' ? 'Sending…' : 'Send me the report'}
+                                {status === 'sending' ? 'Enviando…' : 'Envíeme el informe'}
                             </button>
                         </form>
                         {status === 'error' && (

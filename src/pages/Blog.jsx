@@ -14,8 +14,8 @@ const Blog = () => {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Journal", "item": "https://www.azimutproperty.com/blog" }
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.azimutproperty.com/blog" }
         ]
     };
 
@@ -24,11 +24,11 @@ const Blog = () => {
     return (
         <div className="page blog">
             <SEO
-                title="Journal | Luxury Real Estate Trends & Market Insights"
-                description="Latest trends, analysis and guides about the luxury real estate market in Marbella and Costa del Sol. Expert insights for buyers."
+                title="Blog: mercado inmobiliario de lujo en Andalucía | Azimut Property"
+                description="Tendencias, análisis y guías sobre el mercado inmobiliario de lujo en Marbella, la Costa del Sol y Andalucía. Conocimiento experto para compradores."
                 url="/blog"
-                lang="en"
-                keywords="luxury real estate blog, Marbella property market, Costa del Sol investment guide, buying property Spain"
+                lang="es"
+                keywords="blog inmobiliario de lujo, mercado inmobiliario Marbella, guía de inversión Costa del Sol, comprar inmueble en España"
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -37,8 +37,8 @@ const Blog = () => {
             </Helmet>
             <div className="blog-hero">
                 <div className="container">
-                    <h1>Journal</h1>
-                    <p>Insights, trends, and stories from the world of luxury real estate.</p>
+                    <h1>Blog</h1>
+                    <p>Análisis, tendencias e historias del mercado inmobiliario de lujo.</p>
                 </div>
             </div>
 
@@ -54,14 +54,14 @@ const Blog = () => {
                                     <div className="blog-date">{new Date(post.published_at).toLocaleDateString()}</div>
                                     <h3 className="blog-title">{post.title}</h3>
                                     <p className="blog-excerpt">{post.excerpt}</p>
-                                    <Link to={`/blog/${generateBlogSlug(post)}`} className="read-more">Read Article</Link>
+                                    <Link to={`/blog/${generateBlogSlug(post)}`} className="read-more">Leer artículo</Link>
                                 </div>
                             </article>
                         ))}
                     </div>
                 ) : (
                     <div style={{ textAlign: 'center', padding: '4rem', color: 'var(--ink-500)' }}>
-                        <p>No articles published yet.</p>
+                        <p>Todavía no hay artículos publicados.</p>
                     </div>
                 )}
             </div>

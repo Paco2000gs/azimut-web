@@ -29,8 +29,9 @@ const setLink = (selector, rel, href, hreflang) => {
 };
 
 const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, keywords = '', lang = 'es', alternates = null }) => {
-    const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
-    const defaultDescription = 'Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers.';
+    // Spanish fallbacks, matching the site default lang="es".
+    const siteTitle = 'Azimut Property | Villas de lujo y fincas en Marbella y Andalucía';
+    const defaultDescription = 'Inmobiliaria exclusiva en Marbella, Estepona y Benahavís, y fincas rurales en Cádiz, Sevilla y Huelva. Propiedades fuera de mercado y asesoramiento para compradores internacionales.';
     // A real 1200x630 card, not the logo: social platforms lay the preview out
     // at that ratio, and a 442x460 transparent PNG rendered as a smudge.
     const defaultImage = 'https://www.azimutproperty.com/media/social-card.jpg';

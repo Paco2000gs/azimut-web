@@ -8,19 +8,19 @@ const About = () => {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "About Us", "item": "https://www.azimutproperty.com/about" }
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Sobre nosotros", "item": "https://www.azimutproperty.com/about" }
         ]
     };
 
     return (
         <div className="page about">
             <SEO
-                title="About Us - Redefining Luxury Real Estate in Marbella"
-                description="Meet the Azimut Property team. Boutique agency in Marbella and Costa del Sol specializing in luxury villas and off-market properties."
+                title="Sobre nosotros: inmobiliaria de lujo en Marbella y Andalucía | Azimut Property"
+                description="Conozca al equipo de Azimut Property. Agencia boutique en Marbella y la Costa del Sol, especializada en villas de lujo, fincas y propiedades fuera de mercado."
                 url="/about"
-                lang="en"
-                keywords="about Azimut Property, luxury real estate agency Marbella, international buyers Costa del Sol, boutique real estate"
+                lang="es"
+                keywords="sobre Azimut Property, inmobiliaria de lujo Marbella, compradores internacionales Costa del Sol, inmobiliaria boutique"
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -29,17 +29,17 @@ const About = () => {
             </Helmet>
             <div className="about-hero">
                 <div className="container">
-                    <h1>Redefining Luxury Real Estate</h1>
-                    <p>More than a brokerage, we are your partners in the Andalusian lifestyle.</p>
+                    <h1>Redefinir el mercado inmobiliario de lujo</h1>
+                    <p>Más que una agencia, somos sus socios para vivir el estilo de vida andaluz.</p>
                 </div>
             </div>
 
             <div className="container about-content">
                 <div className="about-grid">
                     <div className="about-text">
-                        <h2>Our Story</h2>
-                        <p>Founded in 2024, AzimutProperty was born from a desire to elevate the real estate experience in Southern Spain. We recognized that the luxury market required a level of service, discretion, and expertise that went beyond the transaction.</p>
-                        <p>Our name, "Azimut", reflects our mission: to guide our clients towards their perfect horizon. Whether you are looking for a seafront villa on the Cadiz coast or a historic estate in the Sierra Norte de Sevilla, we navigate the market with precision and care.</p>
+                        <h2>Nuestra historia</h2>
+                        <p>Fundada en 2024, AzimutProperty nació del deseo de elevar la experiencia inmobiliaria en el sur de España. Entendimos que el mercado de lujo exige un nivel de servicio, discreción y experiencia que va más allá de la transacción.</p>
+                        <p>Nuestro nombre, «Azimut», refleja nuestra misión: guiar a nuestros clientes hacia su horizonte perfecto. Tanto si busca una villa frente al mar en la costa gaditana como una finca histórica en la Sierra Norte de Sevilla, recorremos el mercado con precisión y cuidado.</p>
                     </div>
                     <div className="about-image">
                         <picture>
@@ -52,7 +52,7 @@ const About = () => {
                                 src="/media/about-story-818.jpg"
                                 srcSet="/media/about-story-560.jpg 560w, /media/about-story-818.jpg 818w"
                                 sizes="(max-width: 768px) 100vw, 536px"
-                                alt="Aerial view of an Andalusian estate: terracotta rooftops, pool and terraced garden cut into the hillside"
+                                alt="Vista aérea de una finca andaluza: tejados de teja, piscina y jardín en terrazas sobre la ladera"
                                 width="818"
                                 height="1022"
                                 loading="lazy"
@@ -64,9 +64,9 @@ const About = () => {
 
                 <div className="about-grid about-grid--reverse">
                     <div className="about-text">
-                        <h2>Our Philosophy</h2>
-                        <p>We believe that true luxury lies in the details. It's not just about square meters or amenities; it's about the feeling of a home. We take the time to understand your lifestyle, your tastes, and your dreams.</p>
-                        <p>Our portfolio is strictly curated. We turn down more listings than we accept, ensuring that every property we represent meets our high standards of quality, design, and location.</p>
+                        <h2>Nuestra filosofía</h2>
+                        <p>Creemos que el verdadero lujo está en los detalles. No se trata solo de metros cuadrados o de servicios: se trata de la sensación de hogar. Nos tomamos el tiempo de entender su estilo de vida, sus gustos y sus sueños.</p>
+                        <p>Nuestra cartera está rigurosamente seleccionada. Rechazamos más propiedades de las que aceptamos, para que cada inmueble que representamos cumpla nuestros altos estándares de calidad, diseño y ubicación.</p>
                     </div>
                     <div className="about-image">
                         <picture>
@@ -79,7 +79,7 @@ const About = () => {
                                 src="/media/about-philosophy-1047.jpg"
                                 srcSet="/media/about-philosophy-560.jpg 560w, /media/about-philosophy-1047.jpg 1047w"
                                 sizes="(max-width: 768px) 100vw, 536px"
-                                alt="The original press machinery under the restored timber ceiling of a historic Andalusian oil mill"
+                                alt="La prensa original bajo el techo de madera restaurado de un antiguo molino de aceite andaluz"
                                 width="1047"
                                 height="1309"
                                 loading="lazy"
@@ -93,7 +93,7 @@ const About = () => {
 
             <div className="team-section">
                 <div className="container">
-                    <h2>Meet The Team</h2>
+                    <h2>Nuestro equipo</h2>
                     <div className="team-grid">
                         <div className="team-member">
                             <picture>
@@ -114,7 +114,7 @@ const About = () => {
                                 />
                             </picture>
                             <h3>Jose Rey</h3>
-                            <p>Founding Partner</p>
+                            <p>Socio fundador</p>
                         </div>
                         <div className="team-member">
                             <picture>
@@ -135,7 +135,7 @@ const About = () => {
                                 />
                             </picture>
                             <h3>Francisco Garrido</h3>
-                            <p>Founding Partner</p>
+                            <p>Socio fundador</p>
                         </div>
                         <div className="team-member">
                             <picture>
@@ -156,7 +156,7 @@ const About = () => {
                                 />
                             </picture>
                             <h3>Joaquin Castro</h3>
-                            <p>Founding Partner & Architect</p>
+                            <p>Socio fundador y arquitecto</p>
                         </div>
                     </div>
                 </div>

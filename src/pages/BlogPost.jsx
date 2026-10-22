@@ -62,10 +62,10 @@ const BlogPost = () => {
     if (!post) {
         return (
             <div className="page blog-post-page">
-                <SEO title="Article Not Found" url={pathname} lang="en" />
+                <SEO title="Artículo no encontrado" url={pathname} lang="es" />
                 <div className="container" style={{ textAlign: 'center', padding: '100px 0' }}>
-                    <h2>Article not found</h2>
-                    <Link to="/blog" className="btn">Return to Journal</Link>
+                    <h2>Artículo no encontrado</h2>
+                    <Link to="/blog" className="btn">Volver al blog</Link>
                 </div>
             </div>
         );
@@ -131,11 +131,11 @@ const BlogPost = () => {
             <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || '/media/placeholder.svg'})` }}>
                 <div className="overlay"></div>
                 <div className="container">
-                    <Link to="/blog" className="back-link"><ArrowLeft size={20} /> Back to Journal</Link>
+                    <Link to="/blog" className="back-link"><ArrowLeft size={20} /> Volver al blog</Link>
                     <h1>{post.title}</h1>
                     <div className="post-meta">
                         <span><Calendar size={16} /> {new Date(post.published_at).toLocaleDateString()}</span>
-                        <span><Clock size={16} /> {readingTime} min read</span>
+                        <span><Clock size={16} /> {readingTime} min de lectura</span>
                     </div>
                 </div>
             </div>
@@ -148,8 +148,8 @@ const BlogPost = () => {
                 />
 
                 {related.length > 0 && (
-                    <nav className="related-posts" aria-label="Related articles">
-                        <h2>Related articles</h2>
+                    <nav className="related-posts" aria-label="Artículos relacionados">
+                        <h2>Artículos relacionados</h2>
                         <ul>
                             {related.map(r => (
                                 <li key={r.id}>
@@ -161,7 +161,7 @@ const BlogPost = () => {
                 )}
 
                 <div className="post-footer">
-                    <Link to="/blog" className="btn btn-outline">Read More Articles</Link>
+                    <Link to="/blog" className="btn btn-outline">Leer más artículos</Link>
                 </div>
             </article>
         </div>

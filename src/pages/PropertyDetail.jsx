@@ -267,9 +267,9 @@ const PropertyDetail = () => {
     if (!property) {
         return (
             <div className="container" style={{ padding: '4rem', textAlign: 'center' }}>
-                <SEO title="Property Not Found" url={pathname} lang="en" />
-                <h2>Property not found</h2>
-                <Link to="/venta" className="btn">Back to listing</Link>
+                <SEO title="Inmueble no encontrado" url={pathname} lang="es" />
+                <h2>Inmueble no encontrado</h2>
+                <Link to="/venta" className="btn">Volver al catálogo</Link>
             </div>
         );
     }
@@ -283,7 +283,7 @@ const PropertyDetail = () => {
     const imageAlt = (img, idx) => {
         const caption = captionFromMedia(img?.title);
         if (!caption) {
-            return `${property.title} — ${property.type} in ${property.city}, photo ${idx + 1} of ${displayImages.length}`;
+            return `${property.title} — ${property.type} en ${property.city}, foto ${idx + 1} de ${displayImages.length}`;
         }
         // Several titles already name the town ("...en Constantina, Sevilla"),
         // and repeating it would end the alt with "Constantina, Sevilla, Constantina".
@@ -301,11 +301,11 @@ const PropertyDetail = () => {
     // Build rich SEO meta description
     const plotDisplay = property.plot > 0
         ? (property.type?.trim().toLowerCase() === 'finca'
-            ? `${(Number(property.plot) / 10000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ha plot`
-            : `${Number(property.plot).toLocaleString()} m² plot`)
+            ? `${(Number(property.plot) / 10000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ha de parcela`
+            : `${Number(property.plot).toLocaleString()} m² de parcela`)
         : '';
-    const priceDisplay = property.price_on_demand ? 'Price on demand' : `€${property.price?.toLocaleString()}`;
-    const seoDescription = `${property.title} in ${property.city}, ${property.province}. ${property.bedrooms} bed, ${property.bathrooms} bath, ${Number(property.area).toLocaleString()} m² built${plotDisplay ? `, ${plotDisplay}` : ''}. ${priceDisplay}. ${property.description?.substring(0, 200)}`;
+    const priceDisplay = property.price_on_demand ? 'Precio a consultar' : `€${property.price?.toLocaleString()}`;
+    const seoDescription = `${property.title} en ${property.city}, ${property.province}. ${property.bedrooms} dormitorios, ${property.bathrooms} baños, ${Number(property.area).toLocaleString()} m² construidos${plotDisplay ? `, ${plotDisplay}` : ''}. ${priceDisplay}. ${property.description?.substring(0, 200)}`;
 
     // Schema.org Structured Data - RealEstateListing
     const canonicalSlug = generatePropertySlug(property);
@@ -371,7 +371,7 @@ const PropertyDetail = () => {
                     "name": f,
                     "value": f
                 })),
-                { "@type": "PropertyValue", "name": "Property Type", "value": property.type }
+                { "@type": "PropertyValue", "name": "Tipo de inmueble", "value": property.type }
             ]
         }),
         "broker": {
@@ -388,8 +388,8 @@ const PropertyDetail = () => {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Properties", "item": "https://www.azimutproperty.com/venta" },
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Propiedades", "item": "https://www.azimutproperty.com/venta" },
             { "@type": "ListItem", "position": 3, "name": property.province, "item": `https://www.azimutproperty.com/venta/${slugifyLocation(property.province)}` },
             { "@type": "ListItem", "position": 4, "name": property.city, "item": `https://www.azimutproperty.com/venta/${slugifyLocation(property.city)}` },
             { "@type": "ListItem", "position": 5, "name": property.title, "item": canonicalUrl }
@@ -399,24 +399,24 @@ const PropertyDetail = () => {
     // FAQPage schema for property-specific questions
     const propertyFaqs = [
         {
-            q: `What is the price of ${property.title} in ${property.city}?`,
+            q: `¿Cuál es el precio de ${property.title} en ${property.city}?`,
             a: property.price_on_demand
-                ? `The price for ${property.title} is available on demand. Contact Azimut Property for a private consultation.`
-                : `${property.title} is listed at €${property.price?.toLocaleString()}. This ${property.type?.toLowerCase()} in ${property.city}, ${property.province} offers ${property.bedrooms} bedrooms, ${property.bathrooms} bathrooms, and ${Number(property.area).toLocaleString()} m² of built area.`
+                ? `El precio de ${property.title} se consulta directamente. Contacte con Azimut Property para una consulta privada.`
+                : `${property.title} tiene un precio de €${property.price?.toLocaleString()}. Esta ${property.type?.toLowerCase()} en ${property.city}, ${property.province} ofrece ${property.bedrooms} dormitorios, ${property.bathrooms} baños y ${Number(property.area).toLocaleString()} m² construidos.`
         },
         {
-            q: `Where is ${property.title} located?`,
-            a: `${property.title} is located in ${property.city}, in the province of ${property.province}, Andalusia, Spain. ${property.city} is known for its natural beauty and authentic Andalusian charm.`
+            q: `¿Dónde se encuentra ${property.title}?`,
+            a: `${property.title} se encuentra en ${property.city}, en la provincia de ${property.province}, Andalucía, España. ${property.city} es conocida por su belleza natural y su encanto auténticamente andaluz.`
         },
         {
-            q: `What features does ${property.title} include?`,
+            q: `¿Qué características tiene ${property.title}?`,
             a: property.features && property.features.length > 0
-                ? `${property.title} features: ${property.features.join(', ')}. The property has ${property.bedrooms} bedrooms, ${property.bathrooms} bathrooms, ${Number(property.area).toLocaleString()} m² built${plotDisplay ? ` and ${plotDisplay}` : ''}.`
-                : `${property.title} offers ${property.bedrooms} bedrooms, ${property.bathrooms} bathrooms, and ${Number(property.area).toLocaleString()} m² of built area${plotDisplay ? ` on a ${plotDisplay}` : ''}.`
+                ? `Características de ${property.title}: ${property.features.join(', ')}. El inmueble tiene ${property.bedrooms} dormitorios, ${property.bathrooms} baños, ${Number(property.area).toLocaleString()} m² construidos${plotDisplay ? ` y ${plotDisplay}` : ''}.`
+                : `${property.title} ofrece ${property.bedrooms} dormitorios, ${property.bathrooms} baños y ${Number(property.area).toLocaleString()} m² construidos${plotDisplay ? ` en ${plotDisplay}` : ''}.`
         },
         {
-            q: `Can a foreigner buy property in ${property.city}, Spain?`,
-            a: `Yes, there are no restrictions for foreign buyers purchasing property in ${property.city} or anywhere in Spain. EU and non-EU citizens can buy freely. Azimut Property manages the entire process including NIE application, due diligence, and notarial closing.`
+            q: `¿Puede un extranjero comprar un inmueble en ${property.city}, España?`,
+            a: `Sí, no existe ninguna restricción para que los compradores extranjeros adquieran inmuebles en ${property.city} ni en ninguna parte de España. Los ciudadanos de la UE y de fuera de la UE pueden comprar libremente. Azimut Property gestiona todo el proceso, incluida la solicitud del NIE, la due diligence y el cierre ante notario.`
         }
     ];
 
@@ -436,14 +436,14 @@ const PropertyDetail = () => {
     return (
         <div className="page property-detail-page">
             <SEO
-                title={`${property.title} — ${property.type} in ${property.city}, ${property.province}`}
+                title={`${property.title} — ${property.type} en ${property.city}, ${property.province}`}
                 description={seoDescription.substring(0, 320)}
                 image={getOptimizedImageUrl(displayImages[0]?.url, { raw: true })}
                 imageDimensions={{ width: 1200, height: 630 }}
                 url={canonicalPropertyPath}
                 type="article"
-                lang="en"
-                keywords={`${property.type} ${property.city}, buy ${property.type?.toLowerCase()} ${property.city}, ${property.type?.toLowerCase()} for sale ${property.province}, luxury real estate ${property.city}, property ${property.city} Spain, finca ${property.city}, country estate ${property.province}`}
+                lang="es"
+                keywords={`${property.type} ${property.city}, comprar ${property.type?.toLowerCase()} ${property.city}, ${property.type?.toLowerCase()} en venta ${property.province}, inmobiliaria de lujo ${property.city}, inmueble ${property.city} España, finca ${property.city}, finca rústica ${property.province}`}
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -459,11 +459,11 @@ const PropertyDetail = () => {
 
             {/* Breadcrumbs UI */}
             <div className="container property-header-container">
-                <nav className="breadcrumbs" aria-label="Breadcrumb">
+                <nav className="breadcrumbs" aria-label="Ruta de navegación">
                     <ol>
-                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/">Inicio</Link></li>
                         <li aria-hidden="true" className="breadcrumb-sep">/</li>
-                        <li><Link to="/venta">Properties</Link></li>
+                        <li><Link to="/venta">Propiedades</Link></li>
                         <li aria-hidden="true" className="breadcrumb-sep">/</li>
                         <li>
                             <Link to={`/venta/${slugifyLocation(property.province)}`}>
@@ -492,7 +492,7 @@ const PropertyDetail = () => {
                             type="button"
                             className="gallery-main-trigger"
                             onClick={() => setShowLightbox(true)}
-                            aria-label={`Open full screen view — ${imageAlt(displayImages[activeImage], activeImage)}`}
+                            aria-label={`Ver a pantalla completa — ${imageAlt(displayImages[activeImage], activeImage)}`}
                         >
                             <img
                                 src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })}
@@ -504,7 +504,7 @@ const PropertyDetail = () => {
                             />
                         </button>
                         <div className="price-tag">
-                            {property.price_on_demand ? "Price On Demand" : `€${property.price?.toLocaleString()}`}
+                            {property.price_on_demand ? "Precio a consultar" :`€${property.price?.toLocaleString()}`}
                             {!property.price_on_demand && property.price && property.area > 0 && (
                                 <span style={{ fontSize: '0.75rem', opacity: 0.85, display: 'block', marginTop: '2px' }}>
                                     €{Math.round(property.price / property.area).toLocaleString()}/m²
@@ -554,21 +554,21 @@ const PropertyDetail = () => {
                                 <Bed size={24} color="var(--ink-500)" />
                                 <div>
                                     <span className="spec-value">{property.bedrooms}</span>
-                                    <span className="spec-label">Bedrooms</span>
+                                    <span className="spec-label">Dormitorios</span>
                                 </div>
                             </div>
                             <div className="spec-item">
                                 <Bath size={24} color="var(--ink-500)" />
                                 <div>
                                     <span className="spec-value">{property.bathrooms}</span>
-                                    <span className="spec-label">Bathrooms</span>
+                                    <span className="spec-label">Baños</span>
                                 </div>
                             </div>
                             <div className="spec-item">
                                 <Maximize size={24} color="var(--ink-500)" />
                                 <div>
                                     <span className="spec-value">{Number(property.area).toLocaleString()} m²</span>
-                                    <span className="spec-label">Built</span>
+                                    <span className="spec-label">Construidos</span>
                                 </div>
                             </div>
                             {property.plot > 0 && (
@@ -581,7 +581,7 @@ const PropertyDetail = () => {
                                                 : `${Number(property.plot).toLocaleString()} m²`
                                             }
                                         </span>
-                                        <span className="spec-label">Plot</span>
+                                        <span className="spec-label">Parcela</span>
                                     </div>
                                 </div>
                             )}
@@ -589,7 +589,7 @@ const PropertyDetail = () => {
 
                         {/* Description */}
                         <div className="content-section">
-                            <h2 className="section-title">Description</h2>
+                            <h2 className="section-title">Descripción</h2>
                             <div className="description-text">
                                 {renderDescription(property.description)}
                             </div>
@@ -598,7 +598,7 @@ const PropertyDetail = () => {
                         {/* Features */}
                         {property.features && property.features.length > 0 && (
                             <div className="content-section">
-                                <h2 className="section-title">Features</h2>
+                                <h2 className="section-title">Características</h2>
                                 <div className="features-grid">
                                     {property.features.map((feature, idx) => (
                                         <div key={idx} className="feature-tag">
@@ -615,12 +615,12 @@ const PropertyDetail = () => {
                         {/* Plans Section */}
                         {media.plans.length > 0 && (
                             <div className="content-section">
-                                <h2 className="section-title">Floor Plans</h2>
+                                <h2 className="section-title">Planos</h2>
                                 <div className="plans-grid" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                                     {media.plans.map(plan => (
                                         <a key={plan.id} href={plan.url} className="plan-link" target="_blank" rel="noopener noreferrer">
                                             <FileText size={24} color="var(--gold-ink)" />
-                                            <span>{plan.title || 'View Plan'}</span>
+                                            <span>{plan.title || 'Ver plano'}</span>
                                         </a>
                                     ))}
                                 </div>
@@ -630,7 +630,7 @@ const PropertyDetail = () => {
                         {/* Videos Section */}
                         {media.videos.length > 0 && (
                             <div className="content-section">
-                                <h2 className="section-title">Videos</h2>
+                                <h2 className="section-title">Vídeos</h2>
                                 <div className="media-grid">
                                     {media.videos.map((video, index) => {
                                         // Uploaded titles are often just the file name ("25_en.mp4").
@@ -670,7 +670,7 @@ const PropertyDetail = () => {
                         {/* Map Section */}
                         {hasCoordinates && (
                             <div className="content-section">
-                                <h2 className="section-title">Location</h2>
+                                <h2 className="section-title">Ubicación</h2>
                                 <div className="map-container" ref={mapRef} style={{ height: '400px' }}>
                                     {mapInView ? (
                                         <Suspense fallback={mapPlaceholder}>
@@ -709,7 +709,7 @@ const PropertyDetail = () => {
                                     transition: 'opacity 0.2s'
                                 }}
                             >
-                                <Mail size={18} aria-hidden="true" /> Email us about this property
+                                <Mail size={18} aria-hidden="true" /> Escríbanos sobre este inmueble
                             </a>
                         </div>
                     </div>
@@ -717,7 +717,7 @@ const PropertyDetail = () => {
 
                 {/* FAQ SECTION — Boosts AI citation & GEO visibility */}
                 <div className="property-faqs" style={{ marginTop: '4rem', borderTop: '1px solid var(--border)', paddingTop: '3rem' }}>
-                    <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--ink-800)' }}>Frequently Asked Questions</h2>
+                    <h2 style={{ fontSize: '1.75rem', marginBottom: '1.5rem', color: 'var(--ink-800)' }}>Preguntas frecuentes</h2>
                     <div style={{ display: 'grid', gap: '1rem' }}>
                         {propertyFaqs.map((faq, idx) => (
                             <details key={idx} style={{ background: 'var(--surface-sunken)', padding: '1.25rem 1.5rem', borderRadius: '0.75rem', cursor: 'pointer' }}>
@@ -728,14 +728,14 @@ const PropertyDetail = () => {
                     </div>
                     <p className="faq-guide-link">
                         <Link to="/buying-guide">
-                            The full process for a non-resident buyer — NIE, notary, taxes and timeline
+                            El proceso completo para el comprador no residente: NIE, notaría, impuestos y plazos
                         </Link>
                     </p>
                 </div>
 
                 {/* RELATED PROPERTIES SECTION */}
                 <div className="related-properties" style={{ marginTop: '5rem', borderTop: '1px solid var(--border)', paddingTop: '4rem' }}>
-                    <h2 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>More properties in {property.province}</h2>
+                    <h2 style={{ fontSize: '1.75rem', marginBottom: '2rem', color: 'var(--ink-800)' }}>Más inmuebles en {property.province}</h2>
                     <div className="related-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '2rem' }}>
                         {properties
                             .filter(p => p.province === property.province && p.id !== property.id)
@@ -770,10 +770,10 @@ const PropertyDetail = () => {
             <div className={`mobile-enquiry-bar${formInView ? ' is-hidden' : ''}`}>
                 <div className="mobile-enquiry-price">
                     <span className="mobile-enquiry-label">{property.city}</span>
-                    <strong>{property.price_on_demand ? 'Price on demand' : `€${property.price?.toLocaleString()}`}</strong>
+                    <strong>{property.price_on_demand ? 'Precio a consultar' : `€${property.price?.toLocaleString()}`}</strong>
                 </div>
                 <button type="button" className="mobile-enquiry-button" onClick={scrollToForm}>
-                    Request dossier
+                    Solicitar dossier
                 </button>
             </div>
 

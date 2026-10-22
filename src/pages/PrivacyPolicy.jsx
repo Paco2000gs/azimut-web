@@ -12,14 +12,14 @@ const PrivacyPolicy = () => {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Privacy Policy", "item": "https://www.azimutproperty.com/privacy" }
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Política de privacidad", "item": "https://www.azimutproperty.com/privacy" }
         ]
     };
 
     return (
         <div className="page privacy-policy">
-            <SEO title="Privacy Policy" description="Privacy policy of Azimut Property. Learn how we handle your personal data in compliance with GDPR." url="/privacy" lang="en" />
+            <SEO title="Política de privacidad" description="Política de privacidad de Azimut Property. Conozca cómo tratamos sus datos personales conforme al RGPD." url="/privacy" lang="es" />
             <Helmet>
                 <script type="application/ld+json">
                     {JSON.stringify(breadcrumbSchema)}
@@ -27,48 +27,48 @@ const PrivacyPolicy = () => {
             </Helmet>
             <div className="container legal-page">
                 <div className="legal-content">
-                <h1>Privacy Policy</h1>
-                <p className="legal-updated">Last updated: December 1, 2025</p>
+                <h1>Política de privacidad</h1>
+                <p className="legal-updated">Última actualización: 1 de diciembre de 2025</p>
 
                 <section>
-                    <h2>1. Introduction</h2>
-                    <p>Welcome to AzimutProperty. We respect your privacy and are committed to protecting your personal data. This privacy policy will inform you as to how we look after your personal data when you visit our website (regardless of where you visit it from) and tell you about your privacy rights and how the law protects you.</p>
+                    <h2>1. Introducción</h2>
+                    <p>Bienvenido a AzimutProperty. Respetamos su privacidad y nos comprometemos a proteger sus datos personales. Esta política de privacidad le informa sobre cómo tratamos sus datos personales cuando visita nuestra web (desde el lugar desde el que lo haga) y le explica sus derechos de privacidad y cómo le protege la ley.</p>
                 </section>
 
                 <section>
-                    <h2>2. Data We Collect</h2>
-                    <p>We may collect, use, store and transfer different kinds of personal data about you which we have grouped together follows:</p>
+                    <h2>2. Datos que recogemos</h2>
+                    <p>Podemos recoger, usar, almacenar y transferir distintas categorías de datos personales sobre usted, que agrupamos de la siguiente manera:</p>
                     <ul>
-                        <li><strong>Identity Data:</strong> includes first name, last name.</li>
-                        <li><strong>Contact Data:</strong> includes email address and telephone number.</li>
-                        <li><strong>Technical Data:</strong> includes internet protocol (IP) address, browser type and version, time zone setting and location.</li>
-                        <li><strong>Usage Data:</strong> includes information about how you use our website and services.</li>
+                        <li><strong>Datos de identidad:</strong> incluyen nombre y apellidos.</li>
+                        <li><strong>Datos de contacto:</strong> incluyen la dirección de correo electrónico y el número de teléfono.</li>
+                        <li><strong>Datos técnicos:</strong> incluyen la dirección IP, el tipo y la versión del navegador, la configuración de zona horaria y la ubicación.</li>
+                        <li><strong>Datos de uso:</strong> incluyen información sobre cómo utiliza nuestra web y nuestros servicios.</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>3. How We Use Your Data</h2>
-                    <p>We will only use your personal data when the law allows us to. Most commonly, we will use your personal data in the following circumstances:</p>
+                    <h2>3. Cómo usamos sus datos</h2>
+                    <p>Solo usaremos sus datos personales cuando la ley lo permita. Lo más habitual es que los utilicemos en las siguientes circunstancias:</p>
                     <ul>
-                        <li>To process your inquiries about properties.</li>
-                        <li>To manage our relationship with you.</li>
-                        <li>To improve our website, products/services, marketing and customer relationships.</li>
+                        <li>Para tramitar sus consultas sobre inmuebles.</li>
+                        <li>Para gestionar nuestra relación con usted.</li>
+                        <li>Para mejorar nuestra web, nuestros productos y servicios, nuestras acciones de marketing y nuestras relaciones con los clientes.</li>
                     </ul>
                 </section>
 
                 <section>
-                    <h2>4. Data Security</h2>
-                    <p>We have put in place appropriate security measures to prevent your personal data from being accidentally lost, used or accessed in an unauthorized way, altered or disclosed.</p>
+                    <h2>4. Seguridad de los datos</h2>
+                    <p>Hemos adoptado medidas de seguridad adecuadas para evitar que sus datos personales se pierdan de forma accidental, se usen o se acceda a ellos de forma no autorizada, se alteren o se divulguen.</p>
                 </section>
 
                 <section>
-                    <h2>5. Your Legal Rights</h2>
-                    <p>Under certain circumstances, you have rights under data protection laws in relation to your personal data, including the right to request access, correction, erasure, restriction, transfer, to object to processing, to portability of data and (where the lawful ground of processing is consent) to withdraw consent.</p>
+                    <h2>5. Sus derechos legales</h2>
+                    <p>En determinadas circunstancias, usted tiene derechos en virtud de la normativa de protección de datos en relación con sus datos personales, incluido el derecho a solicitar el acceso, la rectificación, la supresión, la limitación, la portabilidad, a oponerse al tratamiento y, cuando la base jurídica del tratamiento sea el consentimiento, a retirarlo.</p>
                 </section>
 
                     <section>
-                        <h2>6. Contact Us</h2>
-                        <p>If you have any questions about this privacy policy or our privacy practices, please contact us at <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a>.</p>
+                        <h2>6. Contacto</h2>
+                        <p>Si tiene alguna pregunta sobre esta política de privacidad o sobre nuestras prácticas de privacidad, puede escribirnos a <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a>.</p>
                     </section>
                 </div>
             </div>

@@ -14,24 +14,24 @@ const Footer = () => {
                             <img src="/azimut-logo-96.png" alt="" width="48" height="50" loading="lazy" decoding="async" />
                             <h3>AZIMUT PROPERTY</h3>
                         </div>
-                        <p>Exclusive real estate in Andalusia. We curate the finest properties for the most discerning clients.</p>
+                        <p>Inmobiliaria exclusiva en Andalucía. Seleccionamos las mejores propiedades para clientes muy exigentes.</p>
                         <div className="contact-info">
                             <p><Mail size={16} aria-hidden="true" style={{ marginRight: '8px', display: 'inline' }} /> <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a></p>
                         </div>
                     </div>
 
                     <div className="footer-column">
-                        <h3>Property Types</h3>
+                        <h3>Tipos de inmueble</h3>
                         <ul className="footer-links">
-                            <li><Link to="/venta?type=finca">Fincas & Cortijos</Link></li>
-                            <li><Link to="/venta?type=plot">Land & Plots</Link></li>
-                            <li><Link to="/venta?type=villa">Luxury Villas</Link></li>
-                            <li><Link to="/venta?type=penthouse">Penthouses</Link></li>
+                            <li><Link to="/venta?type=finca">Fincas y cortijos</Link></li>
+                            <li><Link to="/venta?type=plot">Terrenos y parcelas</Link></li>
+                            <li><Link to="/venta?type=villa">Villas de lujo</Link></li>
+                            <li><Link to="/venta?type=penthouse">Áticos</Link></li>
                         </ul>
                     </div>
 
                     <div className="footer-column">
-                        <h3>Key Areas</h3>
+                        <h3>Zonas</h3>
                         <ul className="footer-links">
                             <li><Link to="/venta/marbella">Marbella</Link></li>
                             <li><Link to="/venta/cadiz">Cádiz</Link></li>
@@ -41,34 +41,34 @@ const Footer = () => {
                     </div>
 
                     <div className="footer-column">
-                        <h3>Collections</h3>
+                        <h3>Colecciones</h3>
                         <ul className="footer-links">
-                            <li><Link to="/villas-marbella">Villas in Marbella</Link></li>
-                            <li><Link to="/mansions-sotogrande">Mansions in Sotogrande</Link></li>
-                            <li><Link to="/equestrian-estates-jimena-de-la-frontera">Equestrian Estates, Jimena</Link></li>
-                            <li><Link to="/olive-estates-sevilla">Olive Estates, Seville</Link></li>
-                            <li><Link to="/cortijos-en-venta-sevilla">Cortijos in Seville</Link></li>
-                            <li><Link to="/cortijos-en-venta-huelva">Cortijos in Huelva</Link></li>
-                            <li><Link to="/cortijos-en-venta-cadiz">Cortijos in Cádiz</Link></li>
+                            <li><Link to="/es/villas-de-lujo-marbella">Villas de lujo en Marbella</Link></li>
+                            <li><Link to="/es/mansiones-sotogrande">Mansiones en Sotogrande</Link></li>
+                            <li><Link to="/es/fincas-ecuestres-jimena-de-la-frontera">Fincas ecuestres en Jimena</Link></li>
+                            <li><Link to="/es/haciendas-y-olivares-sevilla">Haciendas y olivares en Sevilla</Link></li>
+                            <li><Link to="/cortijos-en-venta-sevilla">Cortijos en venta en Sevilla</Link></li>
+                            <li><Link to="/cortijos-en-venta-huelva">Cortijos en venta en Huelva</Link></li>
+                            <li><Link to="/cortijos-en-venta-cadiz">Cortijos en venta en Cádiz</Link></li>
                         </ul>
                     </div>
 
                     <div className="footer-column">
-                        <h3>Company</h3>
+                        <h3>Empresa</h3>
                         <ul className="footer-links">
-                            <li><Link to="/about">About Us</Link></li>
-                            <li><Link to="/blog">Journal</Link></li>
-                            <li><Link to="/buying-guide">Buying in Spain</Link></li>
-                            <li><Link to="/contact">Contact</Link></li>
-                            <li><Link to="/privacy">Privacy Policy</Link></li>
-                            <li><Link to="/terms">Terms of Service</Link></li>
+                            <li><Link to="/about">Sobre nosotros</Link></li>
+                            <li><Link to="/blog">Blog</Link></li>
+                            <li><Link to="/buying-guide">Comprar en España</Link></li>
+                            <li><Link to="/contact">Contacto</Link></li>
+                            <li><Link to="/privacy">Política de privacidad</Link></li>
+                            <li><Link to="/terms">Condiciones de uso</Link></li>
                         </ul>
                     </div>
                 </div>
 
                 {/* Strategic Partner */}
                 <div className="footer-partner">
-                    <span className="partner-label">Strategic Partner</span>
+                    <span className="partner-label">Socio estratégico</span>
                     <span className="partner-divider" aria-hidden="true"></span>
                     <a
                         href="https://www.dudley-estates.com/"

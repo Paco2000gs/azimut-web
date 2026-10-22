@@ -9,7 +9,7 @@ import SEO from '../components/SEO';
 import '../styles/Shortlist.css';
 
 const formatPrice = (property) => (
-    property.price_on_demand ? 'On request' : `€${Number(property.price).toLocaleString('de-DE')}`
+    property.price_on_demand ? 'A consultar' : `€${Number(property.price).toLocaleString('de-DE')}`
 );
 
 const formatPerSqm = (property) => {
@@ -39,56 +39,56 @@ const Shortlist = () => {
         .map(id => properties.find(p => String(p.id) === String(id)))
         .filter(Boolean);
 
-    const enquiryHref = `mailto:info@azimutproperty.com?subject=${encodeURIComponent('Dossier request: ' + saved.length + ' estates')}&body=${encodeURIComponent(
-        'I would like the private dossiers for the following estates:\n\n' +
+    const enquiryHref = `mailto:info@azimutproperty.com?subject=${encodeURIComponent('Solicitud de dossier: ' + saved.length + ' inmuebles')}&body=${encodeURIComponent(
+        'Me gustaría recibir los dossiers privados de los siguientes inmuebles:\n\n' +
         saved.map(p => `• ${p.title} — ${p.city}, ${p.province}`).join('\n') +
         '\n\n'
     )}`;
 
     const rows = [
-        { label: 'Price', render: formatPrice },
-        { label: 'Price per m²', render: formatPerSqm },
-        { label: 'Built', render: p => (p.area ? `${Number(p.area).toLocaleString()} m²` : '—') },
-        { label: 'Plot', render: formatPlot },
-        { label: 'Bedrooms', render: p => p.bedrooms || '—' },
-        { label: 'Bathrooms', render: p => p.bathrooms || '—' },
-        { label: 'Location', render: p => `${p.city}, ${p.province}` },
-        { label: 'Type', render: p => p.type || '—' },
+        { label: 'Precio', render: formatPrice },
+        { label: 'Precio por m²', render: formatPerSqm },
+        { label: 'Construidos', render: p => (p.area ? `${Number(p.area).toLocaleString()} m²` : '—') },
+        { label: 'Parcela', render: formatPlot },
+        { label: 'Dormitorios', render: p => p.bedrooms || '—' },
+        { label: 'Baños', render: p => p.bathrooms || '—' },
+        { label: 'Ubicación', render: p => `${p.city}, ${p.province}` },
+        { label: 'Tipo', render: p => p.type || '—' },
     ];
 
     return (
         <div className="page shortlist-page">
             <SEO
-                title="Your Shortlist"
-                description="The estates you have saved, side by side."
+                title="Sus favoritos"
+                description="Los inmuebles que ha guardado, uno junto a otro."
                 url="/shortlist"
                 noindex={true}
-                lang="en"
+                lang="es"
             />
 
             <div className="container">
                 <header className="shortlist-header">
-                    <h1>Your shortlist</h1>
+                    <h1>Sus favoritos</h1>
                     {count > 0 && (
                         <p className="shortlist-count">
-                            {count} {count === 1 ? 'estate' : 'estates'} saved on this device
+                            {count} {count === 1 ? 'inmueble guardado' : 'inmuebles guardados'} en este dispositivo
                         </p>
                     )}
                 </header>
 
                 {loading && ids.length > 0 && (
-                    <p className="shortlist-status" role="status">Loading your saved estates…</p>
+                    <p className="shortlist-status" role="status">Cargando sus inmuebles guardados…</p>
                 )}
 
                 {!loading && saved.length === 0 && (
                     <div className="shortlist-empty">
-                        <h2>Nothing saved yet</h2>
+                        <h2>Todavía no hay nada guardado</h2>
                         <p>
-                            Estates you save are kept here, side by side, so you can weigh price
-                            against land and location without holding it all in your head. Nothing
-                            leaves this device until you ask us for the dossiers.
+                            Los inmuebles que guarde se muestran aquí, uno junto a otro, para comparar
+                            precio frente a terreno y ubicación sin tener que recordarlo todo. Nada
+                            sale de este dispositivo hasta que nos pida los dossiers.
                         </p>
-                        <Link to="/venta" className="btn">Browse the portfolio</Link>
+                        <Link to="/venta" className="btn">Ver la cartera</Link>
                     </div>
                 )}
 
@@ -97,12 +97,12 @@ const Shortlist = () => {
                         <div className="shortlist-table-scroll">
                             <table className="shortlist-table">
                                 <caption className="visual-hidden">
-                                    Saved estates compared by price, size, land and location
+                                    Inmuebles guardados comparados por precio, superficie, terreno y ubicación
                                 </caption>
                                 <thead>
                                     <tr>
                                         <th scope="col">
-                                            <span className="visual-hidden">Attribute</span>
+                                            <span className="visual-hidden">Atributo</span>
                                         </th>
                                         {saved.map(property => (
                                             <th scope="col" key={property.id}>
@@ -124,10 +124,10 @@ const Shortlist = () => {
                                                         type="button"
                                                         className="shortlist-remove"
                                                         onClick={() => remove(property.id)}
-                                                        aria-label={`Remove ${property.title} from your shortlist`}
+                                                        aria-label={`Quitar ${property.title} de sus favoritos`}
                                                     >
                                                         <X size={15} aria-hidden="true" />
-                                                        <span>Remove</span>
+                                                        <span>Quitar</span>
                                                     </button>
                                                 </div>
                                             </th>
@@ -149,10 +149,10 @@ const Shortlist = () => {
 
                         <div className="shortlist-actions">
                             <a href={enquiryHref} className="btn btn-gold">
-                                Request the dossiers for {saved.length === 1 ? 'this estate' : `these ${saved.length} estates`}
+                                Solicitar los dossiers de {saved.length === 1 ? 'este inmueble' : `estos ${saved.length} inmuebles`}
                             </a>
                             <button type="button" className="shortlist-clear" onClick={clear}>
-                                Clear the shortlist
+                                Vaciar favoritos
                             </button>
                         </div>
                     </>
