@@ -87,6 +87,10 @@ function App() {
                   <Route path="es/mansiones-sotogrande" element={<LandingPage slug="mansions-sotogrande" lang="es" />} />
                   <Route path="es/fincas-ecuestres-jimena-de-la-frontera" element={<LandingPage slug="equestrian-estates-jimena-de-la-frontera" lang="es" />} />
                   <Route path="es/haciendas-y-olivares-sevilla" element={<LandingPage slug="olive-estates-sevilla" lang="es" />} />
+                  {/* Spanish-only cortijo collections (search demand is Spanish, see LandingPage) */}
+                  <Route path="cortijos-en-venta-sevilla" element={<LandingPage slug="cortijos-en-venta-sevilla" lang="es" />} />
+                  <Route path="cortijos-en-venta-huelva" element={<LandingPage slug="cortijos-en-venta-huelva" lang="es" />} />
+                  <Route path="cortijos-en-venta-cadiz" element={<LandingPage slug="cortijos-en-venta-cadiz" lang="es" />} />
                   <Route path="property/:id" element={<PropertyDetail />} />
                   <Route path="properties/:id" element={<PropertyDetail />} />
                   <Route path="about" element={<About />} />

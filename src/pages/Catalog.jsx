@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { Link, useSearchParams, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
@@ -140,25 +140,28 @@ const Catalog = () => {
     // Per-province SEO data for rural Andalusia focus
     const PROVINCE_SEO = {
         'cadiz': {
-            title: 'Fincas de Lujo, Haciendas y Fincas Ecuestres en Cádiz | Azimut Property',
-            description: 'Haciendas históricas, cortijos de olivar y fincas ecuestres en Cádiz — de Jerez y Arcos a Jimena de la Frontera, junto a Sotogrande. Acceso a propiedades rurales de lujo fuera de mercado.',
-            keywords: 'finca de lujo Cádiz, hacienda histórica Cádiz, finca ecuestre Jerez, cortijo de olivar Cádiz, finca en venta Jimena de la Frontera, propiedad rural de lujo Cádiz, finca cerca de Sotogrande',
+            title: 'Fincas de Lujo y Haciendas en Venta en Cádiz | Azimut Property',
+            description: 'Cortijos, haciendas y fincas ecuestres en venta en Cádiz — de Jerez y Arcos a Jimena de la Frontera, junto a Sotogrande. Propiedades rurales de lujo fuera de mercado.',
+            keywords: 'cortijos en venta en Cádiz, cortijo de olivar Cádiz, finca de lujo Cádiz, hacienda histórica Cádiz, finca ecuestre Jerez, finca en venta Jimena de la Frontera, finca cerca de Sotogrande',
             h1: 'Fincas de Lujo, Haciendas y Fincas Ecuestres en Venta en Cádiz',
             hero: 'Del cortijo de olivar en Arcos a la finca ecuestre junto a Sotogrande: propiedad rural de alto nivel en la provincia de Cádiz',
+            landing: '/cortijos-en-venta-cadiz',
         },
         'huelva': {
-            title: 'Chalets y Fincas en Huelva | Azimut Property',
-            description: 'Propiedades rurales en Huelva: chalets con terreno, fincas agrícolas y casas de campo. Inversión segura en el campo onubense.',
-            keywords: 'chalet Huelva, finca Huelva, casa rural Huelva, propiedad rural Huelva',
+            title: 'Fincas y Chalets con Terreno en Venta en Huelva | Azimut Property',
+            description: 'Cortijos, fincas y chalets con terreno en venta en Huelva: campo onubense entre Doñana y la Sierra de Aracena. Propiedades rurales con asesoramiento para el comprador internacional.',
+            keywords: 'cortijos en venta en Huelva, fincas Huelva, cortijo Huelva, chalet con terreno Huelva, casa rural Huelva, propiedad rural Huelva',
             h1: 'Fincas y Chalets con Terreno en Venta en Huelva',
             hero: 'Propiedades rurales únicas entre el Parque Nacional de Doñana y la Sierra de Aracena',
+            landing: '/cortijos-en-venta-huelva',
         },
         'sevilla': {
-            title: 'Haciendas, Cortijos de Olivar y Fincas de Lujo en Sevilla | Azimut Property',
-            description: 'Haciendas históricas, cortijos de olivar de inversión y fincas ecuestres en la campiña de Sevilla — Carmona, Écija, Osuna y el Aljarafe. Acceso a propiedades exclusivas fuera de mercado.',
-            keywords: 'hacienda histórica en venta Sevilla, cortijo de olivar Sevilla, finca ecuestre Sevilla, finca de olivar de inversión, finca de lujo Sevilla, olivar en venta Andalucía, hacienda para hotel rural Sevilla',
+            title: 'Fincas y Haciendas en Venta en Sevilla | Azimut Property',
+            description: 'Cortijos en venta en Sevilla: haciendas históricas, cortijos de olivar y fincas ecuestres en Carmona, Écija, Osuna y el Aljarafe. Propiedades exclusivas fuera de mercado.',
+            keywords: 'cortijos en venta en Sevilla, cortijo en venta Sevilla, cortijos Sevilla, hacienda histórica en venta Sevilla, cortijo de olivar Sevilla, finca ecuestre Sevilla, finca de lujo Sevilla',
             h1: 'Haciendas, Cortijos de Olivar y Fincas Ecuestres en Venta en Sevilla',
             hero: 'Adquiere una hacienda histórica, un cortijo de olivar de inversión o una finca ecuestre en la provincia de Sevilla',
+            landing: '/cortijos-en-venta-sevilla',
         },
         'malaga': {
             title: 'Fincas, Terrenos y Cortijos en Málaga | Azimut Property',
@@ -296,6 +299,9 @@ const Catalog = () => {
                 <div className="container">
                     <h1>{provinceSeo ? provinceSeo.h1 : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
                     <p>{provinceSeo ? provinceSeo.hero : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
+                    {provinceSeo?.landing && (
+                        <p><Link to={provinceSeo.landing}>Guía de cortijos en venta en esta provincia</Link></p>
+                    )}
                 </div>
             </div>
 
