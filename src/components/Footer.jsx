@@ -47,6 +47,9 @@ const Footer = () => {
                             <li><Link to="/mansions-sotogrande">Mansions in Sotogrande</Link></li>
                             <li><Link to="/equestrian-estates-jimena-de-la-frontera">Equestrian Estates, Jimena</Link></li>
                             <li><Link to="/olive-estates-sevilla">Olive Estates, Seville</Link></li>
+                            <li><Link to="/cortijos-en-venta-sevilla">Cortijos in Seville</Link></li>
+                            <li><Link to="/cortijos-en-venta-huelva">Cortijos in Huelva</Link></li>
+                            <li><Link to="/cortijos-en-venta-cadiz">Cortijos in Cádiz</Link></li>
                         </ul>
                     </div>
 
