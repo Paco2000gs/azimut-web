@@ -176,16 +176,16 @@ const Home = () => {
                         <picture>
                             <source
                                 type="image/webp"
-                                srcSet="/media/authority-estate-560.webp 560w, /media/authority-estate-1030.webp 1030w"
+                                srcSet="/media/authority-polo-estate-560.webp 560w, /media/authority-polo-estate-1000.webp 1000w"
                                 sizes="(max-width: 768px) 100vw, 480px"
                             />
                             <img
-                                src="/media/authority-estate-1030.jpg"
-                                srcSet="/media/authority-estate-560.jpg 560w, /media/authority-estate-1030.jpg 1030w"
+                                src="/media/authority-polo-estate-1000.jpg"
+                                srcSet="/media/authority-polo-estate-560.jpg 560w, /media/authority-polo-estate-1000.jpg 1000w"
                                 sizes="(max-width: 768px) 100vw, 480px"
-                                alt="Terraced olive groves on a historic Andalusian hillside estate"
-                                width="1030"
-                                height="2000"
+                                alt="Campo de polo de la finca ecuestre de Jimena de la Frontera"
+                                width="1000"
+                                height="1250"
                                 loading="lazy"
                                 decoding="async"
                             />
