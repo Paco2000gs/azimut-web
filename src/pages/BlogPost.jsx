@@ -13,10 +13,18 @@ const BlogPost = () => {
     const { id: urlParam } = useParams();
     const navigate = useNavigate();
     const { pathname } = useLocation();
-    const { getPostById, loading } = useBlog();
+    const { getPostById, loading, posts } = useBlog();
 
     const postId = extractBlogId(urlParam);
     const post = !loading && postId ? getPostById(postId) : null;
+
+    // Internal links to other articles. Six articles were discovered but not
+    // crawled in Search Console (22/10/2026) because nothing linked to them; each
+    // article now points at its most recent neighbours.
+    const related = useMemo(() => {
+        if (!post) return [];
+        return posts.filter(p => p.id !== post.id).slice(0, 3);
+    }, [posts, post]);
 
     // Procesar contenido automáticamente: texto plano → HTML estructurado
     const formattedContent = useMemo(() => {
@@ -138,6 +146,19 @@ const BlogPost = () => {
                     className="content-wrapper article-body"
                     dangerouslySetInnerHTML={{ __html: formattedContent }}
                 />
+
+                {related.length > 0 && (
+                    <nav className="related-posts" aria-label="Related articles">
+                        <h2>Related articles</h2>
+                        <ul>
+                            {related.map(r => (
+                                <li key={r.id}>
+                                    <Link to={`/blog/${generateBlogSlug(r)}`}>{r.title}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                )}
 
                 <div className="post-footer">
                     <Link to="/blog" className="btn btn-outline">Read More Articles</Link>
