@@ -7,7 +7,8 @@ export const PROVINCES = [
     "Granada",
     "Girona",
     "Huelva",
-    "Cuenca"
+    "Cuenca",
+    "Barcelona"
 ];
 
 export const CITIES = {
@@ -101,6 +102,24 @@ export const CITIES = {
         "Villanueva de la Jara", "Sisante", "Honrubia", "El Provencio", "Horcajo de Santiago",
         "Villarejo de Fuentes", "Carboneras de Guadazaón", "Cañaveras", "Landete",
         "Campillo de Altobuey", "Alarcón", "Buendía", "Cañete", "Huélamo", "Tragacete"
+    ],
+    "Barcelona": [
+        // Barcelona ciudad y área metropolitana
+        "Barcelona", "Badalona", "L'Hospitalet de Llobregat", "Esplugues de Llobregat",
+        "Sant Just Desvern", "Pedralbes", "Sarrià-Sant Gervasi",
+        // Garraf - costa sur
+        "Sitges", "Sant Pere de Ribes", "Vilanova i la Geltrú", "Cubelles", "Olivella",
+        "Canyelles", "Castelldefels", "Gavà", "Begues",
+        // Maresme - costa norte
+        "Alella", "Teià", "El Masnou", "Premià de Mar", "Vilassar de Mar", "Cabrils",
+        "Mataró", "Sant Andreu de Llavaneres", "Sant Vicenç de Montalt", "Caldes d'Estrac",
+        "Arenys de Mar", "Canet de Mar", "Sant Pol de Mar", "Calella", "Pineda de Mar",
+        "Malgrat de Mar",
+        // Vallès
+        "Sant Cugat del Vallès", "Valldoreix", "Bellaterra", "Cerdanyola del Vallès",
+        "Matadepera", "Terrassa", "Sabadell", "Granollers", "La Garriga", "Cardedeu",
+        // Interior y Penedès
+        "Vilafranca del Penedès", "Sant Sadurní d'Anoia", "Manresa", "Vic", "Igualada"
     ]
 };
 
