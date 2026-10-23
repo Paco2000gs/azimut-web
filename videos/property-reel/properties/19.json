@@ -1,0 +1,49 @@
+{
+  "id": 19,
+  "slug": "finca-jimena-19",
+  "url": "azimutproperty.com",
+  "location": "Jimena de la Frontera · Cádiz",
+  "hook": {
+    "headline": "48 hectáreas",
+    "subline": "de pura Andalucía, a 25 min de Sotogrande"
+  },
+  "land": {
+    "kicker": "Una finca que produce",
+    "rows": [
+      { "figure": "6 ha", "label": "Viñedo Merlot y Syrah" },
+      { "figure": "14 ha", "label": "Olivar" },
+      { "figure": "40–50 K€", "label": "Corcho, por cosecha" }
+    ]
+  },
+  "feature": {
+    "kicker": "Instalación ecuestre",
+    "title": "Pistas con iluminación",
+    "subline": "a 25 min del Santa María Polo Club"
+  },
+  "buildings": {
+    "kicker": "Edificación",
+    "items": [
+      { "figure": "350 m²", "label": "Casa principal" },
+      { "figure": "500 m²", "label": "Cuadra" }
+    ],
+    "footer": "3 accesos independientes · vistas 360°"
+  },
+  "location_scene": {
+    "kicker": "Ubicación",
+    "title": "Campo de Gibraltar",
+    "origin": "Jimena de la Frontera",
+    "stops": [
+      { "place": "Sotogrande", "time": "25 min" },
+      { "place": "Gibraltar", "time": "25 min" },
+      { "place": "Málaga", "time": "1 h" }
+    ]
+  },
+  "close": {
+    "price": "2.500.000 €",
+    "option": "Opción: casa + 20 ha por separado",
+    "cta": "Dossier privado"
+  },
+  "photos": {
+    "hero": "assets/properties/19/polo-field.jpg"
+  }
+}

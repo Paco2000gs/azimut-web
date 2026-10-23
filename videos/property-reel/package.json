@@ -1,0 +1,11 @@
+{
+  "name": "azimut-property-reel",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "dev": "npx --yes hyperframes@0.8.189 preview",
+    "check": "npx --yes hyperframes@0.8.189 check",
+    "render": "node render.mjs"
+  }
+}

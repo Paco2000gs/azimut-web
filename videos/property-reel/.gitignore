@@ -1,0 +1,5 @@
+# Rendered videos are uploaded to YouTube/Vimeo/Instagram, not stored in git.
+renders/
+# HyperFrames check/snapshot artifacts.
+.hyperframes/
+node_modules/
