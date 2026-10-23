@@ -28,5 +28,6 @@ graphify-out
 
 .vercel
 
-.claude/
+.claude/*
+!.claude/settings.json
 *.bak
