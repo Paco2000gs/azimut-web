@@ -38,6 +38,7 @@ const Catalog = () => {
         'granada': 'Granada',
         'girona': 'Girona',
         'cuenca': 'Cuenca',
+        'barcelona': 'Barcelona',
     };
 
     // Reverse lookup: city slug -> its real province. Without this, city pages
