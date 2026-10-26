@@ -439,7 +439,7 @@ const PropertyDetail = () => {
                 title={`${property.title} — ${property.type} in ${property.city}, ${property.province}`}
                 description={seoDescription.substring(0, 320)}
                 image={getOptimizedImageUrl(displayImages[0]?.url, { raw: true })}
-                imageDimensions={{ width: 1200, height: 630 }}
+                imageAlt={`${property.title} — ${property.city}`}
                 url={canonicalPropertyPath}
                 type="article"
                 lang="en"

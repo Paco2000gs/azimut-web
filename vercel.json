@@ -373,7 +373,22 @@
       ]
     }
   ],
+  "functions": {
+    "api/social.js": {
+      "maxDuration": 300
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/social/cron",
+      "schedule": "0 6 * * *"
+    }
+  ],
   "rewrites": [
+    {
+      "source": "/api/social/:path*",
+      "destination": "/api/social?route=:path*"
+    },
     {
       "source": "/shortlist",
       "destination": "/index.html"

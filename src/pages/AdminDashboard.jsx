@@ -4,9 +4,11 @@ import { useProperties } from '../context/PropertiesContext';
 import { useBlog } from '../context/BlogContext';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Trash2, Phone, Mail, Filter, LogOut, Plus, Home, Users, MapPin, Loader, Upload, X, Image as ImageIcon, FileText, Video, Edit, Star, BookOpen, Calendar, Eye, Download, Database, RefreshCw, AlertTriangle } from 'lucide-react';
+import { Trash2, Phone, Mail, Filter, LogOut, Plus, Home, Users, MapPin, Loader, Upload, X, Image as ImageIcon, FileText, Video, Edit, Star, BookOpen, Calendar, Eye, Download, Database, RefreshCw, AlertTriangle, Share2 } from 'lucide-react';
 import { geocodeAddress } from '../utils/geocoding';
 import { uploadFile, getBucketUsage } from '../utils/storage';
+import { notifyPropertyPublished } from '../utils/socialApi';
+import SocialMediaPanel from '../components/admin/SocialMediaPanel';
 import { PROVINCES, CITIES, PROPERTY_TYPES, PROPERTY_FEATURES } from '../constants/propertyOptions';
 import '../styles/Admin.css';
 
@@ -40,7 +42,8 @@ const AdminDashboard = () => {
     const { logout } = useAuth();
     const navigate = useNavigate();
 
-    const [activeTab, setActiveTab] = useState('leads');
+    // ?tab=social is where the social OAuth callbacks land.
+    const [activeTab, setActiveTab] = useState(() => new URLSearchParams(window.location.search).get('tab') || 'leads');
     const [filter, setFilter] = useState('All');
     const [showAddProperty, setShowAddProperty] = useState(false);
     const [isGeocoding, setIsGeocoding] = useState(false);
@@ -317,6 +320,10 @@ const AdminDashboard = () => {
 
             await Promise.all(uploadPromises);
 
+            // "Property published" event for the social drafts, once the
+            // photos exist. Fire-and-forget: it never blocks or undoes the save.
+            if (!editingId) notifyPropertyPublished(propertyId);
+
             // Update main image if new photos added and we want to set one (simple logic for now)
             if (mainImageUrl && !editingId) {
                 // Initial set was done during creation if we knew the URL, but we didn't. 
@@ -463,7 +470,15 @@ const AdminDashboard = () => {
                     >
                         <BookOpen size={18} /> Blog
                     </button>
+                    <button
+                        className={`tab-btn ${activeTab === 'social' ? 'active' : ''}`}
+                        onClick={() => setActiveTab('social')}
+                    >
+                        <Share2 size={18} /> Redes sociales
+                    </button>
                 </div>
+
+                {activeTab === 'social' && <SocialMediaPanel />}
 
                 {/* LEADS VIEW */}
                 {activeTab === 'leads' && (

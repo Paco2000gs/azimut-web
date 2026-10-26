@@ -28,7 +28,7 @@ const setLink = (selector, rel, href, hreflang) => {
     el.setAttribute('href', href);
 };
 
-const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, keywords = '', lang = 'es', alternates = null }) => {
+const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type = 'website', noindex = false, keywords = '', lang = 'es', alternates = null }) => {
     const siteTitle = 'Azimut Property | Luxury Real Estate & Villas in Marbella and Andalusia';
     const defaultDescription = 'Exclusive real estate in Marbella, Estepona and Benahavís. Off-market villas, branded residences and expert consultancy for international buyers.';
     // A real 1200x630 card, not the logo: social platforms lay the preview out
@@ -119,7 +119,9 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
         setMeta('name', 'twitter:title', fullTitle);
         setMeta('name', 'twitter:description', fullDescription);
         setMeta('name', 'twitter:image', fullImage);
-    }, [fullTitle, fullDescription, fullUrl, fullImage, ogLocale, lang, type, keywords, noindex, alternates]);
+        setMeta('property', 'og:image:alt', imageAlt);
+        setMeta('name', 'twitter:image:alt', imageAlt);
+    }, [fullTitle, fullDescription, fullUrl, fullImage, imageAlt, ogLocale, lang, type, keywords, noindex, alternates]);
 
     return (
         <Helmet>
@@ -155,6 +157,7 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
             <meta property="og:image" content={fullImage} />
             {dims && <meta property="og:image:width" content={String(dims.width)} />}
             {dims && <meta property="og:image:height" content={String(dims.height)} />}
+            {imageAlt && <meta property="og:image:alt" content={imageAlt} />}
             <meta property="og:site_name" content="Azimut Property" />
             <meta property="og:locale" content={ogLocale} />
 
@@ -164,6 +167,7 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
             <meta name="twitter:title" content={fullTitle} />
             <meta name="twitter:description" content={fullDescription} />
             <meta name="twitter:image" content={fullImage} />
+            {imageAlt && <meta name="twitter:image:alt" content={imageAlt} />}
         </Helmet>
     );
 };

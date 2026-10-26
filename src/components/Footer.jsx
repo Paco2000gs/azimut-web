@@ -1,7 +1,17 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Linkedin, Facebook, Mail } from 'lucide-react';
+import { Instagram, Linkedin, Facebook, Youtube, Mail } from 'lucide-react';
 import '../styles/Footer.css';
+
+// Profile URLs come from the build env (VITE_SOCIAL_*). A network with no URL
+// is not rendered at all: an icon pointing at a profile that doesn't exist yet
+// is a broken link (linkedin.com/company/azimutproperty was a 404).
+const SOCIAL_LINKS = [
+    { url: import.meta.env.VITE_SOCIAL_INSTAGRAM_URL, label: 'Instagram', Icon: Instagram },
+    { url: import.meta.env.VITE_SOCIAL_LINKEDIN_URL, label: 'LinkedIn', Icon: Linkedin },
+    { url: import.meta.env.VITE_SOCIAL_FACEBOOK_URL, label: 'Facebook', Icon: Facebook },
+    { url: import.meta.env.VITE_SOCIAL_YOUTUBE_URL, label: 'YouTube', Icon: Youtube },
+].filter(s => /^https:\/\//.test(s.url || ''));
 
 const Footer = () => {
     return (
@@ -85,17 +95,15 @@ const Footer = () => {
                     <div className="copyright">
                         &copy; {new Date().getFullYear()} Azimut Property. All rights reserved.
                     </div>
-                    <div className="social-links">
-                        <a href="https://www.instagram.com/azimutproperty" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
-                            <Instagram size={20} aria-hidden="true" />
-                        </a>
-                        <a href="https://www.linkedin.com/company/azimutproperty" target="_blank" rel="noopener noreferrer" aria-label="Follow us on LinkedIn">
-                            <Linkedin size={20} aria-hidden="true" />
-                        </a>
-                        <a href="https://www.facebook.com/azimutproperty" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
-                            <Facebook size={20} aria-hidden="true" />
-                        </a>
-                    </div>
+                    {SOCIAL_LINKS.length > 0 && (
+                        <div className="social-links">
+                            {SOCIAL_LINKS.map(s => (
+                                <a key={s.label} href={s.url} target="_blank" rel="noopener noreferrer" aria-label={`Follow us on ${s.label}`}>
+                                    <s.Icon size={20} aria-hidden="true" />
+                                </a>
+                            ))}
+                        </div>
+                    )}
                 </div>
             </div>
         </footer>
