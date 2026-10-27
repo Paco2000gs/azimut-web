@@ -70,7 +70,18 @@ export const handle = async (req, res, deps = {}) => {
         // --- Admin (Supabase session + allow-list) -----------------------
         const user = await store.getUserFromJwt(bearer(req));
         const email = String(user?.email || '').toLowerCase();
-        if (!user || !config.adminEmails.includes(email)) return send(401, { error: 'No autorizado' });
+        if (!user || !config.adminEmails.includes(email)) {
+            // TEMP diagnostic (remove after fixing the preview 401). No secret values are logged.
+            console.warn('[social-401]', JSON.stringify({
+                userFound: !!user,
+                email,
+                adminEmailsRaw: process.env.ADMIN_EMAILS ?? null,
+                adminEmails: config.adminEmails,
+                supabaseUrl: config.supabaseUrl,
+                serviceKeyLength: config.supabaseServiceKey.length,
+            }));
+            return send(401, { error: 'No autorizado' });
+        }
 
         if (a === 'property-published' && method === 'POST') {
             const { propertyId } = readBody(req);
