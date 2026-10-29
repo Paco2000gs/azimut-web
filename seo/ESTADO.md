@@ -3,7 +3,7 @@
 **Fuente única de verdad** para la indexación y la captación orgánica de esta web.
 Lee este archivo antes de empezar cualquier trabajo SEO y actualízalo al terminar.
 
-Última actualización: 29-oct-2026 · `main` en `9575d0e`
+Última actualización: 29-oct-2026 · `main` en `d77532f`
 
 Unifica lo trabajado en las sesiones "Metadatos azimutproperty" (sep–oct) y
 "Problemas de indexación Google" (20–22 oct). Documentos anteriores de esta carpeta:
@@ -89,8 +89,21 @@ solicitud de indexación de las tres landings de cortijos.
 4. **Barcelona.** Se añadió al catálogo el 23-oct, pero todo el posicionamiento (JSON-LD, `llms.txt`,
    textos) habla de Andalucía. Decidir si el nicho se amplía o Barcelona queda como excepción sin SEO propio.
 
-## 7. Cómo actualizar este archivo
+## 7. Ramas del repo
+
+Comprobado el 29-oct-2026 contra `main` (`d77532f`). Solo `main` se despliega en producción.
+
+| Rama | Sin fusionar en `main` | Contenido | Estado |
+|---|---|---|---|
+| `feature/redes-sociales` | 5 commits (23–28 oct) | Borradores IA y publicación en redes (dry-run) | **No está en producción.** Falta la prueba en dry-run, PR a `main`, variables de entorno y alta de las apps. Lleva dentro una copia anterior del commit de Barcelona (`09353ec`), que ya está en `main` como `598030c` |
+| `ccr-34f13e48-s5wyp7` | 2 commits (23 oct) | Piloto de vídeos de propiedades con HyperFrames (Finca Jimena, 19) | Sin decidir |
+| `ccr-5f89aeba-9r22dw` | 2 commits (1 oct) | Skills `yt-*` y perfil de voz para el canal El Caminante de Emaús | No es de esta web. Probablemente no deba fusionarse aquí |
+| `ccr-151cf3f0-tu6b1t` | 1 commit (2 oct) | Skill prompt-master | No es de esta web |
+| `ccr-dc3024b6-km4k3a`, `claude/azimutproperty-metadata-ho6r8x`, `claude/jolly-fermi-v1179g` | 0 | Trabajo SEO ya fusionado | Se pueden borrar |
+| `backup/main-pre-seo-metadata-20260913` | — | Copia de `main` antes del despliegue SEO del 13-sep | Conservar como respaldo |
+
+## 8. Cómo actualizar este archivo
 
 Al cerrar cada bloque de trabajo: añade una fila a la sección 3 con commit y fecha,
-marca o quita los pendientes resueltos y cambia la fecha de arriba.
+marca o quita los pendientes resueltos, revisa la sección 7 de ramas y cambia la fecha de arriba.
 Las cifras sin fuente se marcan como **[sin verificar]**.
