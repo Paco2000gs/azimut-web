@@ -100,8 +100,9 @@ Comprobado el 29-oct-2026. Solo `main` se despliega en producción.
 | `ccr-151cf3f0-tu6b1t` | 1 commit (2 oct) | Skill prompt-master | No es de esta web |
 | `backup/main-pre-seo-metadata-20260913` | — | Copia de `main` antes del despliegue SEO del 13-sep | Conservar como respaldo |
 
-Las ramas SEO ya fusionadas (`ccr-dc3024b6-km4k3a`, `claude/azimutproperty-metadata-ho6r8x`,
-`claude/jolly-fermi-v1179g`) se borraron el 29-oct. Su trabajo está en `main`.
+Ramas SEO ya fusionadas en `main` y **pendientes de borrar** desde GitHub → Branches
+(las sesiones de Claude en la nube no pueden borrar ramas): `ccr-dc3024b6-km4k3a`,
+`claude/azimutproperty-metadata-ho6r8x` y `claude/jolly-fermi-v1179g`.
 
 ## 8. Cómo actualizar este archivo
 
