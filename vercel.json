@@ -63,31 +63,6 @@
       "permanent": true
     },
     {
-      "source": "/property/finca-vera-29",
-      "destination": "/venta/vera",
-      "permanent": true
-    },
-    {
-      "source": "/property/villa-estepona-30",
-      "destination": "/venta/estepona",
-      "permanent": true
-    },
-    {
-      "source": "/property/finca-almonte-31",
-      "destination": "/venta/huelva",
-      "permanent": true
-    },
-    {
-      "source": "/property/finca-aracena-32",
-      "destination": "/venta/huelva",
-      "permanent": true
-    },
-    {
-      "source": "/property/finca-medina-sidonia-33",
-      "destination": "/venta/cadiz",
-      "permanent": true
-    },
-    {
       "source": "/venta/olivenza/villa",
       "destination": "/venta",
       "permanent": true
