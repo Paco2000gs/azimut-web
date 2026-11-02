@@ -40,7 +40,7 @@ Message: ${formData.message || 'Information request.'}
             setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
         } catch (err) {
             console.error('Error submitting form:', err);
-            setError('We could not send your request. Please try again, or write to info@azimutproperty.com.');
+            setError('No hemos podido enviar su solicitud. Inténtelo de nuevo o escriba a info@azimutproperty.com.');
         } finally {
             setLoading(false);
         }
@@ -54,10 +54,10 @@ Message: ${formData.message || 'Information request.'}
         return (
             <div className="inquiry-success" role="status">
                 <CheckCircle size={40} strokeWidth={1.25} aria-hidden="true" />
-                <h3>Request received</h3>
-                <p>We will send the private dossier to your email shortly.</p>
+                <h3>Solicitud recibida</h3>
+                <p>Le enviaremos el dossier privado a su correo en breve.</p>
                 <button onClick={() => setSubmitted(false)} className="btn-text">
-                    Send another inquiry
+                    Enviar otra consulta
                 </button>
             </div>
         );
@@ -66,13 +66,13 @@ Message: ${formData.message || 'Information request.'}
     return (
         <div className="property-inquiry-form">
             <div className="form-header">
-                <h3>Request Private Dossier</h3>
-                <p>Receive detailed and confidential information about this property.</p>
+                <h3>Solicitar dossier privado</h3>
+                <p>Reciba información detallada y confidencial sobre este inmueble.</p>
             </div>
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="inq-name">Full name</label>
+                    <label htmlFor="inq-name">Nombre completo</label>
                     <input
                         id="inq-name"
                         type="text"
@@ -86,7 +86,7 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inq-email">Email</label>
+                    <label htmlFor="inq-email">Correo electrónico</label>
                     <input
                         id="inq-email"
                         type="email"
@@ -100,7 +100,7 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inq-phone">Phone <span className="label-optional">optional</span></label>
+                    <label htmlFor="inq-phone">Teléfono <span className="label-optional">opcional</span></label>
                     <input
                         id="inq-phone"
                         type="tel"
@@ -113,7 +113,7 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inq-budget">Investment range</label>
+                    <label htmlFor="inq-budget">Rango de inversión</label>
                     <select
                         id="inq-budget"
                         name="budget"
@@ -122,16 +122,16 @@ Message: ${formData.message || 'Information request.'}
                         className="minimal-input"
                         required
                     >
-                        <option value="" disabled>Select a range</option>
-                        <option value="< 500k">Below €500k</option>
+                        <option value="" disabled>Seleccione un rango</option>
+                        <option value="< 500k">Menos de €500k</option>
                         <option value="500k - 1M">€500k – €1M</option>
                         <option value="1M - 3M">€1M – €3M</option>
-                        <option value="> 3M">Above €3M</option>
+                        <option value="> 3M">Más de €3M</option>
                     </select>
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inq-message">Message <span className="label-optional">optional</span></label>
+                    <label htmlFor="inq-message">Mensaje <span className="label-optional">opcional</span></label>
                     <textarea
                         id="inq-message"
                         name="message"
@@ -143,14 +143,14 @@ Message: ${formData.message || 'Information request.'}
                 </div>
 
                 <button type="submit" className="btn-gold-full" disabled={loading}>
-                    {loading ? 'Sending…' : 'Request Dossier'}
+                    {loading ? 'Enviando…' : 'Solicitar dossier'}
                 </button>
 
                 {error && <p className="form-error" role="alert">{error}</p>}
 
                 <div className="form-trust-indicators">
-                    <p>Treated with strict confidentiality.</p>
-                    <p>Join a growing community of investors receiving our private dossiers.</p>
+                    <p>Tratado con estricta confidencialidad.</p>
+                    <p>Únase a la creciente comunidad de inversores que reciben nuestros dossiers privados.</p>
                 </div>
             </form>
         </div>

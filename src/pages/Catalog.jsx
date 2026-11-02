@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { useSearchParams, useParams } from 'react-router-dom';
+import { Link, useSearchParams, useParams } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import PropertyCard from '../components/PropertyCard';
@@ -141,25 +141,28 @@ const Catalog = () => {
     // Per-province SEO data for rural Andalusia focus
     const PROVINCE_SEO = {
         'cadiz': {
-            title: 'Fincas de Lujo, Haciendas y Fincas Ecuestres en Cádiz | Azimut Property',
-            description: 'Haciendas históricas, cortijos de olivar y fincas ecuestres en Cádiz — de Jerez y Arcos a Jimena de la Frontera, junto a Sotogrande. Acceso a propiedades rurales de lujo fuera de mercado.',
-            keywords: 'finca de lujo Cádiz, hacienda histórica Cádiz, finca ecuestre Jerez, cortijo de olivar Cádiz, finca en venta Jimena de la Frontera, propiedad rural de lujo Cádiz, finca cerca de Sotogrande',
+            title: 'Fincas de Lujo y Haciendas en Venta en Cádiz | Azimut Property',
+            description: 'Cortijos, haciendas y fincas ecuestres en venta en Cádiz — de Jerez y Arcos a Jimena de la Frontera, junto a Sotogrande. Propiedades rurales de lujo fuera de mercado.',
+            keywords: 'cortijos en venta en Cádiz, cortijo de olivar Cádiz, finca de lujo Cádiz, hacienda histórica Cádiz, finca ecuestre Jerez, finca en venta Jimena de la Frontera, finca cerca de Sotogrande',
             h1: 'Fincas de Lujo, Haciendas y Fincas Ecuestres en Venta en Cádiz',
             hero: 'Del cortijo de olivar en Arcos a la finca ecuestre junto a Sotogrande: propiedad rural de alto nivel en la provincia de Cádiz',
+            landing: '/cortijos-en-venta-cadiz',
         },
         'huelva': {
-            title: 'Chalets y Fincas en Huelva | Azimut Property',
-            description: 'Propiedades rurales en Huelva: chalets con terreno, fincas agrícolas y casas de campo. Inversión segura en el campo onubense.',
-            keywords: 'chalet Huelva, finca Huelva, casa rural Huelva, propiedad rural Huelva',
+            title: 'Fincas y Chalets con Terreno en Venta en Huelva | Azimut Property',
+            description: 'Cortijos, fincas y chalets con terreno en venta en Huelva: campo onubense entre Doñana y la Sierra de Aracena. Propiedades rurales con asesoramiento para el comprador internacional.',
+            keywords: 'cortijos en venta en Huelva, fincas Huelva, cortijo Huelva, chalet con terreno Huelva, casa rural Huelva, propiedad rural Huelva',
             h1: 'Fincas y Chalets con Terreno en Venta en Huelva',
             hero: 'Propiedades rurales únicas entre el Parque Nacional de Doñana y la Sierra de Aracena',
+            landing: '/cortijos-en-venta-huelva',
         },
         'sevilla': {
-            title: 'Haciendas, Cortijos de Olivar y Fincas de Lujo en Sevilla | Azimut Property',
-            description: 'Haciendas históricas, cortijos de olivar de inversión y fincas ecuestres en la campiña de Sevilla — Carmona, Écija, Osuna y el Aljarafe. Acceso a propiedades exclusivas fuera de mercado.',
-            keywords: 'hacienda histórica en venta Sevilla, cortijo de olivar Sevilla, finca ecuestre Sevilla, finca de olivar de inversión, finca de lujo Sevilla, olivar en venta Andalucía, hacienda para hotel rural Sevilla',
+            title: 'Fincas y Haciendas en Venta en Sevilla | Azimut Property',
+            description: 'Cortijos en venta en Sevilla: haciendas históricas, cortijos de olivar y fincas ecuestres en Carmona, Écija, Osuna y el Aljarafe. Propiedades exclusivas fuera de mercado.',
+            keywords: 'cortijos en venta en Sevilla, cortijo en venta Sevilla, cortijos Sevilla, hacienda histórica en venta Sevilla, cortijo de olivar Sevilla, finca ecuestre Sevilla, finca de lujo Sevilla',
             h1: 'Haciendas, Cortijos de Olivar y Fincas Ecuestres en Venta en Sevilla',
             hero: 'Adquiere una hacienda histórica, un cortijo de olivar de inversión o una finca ecuestre en la provincia de Sevilla',
+            landing: '/cortijos-en-venta-sevilla',
         },
         'malaga': {
             title: 'Fincas, Terrenos y Cortijos en Málaga | Azimut Property',
@@ -209,23 +212,28 @@ const Catalog = () => {
     }, [urlCity, urlArea, isProvincePage, properties, loading]);
 
     // Dynamic SEO data
+    // Spanish, like the page itself. The English fallbacks here were shipping as
+    // the <title>/description of every city and silo page under a Spanish H1 and
+    // body, which is the mixed-language signal Google weighs when it decides
+    // "Crawled - currently not indexed". Province pages already use Spanish
+    // (PROVINCE_SEO above), so the city and catalogue fallbacks follow suit.
     const seoTitle = useMemo(() => {
         if (provinceSeo) return provinceSeo.title;
-        if (city) return `Luxury Real Estate & Villas for Sale in ${city}`;
-        if (type) return `Exclusive ${type}s for Sale in Andalusia`;
-        return "Property Catalogue | Luxury Real Estate";
+        if (city) return `Propiedades de Lujo en Venta en ${city} | Azimut Property`;
+        if (type) return `${type}s de Lujo en Venta en Andalucía | Azimut Property`;
+        return "Catálogo de Propiedades de Lujo en Venta en Andalucía | Azimut Property";
     }, [city, type, provinceSeo]);
 
     const seoDescription = useMemo(() => {
         if (provinceSeo) return provinceSeo.description;
-        if (city) return `Discover the most exclusive luxury properties for sale in ${city}. High-end villas, apartments, and off-market listings in ${city}, Costa del Sol.`;
-        return "Explore our exclusive collection of luxury villas, apartments, and estates in the most prestigious locations in Andalusia.";
+        if (city) return `Propiedades exclusivas en venta en ${city}, Costa del Sol: villas, fincas y casas de lujo, incluidas operaciones fuera de mercado para compradores internacionales.`;
+        return "Catálogo de villas, fincas y casas de lujo en venta en Andalucía y Costa del Sol, con acceso exclusivo para compradores internacionales.";
     }, [city, provinceSeo]);
 
     const seoKeywords = useMemo(() => {
         if (provinceSeo) return provinceSeo.keywords;
-        if (city) return `properties ${city}, villas ${city}, luxury real estate ${city}, Costa del Sol`;
-        return "luxury properties Costa del Sol, villas Marbella, apartments Estepona, real estate Andalusia";
+        if (city) return `propiedades ${city}, villas ${city}, inmobiliaria de lujo ${city}, Costa del Sol`;
+        return "propiedades de lujo Costa del Sol, villas Marbella, casas Estepona, inmobiliaria Andalucía";
     }, [city, provinceSeo]);
 
     const breadcrumbSchema = useMemo(() => {
@@ -292,16 +300,19 @@ const Catalog = () => {
                 <div className="container">
                     <h1>{provinceSeo ? provinceSeo.h1 : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
                     <p>{provinceSeo ? provinceSeo.hero : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
+                    {provinceSeo?.landing && (
+                        <p><Link to={provinceSeo.landing}>Guía de cortijos en venta en esta provincia</Link></p>
+                    )}
                 </div>
             </div>
 
             {/* Breadcrumbs UI */}
             <div className="container">
-                <nav className="breadcrumbs" aria-label="Breadcrumb">
+                <nav className="breadcrumbs" aria-label="Ruta de navegación">
                     <ol>
-                        <li><a href="/">Home</a></li>
+                        <li><a href="/">Inicio</a></li>
                         <li aria-hidden="true" className="breadcrumb-sep">/</li>
-                        <li><a href="/venta">Properties</a></li>
+                        <li><a href="/venta">Propiedades</a></li>
                         {urlCity && (
                             <>
                                 <li aria-hidden="true" className="breadcrumb-sep">/</li>
@@ -327,9 +338,9 @@ const Catalog = () => {
                 <div className="container">
                     <div className="search-filters">
                         <div className="filter-item">
-                            <label htmlFor="filter-province">Province</label>
+                            <label htmlFor="filter-province">Provincia</label>
                             <select id="filter-province" value={province} onChange={handleProvinceChange} className="filter-select">
-                                <option value="">All</option>
+                                <option value="">Todas</option>
                                 {PROVINCES.map(prov => (
                                     <option key={prov} value={prov}>{prov}</option>
                                 ))}
@@ -337,14 +348,14 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-city">City / Area</label>
+                            <label htmlFor="filter-city">Ciudad / Zona</label>
                             <select id="filter-city" value={city} onChange={(e) => setCity(e.target.value)} disabled={!province} className="filter-select">
                                 <option value="">
                                     {!province
-                                        ? "Select Province"
+                                        ? "Seleccione una provincia"
                                         : availableCities.length === 0
-                                            ? "No properties"
-                                            : "All cities"}
+                                            ? "Sin inmuebles"
+                                            : "Todas las ciudades"}
                                 </option>
                                 {availableCities.map(c => (
                                     <option key={c} value={c}>{c}</option>
@@ -353,9 +364,9 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-type">Type</label>
+                            <label htmlFor="filter-type">Tipo</label>
                             <select id="filter-type" value={type} onChange={(e) => setType(e.target.value)} className="filter-select">
-                                <option value="">All</option>
+                                <option value="">Todas</option>
                                 {availableTypes.map(t => (
                                     <option key={t} value={t}>{t}</option>
                                 ))}
@@ -363,11 +374,11 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-min">Min Price (€)</label>
+                            <label htmlFor="filter-min">Precio mín. (€)</label>
                             <input
                                 id="filter-min"
                                 type="number"
-                                placeholder="Min"
+                                placeholder="Mín."
                                 value={minPrice}
                                 onChange={(e) => setMinPrice(e.target.value)}
                                 className="filter-input"
@@ -375,11 +386,11 @@ const Catalog = () => {
                         </div>
 
                         <div className="filter-item">
-                            <label htmlFor="filter-max">Max Price (€)</label>
+                            <label htmlFor="filter-max">Precio máx. (€)</label>
                             <input
                                 id="filter-max"
                                 type="number"
-                                placeholder="Max"
+                                placeholder="Máx."
                                 value={maxPrice}
                                 onChange={(e) => setMaxPrice(e.target.value)}
                                 className="filter-input"
@@ -393,9 +404,9 @@ const Catalog = () => {
                 {/* Results Count */}
                 <div className="results-header" aria-live="polite">
                     {loading ? (
-                        <span>Searching…</span>
+                        <span>Buscando…</span>
                     ) : (
-                        <span>{filteredProperties.length} {filteredProperties.length === 1 ? 'property' : 'properties'} available</span>
+                        <span>{filteredProperties.length} {filteredProperties.length === 1 ? 'inmueble disponible' : 'inmuebles disponibles'}</span>
                     )}
                 </div>
 
@@ -404,7 +415,7 @@ const Catalog = () => {
                     {loading ? (
                         <div className="loading-state" role="status">
                             <div className="spinner" aria-hidden="true"></div>
-                            <p>Loading properties…</p>
+                            <p>Cargando inmuebles…</p>
                         </div>
                     ) : filteredProperties.length > 0 ? (
                         <div className="wide-grid">
@@ -418,9 +429,9 @@ const Catalog = () => {
                         </div>
                     ) : (
                         <div className="no-results">
-                            <h2>No properties match these filters</h2>
-                            <p>Widen the price range or choose another province — our off-market
-                                register often holds assets that are not listed here.</p>
+                            <h2>Ningún inmueble coincide con estos filtros</h2>
+                            <p>Amplíe el rango de precios o elija otra provincia: nuestro registro fuera de mercado
+                                suele incluir inmuebles que no aparecen aquí.</p>
                             <button
                                 onClick={() => {
                                     setProvince('');

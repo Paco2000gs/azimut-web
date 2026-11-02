@@ -63,6 +63,41 @@
       "permanent": true
     },
     {
+      "source": "/property/finca-vera-29",
+      "destination": "/venta/vera",
+      "permanent": true
+    },
+    {
+      "source": "/property/villa-estepona-30",
+      "destination": "/venta/estepona",
+      "permanent": true
+    },
+    {
+      "source": "/property/finca-almonte-31",
+      "destination": "/venta/huelva",
+      "permanent": true
+    },
+    {
+      "source": "/property/finca-aracena-32",
+      "destination": "/venta/huelva",
+      "permanent": true
+    },
+    {
+      "source": "/property/finca-medina-sidonia-33",
+      "destination": "/venta/cadiz",
+      "permanent": true
+    },
+    {
+      "source": "/venta/olivenza/villa",
+      "destination": "/venta",
+      "permanent": true
+    },
+    {
+      "source": "/venta/jimena-de-la-frontera/villa",
+      "destination": "/venta/jimena-de-la-frontera",
+      "permanent": true
+    },
+    {
       "source": "/blog/hidden-gems-vistahermosa-costa-ballena",
       "destination": "/blog",
       "permanent": true

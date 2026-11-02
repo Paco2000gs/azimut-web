@@ -70,24 +70,24 @@ const Header = () => {
                 </Link>
 
                 <nav id="main-nav" className={`nav ${isOpen ? 'open' : ''}`} aria-label="Main navigation">
-                    <NavLink to="/" onClick={closeMenu}>Home</NavLink>
-                    <NavLink to="/venta" onClick={closeMenu}>Properties</NavLink>
-                    <NavLink to="/venta?type=finca" onClick={closeMenu}>Rural Estates</NavLink>
-                    <NavLink to="/about" onClick={closeMenu}>About Us</NavLink>
-                    <NavLink to="/blog" onClick={closeMenu}>Journal</NavLink>
+                    <NavLink to="/" onClick={closeMenu}>Inicio</NavLink>
+                    <NavLink to="/venta" onClick={closeMenu}>Propiedades</NavLink>
+                    <NavLink to="/venta?type=finca" onClick={closeMenu}>Fincas rústicas</NavLink>
+                    <NavLink to="/about" onClick={closeMenu}>Sobre nosotros</NavLink>
+                    <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
                     {/* Appears only once something is saved: an empty shortlist is
                         a seventh navigation item earning nothing. */}
                     {shortlistCount > 0 && (
                         <NavLink to="/shortlist" className="nav-shortlist" onClick={closeMenu}>
                             <Bookmark size={15} aria-hidden="true" />
-                            <span>Shortlist</span>
+                            <span>Favoritos</span>
                             <span className="nav-shortlist-count" aria-hidden="true">{shortlistCount}</span>
                             <span className="visual-hidden">
-                                {shortlistCount} {shortlistCount === 1 ? 'estate' : 'estates'} saved
+                                {shortlistCount} {shortlistCount === 1 ? 'inmueble guardado' : 'inmuebles guardados'}
                             </span>
                         </NavLink>
                     )}
-                    <NavLink to="/contact" className="btn-nav" onClick={closeMenu}>Contact</NavLink>
+                    <NavLink to="/contact" className="btn-nav" onClick={closeMenu}>Contacto</NavLink>
                 </nav>
 
                 <button

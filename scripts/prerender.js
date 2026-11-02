@@ -34,6 +34,10 @@ const STATIC_ROUTES = [
     '/mansions-sotogrande',
     '/equestrian-estates-jimena-de-la-frontera',
     '/olive-estates-sevilla',
+    // Spanish-only cortijo collections (Search Console report, 22/10/2026)
+    '/cortijos-en-venta-sevilla',
+    '/cortijos-en-venta-huelva',
+    '/cortijos-en-venta-cadiz',
     // Spanish versions of the landing pages (SEO audit, priority #4)
     '/es/villas-de-lujo-marbella',
     '/es/mansiones-sotogrande',

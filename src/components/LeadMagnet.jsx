@@ -33,7 +33,7 @@ const LeadMagnet = () => {
                     {status === 'done' ? (
                         <div className="lead-magnet-success" role="status">
                             <CheckCircle size={40} strokeWidth={1.25} aria-hidden="true" />
-                            <h2 id="lead-magnet-title">The guide is on its way</h2>
+                            <h2 id="lead-magnet-title">La guía está en camino</h2>
                             <p>
                                 We have sent the Rural Asset Investment Guide 2026 to {email}. If it
                                 does not arrive within a few minutes, check your spam folder or write
@@ -42,7 +42,7 @@ const LeadMagnet = () => {
                         </div>
                     ) : (
                         <>
-                            <h2 id="lead-magnet-title">Rural Asset Investment Guide 2026</h2>
+                            <h2 id="lead-magnet-title">Guía de inversión en fincas rústicas 2026</h2>
                             <p className="lead-magnet-intro">
                                 How to identify high-yield estates in Cádiz and Sevilla: price per
                                 hectare, CAP subsidies and tourism potential, analysed by our
@@ -50,41 +50,41 @@ const LeadMagnet = () => {
                             </p>
 
                             <ul className="lead-features">
-                                <li>Price map for 2026</li>
-                                <li>Five emerging areas</li>
-                                <li>Tax guide for non-resident buyers</li>
+                                <li>Mapa de precios de 2026</li>
+                                <li>Cinco zonas emergentes</li>
+                                <li>Guía fiscal para compradores no residentes</li>
                             </ul>
 
                             <form onSubmit={handleSubmit} className="lead-form" noValidate={false}>
                                 <div className="input-group">
-                                    <label htmlFor="lead-email" className="visual-hidden">Email address</label>
+                                    <label htmlFor="lead-email" className="visual-hidden">Correo electrónico</label>
                                     <Mail className="input-icon" size={18} aria-hidden="true" />
                                     <input
                                         id="lead-email"
                                         type="email"
                                         name="email"
                                         autoComplete="email"
-                                        placeholder="Your email address"
+                                        placeholder="Su correo electrónico"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         required
                                     />
                                 </div>
                                 <button type="submit" className="btn btn-gold btn-lead" disabled={status === 'sending'}>
-                                    {status === 'sending' ? 'Sending…' : 'Request the guide'}
+                                    {status === 'sending' ? 'Enviando…' : 'Solicitar la guía'}
                                     <ArrowRight size={16} aria-hidden="true" />
                                 </button>
                             </form>
 
                             {status === 'error' && (
                                 <p className="lead-error" role="alert">
-                                    We could not register your request. Please try again, or email
-                                    info@azimutproperty.com directly.
+                                    No hemos podido registrar su solicitud. Inténtelo de nuevo o escriba
+                                    directamente a info@azimutproperty.com.
                                 </p>
                             )}
 
                             <p className="privacy-note">
-                                Your details stay with us. No newsletters, no third parties.
+                                Sus datos quedan con nosotros. Sin boletines ni terceros.
                             </p>
                         </>
                     )}
@@ -99,7 +99,7 @@ const LeadMagnet = () => {
                         />
                         <img
                             src="/media/guide-terraces-900.webp"
-                            alt="Terraced olive groves on an Andalusian hillside estate"
+                            alt="Olivares en terrazas en una finca de ladera andaluza"
                             loading="lazy"
                             decoding="async"
                             width="900"

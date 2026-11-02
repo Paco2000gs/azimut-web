@@ -12,14 +12,14 @@ const Terms = () => {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Terms of Service", "item": "https://www.azimutproperty.com/terms" }
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Condiciones de uso", "item": "https://www.azimutproperty.com/terms" }
         ]
     };
 
     return (
         <div className="page terms">
-            <SEO title="Terms of Service" description="Terms and conditions of use for the Azimut Property website." url="/terms" lang="en" />
+            <SEO title="Condiciones de uso" description="Términos y condiciones de uso de la web de Azimut Property." url="/terms" lang="es" />
             <Helmet>
                 <script type="application/ld+json">
                     {JSON.stringify(breadcrumbSchema)}
@@ -27,32 +27,32 @@ const Terms = () => {
             </Helmet>
             <div className="container legal-page">
                 <div className="legal-content">
-                <h1>Terms of Service</h1>
-                <p className="legal-updated">Last updated: December 1, 2025</p>
+                <h1>Condiciones de uso</h1>
+                <p className="legal-updated">Última actualización: 1 de diciembre de 2025</p>
 
                 <section>
-                    <h2>1. Agreement to Terms</h2>
-                    <p>By accessing our website, you agree to be bound by these Terms of Service and to comply with all applicable laws and regulations. If you do not agree with these terms, you are prohibited from using or accessing this site.</p>
+                    <h2>1. Aceptación de las condiciones</h2>
+                    <p>Al acceder a nuestra web, acepta quedar vinculado por estas Condiciones de uso y cumplir todas las leyes y normativas aplicables. Si no está de acuerdo con estas condiciones, no puede utilizar ni acceder a este sitio.</p>
                 </section>
 
                 <section>
-                    <h2>2. Intellectual Property</h2>
-                    <p>The content, organization, graphics, design, compilation, and other matters related to the Site are protected under applicable copyrights, trademarks, and other proprietary (including but not limited to intellectual property) rights. The copying, redistribution, use or publication by you of any such matters or any part of the Site is strictly prohibited.</p>
+                    <h2>2. Propiedad intelectual</h2>
+                    <p>El contenido, la organización, los gráficos, el diseño, la compilación y el resto de elementos relacionados con el sitio están protegidos por los derechos de autor, las marcas y otros derechos de propiedad (incluidos, entre otros, los derechos de propiedad intelectual) que sean de aplicación. Queda terminantemente prohibida la copia, redistribución, uso o publicación por su parte de cualquiera de estos elementos o de cualquier parte del sitio.</p>
                 </section>
 
                 <section>
-                    <h2>3. Disclaimer</h2>
-                    <p>The materials on AzimutProperty's website are provided on an 'as is' basis. AzimutProperty makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights.</p>
+                    <h2>3. Exención de responsabilidad</h2>
+                    <p>Los materiales de la web de AzimutProperty se ofrecen «tal cual». AzimutProperty no otorga garantías, expresas o implícitas, y declara y excluye todas las demás garantías, incluidas, sin limitación, las garantías o condiciones implícitas de comerciabilidad, idoneidad para un fin determinado o no infracción de derechos de propiedad intelectual u otras vulneraciones de derechos.</p>
                 </section>
 
                 <section>
-                    <h2>4. Limitations</h2>
-                    <p>In no event shall AzimutProperty or its suppliers be liable for any damages (including, without limitation, damages for loss of data or profit, or due to business interruption) arising out of the use or inability to use the materials on AzimutProperty's website.</p>
+                    <h2>4. Limitaciones</h2>
+                    <p>En ningún caso AzimutProperty ni sus proveedores serán responsables de los daños (incluidos, sin limitación, los daños por pérdida de datos o de beneficios, o por interrupción de la actividad) derivados del uso de los materiales de la web de AzimutProperty o de la imposibilidad de utilizarlos.</p>
                 </section>
 
                     <section>
-                        <h2>5. Governing Law</h2>
-                        <p>These terms and conditions are governed by and construed in accordance with the laws of Spain and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.</p>
+                        <h2>5. Legislación aplicable</h2>
+                        <p>Estas condiciones se rigen e interpretan de acuerdo con las leyes de España, y usted se somete de forma irrevocable a la jurisdicción exclusiva de los tribunales de ese Estado o lugar.</p>
                     </section>
                 </div>
             </div>

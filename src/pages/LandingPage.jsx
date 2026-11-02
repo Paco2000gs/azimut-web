@@ -219,6 +219,89 @@ const LANDINGS = {
             listingsCta: 'Ver fincas en Sevilla',
         },
     },
+
+    // Spanish-only collections: the search demand is Spanish ("cortijos en venta
+    // en Sevilla") and there is no English version, so they are served at
+    // `/${slug}` with a self-referencing hreflang and no language switch. Each
+    // targets a cortijo keyword that the province page /venta/{provincia} does
+    // not lead with, so the two pages do not compete for the same query.
+    'cortijos-en-venta-sevilla': {
+        esOnly: true,
+        match: (p) => /(sevilla|seville)/.test(text(p)) && /(finca|cortijo|hacienda|estate)/.test(text(p)),
+        es: {
+            eyebrow: 'Campiña Sevillana',
+            h1: 'Cortijos en Venta en Sevilla',
+            subhead: 'Cortijos de olivar, haciendas históricas y fincas rurales en Carmona, Écija, Osuna y el Aljarafe, con acompañamiento completo en la compra.',
+            heroAlt: 'Cortijo andaluz entre olivares en la campiña sevillana',
+            seoTitle: 'Cortijos en Venta en Sevilla | Olivar y Haciendas | Azimut Property',
+            seoDescription: 'Cortijos en venta en Sevilla: cortijos de olivar, haciendas históricas y fincas rurales en Carmona, Écija, Osuna y el Aljarafe. Propiedades exclusivas fuera de mercado.',
+            keywords: 'cortijos en venta en Sevilla, cortijo en venta Sevilla, cortijo de olivar Sevilla, cortijo Carmona, cortijo Écija, hacienda histórica Sevilla',
+            intro: [
+                'La campiña sevillana es una de las zonas rurales más reconocibles de Andalucía: olivares, cortijos y haciendas históricas entre Carmona, Écija, Osuna y el Aljarafe. Un cortijo aquí puede ser una residencia de campo, un activo agrícola o un proyecto de uso turístico.',
+                'Azimut Property localiza cortijos de olivar, haciendas y fincas con terreno en la provincia, incluidas propiedades fuera de mercado. Cada cortijo se presenta con su situación del suelo, su acceso y su estado de conservación, para que el comprador decida con información completa.',
+                'Acompañamos la compra completa: revisión urbanística y registral, NIE, notaría e impuestos, para que la compra de un cortijo sevillano sea segura desde el primer contacto.',
+            ],
+            highlights: [
+                { h: 'Cortijos de olivar', p: 'Fincas con olivar en producción y edificaciones con historia.' },
+                { h: 'Haciendas históricas', p: 'Carmona, Écija, Osuna y el Aljarafe, muchas con potencial de uso turístico.' },
+                { h: 'Compra acompañada', p: 'Revisión urbanística, registral y notarial antes de firmar.' },
+            ],
+            listingsHref: '/venta/sevilla',
+            listingsCta: 'Ver fincas en Sevilla',
+        },
+    },
+
+    'cortijos-en-venta-huelva': {
+        esOnly: true,
+        match: (p) => /(huelva)/.test(text(p)) && /(finca|cortijo|hacienda|estate)/.test(text(p)),
+        es: {
+            eyebrow: 'Campo Onubense',
+            h1: 'Cortijos en Venta en Huelva',
+            subhead: 'Cortijos y fincas rurales entre el Parque Nacional de Doñana y la Sierra de Aracena, con acompañamiento completo en la compra.',
+            heroAlt: 'Cortijo rodeado de dehesa en el campo de Huelva al atardecer',
+            seoTitle: 'Cortijos en Venta en Huelva | Fincas Rurales | Azimut Property',
+            seoDescription: 'Cortijos en venta en Huelva, entre Doñana y la Sierra de Aracena. Fincas rurales con terreno para uso privado o agrícola, con compra acompañada para el comprador internacional.',
+            keywords: 'cortijos en venta en Huelva, cortijo Huelva, finca rural Huelva, cortijo con terreno Huelva, finca Doñana, finca Sierra de Aracena',
+            intro: [
+                'La provincia de Huelva combina dehesa, sierra y marisma: desde el entorno de Doñana hasta la Sierra de Aracena y la Costa de la Luz. Para el comprador internacional, un cortijo aquí es un refugio rural con terreno, con una vida tranquila y un paisaje muy distinto al de la costa.',
+                'Azimut Property presenta cortijos, fincas agrícolas y casas de campo con terreno en comarcas como la Sierra de Aracena y el entorno de Almonte. Algunas propiedades se presentan fuera de mercado, y cada finca llega con la información que el comprador necesita para decidir.',
+                'Acompañamos toda la compra: revisión urbanística y registral, agua y acceso, NIE y notaría, para que la compra de un cortijo onubense sea segura.',
+            ],
+            highlights: [
+                { h: 'Entorno natural', p: 'Dehesa, sierra y marisma entre Doñana y la Sierra de Aracena.' },
+                { h: 'Terreno y uso rural', p: 'Fincas con terreno para uso privado o agrícola.' },
+                { h: 'Compra acompañada', p: 'Revisión urbanística, registral y notarial antes de cerrar.' },
+            ],
+            listingsHref: '/venta/huelva',
+            listingsCta: 'Ver fincas en Huelva',
+        },
+    },
+
+    'cortijos-en-venta-cadiz': {
+        esOnly: true,
+        match: (p) => /(cadiz|cádiz)/.test(text(p)) && /(finca|cortijo|hacienda|estate)/.test(text(p)),
+        es: {
+            eyebrow: 'Campiña Gaditana',
+            h1: 'Cortijos en Venta en Cádiz',
+            subhead: 'Cortijos de olivar, haciendas y fincas ecuestres entre Arcos, Jerez y Jimena de la Frontera, a un paso de Sotogrande.',
+            heroAlt: 'Cortijo de olivar en la campiña gaditana al atardecer',
+            seoTitle: 'Cortijos en Venta en Cádiz | Fincas Rurales | Azimut Property',
+            seoDescription: 'Cortijos en venta en Cádiz: cortijos de olivar, haciendas y fincas ecuestres entre Arcos, Jerez y Jimena de la Frontera, cerca de Sotogrande. Propiedades fuera de mercado.',
+            keywords: 'cortijos en venta en Cádiz, cortijo Cádiz, cortijo de olivar Cádiz, cortijo Jerez, cortijo Jimena de la Frontera, finca rural Cádiz',
+            intro: [
+                'La provincia de Cádiz reúne algunos de los paisajes rurales más buscados de Andalucía: campiña de olivar y viña en torno a Arcos y Jerez, y sierra y alcornocal hacia el Campo de Gibraltar. Un cortijo gaditano combina uso privado con un terreno rural bien situado.',
+                'Azimut Property presenta cortijos, haciendas y fincas en comarcas como Jimena de la Frontera, Medina-Sidonia y Vejer, con acceso a propiedades fuera de mercado y una selección por ubicación, terreno y acceso.',
+                'Acompañamos la compra completa: análisis urbanístico, agua y acceso, NIE y notaría, para que el comprador internacional adquiera con seguridad.',
+            ],
+            highlights: [
+                { h: 'Ubicación privilegiada', p: 'Entre Sotogrande, Jerez y el Campo de Gibraltar.' },
+                { h: 'Fincas ecuestres', p: 'Propiedades con perfil ecuestre en la zona de Jimena de la Frontera.' },
+                { h: 'Compra acompañada', p: 'Análisis urbanístico, registral y notarial antes de firmar.' },
+            ],
+            listingsHref: '/venta/cadiz',
+            listingsCta: 'Ver fincas en Cádiz',
+        },
+    },
 };
 
 const SITE_URL = 'https://www.azimutproperty.com';
@@ -238,12 +321,18 @@ const LandingPage = ({ slug, lang = 'en' }) => {
 
     // Stable reference so SEO's effect doesn't re-run every render.
     const enUrl = entry ? `/${slug}` : '';
-    const esUrl = entry ? `/es/${entry.esSlug}` : '';
-    const alternates = useMemo(() => ([
-        { hreflang: 'en', url: `${SITE_URL}${enUrl}` },
-        { hreflang: 'es', url: `${SITE_URL}${esUrl}` },
-        { hreflang: 'x-default', url: `${SITE_URL}${enUrl}` },
-    ]), [enUrl, esUrl]);
+    const esUrl = entry ? (entry.esOnly ? `/${slug}` : `/es/${entry.esSlug}`) : '';
+    const alternates = useMemo(() => {
+        if (entry?.esOnly) return [
+            { hreflang: 'es', url: `${SITE_URL}${esUrl}` },
+            { hreflang: 'x-default', url: `${SITE_URL}${esUrl}` },
+        ];
+        return [
+            { hreflang: 'en', url: `${SITE_URL}${enUrl}` },
+            { hreflang: 'es', url: `${SITE_URL}${esUrl}` },
+            { hreflang: 'x-default', url: `${SITE_URL}${enUrl}` },
+        ];
+    }, [entry, enUrl, esUrl]);
 
     // Routes are registered per known slug, so this is defensive only.
     if (!entry) return <NotFound />;
@@ -300,7 +389,9 @@ const LandingPage = ({ slug, lang = 'en' }) => {
                     <header className="hero-header-branded">
                         <p className="landing-eyebrow" style={{ textTransform: 'uppercase', letterSpacing: '0.18em', fontSize: '0.8rem', marginBottom: '1rem', opacity: 0.9 }}>
                             {c.eyebrow}
-                            <Link to={otherPath} hrefLang={lang === 'es' ? 'en' : 'es'} style={{ marginLeft: '1rem', paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.4)', color: 'inherit', letterSpacing: '0.12em' }}>{t.other}</Link>
+                            {!entry.esOnly && (
+                                <Link to={otherPath} hrefLang={lang === 'es' ? 'en' : 'es'} style={{ marginLeft: '1rem', paddingLeft: '1rem', borderLeft: '1px solid rgba(255,255,255,0.4)', color: 'inherit', letterSpacing: '0.12em' }}>{t.other}</Link>
+                            )}
                         </p>
                         <h1 className="hero-title">{c.h1}</h1>
                         <p className="main-value-proposition">{c.subhead}</p>

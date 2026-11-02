@@ -2,7 +2,7 @@
 
 > Boutique luxury real estate agency based in Marbella, Spain.
 > Specializing in exclusive villas, fincas, and branded residences
-> on the Costa del Sol. Price range: EUR 1M-50M.
+> on the Costa del Sol and in rural Andalusia (Cádiz, Sevilla, Huelva). Price range: EUR 1M-50M.
 > Languages: Spanish, English.
 > Website: https://www.azimutproperty.com
 
@@ -49,6 +49,16 @@ sustainability, and well-being in Southern Europe.
 - Exceptional Detached Villa in Sotogrande Alto — Golf & Lake Views, Private Spa. 5 bed, 7 bath, 650 m² built, 1,645 m² plot. EUR 1,999,500. Heated indoor pool with Turkish bath, infinity pool, master suite with Jacuzzi, double garage, panoramic golf and lake views. Minutes from International School of Sotogrande: https://www.azimutproperty.com/properties/villa-sotogrande-alto-golf-lake-views-spa
 - Vineyard Estate in the Sherry Region — Sanlúcar de Barrameda, Cádiz. Investment opportunity in Andalusia's premier wine-producing region: https://www.azimutproperty.com/property/finca-sanlucar-de-barrameda-17
 - Luxury Residence — Cuenca. 6 bed, 6 bath, 2,000 m² built. EUR 2,500,000: https://www.azimutproperty.com/property/villa-cuenca-16
+
+## Collections (Spanish and English pages)
+
+- Villas in Marbella: https://www.azimutproperty.com/villas-marbella (Spanish: https://www.azimutproperty.com/es/villas-de-lujo-marbella)
+- Mansions in Sotogrande: https://www.azimutproperty.com/mansions-sotogrande (Spanish: https://www.azimutproperty.com/es/mansiones-sotogrande)
+- Equestrian estates in Jimena de la Frontera: https://www.azimutproperty.com/equestrian-estates-jimena-de-la-frontera (Spanish: https://www.azimutproperty.com/es/fincas-ecuestres-jimena-de-la-frontera)
+- Olive estates and haciendas in Seville: https://www.azimutproperty.com/olive-estates-sevilla (Spanish: https://www.azimutproperty.com/es/haciendas-y-olivares-sevilla)
+- Cortijos for sale in Seville (Spanish): https://www.azimutproperty.com/cortijos-en-venta-sevilla
+- Cortijos for sale in Huelva (Spanish): https://www.azimutproperty.com/cortijos-en-venta-huelva
+- Cortijos for sale in Cádiz (Spanish): https://www.azimutproperty.com/cortijos-en-venta-cadiz
 
 ## Content
 

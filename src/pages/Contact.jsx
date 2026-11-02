@@ -44,19 +44,19 @@ const Contact = () => {
         "@context": "https://schema.org",
         "@type": "BreadcrumbList",
         "itemListElement": [
-            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Contact", "item": "https://www.azimutproperty.com/contact" }
+            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+            { "@type": "ListItem", "position": 2, "name": "Contacto", "item": "https://www.azimutproperty.com/contact" }
         ]
     };
 
     return (
         <div className="page contact">
             <SEO
-                title="Contact Us | Luxury Real Estate Agency Marbella"
-                description="Contact Azimut Property to buy or sell luxury real estate in Marbella, Estepona, and Costa del Sol. Multilingual team. Email: info@azimutproperty.com."
+                title="Contacto | Inmobiliaria de lujo en Marbella | Azimut Property"
+                description="Contacte con Azimut Property para comprar o vender inmuebles de lujo en Marbella, Estepona y la Costa del Sol. Equipo multilingüe. Email: info@azimutproperty.com."
                 url="/contact"
-                lang="en"
-                keywords="contact real estate Marbella, luxury property inquiry Costa del Sol, buy villa Marbella contact"
+                lang="es"
+                keywords="contacto inmobiliaria Marbella, consulta inmueble de lujo Costa del Sol, comprar villa Marbella contacto"
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -65,19 +65,19 @@ const Contact = () => {
             </Helmet>
             <div className="container">
                 <div className="section-header">
-                    <h1>Contact Us</h1>
-                    <p>We are here to assist you with your real estate needs.</p>
+                    <h1>Contacto</h1>
+                    <p>Estamos aquí para ayudarle con sus necesidades inmobiliarias.</p>
                 </div>
 
                 <div className="contact-container">
                     <div className="contact-info-section">
-                        <h2>Get in Touch</h2>
-                        <p>Whether you are looking to buy, sell, or simply have a question about the market, our team is ready to help. We pride ourselves on our responsiveness and discretion.</p>
+                        <h2>Póngase en contacto</h2>
+                        <p>Tanto si quiere comprar o vender como si tiene una pregunta sobre el mercado, nuestro equipo está preparado para ayudarle. Nos distinguimos por la rapidez de respuesta y la discreción.</p>
 
                         <div className="info-card">
                             <div className="info-icon"><Mail size={24} /></div>
                             <div className="info-content">
-                                <h3>Email Us</h3>
+                                <h3>Escríbanos</h3>
                                 <p>info@azimutproperty.com</p>
                             </div>
                         </div>
@@ -85,22 +85,22 @@ const Contact = () => {
                         <div className="info-card">
                             <div className="info-icon"><Clock size={24} /></div>
                             <div className="info-content">
-                                <h3>Office Hours</h3>
+                                <h3>Horario de oficina</h3>
                                 <p>Monday - Friday: 9:00 AM - 7:00 PM<br />Saturday: By Appointment</p>
                             </div>
                         </div>
                     </div>
 
                     <div className="contact-form-section">
-                        <h3>Send us a Message</h3>
+                        <h3>Envíenos un mensaje</h3>
                         {submitted ? (
                             <div className="contact-success" role="status">
-                                Thank you — your message has been sent. We will be in touch shortly.
+                                Gracias: su mensaje ha sido enviado. Nos pondremos en contacto con usted en breve.
                             </div>
                         ) : (
                             <form className="contact-form" onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <label htmlFor="contact-name">Full name</label>
+                                    <label htmlFor="contact-name">Nombre completo</label>
                                     <input
                                         id="contact-name"
                                         type="text"
@@ -124,7 +124,7 @@ const Contact = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="contact-phone">Phone <span className="label-optional">optional</span></label>
+                                    <label htmlFor="contact-phone">Teléfono <span className="label-optional">opcional</span></label>
                                     <input
                                         id="contact-phone"
                                         type="tel"
@@ -135,21 +135,21 @@ const Contact = () => {
                                     />
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="contact-interest">I am interested in</label>
+                                    <label htmlFor="contact-interest">Me interesa</label>
                                     <select
                                         id="contact-interest"
                                         name="interest"
                                         value={formData.interest}
                                         onChange={handleChange}
                                     >
-                                        <option value="">Select an option</option>
-                                        <option value="buying">Buying a property</option>
-                                        <option value="selling">Selling a property</option>
-                                        <option value="other">General enquiry</option>
+                                        <option value="">Seleccione una opción</option>
+                                        <option value="buying">Comprar un inmueble</option>
+                                        <option value="selling">Vender un inmueble</option>
+                                        <option value="other">Consulta general</option>
                                     </select>
                                 </div>
                                 <div className="form-group">
-                                    <label htmlFor="contact-message">How can we help?</label>
+                                    <label htmlFor="contact-message">¿En qué podemos ayudarle?</label>
                                     <textarea
                                         id="contact-message"
                                         name="message"
@@ -159,7 +159,7 @@ const Contact = () => {
                                         required
                                     ></textarea>
                                 </div>
-                                <button type="submit" className="btn btn-contact-submit">Send message</button>
+                                <button type="submit" className="btn btn-contact-submit">Enviar mensaje</button>
                             </form>
                         )}
                     </div>
