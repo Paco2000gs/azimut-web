@@ -28,7 +28,7 @@ const Terms = () => {
             <div className="container legal-page">
                 <div className="legal-content">
                 <h1>Condiciones de uso</h1>
-                <p className="legal-updated">Última actualización: 1 de diciembre de 2025</p>
+                <p className="legal-updated">Última actualización: 4 de noviembre de 2026</p>
 
                 <section>
                     <h2>1. Aceptación de las condiciones</h2>
@@ -51,7 +51,12 @@ const Terms = () => {
                 </section>
 
                     <section>
-                        <h2>5. Legislación aplicable</h2>
+                        <h2>5. Servicios de la API de YouTube</h2>
+                        <p>Las funciones de publicación en YouTube de esta web utilizan los Servicios de la API de YouTube. Al usar estas funciones, usted queda vinculado por las <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">Condiciones del servicio de YouTube</a>.</p>
+                    </section>
+
+                    <section>
+                        <h2>6. Legislación aplicable</h2>
                         <p>Estas condiciones se rigen e interpretan de acuerdo con las leyes de España, y usted se somete de forma irrevocable a la jurisdicción exclusiva de los tribunales de ese Estado o lugar.</p>
                     </section>
                 </div>
