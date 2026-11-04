@@ -3,7 +3,7 @@
 **Fuente única de verdad** para la indexación y la captación orgánica de esta web.
 Lee este archivo antes de empezar cualquier trabajo SEO y actualízalo al terminar.
 
-Última actualización: 29-oct-2026 · `main` en `738d36c`
+Última actualización: 4-nov-2026 · `main` en `a0065f9`
 
 Unifica lo trabajado en las sesiones "Metadatos azimutproperty" (sep–oct) y
 "Problemas de indexación Google" (20–22 oct). Documentos anteriores de esta carpeta:
@@ -22,6 +22,7 @@ Si alguno contradice este archivo, manda este.
 | Horario y teléfono de contacto no se tocan | 22-oct | Petición expresa |
 | Foto de la sección de autoridad de la portada: campo de polo de la finca ecuestre de Jimena (ficha 19) | 22-oct | `public/media/authority-polo-estate-*` |
 | Enlaces: nada de paquetes comprados, solo sitios reales | ago | `ENLACES-PLAN.md` |
+| `/venta/<ciudad o provincia>` sin ninguna ficha lleva `noindex, follow` y sale del sitemap; no se redirige ni se le añaden fichas cercanas | 4-nov | Por datos, en `Catalog.jsx` y `generate-sitemap.js`: basta una ficha y un despliegue para volver a indexar. Pendiente de PR en `fix/venta-ciudades-sin-fichas` |
 
 ## 2. Línea base de Search Console
 
@@ -63,7 +64,7 @@ solicitud de indexación de las tres landings de cortijos.
 
 ## 4. Pendientes técnicos (código)
 
-- [ ] `noindex` en silos con pocos inmuebles. Requiere contar inmuebles por silo en Supabase.
+- [ ] `noindex` en silos con pocos inmuebles (1 o 2). Los de 0 fichas ya están resueltos en `fix/venta-ciudades-sin-fichas`.
 - [ ] `public/llms.txt` sigue en inglés y tiene precios escritos a mano: traducir y revisar precios.
 - [ ] Las descripciones de las fichas llegan en inglés desde Supabase: pasarlas a español (dato, no código).
 - [ ] Medición de leads: GA4 y botón de WhatsApp fijo.

@@ -211,6 +211,24 @@ const Catalog = () => {
         return selfPath;
     }, [urlCity, urlArea, isProvincePage, properties, loading]);
 
+    // A location with no listings at all has nothing to offer the search that
+    // lands on it: /venta/benalmadena and /venta/fuengirola drew 394 impressions
+    // in 90 days at position 70+ and 0 clicks (Search Console, Nov 2026). They stay
+    // live for visitors and for crawlers following their links, and the tag clears
+    // itself on the first deploy after a listing arrives in that location.
+    //
+    // Compared on slugs from the URL rather than on filteredProperties: the city
+    // filter compares display names, so accented or hyphenated cities (Gaucín,
+    // Medina-Sidonia) match nothing there even though they do have listings.
+    //
+    // An empty dataset means the fetch failed, not that the site sold everything,
+    // and must never tag every location page at once.
+    const isEmptyLocation = useMemo(() => {
+        if (!urlCity || loading || !properties?.length) return false;
+        const wanted = slugifyCity(urlCity);
+        return !properties.some(p => slugifyCity((isProvincePage ? p.province : p.city) || '') === wanted);
+    }, [urlCity, isProvincePage, properties, loading]);
+
     // Dynamic SEO data
     // Spanish, like the page itself. The English fallbacks here were shipping as
     // the <title>/description of every city and silo page under a Spanish H1 and
@@ -283,6 +301,8 @@ const Catalog = () => {
                 description={seoDescription}
                 url={canonicalPath}
                 keywords={seoKeywords}
+                noindex={isEmptyLocation}
+                followLinks
             />
             <Helmet>
                 <script type="application/ld+json">

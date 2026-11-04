@@ -28,7 +28,9 @@ const setLink = (selector, rel, href, hreflang) => {
     el.setAttribute('href', href);
 };
 
-const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, keywords = '', lang = 'es', alternates = null }) => {
+const SEO = ({ title, description, image, imageDimensions, url, type = 'website', noindex = false, followLinks = false, keywords = '', lang = 'es', alternates = null }) => {
+    const noindexContent = followLinks ? 'noindex, follow' : 'noindex, nofollow';
+
     // Spanish fallbacks, matching the site default lang="es".
     const siteTitle = 'Azimut Property | Villas de lujo y fincas en Marbella y Andalucía';
     const defaultDescription = 'Inmobiliaria exclusiva en Marbella, Estepona y Benahavís, y fincas rurales en Cádiz, Sevilla y Huelva. Propiedades fuera de mercado y asesoramiento para compradores internacionales.';
@@ -76,7 +78,7 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
         // page may overwrite it, and leaving that page must put it back.
         const robots = document.head.querySelector('meta[name="robots"]');
         if (noindex) {
-            setMeta('name', 'robots', 'noindex, nofollow');
+            setMeta('name', 'robots', noindexContent);
         } else if (robots && /noindex/i.test(robots.getAttribute('content') || '')) {
             robots.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
         }
@@ -120,7 +122,7 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
         setMeta('name', 'twitter:title', fullTitle);
         setMeta('name', 'twitter:description', fullDescription);
         setMeta('name', 'twitter:image', fullImage);
-    }, [fullTitle, fullDescription, fullUrl, fullImage, ogLocale, lang, type, keywords, noindex, alternates]);
+    }, [fullTitle, fullDescription, fullUrl, fullImage, ogLocale, lang, type, keywords, noindex, noindexContent, alternates]);
 
     return (
         <Helmet>
@@ -131,7 +133,7 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
             <title>{fullTitle}</title>
             <meta name="description" content={fullDescription} />
             <link rel="canonical" href={fullUrl} />
-            {noindex && <meta name="robots" content="noindex, nofollow" />}
+            {noindex && <meta name="robots" content={noindexContent} />}
             {keywords && <meta name="keywords" content={keywords} />}
 
             {/* Hreflang. By default a page self-references in its own language
