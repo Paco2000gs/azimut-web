@@ -1,0 +1,48 @@
+# Renders the per-network JPEGs, the 16:9 video and the 9:16 Short for one
+# property, uploads them to Supabase Storage (bucket "social") through signed
+# URLs, and reports back to /api/social/worker/done.
+#
+# Triggered by /api/social (workflow_dispatch). It holds no Supabase or social
+# credentials: only VIDEO_WORKER_SECRET, which /api/social exchanges for
+# single-use upload URLs. The repository is public, so nothing secret may be
+# echoed to the log; the script masks the signed URLs before using them.
+name: social-media
+
+on:
+  workflow_dispatch:
+    inputs:
+      property_id:
+        description: "Property id"
+        required: true
+
+concurrency:
+  group: social-media-${{ github.event.inputs.property_id }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Ensure ffmpeg, jq and fonts
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v jq >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y ffmpeg jq
+          fi
+          if ! fc-list | grep -qi dejavu; then
+            sudo apt-get install -y fonts-dejavu-core
+          fi
+          ffmpeg -version | head -1
+
+      - name: Render and upload
+        run: bash scripts/social-media/render.sh
+        env:
+          PROPERTY_ID: ${{ github.event.inputs.property_id }}
+          SITE_URL: https://www.azimutproperty.com
+          VIDEO_WORKER_SECRET: ${{ secrets.VIDEO_WORKER_SECRET }}

@@ -1,0 +1,127 @@
+/* "Redes sociales" tab of the admin panel. Tokens from variables.css. */
+
+.social-panel { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.social-dry-run {
+    background: var(--gold-veil);
+    border: 1px solid var(--gold-champagne);
+    border-left: 4px solid var(--gold);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    font-size: 0.9rem;
+}
+.social-dry-run code { background: var(--surface-sunken); padding: 0 0.3rem; border-radius: 3px; }
+
+.social-accounts {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+}
+.social-accounts-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem; margin-bottom: 1rem; }
+.social-accounts-head h3 { margin: 0; font-size: 1.1rem; }
+.social-accounts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.social-account { display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-start; }
+.social-account-state { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.85rem; }
+.social-account-state.ok { color: var(--state-success); }
+.social-account-state.warn { color: var(--gold-ink); }
+.social-account-state.bad { color: var(--state-error); }
+.social-account-state.off { color: #64748b; }
+
+.social-meta { color: #64748b; font-size: 0.82rem; }
+
+.social-list { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 460px), 1fr)); gap: 1.25rem; }
+
+.social-card {
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border-strong);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    min-width: 0;
+}
+.social-card.status-pendiente { border-left-color: var(--gold); }
+.social-card.status-aprobado,
+.social-card.status-publicando { border-left-color: var(--state-info); }
+.social-card.status-publicado { border-left-color: var(--state-success); }
+.social-card.status-error { border-left-color: var(--state-error); }
+.social-card.status-rechazado { opacity: 0.65; }
+
+.social-card-head { display: flex; gap: 0.75rem; align-items: flex-start; }
+.social-card-thumb { width: 64px; height: 64px; border-radius: 8px; object-fit: cover; background: var(--surface-sunken); flex-shrink: 0; }
+.social-card-titles { display: flex; flex-direction: column; gap: 0.15rem; min-width: 0; flex: 1; }
+.social-card-titles strong { font-size: 0.95rem; overflow-wrap: anywhere; }
+.social-network { display: inline-flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--gold-ink); }
+
+.social-status { font-size: 0.75rem; padding: 0.2rem 0.55rem; border-radius: 999px; background: var(--surface-sunken); white-space: nowrap; }
+.social-status.status-publicado { background: rgba(63, 107, 68, 0.12); color: var(--state-success); }
+.social-status.status-error { background: rgba(163, 46, 34, 0.1); color: var(--state-error); }
+.social-status.status-pendiente { background: var(--gold-veil); color: var(--gold-ink); }
+
+.social-media-state { font-size: 0.82rem; color: #475569; }
+
+.social-field { display: flex; flex-direction: column; gap: 0.3rem; font-size: 0.82rem; font-weight: 600; }
+.social-field input,
+.social-field textarea {
+    font: inherit;
+    font-weight: 400;
+    font-size: 0.9rem;
+    padding: 0.55rem 0.7rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--surface);
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+}
+.social-field input:disabled,
+.social-field textarea:disabled { opacity: 0.75; }
+
+.social-row { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; }
+.social-counter { font-size: 0.78rem; color: #64748b; }
+.social-counter.over { color: var(--state-error); font-weight: 600; }
+.social-link { display: inline-flex; align-items: center; gap: 0.25rem; font-size: 0.78rem; color: #64748b; overflow-wrap: anywhere; }
+
+.social-thumbs { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.social-thumbs li { position: relative; }
+.social-thumbs img { width: 72px; height: 72px; object-fit: cover; border-radius: 6px; display: block; }
+.social-thumb-actions { position: absolute; inset: auto 2px 2px auto; display: flex; gap: 2px; }
+.social-thumb-actions button {
+    border: none; border-radius: 4px; background: rgba(0, 0, 0, 0.6); color: #fff;
+    width: 20px; height: 20px; display: grid; place-items: center; cursor: pointer; padding: 0;
+}
+.social-thumb-actions button:disabled { opacity: 0.35; cursor: default; }
+
+.social-videos { display: flex; gap: 1rem; font-size: 0.85rem; }
+.social-videos a { display: inline-flex; align-items: center; gap: 0.3rem; }
+
+.social-problems { margin: 0; padding: 0.6rem 0.8rem 0.6rem 1.8rem; background: rgba(163, 46, 34, 0.06); border-radius: 6px; color: var(--state-error); font-size: 0.82rem; }
+
+.social-note { margin: 0; font-size: 0.85rem; padding: 0.6rem 0.8rem; border-radius: 6px; display: flex; gap: 0.4rem; align-items: flex-start; }
+.social-note.error { background: rgba(163, 46, 34, 0.08); color: var(--state-error); }
+.social-note.info { background: rgba(47, 93, 124, 0.08); color: var(--state-info); }
+.social-note.ok { background: rgba(63, 107, 68, 0.1); color: var(--state-success); }
+
+.social-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.social-panel .btn-primary,
+.social-panel .btn-secondary,
+.social-panel .btn-danger {
+    display: inline-flex; align-items: center; gap: 0.35rem;
+    font: inherit; font-size: 0.85rem; padding: 0.45rem 0.85rem;
+    border-radius: 6px; cursor: pointer; text-decoration: none; border: 1px solid transparent;
+}
+.social-panel .btn-primary { background: var(--surface-dark); color: var(--ink-inverse); }
+.social-panel .btn-primary:hover:not(:disabled) { background: var(--gold-ink); }
+.social-panel .btn-secondary { background: var(--surface-raised); border-color: var(--border-strong); color: inherit; }
+.social-panel .btn-secondary:hover:not(:disabled) { border-color: var(--gold); }
+.social-panel .btn-danger { background: transparent; border-color: rgba(163, 46, 34, 0.4); color: var(--state-error); }
+.social-panel button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.social-payload summary { cursor: pointer; font-size: 0.82rem; color: #475569; }
+.social-payload pre {
+    max-height: 320px; overflow: auto; font-size: 0.72rem; background: var(--surface-darker); color: #e5e7eb;
+    padding: 0.75rem; border-radius: 6px; white-space: pre-wrap; overflow-wrap: anywhere;
+}

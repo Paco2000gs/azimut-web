@@ -8,6 +8,7 @@
     "build": "npm run generate-sitemap && vite build && node scripts/prerender.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
+    "test": "node --test \"tests/**/*.test.js\"",
     "preview": "vite preview"
   },
   "dependencies": {
