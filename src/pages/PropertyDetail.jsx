@@ -11,6 +11,7 @@ import ShortlistButton from '../components/ShortlistButton';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, slugifyLocation } from '../utils/slugify';
+import { getVideoLanguageLabel, spanishVideosFirst } from '../utils/videoLanguage';
 
 // Lazy-load Leaflet map — saves ~153KB from initial bundle
 const PropertyMap = lazy(() => import('../components/PropertyMap'));
@@ -237,7 +238,7 @@ const PropertyDetail = () => {
                     setMedia({
                         images: images,
                         plans: allMedia.filter(m => m.type === 'plan'),
-                        videos: allMedia.filter(m => m.type === 'video')
+                        videos: spanishVideosFirst(allMedia.filter(m => m.type === 'video'))
                     });
                 }
             }
@@ -635,10 +636,10 @@ const PropertyDetail = () => {
                                     {media.videos.map((video, index) => {
                                         // Uploaded titles are often just the file name ("25_en.mp4").
                                         // Printing that on a listing reads as an unfinished page, so a
-                                        // filename is treated as no title at all.
+                                        // filename only ever contributes the language it names.
                                         const rawTitle = (video.title || '').trim();
                                         const isFilename = /\.(mp4|mov|webm|m4v|avi)$/i.test(rawTitle);
-                                        const caption = isFilename ? '' : rawTitle;
+                                        const caption = isFilename ? getVideoLanguageLabel(rawTitle) : rawTitle;
                                         const label = caption
                                             ? `${property.title} — ${caption}`
                                             : `${property.title} — video ${index + 1} of ${media.videos.length}`;
