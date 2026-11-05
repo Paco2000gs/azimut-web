@@ -16,6 +16,11 @@ import LeadMagnet from '../components/LeadMagnet';
 // this page resolves.
 const slugifyCity = slugifyLocation;
 
+// `city` holds either a listing's name (from the selector) or one rebuilt from
+// the URL, which has lost its accents and hyphens ("Gaucin", "Medina Sidonia").
+// Compared on slugs, both forms find listings named "Gaucín" or "Medina-Sidonia".
+const isSameCity = (a, b) => slugifyCity(a) === slugifyCity(b);
+
 const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();
     const [searchParams] = useSearchParams();
@@ -111,13 +116,17 @@ const Catalog = () => {
         return allProvinceCities.filter(c => citySet.has(c));
     }, [properties, province]);
 
+    // The option holding the listing's own spelling, so a city that came from the
+    // URL shows as selected instead of leaving the selector on "Todas las ciudades".
+    const selectedCity = availableCities.find(c => isSameCity(c, city)) ?? city;
+
     // Filter logic for available types
     const availableTypes = useMemo(() => {
         if (!properties || properties.length === 0) return PROPERTY_TYPES;
 
         let filtered = properties;
         if (province) filtered = filtered.filter(p => p.province === province);
-        if (city) filtered = filtered.filter(p => p.city?.toLowerCase() === city?.toLowerCase());
+        if (city) filtered = filtered.filter(p => isSameCity(p.city, city));
 
         const typeSet = new Set(filtered.map(p => p.type));
         return PROPERTY_TYPES.filter(t => typeSet.has(t));
@@ -127,8 +136,7 @@ const Catalog = () => {
         if (loading) return [];
         return properties.filter(property => {
             const matchProvince = province ? property.province === province : true;
-            // Case insensitive match for city
-            const matchCity = city ? property.city?.toLowerCase() === city?.toLowerCase() : true;
+            const matchCity = city ? isSameCity(property.city, city) : true;
             const matchType = type ? property.type.toLowerCase() === type.toLowerCase() : true;
             // Exclude Price on Demand properties from price filtering if a filter is set
             const matchMinPrice = minPrice ? (!property.price_on_demand && property.price >= parseInt(minPrice)) : true;
@@ -349,7 +357,7 @@ const Catalog = () => {
 
                         <div className="filter-item">
                             <label htmlFor="filter-city">Ciudad / Zona</label>
-                            <select id="filter-city" value={city} onChange={(e) => setCity(e.target.value)} disabled={!province} className="filter-select">
+                            <select id="filter-city" value={selectedCity} onChange={(e) => setCity(e.target.value)} disabled={!province} className="filter-select">
                                 <option value="">
                                     {!province
                                         ? "Seleccione una provincia"
