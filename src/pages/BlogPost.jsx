@@ -7,7 +7,13 @@ import { generateBlogSlug, extractBlogId } from '../utils/slugify';
 import { formatBlogContent, calculateReadingTime } from '../utils/formatBlogContent';
 import SEO from '../components/SEO';
 import { detectLang } from '../utils/detectLang';
+import { stripLeadingTitle } from '../utils/stripLeadingTitle';
 import '../styles/Blog.css';
+
+const UI_COPY = {
+    es: { back: 'Volver al blog', minutes: 'min de lectura', locale: 'es-ES' },
+    en: { back: 'Back to the blog', minutes: 'min read', locale: 'en-GB' },
+};
 
 const BlogPost = () => {
     const { id: urlParam } = useParams();
@@ -29,8 +35,8 @@ const BlogPost = () => {
     // Procesar contenido automáticamente: texto plano → HTML estructurado
     const formattedContent = useMemo(() => {
         if (!post?.content) return '';
-        return formatBlogContent(post.content);
-    }, [post?.content]);
+        return formatBlogContent(stripLeadingTitle(post.content, post.title));
+    }, [post?.content, post?.title]);
 
     // Calcular tiempo de lectura real basado en el contenido
     const readingTime = useMemo(() => {
@@ -71,6 +77,10 @@ const BlogPost = () => {
         );
     }
 
+    // The posts table has no language column: guess it from the copy, as the SEO tags do.
+    const lang = detectLang(`${post.title} ${post.excerpt || ''}`);
+    const copy = UI_COPY[lang] || UI_COPY.es;
+
     return (
         <div className="page blog-post-page">
             <SEO
@@ -79,7 +89,7 @@ const BlogPost = () => {
                 image={post.image}
                 url={`/blog/${generateBlogSlug(post)}`}
                 type="article"
-                lang={detectLang(`${post.title} ${post.excerpt || ''}`)}
+                lang={lang}
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -131,11 +141,16 @@ const BlogPost = () => {
             <div className="blog-post-hero" style={{ backgroundImage: `url(${post.image || '/media/placeholder.svg'})` }}>
                 <div className="overlay"></div>
                 <div className="container">
-                    <Link to="/blog" className="back-link"><ArrowLeft size={20} /> Volver al blog</Link>
-                    <h1>{post.title}</h1>
+                    <Link to="/blog" className="back-link"><ArrowLeft size={20} aria-hidden="true" /> {copy.back}</Link>
+                    <h1 lang={lang}>{post.title}</h1>
                     <div className="post-meta">
-                        <span><Calendar size={16} /> {new Date(post.published_at).toLocaleDateString()}</span>
-                        <span><Clock size={16} /> {readingTime} min de lectura</span>
+                        <span>
+                            <Calendar size={16} aria-hidden="true" />{' '}
+                            <time dateTime={post.published_at}>
+                                {new Date(post.published_at).toLocaleDateString(copy.locale, { day: 'numeric', month: 'long', year: 'numeric' })}
+                            </time>
+                        </span>
+                        <span><Clock size={16} aria-hidden="true" /> {readingTime} {copy.minutes}</span>
                     </div>
                 </div>
             </div>
@@ -143,6 +158,7 @@ const BlogPost = () => {
             {/* Contenido del artículo — renderizado estructurado */}
             <article className="container blog-post-content">
                 <div
+                    lang={lang}
                     className="content-wrapper article-body"
                     dangerouslySetInnerHTML={{ __html: formattedContent }}
                 />

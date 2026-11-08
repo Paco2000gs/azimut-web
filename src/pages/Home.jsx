@@ -113,7 +113,7 @@ const Home = () => {
                         src="/media/hero-estate-1440.jpg"
                         srcSet="/media/hero-estate-960.jpg 960w, /media/hero-estate-1440.jpg 1440w, /media/hero-estate-1920.jpg 1920w"
                         sizes="100vw"
-                        alt="Olive terraces at sunset on a historic estate in the Andalusian interior"
+                        alt="Olivar en terrazas al atardecer en una finca histórica del interior de Andalucía"
                         fetchpriority="high"
                         decoding="async"
                         width="1920"

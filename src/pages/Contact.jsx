@@ -78,7 +78,7 @@ const Contact = () => {
                             <div className="info-icon"><Mail size={24} /></div>
                             <div className="info-content">
                                 <h3>Escríbanos</h3>
-                                <p>info@azimutproperty.com</p>
+                                <p><a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a></p>
                             </div>
                         </div>
 
@@ -86,7 +86,7 @@ const Contact = () => {
                             <div className="info-icon"><Clock size={24} /></div>
                             <div className="info-content">
                                 <h3>Horario de oficina</h3>
-                                <p>Monday - Friday: 9:00 AM - 7:00 PM<br />Saturday: By Appointment</p>
+                                <p>Lunes a viernes: 9:00 – 19:00<br />Sábados: con cita previa</p>
                             </div>
                         </div>
                     </div>

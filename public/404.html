@@ -6,37 +6,55 @@
   <meta name="robots" content="noindex, follow" />
   <title>Página no encontrada (404) | Azimut Property</title>
   <link rel="icon" href="/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Playfair+Display:wght@400;600&display=swap" />
   <style>
-    :root { --gold:#b8860b; --ink:#1e293b; --muted:#64748b; }
+    /* Same tokens as src/styles/variables.css: this page is served statically,
+       outside the React app, so it cannot import them. */
+    :root {
+      --gold:#C5A059; --gold-hover:#B08D4B; --gold-ink:#8A6220;
+      --ink:#14130F; --muted:#5C574E; --surface:#F7F5F0; --border:#D9D3C7;
+      --font-heading:'Playfair Display', Georgia, serif;
+      --font-body:'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+    }
     * { box-sizing:border-box; }
     html,body { margin:0; padding:0; }
     body {
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-      color:var(--ink); background:#faf9f7; min-height:100vh;
+      font-family:var(--font-body);
+      color:var(--ink); background:var(--surface); min-height:100vh;
       display:flex; flex-direction:column; align-items:center; justify-content:center;
-      text-align:center; padding:2rem;
+      text-align:center; padding:2rem 1rem;
     }
     img.logo { width:64px; height:64px; margin-bottom:1.5rem; }
-    .code { font-size:4rem; font-weight:700; letter-spacing:.05em; margin:0; color:var(--ink); }
-    h1 { font-size:1.5rem; font-weight:600; margin:.5rem 0 1rem; color:var(--muted); }
+    .code {
+      font-family:var(--font-heading); font-size:5rem; font-weight:400; font-style:italic;
+      line-height:1; margin:0; color:var(--gold-ink);
+    }
+    h1 { font-family:var(--font-heading); font-size:1.75rem; font-weight:400; margin:1rem 0; color:var(--ink); }
+    .rule { width:64px; height:1px; background:var(--gold); margin:0 auto 1.5rem; border:0; }
     p { max-width:460px; color:var(--muted); line-height:1.7; margin:0 auto 2rem; }
     .actions { display:flex; flex-wrap:wrap; gap:.75rem; justify-content:center; }
     a.btn {
-      display:inline-block; padding:.75rem 1.5rem; border-radius:.5rem; text-decoration:none;
-      font-weight:600; transition:opacity .2s;
+      display:inline-block; padding:.9rem 1.75rem; border-radius:2px; text-decoration:none;
+      font-size:.8rem; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+      transition:background-color .2s, color .2s;
     }
-    a.btn.primary { background:var(--gold); color:#fff; }
-    a.btn.ghost { background:#fff; color:var(--ink); border:1px solid #e2e8f0; }
-    a.btn:hover { opacity:.85; }
+    /* Dark text on gold: white on #C5A059 fails contrast. */
+    a.btn.primary { background:var(--gold); color:var(--ink); }
+    a.btn.primary:hover { background:var(--gold-hover); }
+    a.btn.ghost { background:transparent; color:var(--ink); border:1px solid var(--ink); }
+    a.btn.ghost:hover { background:var(--ink); color:#fff; }
     nav.more { margin-top:2.5rem; font-size:.9rem; }
-    nav.more a { color:var(--muted); text-decoration:none; margin:0 .6rem; }
-    nav.more a:hover { color:var(--gold); text-decoration:underline; }
+    nav.more a { display:inline-block; padding:.5rem; color:var(--muted); text-decoration:none; }
+    nav.more a:hover { color:var(--gold-ink); text-decoration:underline; }
   </style>
 </head>
 <body>
   <img class="logo" src="/azimut-logo-gold.png" alt="Azimut Property" />
   <p class="code">404</p>
   <h1>Página no encontrada</h1>
+  <hr class="rule" />
   <p>
     La página que buscas no existe o ha sido movida. Puede que la propiedad
     ya no esté disponible o que el enlace haya cambiado. Explora nuestro
