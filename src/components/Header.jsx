@@ -10,6 +10,7 @@ const Header = () => {
     const location = useLocation();
     const headerRef = useRef(null);
     const toggleRef = useRef(null);
+    const isFincaFilter = new URLSearchParams(location.search).get('type') === 'finca';
 
     // Whether the page below opens on a dark hero decides the header's palette.
     // Written straight to the DOM rather than to state: the hero only exists once
@@ -64,15 +65,29 @@ const Header = () => {
             role="banner"
         >
             <div className="container header-container">
-                <Link to="/" className="logo" aria-label="Azimut Property - Home" onClick={closeMenu}>
+                <Link to="/" className="logo" aria-label="Azimut Property - Inicio" onClick={closeMenu}>
                     <img src="/azimut-logo-96.png" alt="" className="logo-img" width="48" height="50" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>
                 </Link>
 
-                <nav id="main-nav" className={`nav ${isOpen ? 'open' : ''}`} aria-label="Main navigation">
+                <nav id="main-nav" className={`nav ${isOpen ? 'open' : ''}`} aria-label="Navegación principal">
                     <NavLink to="/" onClick={closeMenu}>Inicio</NavLink>
-                    <NavLink to="/venta" onClick={closeMenu}>Propiedades</NavLink>
-                    <NavLink to="/venta?type=finca" onClick={closeMenu}>Fincas rústicas</NavLink>
+                    {/* NavLink ignores the query string, so both links lit up on
+                        /venta?type=finca: decide which one is current from the search. */}
+                    <NavLink
+                        to="/venta"
+                        className={({ isActive }) => (isActive && !isFincaFilter ? 'active' : '')}
+                        onClick={closeMenu}
+                    >
+                        Propiedades
+                    </NavLink>
+                    <NavLink
+                        to="/venta?type=finca"
+                        className={({ isActive }) => (isActive && isFincaFilter ? 'active' : '')}
+                        onClick={closeMenu}
+                    >
+                        Fincas rústicas
+                    </NavLink>
                     <NavLink to="/about" onClick={closeMenu}>Sobre nosotros</NavLink>
                     <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
                     {/* Appears only once something is saved: an empty shortlist is
@@ -94,7 +109,7 @@ const Header = () => {
                     ref={toggleRef}
                     className="menu-toggle"
                     onClick={() => setIsOpen(!isOpen)}
-                    aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                    aria-label={isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
                     aria-expanded={isOpen}
                     aria-controls="main-nav"
                 >

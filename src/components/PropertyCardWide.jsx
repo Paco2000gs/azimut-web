@@ -6,6 +6,11 @@ import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { generatePropertyPath } from '../utils/slugify';
 import ShortlistButton from './ShortlistButton';
 
+// The admin often leaves `location` empty: build the line from whatever is filled in,
+// without repeating a value or leaving a stray comma.
+const locationLine = (p) =>
+    [...new Set([p.location, p.city, p.province].map(v => v?.trim()).filter(Boolean))].join(', ');
+
 // `fetchpriority` is deliberately lowercase: React 18 does not recognise the
 // camelCase spelling and warns on every render, though it forwards it either way.
 const PropertyCardWide = ({ property, priority = false }) => {
@@ -30,7 +35,7 @@ const PropertyCardWide = ({ property, priority = false }) => {
                 <div className="card-overlay">
                     <span className="card-type-badge">{property.type}</span>
                     <span className="card-price-badge">
-                        {property.price_on_demand ? "Price On Demand" : `€${property.price.toLocaleString()}`}
+                        {property.price_on_demand ? "Precio a consultar" : `€${property.price.toLocaleString()}`}
                     </span>
                 </div>
             </div>
@@ -38,25 +43,27 @@ const PropertyCardWide = ({ property, priority = false }) => {
             <div className="card-details-container">
                 <div className="card-header">
                     <h3 className="card-title">{property.title}</h3>
-                    <div className="card-location">
-                        <MapPin size={16} />
-                        <span>{property.location}, {property.city}</span>
-                    </div>
+                    {locationLine(property) && (
+                        <div className="card-location">
+                            <MapPin size={16} aria-hidden="true" />
+                            <span>{locationLine(property)}</span>
+                        </div>
+                    )}
                 </div>
 
                 <p className="card-excerpt">
-                    {property.description ? property.description.substring(0, 150) + '...' : 'Luxury property available for viewing. Contact us for more details.'}
+                    {property.description ? property.description.substring(0, 150) + '...' : 'Propiedad exclusiva disponible para visitar. Contáctenos para más información.'}
                 </p>
 
                 <div className="card-footer">
                     <div className="card-features">
                         <div className="feature-item">
                             <Bed size={18} />
-                            <span>{property.bedrooms} Bed</span>
+                            <span>{property.bedrooms} dorm.</span>
                         </div>
                         <div className="feature-item">
                             <Bath size={18} />
-                            <span>{property.bathrooms} Bath</span>
+                            <span>{property.bathrooms} baños</span>
                         </div>
                         <div className="feature-item">
                             <Maximize size={18} />
@@ -65,7 +72,7 @@ const PropertyCardWide = ({ property, priority = false }) => {
                     </div>
 
                     <span className="view-details-btn">
-                        View Details <ArrowRight size={16} />
+                        Ver ficha <ArrowRight size={16} aria-hidden="true" />
                     </span>
                 </div>
             </div>

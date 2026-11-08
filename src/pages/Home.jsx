@@ -154,22 +154,22 @@ const Home = () => {
                 <div className="container authority-grid">
                     <div className="authority-content">
                         <p className="lead-text">
-                            Specialists in premium real estate assets across Andalusia.
-                            Azimut Property provides expert consultancy for luxury residences,
-                            rural estates, and strategic land investments.
+                            Especialistas en activos inmobiliarios premium en Andalucía.
+                            Azimut Property asesora en residencias de lujo, fincas rústicas
+                            e inversiones estratégicas en suelo.
                         </p>
                         <p>
-                            While our roots are deep in the Golden Triangle of Marbella, Benahavís, and Estepona,
-                            we have expanded our expertise to the emerging high-value markets of Cádiz and Sevilla.
-                            From historic haciendas with productive olive groves to coastal plots with
-                            unparalleled development potential, we identify assets that offer both
-                            lifestyle excellence and long-term capital preservation.
+                            Nacimos en el Golden Triangle de Marbella, Benahavís y Estepona, y hemos
+                            llevado nuestra experiencia a los mercados emergentes de alto valor de Cádiz y Sevilla.
+                            Desde haciendas históricas con olivar en producción hasta parcelas en la costa con
+                            un potencial de desarrollo excepcional, seleccionamos activos que ofrecen a la vez
+                            calidad de vida y preservación del capital a largo plazo.
                         </p>
                         <p>
-                            In a competitive landscape, off-market access is what separates a
-                            secured acquisition from a missed one. We work quietly, for a limited
-                            number of clients, to reach the most coveted opportunities in Southern
-                            Europe before they are ever advertised.
+                            En un mercado competitivo, el acceso fuera de mercado marca la diferencia
+                            entre cerrar una compra y perderla. Trabajamos con discreción, para un número
+                            limitado de clientes, y llegamos a las oportunidades más codiciadas del sur
+                            de Europa antes de que se publiquen.
                         </p>
                     </div>
                     <div className="authority-media">
