@@ -44,9 +44,9 @@ const LeadMagnet = () => {
                         <>
                             <h2 id="lead-magnet-title">Guía de inversión en fincas rústicas 2026</h2>
                             <p className="lead-magnet-intro">
-                                How to identify high-yield estates in Cádiz and Sevilla: price per
-                                hectare, CAP subsidies and tourism potential, analysed by our
-                                acquisition team.
+                                Cómo identificar fincas de alta rentabilidad en Cádiz y Sevilla: precio por
+                                hectárea, ayudas de la PAC y potencial turístico, analizados por nuestro
+                                equipo de adquisiciones.
                             </p>
 
                             <ul className="lead-features">
