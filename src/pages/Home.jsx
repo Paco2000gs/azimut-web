@@ -8,6 +8,7 @@ import { generateBlogSlug } from '../utils/slugify';
 import { detectLang } from '../utils/detectLang';
 import PropertyCard from '../components/PropertyCard';
 import SEO from '../components/SEO';
+import { CONTACT_EMAIL } from '../constants/contact';
 import LeadMagnet from '../components/LeadMagnet';
 import { Compass, Shield, Key } from 'lucide-react';
 import '../styles/Home.css';
@@ -46,7 +47,7 @@ const Home = () => {
         "name": "Azimut Property",
         "description": "Boutique real estate agency specialized in luxury assets and rural estates across Andalusia. Specialists in Marbella, Cádiz, Sevilla, and Huelva.",
         "url": "https://www.azimutproperty.com/",
-        "email": "info@azimutproperty.com",
+        "email": CONTACT_EMAIL,
         "logo": {
             "@type": "ImageObject",
             "url": "https://www.azimutproperty.com/azimut-logo-gold.png"
@@ -70,7 +71,7 @@ const Home = () => {
         "currenciesAccepted": "EUR",
         "contactPoint": {
             "@type": "ContactPoint",
-            "email": "info@azimutproperty.com",
+            "email": CONTACT_EMAIL,
             "contactType": "customer service",
             "areaServed": "ES",
             "availableLanguage": ["Spanish", "English"]

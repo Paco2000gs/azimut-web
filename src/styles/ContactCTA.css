@@ -1,0 +1,395 @@
+/* ---------------------------------------------------------------------------
+   Site-wide email CTA (ContactCTA.jsx)
+
+   Desktop: a floating button bottom-right, dressed like the header's
+   "Contacto" button so it reads as the same action.
+   Phone (<= 900px): a bar along the bottom with a gold button, the layout the
+   listing page already used for its enquiry bar.
+
+   z-index 900 sits under the header drawer (1000), the photo lightbox (2000),
+   the exit-intent dialog (10000) and any consent banner GTM injects (those use
+   values near 2^31), so the button never covers a cookie notice.
+   --------------------------------------------------------------------------- */
+.contact-cta {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    visibility: visible;
+    transition: transform 0.4s var(--ease-out), opacity 0.4s var(--ease-out), visibility 0s;
+}
+
+.contact-cta[data-hidden="true"] {
+    transform: translateY(calc(100% + 1.5rem));
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.4s var(--ease-out), opacity 0.4s var(--ease-out), visibility 0s linear 0.4s;
+}
+
+.contact-cta-summary {
+    display: none;
+}
+
+.contact-cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+    min-height: 48px;
+    padding: 0.8rem 1.5rem;
+    border: 1px solid var(--gold);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-dark);
+    color: var(--ink-inverse);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-lg);
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+.contact-cta-button svg {
+    flex: none;
+    color: var(--gold);
+    transition: color 0.3s var(--ease-out);
+}
+
+.contact-cta-button:hover {
+    background-color: var(--gold);
+    color: var(--ink-900);
+}
+
+.contact-cta-button:hover svg {
+    color: var(--ink-900);
+}
+
+/* The button floats over light pages and dark heroes alike; gold reads on both. */
+.contact-cta-button:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+    .contact-cta {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        justify-content: space-between;
+        padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
+        background: var(--surface-raised);
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -4px 16px rgba(20, 19, 15, 0.08);
+    }
+
+    .contact-cta[data-hidden="true"] {
+        transform: translateY(110%);
+    }
+
+    /* Listing pages: city and price on the left, the ask on the right. */
+    .contact-cta-summary {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        line-height: 1.25;
+    }
+
+    .contact-cta-summary strong {
+        font-size: 1.05rem;
+        color: var(--ink-800);
+        white-space: nowrap;
+    }
+
+    .contact-cta-place {
+        overflow: hidden;
+        font-size: 0.7rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        color: var(--ink-500);
+    }
+
+    /* Gold ground carries dark ink, never white: the house rule. */
+    .contact-cta-button {
+        flex: 1 1 auto;
+        border-color: var(--gold);
+        background-color: var(--gold);
+        color: var(--ink-900);
+        font-size: 0.8rem;
+        letter-spacing: 0.1em;
+        box-shadow: none;
+    }
+
+    .contact-cta-button svg {
+        color: var(--ink-900);
+    }
+
+    .contact-cta-button:hover {
+        background-color: var(--gold-hover);
+    }
+
+    .contact-cta-summary + .contact-cta-button {
+        flex: 0 0 auto;
+    }
+
+    .contact-cta-button:focus-visible {
+        outline-color: var(--gold-ink);
+    }
+}
+
+/* ---------------------------------------------------------------------------
+   Dialog
+   --------------------------------------------------------------------------- */
+/* margin: auto restores the centring the global `* { margin: 0 }` reset strips
+   from the browser's own dialog styles. */
+.contact-dialog {
+    width: min(30rem, calc(100vw - 2rem));
+    max-height: calc(100dvh - 2rem);
+    margin: auto;
+    padding: 0;
+    border: none;
+    border-top: 2px solid var(--gold);
+    border-radius: var(--radius-sm);
+    background: var(--surface-raised);
+    color: var(--ink-800);
+    box-shadow: var(--shadow-lg);
+    overflow: auto;
+    overscroll-behavior: contain;
+}
+
+.contact-dialog::backdrop {
+    background: rgba(20, 19, 15, 0.62);
+}
+
+.contact-dialog[open] {
+    animation: contact-dialog-in 0.35s var(--ease-out);
+}
+
+@keyframes contact-dialog-in {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+}
+
+.contact-dialog-panel {
+    position: relative;
+    padding: 2.25rem 2rem 1.75rem;
+}
+
+.contact-dialog-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    background: none;
+    color: var(--ink-500);
+    cursor: pointer;
+    transition: color 0.2s var(--ease-out);
+}
+
+.contact-dialog-close:hover {
+    color: var(--ink-900);
+}
+
+.contact-dialog h2 {
+    margin: 0 2.5rem 0.5rem 0;
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--ink-800);
+    text-wrap: balance;
+}
+
+.contact-dialog-intro {
+    margin-bottom: 1.75rem;
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--ink-500);
+}
+
+.contact-dialog-ref {
+    white-space: nowrap;
+    color: var(--gold-ink);
+    font-weight: 500;
+}
+
+.contact-dialog-field {
+    margin-bottom: 1.25rem;
+}
+
+.contact-dialog-field label {
+    display: block;
+    margin-bottom: 0.35rem;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-500);
+}
+
+.contact-dialog-field input,
+.contact-dialog-field textarea {
+    width: 100%;
+    min-height: 44px;
+    padding: 0.6rem 0;
+    border: none;
+    border-bottom: 1px solid var(--border-strong);
+    border-radius: 0;
+    background: transparent;
+    font-family: var(--font-body);
+    /* 16px: below that, iOS Safari zooms the page when a field takes focus. */
+    font-size: 1rem;
+    line-height: 1.5;
+    color: var(--ink-800);
+    transition: border-color 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out);
+}
+
+.contact-dialog-field textarea {
+    resize: vertical;
+}
+
+.contact-dialog-field input:hover,
+.contact-dialog-field textarea:hover {
+    border-bottom-color: var(--ink-400);
+}
+
+.contact-dialog-field input:focus,
+.contact-dialog-field textarea:focus {
+    outline: none;
+    border-bottom-color: var(--gold-ink);
+    box-shadow: 0 1px 0 0 var(--gold-ink);
+}
+
+.contact-dialog-field input:user-invalid,
+.contact-dialog-field textarea:user-invalid {
+    border-bottom-color: var(--state-error);
+}
+
+.contact-dialog-submit {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 0.5rem;
+    padding: 0.85rem 1.5rem;
+    border: 1px solid var(--ink-800);
+    border-radius: var(--radius-sm);
+    background-color: var(--ink-800);
+    color: var(--ink-inverse);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out), border-color 0.3s var(--ease-out);
+}
+
+.contact-dialog-submit:hover:not(:disabled) {
+    border-color: var(--gold);
+    background-color: var(--gold);
+    color: var(--ink-900);
+}
+
+.contact-dialog-submit:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.contact-dialog-error {
+    margin-top: 1rem;
+    font-size: 0.875rem;
+    line-height: 1.55;
+    color: var(--state-error);
+}
+
+.contact-dialog-alt,
+.contact-dialog-legal {
+    font-size: 0.85rem;
+    line-height: 1.55;
+    color: var(--ink-500);
+}
+
+.contact-dialog-alt {
+    margin-top: 1.5rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--border);
+}
+
+.contact-dialog-legal {
+    margin-top: 0.35rem;
+    font-size: 0.78rem;
+}
+
+.contact-dialog a {
+    color: var(--gold-ink);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+    overflow-wrap: anywhere;
+}
+
+.contact-dialog-done {
+    text-align: center;
+}
+
+.contact-dialog-done svg {
+    margin-bottom: 1rem;
+    color: var(--gold-ink);
+}
+
+.contact-dialog-done h2 {
+    margin-right: 0;
+}
+
+.contact-dialog-done p {
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--ink-500);
+    overflow-wrap: anywhere;
+}
+
+/* Phones: a sheet from the bottom edge, where the button that opened it sits. */
+@media (max-width: 600px) {
+    .contact-dialog {
+        width: 100%;
+        max-width: 100%;
+        max-height: 92dvh;
+        margin: auto 0 0;
+        border-radius: 0;
+    }
+
+    .contact-dialog-panel {
+        padding: 2rem 1.25rem calc(1.5rem + env(safe-area-inset-bottom));
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .contact-cta,
+    .contact-cta[data-hidden="true"] {
+        transition: none;
+    }
+
+    .contact-dialog[open] {
+        animation: none;
+    }
+}
+
+@media print {
+    .contact-cta,
+    .contact-dialog {
+        display: none;
+    }
+}

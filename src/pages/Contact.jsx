@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Mail, Clock } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
+import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
 import SEO from '../components/SEO';
 import '../styles/Contact.css';
 
@@ -52,8 +53,8 @@ const Contact = () => {
     return (
         <div className="page contact">
             <SEO
-                title="Contacto | Inmobiliaria de lujo en Marbella | Azimut Property"
-                description="Contacte con Azimut Property para comprar o vender inmuebles de lujo en Marbella, Estepona y la Costa del Sol. Equipo multilingüe. Email: info@azimutproperty.com."
+                title="Contacto: fincas y villas de lujo | Azimut Property"
+                description={`Escriba a ${CONTACT_EMAIL} para comprar o vender fincas, cortijos y villas de lujo en Andalucía. Respuesta por email y equipo multilingüe.`}
                 url="/contact"
                 lang="es"
                 keywords="contacto inmobiliaria Marbella, consulta inmueble de lujo Costa del Sol, comprar villa Marbella contacto"
@@ -78,7 +79,7 @@ const Contact = () => {
                             <div className="info-icon"><Mail size={24} /></div>
                             <div className="info-content">
                                 <h3>Escríbanos</h3>
-                                <p>info@azimutproperty.com</p>
+                                <p><a href={contactMailto({ subject: 'Consulta desde la web' })}>{CONTACT_EMAIL}</a></p>
                             </div>
                         </div>
 
@@ -91,7 +92,7 @@ const Contact = () => {
                         </div>
                     </div>
 
-                    <div className="contact-form-section">
+                    <div className="contact-form-section" data-contact-cta-hide="form">
                         <h3>Envíenos un mensaje</h3>
                         {submitted ? (
                             <div className="contact-success" role="status">

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLeads } from '../context/LeadsContext';
+import { CONTACT_EMAIL } from '../constants/contact';
 import '../styles/PropertyInquiryForm.css';
 import { Send, CheckCircle } from 'lucide-react';
 
@@ -40,7 +41,7 @@ Message: ${formData.message || 'Information request.'}
             setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
         } catch (err) {
             console.error('Error submitting form:', err);
-            setError('No hemos podido enviar su solicitud. Inténtelo de nuevo o escriba a info@azimutproperty.com.');
+            setError(`No hemos podido enviar su solicitud. Inténtelo de nuevo o escriba a ${CONTACT_EMAIL}.`);
         } finally {
             setLoading(false);
         }
@@ -64,7 +65,7 @@ Message: ${formData.message || 'Information request.'}
     }
 
     return (
-        <div className="property-inquiry-form">
+        <div className="property-inquiry-form" data-contact-cta-hide="form">
             <div className="form-header">
                 <h3>Solicitar dossier privado</h3>
                 <p>Reciba información detallada y confidencial sobre este inmueble.</p>

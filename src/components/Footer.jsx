@@ -1,11 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Facebook, Mail } from 'lucide-react';
+import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
 import '../styles/Footer.css';
 
 const Footer = () => {
     return (
-        <footer className="footer" role="contentinfo">
+        // data-contact-cta-hide: the floating contact button steps aside while the
+        // footer, which carries the address, is on screen (see ContactCTA).
+        <footer className="footer" role="contentinfo" data-contact-cta-hide="footer">
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-column">
@@ -16,7 +19,7 @@ const Footer = () => {
                         </div>
                         <p>Inmobiliaria exclusiva en Andalucía. Seleccionamos las mejores propiedades para clientes muy exigentes.</p>
                         <div className="contact-info">
-                            <p><Mail size={16} aria-hidden="true" style={{ marginRight: '8px', display: 'inline' }} /> <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a></p>
+                            <p><Mail size={16} aria-hidden="true" style={{ marginRight: '8px', display: 'inline' }} /> <a href={contactMailto()}>{CONTACT_EMAIL}</a></p>
                         </div>
                     </div>
 

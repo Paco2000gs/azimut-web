@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, Send, CheckCircle } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
+import { CONTACT_EMAIL } from '../constants/contact';
 import '../styles/ExitIntentPopup.css';
 
 const SEEN_KEY = 'azimut:guide-prompt-seen';
@@ -120,7 +121,7 @@ const ExitIntentPopup = () => {
                         </form>
                         {status === 'error' && (
                             <p className="exit-error" role="alert">
-                                We could not register your request. Please email info@azimutproperty.com.
+                                We could not register your request. Please email {CONTACT_EMAIL}.
                             </p>
                         )}
                         <p className="exit-note">No newsletters. We write when we have something worth reading.</p>
