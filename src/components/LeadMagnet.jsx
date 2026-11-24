@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Mail, ArrowRight, CheckCircle } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL } from '../constants/contact';
+import { trackFormSubmit } from '../utils/analytics';
 import '../styles/LeadMagnet.css';
 
 const LeadMagnet = () => {
@@ -21,6 +22,7 @@ const LeadMagnet = () => {
                 source: 'Lead magnet — home page',
                 message: 'Requested the Rural Asset Investment Guide 2026.'
             });
+            trackFormSubmit('lead_magnet');
             setStatus('done');
         } catch {
             setStatus('error');

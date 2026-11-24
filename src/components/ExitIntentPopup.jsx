@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { X, Send, CheckCircle } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL } from '../constants/contact';
+import { trackFormSubmit } from '../utils/analytics';
 import '../styles/ExitIntentPopup.css';
 
 const SEEN_KEY = 'azimut:guide-prompt-seen';
@@ -66,6 +67,7 @@ const ExitIntentPopup = () => {
                 message: 'Requested the Investment Guide via exit intent.',
                 source: 'Exit intent'
             });
+            trackFormSubmit('exit_intent');
             setStatus('done');
             setTimeout(() => setIsVisible(false), 3500);
         } catch {

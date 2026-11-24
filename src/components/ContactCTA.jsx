@@ -5,6 +5,7 @@ import { useProperties } from '../context/PropertiesContext';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL, CONTACT_OPEN_EVENT, contactMailto } from '../constants/contact';
 import { extractIdFromSlug, generatePropertyPath } from '../utils/slugify';
+import { trackFormSubmit } from '../utils/analytics';
 import '../styles/ContactCTA.css';
 
 // The canonical host, never window.location.origin: the prerender runs on
@@ -57,6 +58,7 @@ const ContactForm = ({ property, heading, pathname, mail, onDone }) => {
                 source: `Botón de contacto — ${pathname}`,
                 ...(property && { property_title: title }),
             });
+            trackFormSubmit('contact_dialog', property?.id);
             setStatus('done');
         } catch {
             setStatus('error');
@@ -271,7 +273,7 @@ const ContactCTA = () => {
                 // inside fills it, so clicks on the form never land here.
                 onClick={(e) => { if (e.target === e.currentTarget) close(); }}
             >
-                <div className="contact-dialog-panel">
+                <div className="contact-dialog-panel" data-form-name="contact_dialog">
                     <button type="button" className="contact-dialog-close" onClick={close} aria-label="Cerrar formulario de contacto">
                         <X size={20} aria-hidden="true" />
                     </button>

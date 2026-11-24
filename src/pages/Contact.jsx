@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Mail, Clock } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
+import { trackFormSubmit } from '../utils/analytics';
 import SEO from '../components/SEO';
 import '../styles/Contact.css';
 
@@ -28,6 +29,7 @@ const Contact = () => {
                 message: formData.message,
                 source: 'Contact Page'
             });
+            trackFormSubmit('contact_page');
             setSubmitted(true);
             setFormData({ name: '', email: '', phone: '', interest: '', message: '' });
             setTimeout(() => setSubmitted(false), 5000);

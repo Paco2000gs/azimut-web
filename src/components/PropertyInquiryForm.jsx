@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL } from '../constants/contact';
+import { trackFormSubmit } from '../utils/analytics';
 import '../styles/PropertyInquiryForm.css';
 import { Send, CheckCircle } from 'lucide-react';
 
-const PropertyInquiryForm = ({ propertyTitle }) => {
+const PropertyInquiryForm = ({ propertyId, propertyTitle }) => {
     const { addLead } = useLeads();
     const [formData, setFormData] = useState({
         name: '',
@@ -37,6 +38,7 @@ Message: ${formData.message || 'Information request.'}
                 source: 'Property Detail',
                 property_title: propertyTitle
             });
+            trackFormSubmit('property_inquiry', propertyId);
             setSubmitted(true);
             setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
         } catch (err) {
