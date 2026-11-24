@@ -53,7 +53,7 @@ const LANDINGS = {
                 { h: 'Off-market access', p: 'Villas held quietly by owners who never list on the public portals.' },
                 { h: 'End-to-end advice', p: 'Private viewings, due diligence, NIE and the notary for international buyers.' },
             ],
-            listingsHref: '/venta/marbella/villa',
+            listingsHref: '/venta/marbella',
             listingsCta: 'Browse Marbella villas',
         },
         es: {
@@ -74,7 +74,7 @@ const LANDINGS = {
                 { h: 'Acceso off-market', p: 'Villas en manos de propietarios que nunca publican en los portales.' },
                 { h: 'Acompañamiento integral', p: 'Visitas privadas, due diligence, NIE y firma notarial para el comprador internacional.' },
             ],
-            listingsHref: '/venta/marbella/villa',
+            listingsHref: '/venta/marbella',
             listingsCta: 'Ver villas en Marbella',
         },
     },

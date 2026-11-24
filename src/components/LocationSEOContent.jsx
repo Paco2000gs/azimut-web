@@ -1,7 +1,11 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useProperties } from '../context/PropertiesContext';
+import { slugifyLocation } from '../utils/slugify';
+import { TYPE_LABELS, typesIn } from '../utils/listingTypes';
 
 const LocationSEOContent = ({ city, area }) => {
+    const { properties } = useProperties();
     // Content database for major locations
     const content = {
         'marbella': {
@@ -534,6 +538,10 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
     const currentContent = content[citySlug] || content['default'];
 
+    const siloLinks = typesIn(properties, citySlug);
+    // The filter page being viewed (/venta/sevilla/finca) does not link to itself.
+    const currentType = area ? slugifyLocation(area).replace(/s$/, '') : '';
+
     if (!city) return null;
 
     const isRuralProvince = ['cadiz', 'huelva', 'sevilla', 'malaga', 'jimena-de-la-frontera', 'sotogrande', 'almeria', 'vera', 'mojacar', 'cuevas-del-almanzora', 'garrucha', 'nijar', 'carboneras', 'roquetas-de-mar', 'albox', 'arboleas'].includes(citySlug);
@@ -593,18 +601,16 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
                 })}
             </div>
 
-            {/* Internal Silo Links */}
-            <div className="silo-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
-                <a href={`/venta/${citySlug}/finca`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
-                    Fincas en {city}
-                </a>
-                <a href={`/venta/${citySlug}/plot`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
-                    Terrenos en {city}
-                </a>
-                <a href={`/venta/${citySlug}/villa`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
-                    Villas en {city}
-                </a>
-            </div>
+            {/* Internal Silo Links — only types this location holds (see typesIn) */}
+            {siloLinks.types.length > 0 && (
+                <div className="silo-links" style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem', marginTop: '2rem' }}>
+                    {siloLinks.types.filter(t => t !== currentType).map(t => (
+                        <a key={t} href={`/venta/${citySlug}/${t}`} style={{ background: 'var(--surface-sunken)', color: 'var(--ink-800)', padding: '0.5rem 1rem', borderRadius: '2rem', fontSize: '0.875rem', fontWeight: '500', textDecoration: 'none', border: '1px solid var(--border)' }}>
+                            {TYPE_LABELS[t]} en {siloLinks.name}
+                        </a>
+                    ))}
+                </div>
+            )}
 
             {/* CTA for rural provinces */}
             {isRuralProvince && currentContent.cta && (

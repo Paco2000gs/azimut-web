@@ -138,8 +138,11 @@ const Home = () => {
                     </header>
 
                     <div className="cta-group-luxury">
+                        {/* The second button ("Explorar fincas rústicas") pointed at
+                            /venta?type=finca, a parameter variant of /venta. There is
+                            no clean all-fincas URL, and the contact button already
+                            gives the hero its second action. */}
                         <Link to="/venta" className="btn btn-hero btn-primary-gold">Ver el catálogo</Link>
-                        <Link to="/venta?type=finca" className="btn btn-hero btn-secondary-outline">Explorar fincas rústicas</Link>
                     </div>
 
                     <div className="trust-indicators">
