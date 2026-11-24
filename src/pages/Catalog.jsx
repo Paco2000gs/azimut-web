@@ -322,14 +322,14 @@ const Catalog = () => {
         if (provinceSeo) return provinceSeo.title;
         if (urlCity) return citySeoTitle;
         if (type) return `${type}s de Lujo en Venta en Andalucía | Azimut Property`;
-        return "Catálogo de Propiedades de Lujo en Venta en Andalucía | Azimut Property";
+        return "Fincas y Cortijos en Venta en Andalucía | Azimut Property";
     }, [urlCity, type, provinceSeo, typeSeo, citySeoTitle]);
 
     const seoDescription = useMemo(() => {
         if (typeSeo) return typeSeo.description;
         if (provinceSeo) return provinceSeo.description;
         if (urlCity) return citySeoDescription;
-        return "Catálogo de villas, fincas y casas de lujo en venta en Andalucía y Costa del Sol, con acceso exclusivo para compradores internacionales.";
+        return "Catálogo de fincas rústicas, cortijos, haciendas y villas de lujo en venta en Sevilla, Cádiz, Huelva y Málaga, con dossier privado de cada inmueble.";
     }, [urlCity, provinceSeo, typeSeo, citySeoDescription]);
 
     const seoKeywords = useMemo(() => {
@@ -413,10 +413,22 @@ const Catalog = () => {
             {/* Hero / Header Section */}
             <div className="catalog-header">
                 <div className="container">
-                    <h1>{typeSeo ? typeSeo.h1 : provinceSeo ? provinceSeo.h1 : urlCity ? `Propiedades en Venta en ${placeName}` : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
-                    <p>{typeSeo ? typeSeo.hero : provinceSeo ? provinceSeo.hero : urlCity ? `Descubre propiedades exclusivas en ${placeName}` : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
+                    <h1>{typeSeo ? typeSeo.h1 : provinceSeo ? provinceSeo.h1 : urlCity ? `Propiedades en Venta en ${placeName}` : city ? `Propiedades en Venta en ${city}` : 'Fincas, Cortijos y Villas de Lujo en Venta en Andalucía'}</h1>
+                    <p>{typeSeo ? typeSeo.hero : provinceSeo ? provinceSeo.hero : urlCity ? `Descubre propiedades exclusivas en ${placeName}` : city ? `Descubre propiedades exclusivas en ${city}` : 'Fincas rústicas, cortijos de olivar, haciendas históricas y villas seleccionadas una a una, con acceso a inmuebles que no se publican y acompañamiento en toda la compra.'}</p>
+                    {/* The catalogue's own way into the four provinces that carry
+                        the search demand (/venta: CTR 1 %, position 37). */}
+                    {!urlCity && (
+                        <nav className="catalog-provinces" aria-label="Fincas por provincia">
+                            <Link to="/venta/sevilla">Fincas en Sevilla</Link>
+                            <Link to="/venta/cadiz">Fincas en Cádiz</Link>
+                            <Link to="/venta/huelva">Fincas en Huelva</Link>
+                            <Link to="/venta/malaga">Fincas en Málaga</Link>
+                        </nav>
+                    )}
+                    {/* Anchor text is the query the landing targets ("cortijo en
+                        venta en Sevilla"), not a generic "guía". */}
                     {provinceSeo?.landing && (
-                        <p><Link to={provinceSeo.landing}>Guía de cortijos en venta en esta provincia</Link></p>
+                        <p>¿Busca un <Link to={provinceSeo.landing}>cortijo en venta en {PROVINCE_SLUGS[urlCity.toLowerCase()]}</Link>?</p>
                     )}
                 </div>
             </div>

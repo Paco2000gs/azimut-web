@@ -214,6 +214,28 @@
     display: flex;
 }
 
+/* Zone links under the featured listings: plain prose, gold-ink links (the
+   gold that clears 4.5:1 on light surfaces). */
+.featured-zones {
+    max-width: 62ch;
+    margin: 2.5rem auto 2rem;
+    text-align: center;
+    line-height: 1.75;
+    color: var(--ink-500);
+    text-wrap: balance;
+}
+
+.featured-zones a {
+    color: var(--gold-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.featured-zones a:hover {
+    color: var(--ink-900);
+}
+
 .btn-gold {
     background-color: var(--gold);
     border: 1px solid var(--gold);

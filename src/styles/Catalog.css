@@ -32,6 +32,55 @@
     margin: 0;
 }
 
+.catalog-header p + p {
+    margin-top: 0.75rem;
+}
+
+.catalog-header p a {
+    color: var(--gold);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.catalog-header p a:hover {
+    color: var(--gold-champagne);
+}
+
+/* Province links on /venta, dressed like the header's outlined button. */
+.catalog-provinces {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+}
+
+.catalog-provinces a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 1.25rem;
+    border: 1px solid var(--gold);
+    border-radius: var(--radius-sm);
+    color: var(--gold);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+.catalog-provinces a:hover {
+    background-color: var(--gold);
+    color: var(--ink-900);
+}
+
+.catalog-provinces a:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
 /* Filter bar */
 .search-bar-container {
     background-color: var(--surface-raised);

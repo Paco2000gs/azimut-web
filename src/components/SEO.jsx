@@ -39,8 +39,11 @@ const SEO = ({ title, description, image, imageDimensions, url, type = 'website'
     const defaultImage = 'https://www.azimutproperty.com/media/social-card.jpg';
     const siteUrl = 'https://www.azimutproperty.com';
 
-    const fullTitle = title 
-        ? (title.includes('Azimut Property') ? title : `${title} | Azimut Property`) 
+    // The brand is appended only while the title still fits Google's ~60
+    // characters; a title that is already long keeps its keywords instead.
+    const branded = title && !title.includes('Azimut Property') ? `${title} | Azimut Property` : title;
+    const fullTitle = title
+        ? (branded.length <= 60 ? branded : title)
         : siteTitle;
     const rawDescription = description || defaultDescription;
     const fullDescription = rawDescription.length > 320

@@ -233,13 +233,17 @@ const LANDINGS = {
             h1: 'Cortijos en Venta en Sevilla',
             subhead: 'Cortijos de olivar, haciendas históricas y fincas rurales en Carmona, Écija, Osuna y el Aljarafe, con acompañamiento completo en la compra.',
             heroAlt: 'Cortijo andaluz entre olivares en la campiña sevillana',
-            seoTitle: 'Cortijos en Venta en Sevilla | Olivar y Haciendas | Azimut Property',
-            seoDescription: 'Cortijos en venta en Sevilla: cortijos de olivar, haciendas históricas y fincas rurales en Carmona, Écija, Osuna y el Aljarafe. Propiedades exclusivas fuera de mercado.',
+            // Without the brand: with it the title ran to 67 characters. SEO.jsx adds
+            // the brand only while a title stays within 60.
+            seoTitle: 'Cortijos en Venta en Sevilla | Olivar y Haciendas',
+            seoDescription: 'Cortijos en venta en Sevilla: cortijos de olivar, haciendas históricas y fincas rurales en la campiña, la Sierra Norte y el Aljarafe, fuera de mercado.',
             keywords: 'cortijos en venta en Sevilla, cortijo en venta Sevilla, cortijo de olivar Sevilla, cortijo Carmona, cortijo Écija, hacienda histórica Sevilla',
             intro: [
                 'La campiña sevillana es una de las zonas rurales más reconocibles de Andalucía: olivares, cortijos y haciendas históricas entre Carmona, Écija, Osuna y el Aljarafe. Un cortijo aquí puede ser una residencia de campo, un activo agrícola o un proyecto de uso turístico.',
                 'Azimut Property localiza cortijos de olivar, haciendas y fincas con terreno en la provincia, incluidas propiedades fuera de mercado. Cada cortijo se presenta con su situación del suelo, su acceso y su estado de conservación, para que el comprador decida con información completa.',
-                'Acompañamos la compra completa: revisión urbanística y registral, NIE, notaría e impuestos, para que la compra de un cortijo sevillano sea segura desde el primer contacto.',
+                'Cada comarca ofrece un cortijo distinto. En la campiña (Carmona, Écija, Osuna, Marchena) dominan el olivar y el cereal en tierra llana; en la Sierra Norte (Constantina, Cazalla de la Sierra), la dehesa, el monte y los cortijos de sierra; en el Aljarafe, fincas más pequeñas a pocos minutos de la capital; y en la Sierra Sur, en torno a Estepa, el olivar de ladera y las casas señoriales.',
+                'Antes de comprar un cortijo conviene revisar cuatro cosas: la situación urbanística de las edificaciones en suelo rústico (si están legalizadas o pueden regularizarse), el agua (pozos, concesiones y derechos inscritos), el estado y la producción del olivar, con las ayudas de la PAC que lleve asociadas, y los accesos y servidumbres de paso. Con esa información el precio se negocia sobre datos y no sobre fotografías.',
+                'Acompañamos la compra completa: revisión urbanística y registral, NIE, notaría e impuestos, para que la compra de un cortijo sevillano sea segura desde el primer contacto. Cada cortijo de la selección tiene su dossier privado, que le enviamos por email.',
             ],
             highlights: [
                 { h: 'Cortijos de olivar', p: 'Fincas con olivar en producción y edificaciones con historia.' },

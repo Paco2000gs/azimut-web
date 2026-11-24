@@ -90,8 +90,8 @@ const Home = () => {
                 English versions of the collections are reached through their own
                 paired URLs with hreflang. */}
             <SEO
-                title="Fincas y villas de lujo fuera de mercado en Marbella, Sotogrande y Andalucía | Azimut Property"
-                description="Villas en el Golden Triangle de Marbella, mansiones en Sotogrande, haciendas históricas y fincas ecuestres en Cádiz y Sevilla. Asesoramiento discreto para compradores internacionales."
+                title="Fincas y Villas de Lujo en Andalucía | Azimut Property"
+                description="Fincas rústicas, cortijos y villas de lujo en venta en Andalucía: Sevilla, Cádiz, Málaga y Huelva. Acceso fuera de mercado y dossier privado por email."
                 url="/"
                 lang="es"
                 keywords="fincas de lujo fuera de mercado Andalucía, villas de lujo Marbella Golden Triangle, mansión en venta Sotogrande, hacienda histórica en venta España, finca ecuestre Jimena de la Frontera, finca de olivar en venta Andalucía, finca rústica en venta Cádiz Sevilla, Azimut Property"
@@ -124,11 +124,14 @@ const Home = () => {
                 <div className="hero-overlay"></div>
                 <div className="container hero-content">
                     <header className="hero-header-branded">
+                        {/* The H1 carries the query the home ranks for ("fincas y
+                            villas de lujo en Andalucía"); the old line ("Eleve su
+                            patrimonio con los inmuebles más singulares del sur de
+                            España") named no keyword. The space is explicit: JSX
+                            drops whitespace that spans a line break. */}
                         <h1 className="hero-title">
-                            {/* The space is explicit: JSX drops whitespace that spans a line
-                                break, which silently welded "portfolio" to "with". */}
-                            <span className="hero-title-lead">Eleve su patrimonio</span>{' '}
-                            con los inmuebles más singulares <br />del sur de España
+                            <span className="hero-title-lead">Fincas y villas de lujo</span>{' '}
+                            en Andalucía
                         </h1>
                         <p className="main-value-proposition">
                             Fincas y oportunidades de inversión exclusivas en Andalucía: desde
@@ -214,6 +217,15 @@ const Home = () => {
                             ))}
                         </div>
                     )}
+
+                    {/* Crawlable paths from the home to the collections that draw
+                        search demand ("cortijo en venta sevilla": position 11.4). */}
+                    <p className="featured-zones">
+                        ¿Busca un <Link to="/cortijos-en-venta-sevilla">cortijo en venta en Sevilla</Link>?
+                        Vea también las <Link to="/venta/cadiz">fincas en Cádiz</Link>, las{' '}
+                        <Link to="/venta/huelva">fincas en Huelva</Link> y las{' '}
+                        <Link to="/venta/malaga">fincas en Málaga</Link>.
+                    </p>
 
                     <div className="view-all-container">
                         <Link to="/venta" className="btn btn-gold">VER TODOS LOS INMUEBLES</Link>
