@@ -72,6 +72,13 @@ Fase 2 (24-nov, misma rama): titles y metas en español de todas las fichas gene
 (/cortijos-en-venta-huelva) con texto local, bloque "Artículos sobre {lugar}" en /venta/<lugar>, formularios de
 3 campos (nombre, email, interés) y primera pantalla de ficha con precio, lugar y superficie.
 
+Fase 3 (25-nov, misma rama): /es/villas-de-lujo-marbella y /es/mansiones-sotogrande con guía de zonas, preguntas
+frecuentes (FAQPage), fichas y artículos enlazados, y title/meta dentro de 60/155; los artículos del blog que hablan
+de Marbella o Sotogrande enlazan a su landing en su idioma. hreflang: solo las 4 landings tienen versión inglesa real
+(pares recíprocos verificados en dist/); para la home y las categorías hay un plan en `docs/plan-hreflang-en.md`.
+Borradores de blog sin publicar en `docs/borradores-blog/` (cortijos en Huelva, fincas en Cádiz). Además,
+/venta/badajoz y /venta/barcelona se prerenderizan (daban 404 en producción).
+
 ## 4. Pendientes técnicos (código)
 
 - [ ] `noindex` en silos con pocos inmuebles (1 o 2). Los de 0 fichas ya están resueltos en `fix/venta-ciudades-sin-fichas`.
@@ -79,7 +86,9 @@ Fase 2 (24-nov, misma rama): titles y metas en español de todas las fichas gene
 - [ ] Las descripciones de las fichas llegan en inglés desde Supabase: pasarlas a español (dato, no código).
 - [x] Medición de leads: eventos `click_email` y `form_submit` en el dataLayer (rama `feat/seo-leads-informe-nov26`). Sin WhatsApp por decisión del cliente.
 - [ ] Aviso por email a info@ de cada lead: hoy solo se guardan en Supabase y se ven en /admin. Necesita un servicio de email (decisión pendiente).
-- [x] Fase 2 del informe del 21-nov (rama `feat/seo-leads-informe-nov26`).
+- [x] Fases 2 y 3 del informe del 21-nov (rama `feat/seo-leads-informe-nov26`).
+- [ ] Landings EN de Marbella y Sotogrande: siguen con title/meta largos y, la de Sotogrande, con el rango 1M€–15M€ y los 25 minutos a Gibraltar sin fuente (la versión ES ya no los tiene).
+- [ ] /es/villas-de-lujo-marbella: no hay villas de Marbella publicadas; la página lo dice y muestra las fichas de la provincia de Málaga.
 - [ ] Ficha 19: `plot` guarda 48 (sus hectáreas) en vez de metros cuadrados; corregir el dato en Supabase.
 - [ ] Textos de otras localidades en `LocationSEOContent.jsx` (p. ej. precios y porcentajes en Almería) citan cifras sin fuente: revisar.
 - [ ] Core Web Vitals: sin datos suficientes en Search Console todavía.
@@ -97,13 +106,14 @@ Fase 2 (24-nov, misma rama): titles y metas en español de todas las fichas gene
 
 ## 6. Decisiones abiertas (las toma Paco)
 
-1. **¿Versión `/en/` completa?** Hoy solo hay landings EN sueltas. Requiere traducir el contenido.
+1. **¿Versión `/en/` completa?** Hoy solo hay landings EN sueltas. Requiere traducir el contenido. Propuesta en `docs/plan-hreflang-en.md`.
 2. **Disavow.** `GSC-ACCIONES.md` (jul) lo marcaba como prioridad alta; la revisión de oct concluyó que
    `dudley-estates.com` es un socio legítimo y **no** debe ir en el disavow. Decidir si se sube el
    archivo y con qué dominios.
 3. **Revisión legal** de las versiones en español de privacidad y condiciones (traducidas el 22-oct).
 4. **Barcelona.** Se añadió al catálogo el 23-oct, pero todo el posicionamiento (JSON-LD, `llms.txt`,
    textos) habla de Andalucía. Decidir si el nicho se amplía o Barcelona queda como excepción sin SEO propio.
+5. **Borradores de blog** (`docs/borradores-blog/`): revisar, resolver el [VERIFICAR] de Finca Las Flores y publicar en Supabase.
 
 ## 7. Ramas del repo
 
