@@ -11,10 +11,50 @@ import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions'
 import { generatePropertyPath, slugifyLocation } from '../utils/slugify';
 import LocationSEOContent from '../components/LocationSEOContent';
 import LeadMagnet from '../components/LeadMagnet';
+import { TYPE_LABELS, typesIn } from '../utils/listingTypes';
 
 // Shared with the links other pages emit, so a breadcrumb always points at a URL
 // this page resolves.
 const slugifyCity = slugifyLocation;
+
+const BRAND = ' | Azimut Property';
+
+// The first candidate that fits Google's ~60-character title width.
+const fitTitle = (...candidates) => candidates.find(t => t.length <= 60) || candidates[candidates.length - 1];
+
+// How a type filter page names its listings: `long` in the title and H1,
+// `short` when a long place name would push the title past 60 characters.
+const TYPE_SEO = {
+    finca: { long: 'Fincas Rústicas', short: 'Fincas', plural: 'fincas rústicas' },
+    villa: { long: 'Villas de Lujo', short: 'Villas', plural: 'villas de lujo' },
+    mansion: { long: 'Mansiones', short: 'Mansiones', plural: 'mansiones' },
+};
+
+const listingsPhrase = (count) => (count === 1 ? '1 inmueble seleccionado' : `${count} inmuebles seleccionados`);
+
+/**
+ * Title, description and H1 for /venta/{location}/{type}. These pages used to
+ * repeat their parent's metadata word for word: /venta/sevilla/finca shipped
+ * the title, description and H1 of /venta/sevilla, and Search Console filed
+ * /venta/cartama/finca and /venta/almonte/finca as duplicates (Nov 2026). The
+ * count comes from the listings, so the text never claims stock it lacks.
+ */
+const typeSeoFor = (typeSlug, place, count, isProvince) => {
+    const label = TYPE_SEO[typeSlug]
+        || { long: TYPE_LABELS[typeSlug] || 'Inmuebles', short: TYPE_LABELS[typeSlug] || 'Inmuebles', plural: (TYPE_LABELS[typeSlug] || 'inmuebles').toLowerCase() };
+    const where = isProvince ? `la provincia de ${place}` : place;
+    const lead = `${label.plural.charAt(0).toUpperCase()}${label.plural.slice(1)} en venta en ${where}`;
+    return {
+        title: fitTitle(`${label.long} en Venta en ${place}${BRAND}`, `${label.short} en ${place}${BRAND}`),
+        description: count > 0
+            ? `${lead}: ${listingsPhrase(count)} por Azimut Property. Solicite por email ${count === 1 ? 'su dossier privado' : 'el dossier privado de cada uno'}.`
+            : `${lead}. Consulte por email con Azimut Property las opciones disponibles, también las que no se publican.`,
+        keywords: `${label.plural} en venta ${place}, comprar ${label.plural} ${place}, ${label.short.toLowerCase()} ${place}`,
+        h1: `${label.long} en Venta en ${place}`,
+        hero: `Selección de ${label.plural} en ${where}`,
+        crumb: label.short,
+    };
+};
 
 // `city` holds either a listing's name (from the selector) or one rebuilt from
 // the URL, which has lost its accents and hyphens ("Gaucin", "Medina Sidonia").
@@ -149,16 +189,16 @@ const Catalog = () => {
     // Per-province SEO data for rural Andalusia focus
     const PROVINCE_SEO = {
         'cadiz': {
-            title: 'Fincas de Lujo y Haciendas en Venta en Cádiz | Azimut Property',
-            description: 'Cortijos, haciendas y fincas ecuestres en venta en Cádiz — de Jerez y Arcos a Jimena de la Frontera, junto a Sotogrande. Propiedades rurales de lujo fuera de mercado.',
+            title: 'Fincas y Haciendas de Lujo en Cádiz | Azimut Property',
+            description: 'Cortijos, haciendas y fincas ecuestres en venta en Cádiz, de Jerez y Arcos a Jimena de la Frontera, junto a Sotogrande. Fincas de lujo fuera de mercado.',
             keywords: 'cortijos en venta en Cádiz, cortijo de olivar Cádiz, finca de lujo Cádiz, hacienda histórica Cádiz, finca ecuestre Jerez, finca en venta Jimena de la Frontera, finca cerca de Sotogrande',
             h1: 'Fincas de Lujo, Haciendas y Fincas Ecuestres en Venta en Cádiz',
             hero: 'Del cortijo de olivar en Arcos a la finca ecuestre junto a Sotogrande: propiedad rural de alto nivel en la provincia de Cádiz',
             landing: '/cortijos-en-venta-cadiz',
         },
         'huelva': {
-            title: 'Fincas y Chalets con Terreno en Venta en Huelva | Azimut Property',
-            description: 'Cortijos, fincas y chalets con terreno en venta en Huelva: campo onubense entre Doñana y la Sierra de Aracena. Propiedades rurales con asesoramiento para el comprador internacional.',
+            title: 'Fincas con Terreno en Venta en Huelva | Azimut Property',
+            description: 'Fincas, cortijos y chalets con terreno en venta en Huelva, entre Doñana y la Sierra de Aracena. Asesoramiento completo para el comprador internacional.',
             keywords: 'cortijos en venta en Huelva, fincas Huelva, cortijo Huelva, chalet con terreno Huelva, casa rural Huelva, propiedad rural Huelva',
             h1: 'Fincas y Chalets con Terreno en Venta en Huelva',
             hero: 'Propiedades rurales únicas entre el Parque Nacional de Doñana y la Sierra de Aracena',
@@ -166,7 +206,7 @@ const Catalog = () => {
         },
         'sevilla': {
             title: 'Fincas y Haciendas en Venta en Sevilla | Azimut Property',
-            description: 'Cortijos en venta en Sevilla: haciendas históricas, cortijos de olivar y fincas ecuestres en Carmona, Écija, Osuna y el Aljarafe. Propiedades exclusivas fuera de mercado.',
+            description: 'Fincas y haciendas en venta en Sevilla: cortijos de olivar, haciendas históricas y fincas ecuestres en Carmona, Écija, Osuna y el Aljarafe.',
             keywords: 'cortijos en venta en Sevilla, cortijo en venta Sevilla, cortijos Sevilla, hacienda histórica en venta Sevilla, cortijo de olivar Sevilla, finca ecuestre Sevilla, finca de lujo Sevilla',
             h1: 'Haciendas, Cortijos de Olivar y Fincas Ecuestres en Venta en Sevilla',
             hero: 'Adquiere una hacienda histórica, un cortijo de olivar de inversión o una finca ecuestre en la provincia de Sevilla',
@@ -174,14 +214,14 @@ const Catalog = () => {
         },
         'malaga': {
             title: 'Fincas, Terrenos y Cortijos en Málaga | Azimut Property',
-            description: 'Inversión en fincas rústicas, terrenos agrícolas y propiedades rurales en el interior de Málaga. Oportunidades en Ronda, Axarquía y Valle del Guadalhorce.',
+            description: 'Fincas rústicas, terrenos agrícolas y propiedades rurales en venta en el interior de Málaga: Ronda, la Axarquía y el Valle del Guadalhorce.',
             keywords: 'fincas Málaga, terrenos agrícolas Málaga, comprar cortijo Ronda, inversión suelo Málaga, casa de campo Málaga interior, finca olivar Málaga',
             h1: 'Fincas y Terrenos en Venta en Málaga Interior',
             hero: 'Descubre el potencial de inversión en el interior de la provincia de Málaga',
         },
         'almeria': {
             title: 'Fincas, Villas y Casas en Almería | Azimut Property',
-            description: 'Propiedades en Almería: fincas y cortijos en el valle del Almanzora, villas de golf en Desert Springs y casas frente al mar en Vera, Mojácar y Garrucha. Sol, precio y rentabilidad.',
+            description: 'Fincas y cortijos en el valle del Almanzora, villas de golf en Desert Springs y casas junto al mar en Vera, Mojácar y Garrucha, en Almería.',
             keywords: 'propiedades Almería, finca Almería, villa Mojácar, casa Vera, comprar Garrucha, chalet Almanzora, Desert Springs golf',
             h1: 'Fincas, Villas y Casas en Venta en Almería',
             hero: 'Del cortijo del Almanzora a la villa frente al mar: la costa más luminosa de España',
@@ -189,6 +229,30 @@ const Catalog = () => {
     };
 
     const provinceSeo = urlCity ? PROVINCE_SEO[urlCity.toLowerCase()] : null;
+
+    // The location as the listings spell it ("Sanlúcar de Barrameda"), not as
+    // rebuilt from the URL ("Sanlucar De Barrameda").
+    const locationSlug = urlCity ? slugifyCity(urlCity) : '';
+    const located = typesIn(properties, locationSlug);
+    const placeName = located.name || (urlCity ? (PROVINCE_SLUGS[urlCity.toLowerCase()] || formatSlug(urlCity)) : '');
+
+    // /venta/{location}/{type}: the type segment as a slug ("finca"), and how
+    // many listings of that type the location holds.
+    const areaType = urlArea
+        ? PROPERTY_TYPES.find(t => {
+            const s = t.toLowerCase().replace(/\s+/g, '-');
+            return s === urlArea.toLowerCase() || `${s}s` === urlArea.toLowerCase();
+        })
+        : null;
+    const areaTypeSlug = areaType ? slugifyCity(areaType) : '';
+    const typeCount = areaTypeSlug
+        ? properties.filter(p => slugifyCity((isProvincePage ? p.province : p.city) || '') === locationSlug
+            && slugifyCity(p.type || '') === areaTypeSlug).length
+        : 0;
+    const typeSeo = areaTypeSlug && placeName ? typeSeoFor(areaTypeSlug, placeName, typeCount, isProvincePage) : null;
+    const cityProvince = !isProvincePage && urlCity
+        ? properties.find(p => slugifyCity(p.city || '') === locationSlug)?.province
+        : '';
 
     // Canonical URL. A city+type silo (e.g. /venta/ronda/villa) whose result set
     // is IDENTICAL to its parent city/province page (e.g. /venta/ronda) is a
@@ -243,45 +307,68 @@ const Catalog = () => {
     // body, which is the mixed-language signal Google weighs when it decides
     // "Crawled - currently not indexed". Province pages already use Spanish
     // (PROVINCE_SEO above), so the city and catalogue fallbacks follow suit.
+    // City pages name the place as the listings spell it and say how many
+    // listings it holds. The old description placed every town "en la Costa del
+    // Sol", Constantina and Almonte included, and ran past 155 characters.
+    const citySeoTitle = placeName
+        ? fitTitle(`Propiedades de Lujo en Venta en ${placeName}${BRAND}`, `Propiedades en Venta en ${placeName}${BRAND}`, `Propiedades en ${placeName}${BRAND}`)
+        : '';
+    const citySeoDescription = located.count > 0
+        ? `Propiedades en venta en ${placeName}${cityProvince ? ` (${cityProvince})` : ''}: ${listingsPhrase(located.count)} por Azimut Property. Solicite el dossier privado por email.`
+        : `Propiedades en venta en ${placeName} con Azimut Property. Consulte por email las opciones disponibles, también las que no se publican.`;
+
     const seoTitle = useMemo(() => {
+        if (typeSeo) return typeSeo.title;
         if (provinceSeo) return provinceSeo.title;
-        if (city) return `Propiedades de Lujo en Venta en ${city} | Azimut Property`;
+        if (urlCity) return citySeoTitle;
         if (type) return `${type}s de Lujo en Venta en Andalucía | Azimut Property`;
         return "Catálogo de Propiedades de Lujo en Venta en Andalucía | Azimut Property";
-    }, [city, type, provinceSeo]);
+    }, [urlCity, type, provinceSeo, typeSeo, citySeoTitle]);
 
     const seoDescription = useMemo(() => {
+        if (typeSeo) return typeSeo.description;
         if (provinceSeo) return provinceSeo.description;
-        if (city) return `Propiedades exclusivas en venta en ${city}, Costa del Sol: villas, fincas y casas de lujo, incluidas operaciones fuera de mercado para compradores internacionales.`;
+        if (urlCity) return citySeoDescription;
         return "Catálogo de villas, fincas y casas de lujo en venta en Andalucía y Costa del Sol, con acceso exclusivo para compradores internacionales.";
-    }, [city, provinceSeo]);
+    }, [urlCity, provinceSeo, typeSeo, citySeoDescription]);
 
     const seoKeywords = useMemo(() => {
+        if (typeSeo) return typeSeo.keywords;
         if (provinceSeo) return provinceSeo.keywords;
-        if (city) return `propiedades ${city}, villas ${city}, inmobiliaria de lujo ${city}, Costa del Sol`;
+        if (urlCity) return `propiedades ${placeName}, fincas ${placeName}, inmobiliaria de lujo ${placeName}`;
         return "propiedades de lujo Costa del Sol, villas Marbella, casas Estepona, inmobiliaria Andalucía";
-    }, [city, provinceSeo]);
+    }, [urlCity, placeName, provinceSeo, typeSeo]);
 
-    const breadcrumbSchema = useMemo(() => {
-        const provinceName = urlCity ? (PROVINCE_SEO[urlCity.toLowerCase()]?.h1 || `Propiedades en ${formatSlug(urlCity)}`) : null;
-        const items = [
-            { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
-            { "@type": "ListItem", "position": 2, "name": "Propiedades en Venta", "item": "https://www.azimutproperty.com/venta" }
-        ];
-        if (urlCity) {
-            items.push({
-                "@type": "ListItem",
-                "position": 3,
-                "name": provinceName,
-                "item": `https://www.azimutproperty.com/venta/${urlCity}`
-            });
-        }
-        return {
-            "@context": "https://schema.org",
-            "@type": "BreadcrumbList",
-            "itemListElement": items
-        };
-    }, [urlCity]);
+    const typeH1 = typeSeo?.h1;
+    const typeDescription = typeSeo?.description;
+    // Plain computation rather than useMemo: it read PROVINCE_SEO, rebuilt on
+    // every render, so the memo never held (react-hooks flagged it).
+    const breadcrumbItems = [
+        { "@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://www.azimutproperty.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Propiedades en Venta", "item": "https://www.azimutproperty.com/venta" }
+    ];
+    if (urlCity) {
+        breadcrumbItems.push({
+            "@type": "ListItem",
+            "position": 3,
+            "name": provinceSeo?.h1 || `Propiedades en ${placeName}`,
+            "item": `https://www.azimutproperty.com/venta/${urlCity}`
+        });
+    }
+    // A type filter page adds its own level to the trail.
+    if (urlCity && urlArea && typeH1) {
+        breadcrumbItems.push({
+            "@type": "ListItem",
+            "position": 4,
+            "name": typeH1,
+            "item": `https://www.azimutproperty.com/venta/${urlCity}/${urlArea}`
+        });
+    }
+    const breadcrumbJsonLd = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbItems
+    };
 
     // ItemList schema for province pages (helps Google index individual property links)
     const itemListSchema = useMemo(() => {
@@ -289,9 +376,9 @@ const Catalog = () => {
         return {
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "name": provinceSeo.h1,
-            "description": provinceSeo.description,
-            "url": `https://www.azimutproperty.com/venta/${urlCity}`,
+            "name": typeH1 || provinceSeo.h1,
+            "description": typeDescription || provinceSeo.description,
+            "url": `https://www.azimutproperty.com/venta/${urlCity}${urlArea ? `/${urlArea}` : ''}`,
             "numberOfItems": filteredProperties.length,
             "itemListElement": filteredProperties.slice(0, 10).map((prop, idx) => ({
                 "@type": "ListItem",
@@ -300,7 +387,7 @@ const Catalog = () => {
                 "name": prop.title
             }))
         };
-    }, [provinceSeo, filteredProperties, urlCity]);
+    }, [provinceSeo, filteredProperties, urlCity, urlArea, typeH1, typeDescription]);
 
     return (
         <div className="page catalog">
@@ -314,7 +401,7 @@ const Catalog = () => {
             />
             <Helmet>
                 <script type="application/ld+json">
-                    {JSON.stringify(breadcrumbSchema)}
+                    {JSON.stringify(breadcrumbJsonLd)}
                 </script>
                 {itemListSchema && (
                     <script type="application/ld+json">
@@ -326,8 +413,8 @@ const Catalog = () => {
             {/* Hero / Header Section */}
             <div className="catalog-header">
                 <div className="container">
-                    <h1>{provinceSeo ? provinceSeo.h1 : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
-                    <p>{provinceSeo ? provinceSeo.hero : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
+                    <h1>{typeSeo ? typeSeo.h1 : provinceSeo ? provinceSeo.h1 : urlCity ? `Propiedades en Venta en ${placeName}` : city ? `Propiedades en Venta en ${city}` : 'Catálogo de Propiedades'}</h1>
+                    <p>{typeSeo ? typeSeo.hero : provinceSeo ? provinceSeo.hero : urlCity ? `Descubre propiedades exclusivas en ${placeName}` : city ? `Descubre propiedades exclusivas en ${city}` : 'Descubre tu próxima residencia de ensueño'}</p>
                     {provinceSeo?.landing && (
                         <p><Link to={provinceSeo.landing}>Guía de cortijos en venta en esta provincia</Link></p>
                     )}
@@ -346,15 +433,15 @@ const Catalog = () => {
                                 <li aria-hidden="true" className="breadcrumb-sep">/</li>
                                 <li>
                                     {type
-                                        ? <a href={`/venta/${urlCity}`}>{formatSlug(urlCity)}</a>
-                                        : <span aria-current="page">{formatSlug(urlCity)}</span>}
+                                        ? <a href={`/venta/${urlCity}`}>{placeName}</a>
+                                        : <span aria-current="page">{placeName}</span>}
                                 </li>
                             </>
                         )}
                         {type && (
                             <>
                                 <li aria-hidden="true" className="breadcrumb-sep">/</li>
-                                <li><span aria-current="page">{type}s</span></li>
+                                <li><span aria-current="page">{typeSeo?.crumb || TYPE_LABELS[slugifyCity(type)] || type}</span></li>
                             </>
                         )}
                     </ol>
