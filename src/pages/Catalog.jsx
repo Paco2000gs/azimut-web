@@ -8,7 +8,8 @@ import SEO from '../components/SEO';
 import '../styles/Catalog.css';
 
 import { PROVINCES, CITIES, PROPERTY_TYPES } from '../constants/propertyOptions';
-import { generatePropertyPath, slugifyLocation } from '../utils/slugify';
+import { generateBlogSlug, generatePropertyPath, slugifyLocation } from '../utils/slugify';
+import { useBlog } from '../context/BlogContext';
 import LocationSEOContent from '../components/LocationSEOContent';
 import LeadMagnet from '../components/LeadMagnet';
 import { TYPE_LABELS, typesIn } from '../utils/listingTypes';
@@ -65,6 +66,7 @@ const Catalog = () => {
     const { city: urlCity, area: urlArea } = useParams();
     const [searchParams] = useSearchParams();
     const { properties, loading } = useProperties();
+    const { posts } = useBlog();
 
     // Helper to format URL slugs back to display names (e.g., "marbella" -> "Marbella")
     const formatSlug = (slug) => {
@@ -250,6 +252,22 @@ const Catalog = () => {
             && slugifyCity(p.type || '') === areaTypeSlug).length
         : 0;
     const typeSeo = areaTypeSlug && placeName ? typeSeoFor(areaTypeSlug, placeName, typeCount, isProvincePage) : null;
+    // Articles about this location: posts whose title or excerpt names it or,
+    // for a province, one of its towns that holds a listing. Compared as slugs
+    // ("Medina Sidonia" in a title matches the town "Medina-Sidonia").
+    const placeSlugs = urlCity
+        ? [...new Set([placeName, ...properties
+            .filter(p => slugifyCity((isProvincePage ? p.province : p.city) || '') === locationSlug)
+            .map(p => p.city)]
+            .filter(Boolean)
+            .map(slugifyCity))]
+        : [];
+    const relatedPosts = placeSlugs.length
+        ? (posts || []).filter(post => {
+            const text = `-${slugifyCity(`${post.title} ${post.excerpt || ''}`)}-`;
+            return placeSlugs.some(slug => text.includes(`-${slug}-`));
+        }).slice(0, 3)
+        : [];
     const cityProvince = !isProvincePage && urlCity
         ? properties.find(p => slugifyCity(p.city || '') === locationSlug)?.province
         : '';
@@ -317,27 +335,29 @@ const Catalog = () => {
         ? `Propiedades en venta en ${placeName}${cityProvince ? ` (${cityProvince})` : ''}: ${listingsPhrase(located.count)} por Azimut Property. Solicite el dossier privado por email.`
         : `Propiedades en venta en ${placeName} con Azimut Property. Consulte por email las opciones disponibles, también las que no se publican.`;
 
-    const seoTitle = useMemo(() => {
+    // Plain functions, not useMemo: they only pick between strings, and the
+    // memos depended on objects rebuilt every render (react-hooks flagged them).
+    const seoTitle = (() => {
         if (typeSeo) return typeSeo.title;
         if (provinceSeo) return provinceSeo.title;
         if (urlCity) return citySeoTitle;
         if (type) return `${type}s de Lujo en Venta en Andalucía | Azimut Property`;
         return "Fincas y Cortijos en Venta en Andalucía | Azimut Property";
-    }, [urlCity, type, provinceSeo, typeSeo, citySeoTitle]);
+    })();
 
-    const seoDescription = useMemo(() => {
+    const seoDescription = (() => {
         if (typeSeo) return typeSeo.description;
         if (provinceSeo) return provinceSeo.description;
         if (urlCity) return citySeoDescription;
         return "Catálogo de fincas rústicas, cortijos, haciendas y villas de lujo en venta en Sevilla, Cádiz, Huelva y Málaga, con dossier privado de cada inmueble.";
-    }, [urlCity, provinceSeo, typeSeo, citySeoDescription]);
+    })();
 
-    const seoKeywords = useMemo(() => {
+    const seoKeywords = (() => {
         if (typeSeo) return typeSeo.keywords;
         if (provinceSeo) return provinceSeo.keywords;
         if (urlCity) return `propiedades ${placeName}, fincas ${placeName}, inmobiliaria de lujo ${placeName}`;
         return "propiedades de lujo Costa del Sol, villas Marbella, casas Estepona, inmobiliaria Andalucía";
-    }, [urlCity, placeName, provinceSeo, typeSeo]);
+    })();
 
     const typeH1 = typeSeo?.h1;
     const typeDescription = typeSeo?.description;
@@ -371,7 +391,7 @@ const Catalog = () => {
     };
 
     // ItemList schema for province pages (helps Google index individual property links)
-    const itemListSchema = useMemo(() => {
+    const itemListSchema = (() => {
         if (!provinceSeo || filteredProperties.length === 0) return null;
         return {
             "@context": "https://schema.org",
@@ -387,7 +407,7 @@ const Catalog = () => {
                 "name": prop.title
             }))
         };
-    }, [provinceSeo, filteredProperties, urlCity, urlArea, typeH1, typeDescription]);
+    })();
 
     return (
         <div className="page catalog">
@@ -575,6 +595,22 @@ const Catalog = () => {
                     )}
                 </div>
             </div>
+
+            {/* Crawlable links from the location to the articles about it. Most
+                posts were linked from /blog alone, and Search Console listed 6
+                posts as "discovered / crawled - not indexed" (Nov 2026). */}
+            {relatedPosts.length > 0 && (
+                <section className="container catalog-related-posts" aria-labelledby="catalog-related-posts-title">
+                    <h2 id="catalog-related-posts-title">Artículos sobre {placeName}</h2>
+                    <ul>
+                        {relatedPosts.map(post => (
+                            <li key={post.id}>
+                                <Link to={`/blog/${generateBlogSlug(post)}`}>{post.title}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                </section>
+            )}
 
             <LeadMagnet />
 

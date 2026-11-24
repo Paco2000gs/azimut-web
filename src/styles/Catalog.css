@@ -258,3 +258,38 @@
         gap: 2rem;
     }
 }
+
+/* Articles about the location, below the listings. */
+.catalog-related-posts {
+    margin-top: 3.5rem;
+}
+
+.catalog-related-posts h2 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink-800);
+    margin-bottom: 1rem;
+}
+
+.catalog-related-posts ul {
+    display: grid;
+    gap: 0.25rem;
+    max-width: 75ch;
+    list-style: none;
+    padding: 0;
+}
+
+.catalog-related-posts a {
+    display: inline-block;
+    padding: 0.6rem 0;
+    color: var(--gold-ink);
+    line-height: 1.45;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.catalog-related-posts a:hover {
+    color: var(--ink-900);
+}
