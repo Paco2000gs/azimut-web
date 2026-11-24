@@ -3,7 +3,7 @@
 **Fuente única de verdad** para la indexación y la captación orgánica de esta web.
 Lee este archivo antes de empezar cualquier trabajo SEO y actualízalo al terminar.
 
-Última actualización: 4-nov-2026 · `main` en `a0065f9`
+Última actualización: 24-nov-2026 · `main` en `0d1f97c` · trabajo en curso en `feat/seo-leads-informe-nov26`
 
 Unifica lo trabajado en las sesiones "Metadatos azimutproperty" (sep–oct) y
 "Problemas de indexación Google" (20–22 oct). Documentos anteriores de esta carpeta:
@@ -19,10 +19,10 @@ Si alguno contradice este archivo, manda este.
 | **Español es el idioma principal** de la web; las landings en inglés van emparejadas con su versión `/es/` | 22-oct | Sustituye a la decisión del 13-sep de poner la portada en inglés |
 | `/en/*` redirige con 301 a la raíz | — | En `vercel.json`; `/en/` sigue rastreable en `robots.txt` para que Google siga el 301 |
 | Nicho: fincas rústicas, cortijos, haciendas y fincas ecuestres de lujo en Andalucía; comprador extranjero de alto patrimonio | ago | Ver perfil en `ENLACES-PLAN.md` |
-| Horario y teléfono de contacto no se tocan | 22-oct | Petición expresa |
+| **Contacto solo por email**: info@azimutproperty.com es la única vía; la web no muestra teléfono ni WhatsApp (ni `tel:`, ni `wa.me`, ni `telephone` en JSON-LD). El email vive solo en `src/constants/contact.js` | 24-nov | Decisión del cliente. Sustituye a "horario y teléfono no se tocan" (22-oct) |
 | Foto de la sección de autoridad de la portada: campo de polo de la finca ecuestre de Jimena (ficha 19) | 22-oct | `public/media/authority-polo-estate-*` |
 | Enlaces: nada de paquetes comprados, solo sitios reales | ago | `ENLACES-PLAN.md` |
-| `/venta/<ciudad o provincia>` sin ninguna ficha lleva `noindex, follow` y sale del sitemap; no se redirige ni se le añaden fichas cercanas | 4-nov | Por datos, en `Catalog.jsx` y `generate-sitemap.js`: basta una ficha y un despliegue para volver a indexar. Pendiente de PR en `fix/venta-ciudades-sin-fichas` |
+| `/venta/<ciudad o provincia>` sin ninguna ficha lleva `noindex, follow` y sale del sitemap; no se redirige ni se le añaden fichas cercanas | 4-nov | Por datos, en `Catalog.jsx` y `generate-sitemap.js`: basta una ficha y un despliegue para volver a indexar. Ramas `fix/venta-ciudades-sin-fichas` y `fix/venta-filtro-ciudad-slug` fusionadas en `feat/seo-leads-informe-nov26` (24-nov) |
 
 ## 2. Línea base de Search Console
 
@@ -62,18 +62,26 @@ export de 28 días que empiece después del 22-oct (es decir, a partir del ~19-n
 Acciones en Search Console ya hechas por Paco (22-oct): sitemap reenviado y
 solicitud de indexación de las tres landings de cortijos.
 
+Rama `feat/seo-leads-informe-nov26` (24-nov, sin PR ni despliegue todavía), plan del informe del 21-nov, fase 1:
+botón de contacto por email en todas las plantillas, eventos `click_email` y `form_submit` para GTM, origen de cada lead
+visible en /admin, sin enlaces a filtros `/venta/<lugar>/<tipo>` sin stock, metadatos propios por tipo y nuevos
+title/meta/H1 de portada, /venta y /cortijos-en-venta-sevilla.
+
 ## 4. Pendientes técnicos (código)
 
 - [ ] `noindex` en silos con pocos inmuebles (1 o 2). Los de 0 fichas ya están resueltos en `fix/venta-ciudades-sin-fichas`.
 - [ ] `public/llms.txt` sigue en inglés y tiene precios escritos a mano: traducir y revisar precios.
 - [ ] Las descripciones de las fichas llegan en inglés desde Supabase: pasarlas a español (dato, no código).
-- [ ] Medición de leads: GA4 y botón de WhatsApp fijo.
+- [x] Medición de leads: eventos `click_email` y `form_submit` en el dataLayer (rama `feat/seo-leads-informe-nov26`). Sin WhatsApp por decisión del cliente.
+- [ ] Aviso por email a info@ de cada lead: hoy solo se guardan en Supabase y se ven en /admin. Necesita un servicio de email (decisión pendiente).
+- [ ] Fase 2 del informe del 21-nov: titles de fichas en español, Huelva, enlazado de URLs sin indexar, formulario y primera pantalla de ficha.
 - [ ] Core Web Vitals: sin datos suficientes en Search Console todavía.
 - [ ] `scripts/generate-sitemap.js` necesita Supabase y no funciona desde la nube: el sitemap se ha editado a mano. Regenerarlo en local cuando haya fichas nuevas.
 
 ## 5. Pendientes manuales de Paco (Search Console, Vercel, cuentas)
 
 - [ ] Quitar la entrada errónea `/property/finca-vera-29` de la lista de Sitemaps, si sigue ahí.
+- [ ] GTM: etiquetas de evento GA4 para `click_email` y `form_submit` (parámetros `page_path`, `form_name`, `property_id`). GA4: marcarlos como eventos clave y activar el filtro de tráfico interno.
 - [ ] Comprobar en producción la foto nueva de la portada.
 - [ ] **A partir del ~19-nov:** export de Search Console de 28 días (Consultas + Páginas + País) para compararlo con la línea base.
 - [ ] Al mismo tiempo: informe de **Páginas** para ver qué URLs siguen sin indexar y por qué.
