@@ -176,3 +176,23 @@
         padding: 2rem;
     }
 }
+.contact-form input:user-invalid {
+    border-bottom-color: var(--state-error);
+}
+
+.contact-form button:disabled {
+    opacity: 0.6;
+    cursor: progress;
+}
+
+.contact-error {
+    font-size: 0.9rem;
+    line-height: 1.55;
+    color: var(--state-error);
+}
+
+.contact-error a {
+    color: var(--gold-ink);
+    text-decoration: underline;
+    overflow-wrap: anywhere;
+}

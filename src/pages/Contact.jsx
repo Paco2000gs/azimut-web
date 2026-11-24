@@ -4,38 +4,45 @@ import { Mail, Clock } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
 import { trackFormSubmit } from '../utils/analytics';
+import { explainInvalid, clearInvalid } from '../utils/formValidity';
 import SEO from '../components/SEO';
 import '../styles/Contact.css';
 
+const INTERESTS = ['Comprar una finca o propiedad', 'Vender una propiedad', 'Otra consulta'];
+
 const Contact = () => {
     const { addLead } = useLeads();
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        interest: '',
-        message: ''
-    });
-    const [submitted, setSubmitted] = useState(false);
+    // Name, email and interest only (with a sensible default): the form had
+    // five fields, a required message among them, and GA4 counted 24 form
+    // starts with no submission (23 Aug - 20 Nov 2026).
+    const [formData, setFormData] = useState({ name: '', email: '', interest: INTERESTS[0] });
+    const [submittedEmail, setSubmittedEmail] = useState('');
+    const [sending, setSending] = useState(false);
+    const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (sending) return;
+        setSending(true);
+        setError('');
         try {
             await addLead({
-                name: formData.name,
-                email: formData.email,
-                phone: formData.phone,
+                name: formData.name.trim(),
+                email: formData.email.trim(),
                 interest: formData.interest,
-                message: formData.message,
+                message: formData.interest,
                 source: 'Contact Page'
             });
             trackFormSubmit('contact_page');
-            setSubmitted(true);
-            setFormData({ name: '', email: '', phone: '', interest: '', message: '' });
-            setTimeout(() => setSubmitted(false), 5000);
-        } catch (error) {
-            alert('Error sending message: ' + (error.message || 'Unknown error'));
-            console.error(error);
+            // The confirmation stays until the visitor leaves: it used to vanish
+            // after five seconds, before a slow reader had seen it.
+            setSubmittedEmail(formData.email.trim());
+            setFormData({ name: '', email: '', interest: INTERESTS[0] });
+        } catch (err) {
+            console.error(err);
+            setError('No hemos podido enviar su mensaje. Inténtelo de nuevo o escríbanos directamente a');
+        } finally {
+            setSending(false);
         }
     };
 
@@ -96,14 +103,15 @@ const Contact = () => {
 
                     <div className="contact-form-section" data-contact-cta-hide="form">
                         <h3>Envíenos un mensaje</h3>
-                        {submitted ? (
+                        {submittedEmail ? (
                             <div className="contact-success" role="status">
-                                Gracias: su mensaje ha sido enviado. Nos pondremos en contacto con usted en breve.
+                                Gracias: hemos recibido su mensaje. Le responderemos por email a{' '}
+                                <strong>{submittedEmail}</strong> desde {CONTACT_EMAIL}.
                             </div>
                         ) : (
                             <form className="contact-form" onSubmit={handleSubmit}>
                                 <div className="form-group">
-                                    <label htmlFor="contact-name">Nombre completo</label>
+                                    <label htmlFor="contact-name">Nombre</label>
                                     <input
                                         id="contact-name"
                                         type="text"
@@ -111,6 +119,8 @@ const Contact = () => {
                                         autoComplete="name"
                                         value={formData.name}
                                         onChange={handleChange}
+                                        onInvalid={explainInvalid}
+                                        onInput={clearInvalid}
                                         required
                                     />
                                 </div>
@@ -120,21 +130,15 @@ const Contact = () => {
                                         id="contact-email"
                                         type="email"
                                         name="email"
+                                        inputMode="email"
                                         autoComplete="email"
+                                        autoCapitalize="none"
+                                        spellCheck={false}
                                         value={formData.email}
                                         onChange={handleChange}
+                                        onInvalid={explainInvalid}
+                                        onInput={clearInvalid}
                                         required
-                                    />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="contact-phone">Teléfono <span className="label-optional">opcional</span></label>
-                                    <input
-                                        id="contact-phone"
-                                        type="tel"
-                                        name="phone"
-                                        autoComplete="tel"
-                                        value={formData.phone}
-                                        onChange={handleChange}
                                     />
                                 </div>
                                 <div className="form-group">
@@ -144,25 +148,21 @@ const Contact = () => {
                                         name="interest"
                                         value={formData.interest}
                                         onChange={handleChange}
+                                        required
                                     >
-                                        <option value="">Seleccione una opción</option>
-                                        <option value="buying">Comprar un inmueble</option>
-                                        <option value="selling">Vender un inmueble</option>
-                                        <option value="other">Consulta general</option>
+                                        {INTERESTS.map(option => (
+                                            <option key={option} value={option}>{option}</option>
+                                        ))}
                                     </select>
                                 </div>
-                                <div className="form-group">
-                                    <label htmlFor="contact-message">¿En qué podemos ayudarle?</label>
-                                    <textarea
-                                        id="contact-message"
-                                        name="message"
-                                        rows="4"
-                                        value={formData.message}
-                                        onChange={handleChange}
-                                        required
-                                    ></textarea>
-                                </div>
-                                <button type="submit" className="btn btn-contact-submit">Enviar mensaje</button>
+                                <button type="submit" className="btn btn-contact-submit" disabled={sending}>
+                                    {sending ? 'Enviando…' : 'Enviar mensaje'}
+                                </button>
+                                {error && (
+                                    <p className="contact-error" role="alert">
+                                        {error} <a href={contactMailto({ subject: 'Consulta desde la web' })}>{CONTACT_EMAIL}</a>.
+                                    </p>
+                                )}
                             </form>
                         )}
                     </div>

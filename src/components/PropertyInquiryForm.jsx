@@ -2,45 +2,40 @@ import React, { useState } from 'react';
 import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL } from '../constants/contact';
 import { trackFormSubmit } from '../utils/analytics';
+import { explainInvalid, clearInvalid } from '../utils/formValidity';
 import '../styles/PropertyInquiryForm.css';
-import { Send, CheckCircle } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
+
+// Three fields only: name, email and interest, with the most common interest
+// already chosen. The form had five, budget among the required ones, and GA4
+// counted 24 form starts with no submission (23 Aug - 20 Nov 2026).
+const INTERESTS = ['Recibir el dossier privado', 'Concertar una visita', 'Otra consulta sobre el inmueble'];
 
 const PropertyInquiryForm = ({ propertyId, propertyTitle }) => {
     const { addLead } = useLeads();
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        budget: '',
-        message: ''
-    });
-    const [submitted, setSubmitted] = useState(false);
+    const [formData, setFormData] = useState({ name: '', email: '', interest: INTERESTS[0] });
+    const [submittedEmail, setSubmittedEmail] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (loading) return;
         setLoading(true);
         setError('');
 
-        const fullMessage = `
-Budget: ${formData.budget || 'Not specified'}
-Message: ${formData.message || 'Information request.'}
-        `.trim();
-
         try {
             await addLead({
-                name: formData.name,
-                email: formData.email,
-                phone: formData.phone,
-                interest: `Interest in Property: ${propertyTitle}`,
-                message: fullMessage,
+                name: formData.name.trim(),
+                email: formData.email.trim(),
+                interest: `${formData.interest}: ${propertyTitle}`,
+                message: formData.interest,
                 source: 'Property Detail',
                 property_title: propertyTitle
             });
             trackFormSubmit('property_inquiry', propertyId);
-            setSubmitted(true);
-            setFormData({ name: '', email: '', phone: '', budget: '', message: '' });
+            setSubmittedEmail(formData.email.trim());
+            setFormData({ name: '', email: '', interest: INTERESTS[0] });
         } catch (err) {
             console.error('Error submitting form:', err);
             setError(`No hemos podido enviar su solicitud. Inténtelo de nuevo o escriba a ${CONTACT_EMAIL}.`);
@@ -53,13 +48,13 @@ Message: ${formData.message || 'Information request.'}
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    if (submitted) {
+    if (submittedEmail) {
         return (
-            <div className="inquiry-success" role="status">
+            <div className="inquiry-success" role="status" data-contact-cta-hide="form">
                 <CheckCircle size={40} strokeWidth={1.25} aria-hidden="true" />
                 <h3>Solicitud recibida</h3>
-                <p>Le enviaremos el dossier privado a su correo en breve.</p>
-                <button onClick={() => setSubmitted(false)} className="btn-text">
+                <p>Le responderemos por email a <strong>{submittedEmail}</strong> desde {CONTACT_EMAIL}.</p>
+                <button onClick={() => setSubmittedEmail('')} className="btn-text">
                     Enviar otra consulta
                 </button>
             </div>
@@ -75,7 +70,7 @@ Message: ${formData.message || 'Information request.'}
 
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label htmlFor="inq-name">Nombre completo</label>
+                    <label htmlFor="inq-name">Nombre</label>
                     <input
                         id="inq-name"
                         type="text"
@@ -83,66 +78,46 @@ Message: ${formData.message || 'Information request.'}
                         autoComplete="name"
                         value={formData.name}
                         onChange={handleChange}
+                        onInvalid={explainInvalid}
+                        onInput={clearInvalid}
                         required
                         className="minimal-input"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inq-email">Correo electrónico</label>
+                    <label htmlFor="inq-email">Email</label>
                     <input
                         id="inq-email"
                         type="email"
                         name="email"
+                        inputMode="email"
                         autoComplete="email"
+                        autoCapitalize="none"
+                        spellCheck={false}
                         value={formData.email}
                         onChange={handleChange}
+                        onInvalid={explainInvalid}
+                        onInput={clearInvalid}
                         required
                         className="minimal-input"
                     />
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="inq-phone">Teléfono <span className="label-optional">opcional</span></label>
-                    <input
-                        id="inq-phone"
-                        type="tel"
-                        name="phone"
-                        autoComplete="tel"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="minimal-input"
-                    />
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="inq-budget">Rango de inversión</label>
+                    <label htmlFor="inq-interest">Me interesa</label>
                     <select
-                        id="inq-budget"
-                        name="budget"
-                        value={formData.budget}
+                        id="inq-interest"
+                        name="interest"
+                        value={formData.interest}
                         onChange={handleChange}
                         className="minimal-input"
                         required
                     >
-                        <option value="" disabled>Seleccione un rango</option>
-                        <option value="< 500k">Menos de €500k</option>
-                        <option value="500k - 1M">€500k – €1M</option>
-                        <option value="1M - 3M">€1M – €3M</option>
-                        <option value="> 3M">Más de €3M</option>
+                        {INTERESTS.map(option => (
+                            <option key={option} value={option}>{option}</option>
+                        ))}
                     </select>
-                </div>
-
-                <div className="form-group">
-                    <label htmlFor="inq-message">Mensaje <span className="label-optional">opcional</span></label>
-                    <textarea
-                        id="inq-message"
-                        name="message"
-                        value={formData.message}
-                        onChange={handleChange}
-                        className="minimal-input"
-                        rows="3"
-                    ></textarea>
                 </div>
 
                 <button type="submit" className="btn-gold-full" disabled={loading}>
@@ -153,7 +128,6 @@ Message: ${formData.message || 'Information request.'}
 
                 <div className="form-trust-indicators">
                     <p>Tratado con estricta confidencialidad.</p>
-                    <p>Únase a la creciente comunidad de inversores que reciben nuestros dossiers privados.</p>
                 </div>
             </form>
         </div>

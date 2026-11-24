@@ -6,6 +6,7 @@ import { useLeads } from '../context/LeadsContext';
 import { CONTACT_EMAIL, CONTACT_OPEN_EVENT, contactMailto } from '../constants/contact';
 import { extractIdFromSlug, generatePropertyPath } from '../utils/slugify';
 import { trackFormSubmit } from '../utils/analytics';
+import { explainInvalid, clearInvalid } from '../utils/formValidity';
 import '../styles/ContactCTA.css';
 
 // The canonical host, never window.location.origin: the prerender runs on
@@ -95,6 +96,8 @@ const ContactForm = ({ property, heading, pathname, mail, onDone }) => {
                         autoComplete="name"
                         value={form.name}
                         onChange={handleChange}
+                        onInvalid={explainInvalid}
+                        onInput={clearInvalid}
                         required
                     />
                 </div>
@@ -110,6 +113,8 @@ const ContactForm = ({ property, heading, pathname, mail, onDone }) => {
                         spellCheck={false}
                         value={form.email}
                         onChange={handleChange}
+                        onInvalid={explainInvalid}
+                        onInput={clearInvalid}
                         required
                     />
                 </div>
@@ -121,6 +126,8 @@ const ContactForm = ({ property, heading, pathname, mail, onDone }) => {
                         rows="3"
                         value={form.message}
                         onChange={handleChange}
+                        onInvalid={explainInvalid}
+                        onInput={clearInvalid}
                         required
                     />
                 </div>
