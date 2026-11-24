@@ -103,7 +103,7 @@ export const propertySeoTitle = (property, all = []) => {
 // Land as buyers read it: hectares for anything from one hectare up, square
 // metres below. A finca with under 500 m² of land is a data-entry slip (ficha
 // 19 holds 48, its hectares), so it is left out rather than printed.
-const landLabel = (p) => {
+export const landLabel = (p) => {
     const plot = Number(p.plot);
     if (!(plot > 0)) return '';
     if (fold(p.type) === 'finca' && plot < 500) return '';

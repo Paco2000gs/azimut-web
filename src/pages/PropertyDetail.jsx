@@ -9,7 +9,7 @@ import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
 import ShortlistButton from '../components/ShortlistButton';
 import { CONTACT_EMAIL, CONTACT_OPEN_EVENT, contactMailto } from '../constants/contact';
-import { propertySeoTitle, propertySeoDescription } from '../utils/propertySeo';
+import { propertySeoTitle, propertySeoDescription, landLabel } from '../utils/propertySeo';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, slugifyLocation } from '../utils/slugify';
@@ -476,13 +476,18 @@ const PropertyDetail = () => {
                             onClick={() => setShowLightbox(true)}
                             aria-label={`Ver a pantalla completa — ${imageAlt(displayImages[activeImage], activeImage)}`}
                         >
+                            {/* The LCP element. The optimiser serves 400, 800 or 1600 px,
+                                so the descriptors name the width actually served (the
+                                second one read 1200w for a 1600 px file), and sizes
+                                matches the 768 px column the photo fills on desktop. */}
                             <img
-                                src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })}
-                                srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800, height: 533, resize: 'cover' })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })} 1200w`}
-                                sizes="(max-width: 768px) 100vw, 1200px"
+                                src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800 })}
+                                srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800 })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1600 })} 1600w`}
+                                sizes="(max-width: 900px) 100vw, 768px"
                                 alt={imageAlt(displayImages[activeImage], activeImage)}
                                 width={1200}
                                 height={800}
+                                fetchpriority="high"
                             />
                         </button>
                         <div className="price-tag">
@@ -492,6 +497,13 @@ const PropertyDetail = () => {
                                     €{Math.round(property.price / property.area).toLocaleString()}/m²
                                 </span>
                             )}
+                            {/* Where and how big, beside the price, so the first screen
+                                answers the three questions a visitor arrives with. */}
+                            <span className="price-tag-meta">
+                                {[`${property.city}, ${property.province}`, landLabel(property), property.area > 0 ? `${Number(property.area).toLocaleString('es-ES')} m² construidos` : '']
+                                    .filter(Boolean)
+                                    .join(' · ')}
+                            </span>
                         </div>
                         {/* The ask beside the price, on the first screen. On desktop
                             the enquiry form already shows at the fold, so the
