@@ -67,6 +67,11 @@ botón de contacto por email en todas las plantillas, eventos `click_email` y `f
 visible en /admin, sin enlaces a filtros `/venta/<lugar>/<tipo>` sin stock, metadatos propios por tipo y nuevos
 title/meta/H1 de portada, /venta y /cortijos-en-venta-sevilla.
 
+Fase 2 (24-nov, misma rama): titles y metas en español de todas las fichas generados desde los datos
+(`src/utils/propertySeo.js`), Huelva separada en fincas con terreno (/venta/huelva) y cortijos
+(/cortijos-en-venta-huelva) con texto local, bloque "Artículos sobre {lugar}" en /venta/<lugar>, formularios de
+3 campos (nombre, email, interés) y primera pantalla de ficha con precio, lugar y superficie.
+
 ## 4. Pendientes técnicos (código)
 
 - [ ] `noindex` en silos con pocos inmuebles (1 o 2). Los de 0 fichas ya están resueltos en `fix/venta-ciudades-sin-fichas`.
@@ -74,7 +79,9 @@ title/meta/H1 de portada, /venta y /cortijos-en-venta-sevilla.
 - [ ] Las descripciones de las fichas llegan en inglés desde Supabase: pasarlas a español (dato, no código).
 - [x] Medición de leads: eventos `click_email` y `form_submit` en el dataLayer (rama `feat/seo-leads-informe-nov26`). Sin WhatsApp por decisión del cliente.
 - [ ] Aviso por email a info@ de cada lead: hoy solo se guardan en Supabase y se ven en /admin. Necesita un servicio de email (decisión pendiente).
-- [ ] Fase 2 del informe del 21-nov: titles de fichas en español, Huelva, enlazado de URLs sin indexar, formulario y primera pantalla de ficha.
+- [x] Fase 2 del informe del 21-nov (rama `feat/seo-leads-informe-nov26`).
+- [ ] Ficha 19: `plot` guarda 48 (sus hectáreas) en vez de metros cuadrados; corregir el dato en Supabase.
+- [ ] Textos de otras localidades en `LocationSEOContent.jsx` (p. ej. precios y porcentajes en Almería) citan cifras sin fuente: revisar.
 - [ ] Core Web Vitals: sin datos suficientes en Search Console todavía.
 - [ ] `scripts/generate-sitemap.js` necesita Supabase y no funciona desde la nube: el sitemap se ha editado a mano. Regenerarlo en local cuando haya fichas nuevas.
 
