@@ -9,6 +9,7 @@ import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
 import ShortlistButton from '../components/ShortlistButton';
 import { CONTACT_EMAIL, CONTACT_OPEN_EVENT, contactMailto } from '../constants/contact';
+import { propertySeoTitle, propertySeoDescription } from '../utils/propertySeo';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, slugifyLocation } from '../utils/slugify';
@@ -285,8 +286,6 @@ const PropertyDetail = () => {
             ? `${(Number(property.plot) / 10000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ha de parcela`
             : `${Number(property.plot).toLocaleString()} m² de parcela`)
         : '';
-    const priceDisplay = property.price_on_demand ? 'Precio a consultar' : `€${property.price?.toLocaleString()}`;
-    const seoDescription = `${property.title} en ${property.city}, ${property.province}. ${property.bedrooms} dormitorios, ${property.bathrooms} baños, ${Number(property.area).toLocaleString()} m² construidos${plotDisplay ? `, ${plotDisplay}` : ''}. ${priceDisplay}. ${property.description?.substring(0, 200)}`;
 
     // Schema.org Structured Data - RealEstateListing
     const canonicalSlug = generatePropertySlug(property);
@@ -416,9 +415,11 @@ const PropertyDetail = () => {
 
     return (
         <div className="page property-detail-page">
+            {/* Spanish title and description built from the listing's own data
+                (see utils/propertySeo.js); the page is lang="es". */}
             <SEO
-                title={`${property.title} — ${property.type} en ${property.city}, ${property.province}`}
-                description={seoDescription.substring(0, 320)}
+                title={propertySeoTitle(property, properties)}
+                description={propertySeoDescription(property)}
                 image={getOptimizedImageUrl(displayImages[0]?.url, { raw: true })}
                 imageDimensions={{ width: 1200, height: 630 }}
                 url={canonicalPropertyPath}
