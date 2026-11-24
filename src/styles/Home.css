@@ -433,3 +433,127 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Landing pages (Marbella, Sotogrande): zone guide, FAQ and articles. Light
+   sections between the dark highlights and the listings, one reading column. */
+.landing-guide {
+    background-color: var(--surface-raised);
+    padding: var(--spacing-xl) 0;
+}
+
+.landing-faq {
+    background-color: var(--surface);
+}
+
+.landing-guide-body {
+    max-width: 68ch;
+}
+
+.landing-guide h2 {
+    font-family: var(--font-heading);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink-900);
+    margin-bottom: 2rem;
+}
+
+.landing-zone {
+    padding: 1.5rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.landing-zone:last-child {
+    border-bottom: 1px solid var(--border);
+}
+
+.landing-zone h3 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: var(--ink-900);
+    margin-bottom: 0.5rem;
+}
+
+.landing-zone p,
+.landing-faq details p {
+    font-size: 1.02rem;
+    line-height: 1.75;
+    color: var(--ink-700);
+}
+
+.landing-faq details {
+    border-top: 1px solid var(--border);
+}
+
+.landing-faq details:last-of-type {
+    border-bottom: 1px solid var(--border);
+}
+
+.landing-faq summary {
+    position: relative;
+    min-height: 44px;
+    padding: 1.25rem 2.5rem 1.25rem 0;
+    font-size: 1.05rem;
+    font-weight: 500;
+    line-height: 1.45;
+    color: var(--ink-900);
+    cursor: pointer;
+    list-style: none;
+}
+
+.landing-faq summary::-webkit-details-marker {
+    display: none;
+}
+
+.landing-faq summary::after {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    right: 0.25rem;
+    transform: translateY(-50%);
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--gold-ink);
+}
+
+.landing-faq details[open] summary::after {
+    content: '\2212';
+}
+
+.landing-faq summary:focus-visible {
+    outline: 2px solid var(--gold-ink);
+    outline-offset: 2px;
+}
+
+.landing-faq details p {
+    padding-bottom: 1.5rem;
+}
+
+.landing-posts ul {
+    display: grid;
+    gap: 0.25rem;
+    list-style: none;
+    padding: 0;
+}
+
+.landing-posts a {
+    display: inline-block;
+    padding: 0.6rem 0;
+    line-height: 1.45;
+    color: var(--gold-ink);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+}
+
+.landing-posts a:hover {
+    color: var(--ink-900);
+}
+
+.landing-nearby-note {
+    max-width: 68ch;
+    margin: -2rem 0 2.5rem;
+    line-height: 1.7;
+    color: var(--ink-500);
+}

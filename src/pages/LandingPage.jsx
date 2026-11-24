@@ -2,8 +2,11 @@ import React, { useEffect, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
+import { useBlog } from '../context/BlogContext';
 import PropertyCard from '../components/PropertyCard';
 import SEO from '../components/SEO';
+import { CONTACT_EMAIL } from '../constants/contact';
+import { generateBlogSlug } from '../utils/slugify';
 import NotFound from './NotFound';
 import '../styles/Home.css';
 
@@ -27,8 +30,8 @@ const isVilla = (p) => (p.type || '').toLowerCase().includes('villa');
 
 // UI chrome, per language. Page copy lives in each collection's en/es block.
 const STR = {
-    en: { consult: 'Arrange a Private Consultation', trust1: 'Off-Market Access', trust2: 'Discreet Representation', available: 'AVAILABLE NOW', other: 'Español', crumb: 'Home' },
-    es: { consult: 'Concierte una Consulta Privada', trust1: 'Acceso Off-Market', trust2: 'Representación Discreta', available: 'DISPONIBLE AHORA', other: 'English', crumb: 'Inicio' },
+    en: { consult: 'Arrange a Private Consultation', trust1: 'Off-Market Access', trust2: 'Discreet Representation', available: 'AVAILABLE NOW', other: 'Español', crumb: 'Home', faq: 'Frequently asked questions' },
+    es: { consult: 'Concierte una Consulta Privada', trust1: 'Acceso Off-Market', trust2: 'Representación Discreta', available: 'DISPONIBLE AHORA', other: 'English', crumb: 'Inicio', faq: 'Preguntas frecuentes' },
 };
 
 const LANDINGS = {
@@ -61,12 +64,14 @@ const LANDINGS = {
             h1: 'Villas de Lujo en Marbella y el Golden Triangle',
             subhead: 'Villas contemporáneas y a pie de golf en Marbella, Benahavís y Estepona — muchas fuera de mercado.',
             heroAlt: 'Villa de lujo contemporánea con piscina y vistas a la costa de Marbella al atardecer',
-            seoTitle: 'Villas de Lujo en Venta en Marbella y el Golden Triangle | Azimut Property',
-            seoDescription: 'Villas de lujo en venta en Marbella, Benahavís y Estepona — el Golden Triangle. Villas contemporáneas, a pie de golf y con vistas al mar, muchas off-market, para compradores internacionales.',
+            // "villas de lujo marbella": 87 impressions at position 39.4 (Search
+            // Console, Aug-Nov 2026). The old title (72) and meta (190) were cut.
+            seoTitle: 'Villas de Lujo en Venta en Marbella',
+            seoDescription: 'Villas de lujo en venta en Marbella, Benahavís y Estepona: zonas del Golden Triangle, preguntas frecuentes y villas fuera de mercado por email.',
             keywords: 'villas de lujo Marbella, inmobiliaria de lujo Golden Triangle, villa en venta Benahavís, villa vistas al mar Estepona, villa a pie de golf Nueva Andalucía, villa off-market Marbella',
             intro: [
                 'Marbella y el conjunto del Golden Triangle —Benahavís y Estepona— siguen siendo la dirección más consolidada para las villas de lujo de la Costa del Sol. De las residencias a pie de golf en Nueva Andalucía y La Zagaleta a las villas contemporáneas con vistas al mar en la Milla de Oro y Sierra Blanca, aquí se combinan diseño, seguridad y preservación del capital a largo plazo.',
-                'En Azimut Property seleccionamos una cartera exclusiva de villas en todo el Triángulo, con acceso privilegiado a propiedades fuera de mercado que nunca llegan a los portales. Tanto si busca primera residencia, segunda vivienda o inversión, acompañamos al comprador internacional de principio a fin: de la primera visita privada a la due diligence y la firma notarial.',
+                'En Azimut Property buscamos villas en todo el Triángulo, incluidas propiedades fuera de mercado que no llegan a los portales. Tanto si busca primera residencia, segunda vivienda o inversión, acompañamos al comprador internacional de principio a fin: de la primera visita privada a la due diligence y la firma notarial.',
                 'El comprador de villa aquí prioriza privacidad, vistas panorámicas y proximidad a Puerto Banús y los colegios internacionales. Ajustamos cada búsqueda a la microzona adecuada y trabajamos con discreción, para asegurar las mejores propiedades antes de que se anuncien.',
             ],
             highlights: [
@@ -76,6 +81,34 @@ const LANDINGS = {
             ],
             listingsHref: '/venta/marbella',
             listingsCta: 'Ver villas en Marbella',
+            // No Marbella villa is published today, and /venta/marbella is an
+            // empty noindex page. Rather than borrow listings from elsewhere and
+            // call them Marbella, the page says so and shows the province.
+            nearby: {
+                match: (p) => /m[aá]laga/.test(text(p)),
+                rank: (p) => (isVilla(p) ? 0 : 1),
+                h2: 'Propiedades publicadas en la provincia de Málaga',
+                note: 'Ahora no hay villas de Marbella publicadas en la web. Puede pedirnos por email las opciones fuera de mercado; mientras tanto, estas son las propiedades publicadas en la provincia de Málaga.',
+                href: '/venta/malaga',
+                cta: 'Ver propiedades en Málaga',
+            },
+            zonesTitle: 'Dónde comprar una villa en Marbella y el Golden Triangle',
+            zones: [
+                { h: 'Milla de Oro', p: 'El tramo entre el centro de Marbella y Puerto Banús. Villas cerca del mar, de los hoteles y de los servicios, a pie de playa o en las urbanizaciones de la ladera.' },
+                { h: 'Sierra Blanca', p: 'Urbanización en la ladera de la sierra, sobre la Milla de Oro. Parcelas en altura, vistas a la costa y un entorno residencial cerca del centro de Marbella.' },
+                { h: 'Nueva Andalucía', p: 'El valle del golf, detrás de Puerto Banús, con campos como Los Naranjos, Las Brisas y Aloha. Villas a pie de golf y cerca de colegios internacionales.' },
+                { h: 'Benahavís y La Zagaleta', p: 'Municipio de interior entre el mar y la sierra. Acoge La Zagaleta, urbanización privada con acceso controlado y golf propio, y zonas como El Madroñal y Los Arqueros.' },
+                { h: 'Estepona', p: 'Al oeste de Marbella, con casco antiguo, paseo marítimo y la llamada Nueva Milla de Oro entre los dos municipios. Villas de obra nueva junto a la playa y en las laderas del interior.' },
+            ],
+            faqs: [
+                { q: '¿Qué zonas forman el Golden Triangle de la Costa del Sol?', a: 'Se llama así al área que forman Marbella, Benahavís y Estepona, en la provincia de Málaga. Es la zona de la Costa del Sol más conocida por sus villas de lujo: la Milla de Oro, Sierra Blanca, Nueva Andalucía, La Zagaleta y la Nueva Milla de Oro de Estepona.' },
+                { q: '¿Qué zona de Marbella elegir para comprar una villa?', a: 'Depende del uso que le vaya a dar. La Milla de Oro y Sierra Blanca quedan cerca del centro y del mar; Nueva Andalucía, del golf y de Puerto Banús; La Zagaleta, en Benahavís, ofrece privacidad y acceso controlado; Estepona, villas de obra nueva junto a la playa y en el interior.' },
+                { q: '¿Qué es una villa fuera de mercado (off-market)?', a: 'Es una propiedad que su dueño vende con discreción, sin anunciarla en portales ni en la web. Solo se presenta a compradores con una búsqueda concreta. Para conocerlas, escríbanos por email indicando la zona, el tipo de villa y su presupuesto.' },
+                { q: '¿Qué necesita un comprador extranjero para comprar una villa en España?', a: 'El NIE, una cuenta bancaria en España y una revisión previa de la propiedad: titularidad y cargas en el Registro, situación urbanística y licencias. La compraventa se firma ante notario y se inscribe en el Registro de la Propiedad. Le acompañamos en cada paso.' },
+                { q: '¿Cómo pido información sobre una villa?', a: `Escríbanos a ${CONTACT_EMAIL} con la zona y el tipo de villa que busca. Le respondemos por email con las opciones disponibles y, si alguna le interesa, con su dossier privado.` },
+            ],
+            postsMatch: /marbella|golden triangle/i,
+            postsTitle: 'Artículos sobre Marbella',
         },
     },
 
@@ -108,21 +141,45 @@ const LANDINGS = {
             h1: 'Mansiones y Villas de Lujo en Sotogrande',
             subhead: 'Golf, polo y puerto deportivo en el enclave más privado del sur de Europa — incluidas fincas off-market.',
             heroAlt: 'Elegante mansión con jardines maduros y piscina privada en Sotogrande, Cádiz',
-            seoTitle: 'Mansiones en Venta en Sotogrande — Villas de Golf y Puerto | Azimut Property',
-            seoDescription: 'Mansiones y villas de lujo en venta en Sotogrande, San Roque (Cádiz). Golf, polo y puerto deportivo desde 1M€ hasta 15M€, incluidas propiedades off-market, para compradores internacionales.',
+            // "mansion sotogrande": 43 impressions at position 35.3, and Search
+            // Console flagged +723 % impressions on this page (Aug-Nov 2026). The
+            // old title ran to 76 characters and the meta to 200.
+            seoTitle: 'Mansiones en Venta en Sotogrande',
+            seoDescription: 'Mansiones y villas de lujo en venta en Sotogrande (San Roque, Cádiz): Sotogrande Alto, golf, polo y puerto deportivo. Dossier privado por email.',
             keywords: 'mansión en venta Sotogrande, villas de lujo Sotogrande, propiedades off-market Sotogrande, villa Sotogrande Alto, propiedad golf Valderrama, inmobiliaria de lujo San Roque',
+            // The price range (1M€-15M€) and the 25 minutes to Gibraltar airport
+            // had no source, so they are gone.
             intro: [
-                'Sotogrande, en el municipio gaditano de San Roque, es uno de los enclaves de lujo más privados del sur de Europa: un resort de golf de campeonato, polo internacional y puerto deportivo de aguas profundas. Sotogrande Alto, con sus grandes parcelas, jardines maduros y vistas al campo de Valderrama, es la dirección preferida de las familias que valoran la discreción por encima de todo.',
-                'En Azimut Property representamos a compradores que buscan mansiones y villas en Sotogrande, desde residencias de 1M€ hasta fincas de 15M€. Nuestro acceso alcanza propiedades off-market en manos de propietarios que no anuncian, y acompañamos al comprador internacional en cada paso: NIE, due diligence, notaría y asesoramiento fiscal.',
-                'Más allá del golf y el polo, Sotogrande ofrece el International School of Sotogrande, la restauración del puerto deportivo y 25 minutos hasta el aeropuerto de Gibraltar — la combinación de deporte, educación y privacidad que sostiene la demanda y el valor a largo plazo.',
+                'Sotogrande, en el municipio gaditano de San Roque, es uno de los enclaves de lujo más privados del sur de Europa: un resort de golf de campeonato, polo internacional y puerto deportivo. Sotogrande Alto, con sus grandes parcelas, jardines maduros y vistas al campo de Valderrama, es la dirección preferida de las familias que valoran la discreción por encima de todo.',
+                'En Azimut Property representamos a compradores que buscan mansiones y villas en Sotogrande, de residencias familiares a grandes fincas. Nuestro acceso alcanza propiedades off-market en manos de propietarios que no anuncian, y acompañamos al comprador internacional en cada paso: NIE, due diligence, notaría y asesoramiento fiscal.',
+                'Más allá del golf y el polo, Sotogrande ofrece el International School of Sotogrande, la restauración del puerto deportivo y la cercanía del aeropuerto de Gibraltar: la combinación de deporte, educación y privacidad que sostiene la demanda y el valor a largo plazo.',
             ],
             highlights: [
                 { h: 'Sotogrande Alto', p: 'Grandes parcelas, jardines maduros y vistas a Valderrama y el lago.' },
-                { h: '1M€–15M€', p: 'De villas familiares a fincas emblemáticas, dentro y fuera de mercado.' },
+                { h: 'De la villa a la finca', p: 'De villas familiares a fincas emblemáticas, dentro y fuera de mercado.' },
                 { h: 'Deporte y colegios', p: 'Golf, polo, puerto e International School of Sotogrande.' },
             ],
             listingsHref: '/venta/sotogrande',
             listingsCta: 'Ver propiedades en Sotogrande',
+            // Listings in Sotogrande itself before the estates "near Sotogrande".
+            rank: (p) => (/sotogrande/i.test(p.city || '') ? 0 : 1),
+            zonesTitle: 'Zonas de Sotogrande',
+            zones: [
+                { h: 'Sotogrande Alto', p: 'La parte alta de la urbanización, junto a Valderrama y el lago. Grandes parcelas, jardines maduros y villas con vistas al golf y a la sierra.' },
+                { h: 'Sotogrande Costa', p: 'La zona más cercana al mar, en torno al Real Club de Golf Sotogrande. Villas en parcelas más llanas, cerca de la playa y del puerto deportivo.' },
+                { h: 'Puerto deportivo y La Marina', p: 'El centro social de Sotogrande: restaurantes, tiendas y amarres. Predominan los apartamentos y las viviendas junto al agua.' },
+                { h: 'La Reserva y Almenara', p: 'Las zonas más recientes, con La Reserva Club y su laguna y el golf de Almenara. Villas de obra nueva con vistas al mar y a la sierra.' },
+                { h: 'Polo y fincas del entorno', p: 'El polo se juega en Santa María Polo Club. Hacia el interior empiezan las fincas ecuestres y de dehesa del Campo de Gibraltar, en Jimena de la Frontera y Los Barrios.' },
+            ],
+            faqs: [
+                { q: '¿Dónde está Sotogrande?', a: 'En el municipio de San Roque, en la provincia de Cádiz, junto a la desembocadura del río Guadiaro. Limita con la costa de Málaga y queda cerca de Gibraltar, con acceso por la A-7 y la AP-7.' },
+                { q: '¿Qué diferencia hay entre Sotogrande Alto y Sotogrande Costa?', a: 'Sotogrande Alto ocupa la parte alta, junto a Valderrama, con parcelas grandes y vistas al golf y a la sierra. Sotogrande Costa está junto a la playa y al Real Club de Golf Sotogrande, con parcelas más llanas y cerca del puerto deportivo.' },
+                { q: '¿Qué tipo de propiedades de lujo hay en Sotogrande?', a: 'Villas familiares, mansiones con grandes jardines, fincas con terreno en los alrededores y apartamentos en el puerto. En la web puede ver las que tenemos publicadas; otras se venden fuera de mercado y solo se presentan a compradores con una búsqueda concreta.' },
+                { q: '¿Qué necesita un comprador extranjero para comprar en Sotogrande?', a: 'El NIE, una cuenta bancaria en España y una revisión previa: titularidad y cargas en el Registro, licencias y situación urbanística y, en las fincas, el suelo rústico y el agua. La compraventa se firma ante notario y se inscribe en el Registro de la Propiedad.' },
+                { q: '¿Cómo pido el dossier de una propiedad?', a: `Escríbanos a ${CONTACT_EMAIL} indicando la propiedad o lo que busca. Le respondemos por email con el dossier privado y la disponibilidad para visitarla.` },
+            ],
+            postsMatch: /sotogrande/i,
+            postsTitle: 'Artículos sobre Sotogrande',
         },
     },
 
@@ -314,9 +371,22 @@ const LANDINGS = {
 
 const SITE_URL = 'https://www.azimutproperty.com';
 
+const byRank = (rank) => (a, b) => rank(a) - rank(b);
+
+// Articles about the zone: those naming it in the title or excerpt first, then
+// those that discuss it in the body.
+const postsAbout = (posts, re) => {
+    const head = (p) => `${p.title || ''} ${p.excerpt || ''}`;
+    const named = posts.filter(p => re.test(head(p)));
+    const discussed = posts.filter(p => !re.test(head(p)) && re.test(p.content || ''));
+    return [...named, ...discussed].slice(0, 3);
+};
+
 const LandingPage = ({ slug, lang = 'en' }) => {
     const entry = LANDINGS[slug];
+    const c = entry?.[lang];
     const { properties, loading } = useProperties();
+    const { posts } = useBlog();
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -324,8 +394,9 @@ const LandingPage = ({ slug, lang = 'en' }) => {
 
     const matches = useMemo(() => {
         if (!entry || loading || !properties?.length) return [];
-        return properties.filter(entry.match).slice(0, 3);
-    }, [entry, properties, loading]);
+        const found = properties.filter(entry.match);
+        return (c?.rank ? found.sort(byRank(c.rank)) : found).slice(0, 3);
+    }, [entry, c, properties, loading]);
 
     // Stable reference so SEO's effect doesn't re-run every render.
     const enUrl = entry ? `/${slug}` : '';
@@ -345,10 +416,28 @@ const LandingPage = ({ slug, lang = 'en' }) => {
     // Routes are registered per known slug, so this is defensive only.
     if (!entry) return <NotFound />;
 
-    const c = entry[lang];
     const t = STR[lang];
     const selfPath = lang === 'es' ? esUrl : enUrl;
     const otherPath = lang === 'es' ? enUrl : esUrl;
+
+    // With no listing in the zone, the province's listings under their own heading.
+    const nearbyFound = !matches.length && c.nearby && !loading && properties?.length
+        ? properties.filter(c.nearby.match)
+        : [];
+    const nearby = (c.nearby?.rank ? nearbyFound.sort(byRank(c.nearby.rank)) : nearbyFound).slice(0, 3);
+    const listHref = nearby.length ? c.nearby.href : c.listingsHref;
+    const listCta = nearby.length ? c.nearby.cta : c.listingsCta;
+    const relatedPosts = c.postsMatch ? postsAbout(posts || [], c.postsMatch) : [];
+
+    const faqSchema = c.faqs ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: c.faqs.map(f => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+    } : null;
 
     const breadcrumbSchema = {
         '@context': 'https://schema.org',
@@ -371,6 +460,7 @@ const LandingPage = ({ slug, lang = 'en' }) => {
             />
             <Helmet>
                 <script type="application/ld+json">{JSON.stringify(breadcrumbSchema)}</script>
+                {faqSchema && <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>}
             </Helmet>
 
             {/* Hero */}
@@ -407,7 +497,7 @@ const LandingPage = ({ slug, lang = 'en' }) => {
 
                     <div className="cta-group-luxury">
                         <Link to="/contact" className="btn btn-hero btn-primary-gold">{t.consult}</Link>
-                        <Link to={c.listingsHref} className="btn btn-hero btn-secondary-outline">{c.listingsCta}</Link>
+                        <Link to={listHref} className="btn btn-hero btn-secondary-outline">{listCta}</Link>
                     </div>
 
                     <div className="trust-indicators">
@@ -445,6 +535,23 @@ const LandingPage = ({ slug, lang = 'en' }) => {
                 </div>
             </section>
 
+            {/* Zone guide */}
+            {c.zones && (
+                <section className="section landing-guide" aria-labelledby="landing-zones-title">
+                    <div className="container">
+                        <div className="landing-guide-body">
+                            <h2 id="landing-zones-title">{c.zonesTitle}</h2>
+                            {c.zones.map(z => (
+                                <div className="landing-zone" key={z.h}>
+                                    <h3>{z.h}</h3>
+                                    <p>{z.p}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
             {/* Matching listings (only when we hold stock) */}
             {matches.length > 0 && (
                 <section className="section featured-section">
@@ -459,6 +566,58 @@ const LandingPage = ({ slug, lang = 'en' }) => {
                         </div>
                         <div className="view-all-container">
                             <Link to={c.listingsHref} className="btn btn-gold">{c.listingsCta.toUpperCase()}</Link>
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {nearby.length > 0 && (
+                <section className="section featured-section" aria-labelledby="landing-nearby-title">
+                    <div className="container">
+                        <div className="section-header decorative-header">
+                            <h2 id="landing-nearby-title">{c.nearby.h2}</h2>
+                        </div>
+                        <p className="landing-nearby-note">{c.nearby.note}</p>
+                        <div className="featured-grid">
+                            {nearby.map(property => (
+                                <PropertyCard key={property.id} property={property} />
+                            ))}
+                        </div>
+                        <div className="view-all-container">
+                            <Link to={c.nearby.href} className="btn btn-gold">{c.nearby.cta.toUpperCase()}</Link>
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {c.faqs && (
+                <section className="section landing-guide landing-faq" aria-labelledby="landing-faq-title">
+                    <div className="container">
+                        <div className="landing-guide-body">
+                            <h2 id="landing-faq-title">{t.faq}</h2>
+                            {c.faqs.map(f => (
+                                <details key={f.q}>
+                                    <summary>{f.q}</summary>
+                                    <p>{f.a}</p>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            )}
+
+            {relatedPosts.length > 0 && (
+                <section className="section landing-guide landing-posts" aria-labelledby="landing-posts-title">
+                    <div className="container">
+                        <div className="landing-guide-body">
+                            <h2 id="landing-posts-title">{c.postsTitle}</h2>
+                            <ul>
+                                {relatedPosts.map(post => (
+                                    <li key={post.id}>
+                                        <Link to={`/blog/${generateBlogSlug(post)}`}>{post.title}</Link>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                 </section>

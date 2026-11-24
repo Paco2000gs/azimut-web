@@ -9,6 +9,22 @@ import SEO from '../components/SEO';
 import { detectLang } from '../utils/detectLang';
 import '../styles/Blog.css';
 
+// Zone pages an article links to when it talks about the zone (SEO report
+// 21/11/2026: the Marbella and Sotogrande pages had no links from the blog).
+// Each article links the page in its own language.
+const ZONE_PAGES = [
+    {
+        re: /marbella|golden triangle/i,
+        es: { to: '/es/villas-de-lujo-marbella', label: 'Villas de lujo en Marbella' },
+        en: { to: '/villas-marbella', label: 'Luxury villas in Marbella' },
+    },
+    {
+        re: /sotogrande/i,
+        es: { to: '/es/mansiones-sotogrande', label: 'Mansiones y villas de lujo en Sotogrande' },
+        en: { to: '/mansions-sotogrande', label: 'Mansions and villas for sale in Sotogrande' },
+    },
+];
+
 const BlogPost = () => {
     const { id: urlParam } = useParams();
     const navigate = useNavigate();
@@ -71,6 +87,11 @@ const BlogPost = () => {
         );
     }
 
+    const postLang = detectLang(`${post.title} ${post.excerpt || ''}`);
+    const zonePages = ZONE_PAGES
+        .filter(z => z.re.test(`${post.title} ${post.excerpt || ''} ${post.content || ''}`))
+        .map(z => z[postLang] || z.es);
+
     return (
         <div className="page blog-post-page">
             <SEO
@@ -79,7 +100,7 @@ const BlogPost = () => {
                 image={post.image}
                 url={`/blog/${generateBlogSlug(post)}`}
                 type="article"
-                lang={detectLang(`${post.title} ${post.excerpt || ''}`)}
+                lang={postLang}
             />
             <Helmet>
                 <script type="application/ld+json">
@@ -146,6 +167,19 @@ const BlogPost = () => {
                     className="content-wrapper article-body"
                     dangerouslySetInnerHTML={{ __html: formattedContent }}
                 />
+
+                {zonePages.length > 0 && (
+                    <nav className="related-posts" aria-labelledby="zone-pages-title">
+                        <h2 id="zone-pages-title">{postLang === 'en' ? 'Properties in the area' : 'Propiedades en la zona'}</h2>
+                        <ul>
+                            {zonePages.map(z => (
+                                <li key={z.to}>
+                                    <Link to={z.to}>{z.label}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </nav>
+                )}
 
                 {related.length > 0 && (
                     <nav className="related-posts" aria-label="Artículos relacionados">
