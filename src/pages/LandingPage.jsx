@@ -258,26 +258,30 @@ const LANDINGS = {
     'cortijos-en-venta-huelva': {
         esOnly: true,
         match: (p) => /(huelva)/.test(text(p)) && /(finca|cortijo|hacienda|estate)/.test(text(p)),
+        // Rewritten Nov 2026: this page targets "cortijos en Huelva" and sends
+        // land searches to /venta/huelva ("fincas con terreno en Huelva").
         es: {
             eyebrow: 'Campo Onubense',
             h1: 'Cortijos en Venta en Huelva',
-            subhead: 'Cortijos y fincas rurales entre el Parque Nacional de Doñana y la Sierra de Aracena, con acompañamiento completo en la compra.',
+            subhead: 'Cortijos y casas rurales con carácter en la provincia de Huelva, desde la sierra hasta el entorno de Doñana.',
             heroAlt: 'Cortijo rodeado de dehesa en el campo de Huelva al atardecer',
-            seoTitle: 'Cortijos en Venta en Huelva | Fincas Rurales | Azimut Property',
-            seoDescription: 'Cortijos en venta en Huelva, entre Doñana y la Sierra de Aracena. Fincas rurales con terreno para uso privado o agrícola, con compra acompañada para el comprador internacional.',
-            keywords: 'cortijos en venta en Huelva, cortijo Huelva, finca rural Huelva, cortijo con terreno Huelva, finca Doñana, finca Sierra de Aracena',
+            seoTitle: 'Cortijos en Venta en Huelva | Azimut Property',
+            seoDescription: 'Cortijo en venta en Huelva: casas rurales con patio y terreno en la sierra, el Andévalo y el Condado. Revise qué comprobar y consulte con Azimut.',
+            keywords: 'cortijos en venta Huelva, cortijo en venta Huelva, cortijos Huelva, casa rural en venta Huelva, cortijo con terreno Huelva, comprar cortijo Huelva, cortijos Sierra de Aracena',
             intro: [
-                'La provincia de Huelva combina dehesa, sierra y marisma: desde el entorno de Doñana hasta la Sierra de Aracena y la Costa de la Luz. Para el comprador internacional, un cortijo aquí es un refugio rural con terreno, con una vida tranquila y un paisaje muy distinto al de la costa.',
-                'Azimut Property presenta cortijos, fincas agrícolas y casas de campo con terreno en comarcas como la Sierra de Aracena y el entorno de Almonte. Algunas propiedades se presentan fuera de mercado, y cada finca llega con la información que el comprador necesita para decidir.',
-                'Acompañamos toda la compra: revisión urbanística y registral, agua y acceso, NIE y notaría, para que la compra de un cortijo onubense sea segura.',
+                'Un cortijo en Huelva es, ante todo, una casa de campo con historia: edificación tradicional con patio, dependencias agrícolas y, a menudo, terreno a su alrededor. Quien lo busca suele valorar la arquitectura rural, el sosiego y la posibilidad de rehabilitarlo o de vivir en él.',
+                'En la provincia conviven entornos muy distintos. En la Sierra de Aracena y Picos de Aroche, las casas rurales se rodean de dehesa y castañar. En el Andévalo, el paisaje es más abierto y la propiedad suele ser más extensa. En el Condado y cerca de Doñana abundan el olivar y las tierras de cultivo.',
+                'Antes de decidir, conviene revisar varios puntos propios de este tipo de inmueble. El primero es la situación registral y catastral: que la casa y sus dependencias estén inscritas y declaradas. El segundo, el estado de la construcción: cubiertas, muros, instalaciones y la viabilidad de una rehabilitación. El tercero, el agua y el suministro eléctrico, que en el medio rural no siempre están resueltos. Y por último, los usos permitidos por el planeamiento y las posibles protecciones del entorno. Conviene además contar con un técnico que valore la obra necesaria y con un abogado que revise la documentación, sobre todo cuando la casa forma parte de una finca mayor, porque entonces se compra también el terreno, sus caminos y sus servidumbres.',
+                'Compran cortijos en Huelva quienes desean una residencia en el campo, una segunda vivienda, un proyecto de alojamiento rural o una propiedad familiar con terreno. Cuando lo que se busca es sobre todo superficie, dehesa o explotación agraria, resulta más útil consultar las fincas con terreno en Huelva, que se presentan por separado de los cortijos.',
+                'Cada inmueble publicado tiene su ficha con fotografías, localización y descripción. Si desea concretar una búsqueda, puede escribirnos por correo electrónico y le propondremos las opciones disponibles.',
             ],
             highlights: [
-                { h: 'Entorno natural', p: 'Dehesa, sierra y marisma entre Doñana y la Sierra de Aracena.' },
-                { h: 'Terreno y uso rural', p: 'Fincas con terreno para uso privado o agrícola.' },
-                { h: 'Compra acompañada', p: 'Revisión urbanística, registral y notarial antes de cerrar.' },
+                { h: 'Arquitectura rural con historia', p: 'Casas de campo tradicionales con patio y dependencias, en entornos que van de la sierra a la llanura cercana a Doñana.' },
+                { h: 'Revisión previa del inmueble', p: 'Situación registral, estado de la construcción, agua y usos permitidos: los puntos que conviene verificar antes de comprar.' },
+                { h: 'Del cortijo a la finca', p: 'Si el interés está en la superficie o la explotación, también puede consultarse el catálogo de fincas de Huelva.' },
             ],
             listingsHref: '/venta/huelva',
-            listingsCta: 'Ver fincas en Huelva',
+            listingsCta: 'Ver fincas con terreno en Huelva',
         },
     },
 

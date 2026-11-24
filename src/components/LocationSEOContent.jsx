@@ -1,8 +1,28 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { useProperties } from '../context/PropertiesContext';
 import { slugifyLocation } from '../utils/slugify';
 import { TYPE_LABELS, typesIn } from '../utils/listingTypes';
+
+// Simple inline markdown for the location texts: **bold**, *italic* and
+// [text](/internal-path) links. Bold is listed first so a **x** token is
+// matched whole before the single-asterisk rule can split it.
+const renderInline = (text) => text
+    .split(/(\*\*[^*]+\*\*|\*[^*]+\*|\[[^\]]+\]\(\/[^)\s]*\))/g)
+    .map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) return <strong key={i}>{part.slice(2, -2)}</strong>;
+        if (part.startsWith('*') && part.endsWith('*')) return <em key={i}>{part.slice(1, -1)}</em>;
+        const link = part.match(/^\[([^\]]+)\]\((\/[^)\s]*)\)$/);
+        if (link) {
+            return (
+                <Link key={i} to={link[2]} style={{ color: 'var(--gold-ink)', textDecoration: 'underline', textUnderlineOffset: '0.2em' }}>
+                    {link[1]}
+                </Link>
+            );
+        }
+        return part;
+    });
 
 const LocationSEOContent = ({ city, area }) => {
     const { properties } = useProperties();
@@ -59,38 +79,37 @@ En Azimut Property contamos con un portfolio selecto de fincas, cortijos y casas
             ]
         },
 
+        // Rewritten Nov 2026 (report of 21 Nov): this page targets "fincas con
+        // terreno en Huelva" and leaves "cortijos" to /cortijos-en-venta-huelva.
+        // The previous text quoted prices, growth and occupancy figures with no
+        // source; nothing here states a figure.
         'huelva': {
-            title: 'Comprar Finca, Chalet y Casa de Campo en Huelva',
-            intro: 'Huelva: naturaleza, privacidad y rentabilidad rural en el oeste de Andalucía',
-            description: `La provincia de Huelva ofrece algunas de las mejores oportunidades para comprar propiedades rurales en Andalucía, combinando precios muy competitivos con un entorno natural de primer orden. Entre el Parque Nacional de Doñana, la Sierra de Aracena y Picos de Aroche, y la Costa de la Luz, Huelva es el destino emergente para compradores que buscan espacio, privacidad y rentabilidad.
+            title: 'Fincas con terreno en venta en Huelva: dehesas, olivar y chalets rurales',
+            intro: 'Fincas, dehesas y terreno rústico en Huelva',
+            description: `Si buscas **fincas en Huelva**, la provincia ofrece tres paisajes muy distintos y conviene saber en cuál encaja tu proyecto. En la **Sierra de Aracena y Picos de Aroche** predominan la dehesa de encina y alcornoque, el castañar y las fincas ganaderas ligadas al cerdo ibérico. En el **Andévalo** el terreno es más extenso y abierto, con grandes superficies de monte y dehesa. En el **Condado de Huelva** y el entorno de **Doñana**, cerca de la costa, se mezclan el olivar, el cultivo en regadío y las fincas con acceso a recursos hídricos.
 
-**¿Por qué invertir en propiedad rural en Huelva?**
+**Qué tipos de finca encontrarás.** Trabajamos fincas con terreno rústico de uso agrícola o ganadero, dehesas con casa señorial, fincas de olivar y chalets con terreno para vivir en el campo. Las que están a la venta ahora aparecen en el listado de esta página, cada una con su ficha.
 
-Huelva presenta una relación calidad-precio excepcional en el mercado de propiedades rurales. Los chalets con terreno de 10 hectáreas o más, prácticamente inaccesibles en Málaga o Cádiz por sus precios, son abundantes en la Sierra de Aracena a precios que oscilan entre 300.000€ y 1.500.000€. Esta diferencia de precio, unida al creciente interés internacional por la zona, convierte Huelva en una de las mejores apuestas de inversión rural en España.
+**Quién compra en Huelva.** El comprador habitual busca una explotación agraria o ganadera, una finca de recreo o caza, o una propiedad para vivir y alojar a invitados en plena naturaleza. Para cada perfil cambian la superficie, el agua y los usos permitidos.
 
-**Tipos de propiedades rurales en Huelva**
+**Qué debes comprobar antes de comprar:**
 
-*Chalets con terreno en la Sierra de Aracena*: La comarca de Aracena y Picos de Aroche concentra algunas de las propiedades más buscadas de Huelva. Chalets y casas de campo con parcelas de 1 a 50 hectáreas, rodeadas de encinar mediterráneo, con agua propia y vistas espectaculares. El microclima de la sierra —fresco en verano y suave en invierno— los convierte en una alternativa perfecta a la Costa del Sol.
+- **Clasificación del suelo y usos permitidos.** No todo el suelo rústico admite vivienda o nuevas construcciones: el planeamiento de cada municipio fija qué se puede hacer.
+- **Agua.** Pozos, sondeos, balsas, embalses y concesiones deben estar inscritos y vigentes ante la confederación hidrográfica correspondiente.
+- **Titularidad y cargas.** Pide nota simple del Registro de la Propiedad y cotéjala con la referencia catastral y la superficie real.
+- **Edificaciones.** Verifica que casas, naves y cortijadas estén declaradas y regularizadas.
+- **Espacios protegidos.** Parte de la provincia está dentro de Doñana o del Parque Natural Sierra de Aracena y Picos de Aroche; si la finca está dentro, eso condiciona usos y obras.
+- **Accesos y suministros.** Comprueba caminos, servidumbres, electricidad y conexión.
 
-*Fincas de dehesa y ganadería extensiva*: La dehesa onubense, con sus encinares centenarios, es el hábitat natural del cerdo ibérico. Las fincas para cría de ganado ibérico representan una inversión con alta rentabilidad y un valor cultural único. El jamón ibérico de Jabugo es uno de los productos gastronómicos más valorados del mundo, lo que garantiza demanda sostenida.
+Si prefieres una casa de campo tradicional con patio y edificaciones rurales, consulta nuestra selección de [cortijos en venta en Huelva](/cortijos-en-venta-huelva), donde tratamos esa tipología por separado.
 
-*Fincas ecuestres y equinas*: La cultura ecuestre tiene profunda tradición en Huelva. Las fincas con instalaciones para caballos —cuadras, picadero, paddocks— son muy demandadas tanto por uso particular como para escuelas de equitación y turismo ecuestre.
-
-*Casas rurales con piscina para turismo*: El turismo rural en Huelva ha experimentado un crecimiento del 40% en los últimos tres años. Las propiedades rehabilitadas con casa rural y piscina generan ocupaciones superiores al 75% anual, con ingresos medios de 800-1.200€ por semana en temporada alta.
-
-*Propiedades en Costa de la Luz*: El litoral onubense, con sus playas vírgenes de arena blanca y dunas, ofrece propiedades únicas en Mazagón, Matalascañas y El Rompido. Las fincas y chaletes próximas al Parque Nacional de Doñana son especialmente valoradas por compradores europeos que buscan naturaleza sin masificación.
-
-**Rentabilidad de la propiedad rural en Huelva**
-
-La combinación de turismo rural, producción agrícola y ganadería ecológica convierte las propiedades rurales de Huelva en activos con múltiples fuentes de ingreso. La Denominación de Origen Protegida del jamón de Jabugo, los vinos del Condado de Huelva y los frutos rojos de Lepe y Palos de la Frontera son productos de alta demanda internacional.
-
-En Azimut Property disponemos de una selección exclusiva de propiedades rurales en Huelva, con acceso a inmuebles fuera de mercado y asesoramiento especializado para compradores nacionales e internacionales.`,
-            cta: '¿Buscas un chalet con terreno o una finca en Huelva? Habla con nuestros especialistas.',
+Cada finca de este catálogo tiene ficha propia con fotos, superficie y localización. Escríbenos por correo electrónico y te ayudamos a ordenar la documentación y a visitar la propiedad.`,
+            cta: 'Cuéntanos qué finca buscas y te enviamos por correo las opciones de Huelva que encajan.',
             faqs: [
-                { q: '¿Cuánto cuesta un chalet con terreno en Huelva?', a: 'Los chalets con parcelas de 1-5 hectáreas en la Sierra de Aracena oscilan entre 180.000€ y 600.000€. Para fincas de 10 hectáreas o más, los precios van de 250.000€ a 1.200.000€ según la ubicación y las instalaciones.' },
-                { q: '¿Qué zonas de Huelva son mejores para comprar propiedad rural?', a: 'Aracena, Jabugo, Cortegana y Almonaster la Real concentran la mayor demanda en la sierra. En la costa, Mazagón, El Rompido y Punta Umbría son las zonas más valoradas para segunda residencia.' },
-                { q: '¿Es Huelva una buena inversión inmobiliaria?', a: 'Sí. Huelva es uno de los mercados con mayor potencial de revalorización en Andalucía. Los precios actuales son un 40-60% inferiores a los de Málaga para propiedades equivalentes, con una tendencia alcista sostenida.' },
-                { q: '¿Puedo comprar una finca equina en Huelva?', a: 'Absolutamente. La provincia cuenta con numerosas fincas con instalaciones ecuestres completas. Los precios para fincas equinas de 5-20 hectáreas con cuadras y picadero oscilan entre 350.000€ y 1.500.000€.' }
+                { q: '¿Qué zonas de Huelva son mejores para comprar una finca?', a: 'Depende del uso. La Sierra de Aracena y Picos de Aroche encaja con dehesa, castañar y ganadería; el Andévalo, con grandes superficies de monte; y el Condado y el entorno de Doñana, con olivar y regadío. Te orientamos según tu proyecto.' },
+                { q: '¿Puedo construir una vivienda en una finca rústica de Huelva?', a: 'Depende de la clasificación del suelo, de la superficie mínima y del planeamiento de cada municipio. Es lo primero que debes revisar antes de comprar.' },
+                { q: '¿Qué documentos debo pedir al comprar una finca con terreno?', a: 'Nota simple del Registro, referencia catastral, documentación de agua y concesiones, licencias de las edificaciones y, si procede, informe sobre espacios protegidos.' },
+                { q: '¿Cuál es la diferencia entre una finca y un cortijo en Huelva?', a: 'La finca es la propiedad rústica con su terreno y su uso; el cortijo es la casa rural tradicional, con sus dependencias, que suele formar parte de ella. Si buscas ese tipo de edificación, consulta nuestra selección de cortijos en venta en Huelva.' }
             ]
         },
 
@@ -581,22 +600,20 @@ Nuestro equipo aporta conocimiento local experto y acceso a una selección curad
 
             <div style={{ fontSize: '1.125rem', lineHeight: '1.8', color: 'var(--ink-500)', maxWidth: '800px' }}>
                 {currentContent.description.split('\n\n').map((paragraph, idx) => {
-                    // Render paragraphs with simple markdown: **bold** and *italic*.
-                    // The bold alternative is listed first so a **x** token is
-                    // matched whole before the single-asterisk rule can split it.
-                    const parts = paragraph.split(/(\*\*[^*]+\*\*|\*[^*]+\*)/g);
+                    // A block whose every line starts with "- " is a list; any
+                    // other block is a paragraph.
+                    const lines = paragraph.split('\n');
+                    if (lines.every(line => line.startsWith('- '))) {
+                        return (
+                            <ul key={idx} style={{ marginBottom: '1.5rem', paddingLeft: '1.25rem', listStyle: 'disc' }}>
+                                {lines.map((line, i) => (
+                                    <li key={i} style={{ marginBottom: '0.5rem' }}>{renderInline(line.slice(2))}</li>
+                                ))}
+                            </ul>
+                        );
+                    }
                     return (
-                        <p key={idx} style={{ marginBottom: '1.5rem' }}>
-                            {parts.map((part, i) => {
-                                if (part.startsWith('**') && part.endsWith('**')) {
-                                    return <strong key={i}>{part.slice(2, -2)}</strong>;
-                                }
-                                if (part.startsWith('*') && part.endsWith('*')) {
-                                    return <em key={i}>{part.slice(1, -1)}</em>;
-                                }
-                                return part;
-                            })}
-                        </p>
+                        <p key={idx} style={{ marginBottom: '1.5rem' }}>{renderInline(paragraph)}</p>
                     );
                 })}
             </div>
