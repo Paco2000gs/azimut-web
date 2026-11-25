@@ -30,3 +30,8 @@ graphify-out
 
 .claude/
 *.bak
+
+# Local env files: real values live in Vercel / your machine, never in git
+.env
+.env.*
+!.env.example

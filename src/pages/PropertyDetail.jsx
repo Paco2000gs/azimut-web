@@ -421,7 +421,7 @@ const PropertyDetail = () => {
                 title={propertySeoTitle(property, properties)}
                 description={propertySeoDescription(property)}
                 image={getOptimizedImageUrl(displayImages[0]?.url, { raw: true })}
-                imageDimensions={{ width: 1200, height: 630 }}
+                imageAlt={`${property.title} — ${property.city}`}
                 url={canonicalPropertyPath}
                 type="article"
                 lang="es"
