@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import { useProperties } from '../context/PropertiesContext';
 import { MapPin, Bed, Bath, Maximize, Printer, Mail, Globe } from 'lucide-react'; // Import icons
 // import { getOptimizedImageUrl } from '../utils/imageOptimizer'; // Keep consistent if available
+import { CONTACT_EMAIL } from '../constants/contact';
+import ContactCTA from '../components/ContactCTA';
 import '../styles/DossierView.css';
 
 const DossierView = () => {
@@ -61,6 +63,9 @@ const DossierView = () => {
                 </button>
             </div>
 
+            {/* Email contact, hidden in print by its own stylesheet. */}
+            <ContactCTA />
+
             <div className="dossier-container">
                 {/* HEAD: Branding & Header */}
                 <header className="dossier-header">
@@ -68,7 +73,7 @@ const DossierView = () => {
                         <img src="/assets/azimut-logos.png" alt="Azimut Real Estate" className="logo-img" />
                     </div>
                     <div className="contact-info">
-                        <div className="contact-item"><Mail size={14} /> info@azimutproperty.com</div>
+                        <div className="contact-item"><Mail size={14} /> {CONTACT_EMAIL}</div>
                         <div className="contact-item"><Globe size={14} /> www.azimutproperty.com</div>
                     </div>
                 </header>

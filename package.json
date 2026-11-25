@@ -8,7 +8,8 @@
     "build": "npm run generate-sitemap && vite build && node scripts/prerender.js",
     "generate-sitemap": "node scripts/generate-sitemap.js",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "node --test"
   },
   "dependencies": {
     "@sparticuz/chromium": "^143.0.4",

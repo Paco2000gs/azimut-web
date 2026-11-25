@@ -540,9 +540,17 @@ const AdminDashboard = () => {
                                                         </div>
                                                     </td>
                                                     <td>
-                                                        <span className={`interest-badge ${lead.source === 'Property' ? 'property' : 'general'}`}>
-                                                            {lead.source === 'Property' ? lead.property_title : 'Consulta General'}
+                                                        {/* No form sends source 'Property', so every
+                                                            lead read as a general enquiry: the listing
+                                                            is known from property_title instead. */}
+                                                        <span className={`interest-badge ${lead.property_title ? 'property' : 'general'}`}>
+                                                            {lead.property_title || 'Consulta General'}
                                                         </span>
+                                                        {lead.source && (
+                                                            <div style={{ fontSize: '0.75rem', color: '#64748b', marginTop: '0.25rem' }}>
+                                                                Origen: {lead.source}
+                                                            </div>
+                                                        )}
                                                         <div className="lead-message" title={lead.message}>
                                                             "{lead.message}"
                                                         </div>
@@ -628,13 +636,20 @@ const AdminDashboard = () => {
                                     <div style={{ marginBottom: '1.5rem' }}>
                                         <strong style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', color: '#64748b' }}>Interés</strong>
                                         <div style={{ background: '#f1f5f9', padding: '0.75rem', borderRadius: '4px', fontSize: '0.95rem' }}>
-                                            {selectedLead.source === 'Property' ? (
+                                            {selectedLead.property_title ? (
                                                 <><strong>Propiedad:</strong> {selectedLead.property_title}</>
                                             ) : (
                                                 <><strong>Consulta General:</strong> {selectedLead.interest}</>
                                             )}
                                         </div>
                                     </div>
+
+                                    {selectedLead.source && (
+                                        <div style={{ marginBottom: '1.5rem' }}>
+                                            <strong style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', color: '#64748b' }}>Origen</strong>
+                                            <div style={{ fontSize: '0.95rem', color: '#334155' }}>{selectedLead.source}</div>
+                                        </div>
+                                    )}
 
                                     <div style={{ marginBottom: '2rem' }}>
                                         <strong style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.85rem', textTransform: 'uppercase', color: '#64748b' }}>Mensaje Completo</strong>

@@ -6,6 +6,7 @@ import { useProperties } from '../context/PropertiesContext';
 import { generatePropertyPath } from '../utils/slugify';
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import SEO from '../components/SEO';
+import { contactMailto } from '../constants/contact';
 import '../styles/Shortlist.css';
 
 const formatPrice = (property) => (
@@ -39,11 +40,12 @@ const Shortlist = () => {
         .map(id => properties.find(p => String(p.id) === String(id)))
         .filter(Boolean);
 
-    const enquiryHref = `mailto:info@azimutproperty.com?subject=${encodeURIComponent('Solicitud de dossier: ' + saved.length + ' inmuebles')}&body=${encodeURIComponent(
-        'Me gustaría recibir los dossiers privados de los siguientes inmuebles:\n\n' +
-        saved.map(p => `• ${p.title} — ${p.city}, ${p.province}`).join('\n') +
-        '\n\n'
-    )}`;
+    const enquiryHref = contactMailto({
+        subject: 'Solicitud de dossier: ' + saved.length + ' inmuebles',
+        body: 'Me gustaría recibir los dossiers privados de los siguientes inmuebles:\n\n' +
+            saved.map(p => `• ${p.title} — ${p.city}, ${p.province}`).join('\n') +
+            '\n\n',
+    });
 
     const rows = [
         { label: 'Precio', render: formatPrice },
