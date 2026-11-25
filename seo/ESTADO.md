@@ -3,7 +3,7 @@
 **Fuente única de verdad** para la indexación y la captación orgánica de esta web.
 Lee este archivo antes de empezar cualquier trabajo SEO y actualízalo al terminar.
 
-Última actualización: 24-nov-2026 · `main` en `0d1f97c` · trabajo en curso en `feat/seo-leads-informe-nov26`
+Última actualización: 25-nov-2026 · `main` en `6d671ee` (PR #16 fusionado y desplegado)
 
 Unifica lo trabajado en las sesiones "Metadatos azimutproperty" (sep–oct) y
 "Problemas de indexación Google" (20–22 oct). Documentos anteriores de esta carpeta:
@@ -58,11 +58,12 @@ export de 28 días que empiece después del 22-oct (es decir, a partir del ~19-n
 | 22-oct | `38f2840` | `sitemap.xml` con las landings de cortijos y de colecciones: **68 URLs** |
 | 22-oct | `b731f16` | Foto del campo de polo en la portada |
 | 23-oct | `598030c` | Provincia de Barcelona y 47 municipios en el catálogo (ver decisión abierta 6.4) |
+| 25-nov | `6d671ee` | PR #16 fusionado en `main` y desplegado en Vercel: fases 1–3 del informe del 21-nov (rama `feat/seo-leads-informe-nov26`). Enviadas a IndexNow 77 URLs: todo el sitemap más `/venta/badajoz` y `/venta/barcelona` (IndexNow 200, Bing 200, Yandex 202) |
 
 Acciones en Search Console ya hechas por Paco (22-oct): sitemap reenviado y
 solicitud de indexación de las tres landings de cortijos.
 
-Rama `feat/seo-leads-informe-nov26` (24-nov, sin PR ni despliegue todavía), plan del informe del 21-nov, fase 1:
+Rama `feat/seo-leads-informe-nov26` (24-nov; fusionada en `main` el 25-nov con el PR #16), plan del informe del 21-nov, fase 1:
 botón de contacto por email en todas las plantillas, eventos `click_email` y `form_submit` para GTM, origen de cada lead
 visible en /admin, sin enlaces a filtros `/venta/<lugar>/<tipo>` sin stock, metadatos propios por tipo y nuevos
 title/meta/H1 de portada, /venta y /cortijos-en-venta-sevilla.
@@ -78,6 +79,44 @@ de Marbella o Sotogrande enlazan a su landing en su idioma. hreflang: solo las 4
 (pares recíprocos verificados en dist/); para la home y las categorías hay un plan en `docs/plan-hreflang-en.md`.
 Borradores de blog sin publicar en `docs/borradores-blog/` (cortijos en Huelva, fincas en Cádiz). Además,
 /venta/badajoz y /venta/barcelona se prerenderizan (daban 404 en producción).
+
+### Search Console, GTM y GA4 (25-nov, fuera del repo)
+
+**Search Console** (propiedad `azimutproperty.com`):
+
+- Indexación solicitada para `/es/villas-de-lujo-marbella` y `/es/mansiones-sotogrande` (ya indexadas; pedida para
+  que Google vea la versión nueva), `/venta/badajoz` (Google no la conocía) y `/venta/barcelona` (Google la tenía como
+  404 antiguo; la prueba en vivo ya pasa).
+- Validación de «Error de redirección» iniciada. Cubre `/venta/cádiz/plot` y `/venta/jimena-de-la-frontera/villa`,
+  que ya hacen una sola redirección (308) a una página que responde 200.
+- «No se ha encontrado (404)», 26 URLs: **no se valida a propósito.** 6 ya están corregidas (`/venta/barcelona` y las
+  fichas 31, 32 y 33 responden 200; las fichas 29 y 30 redirigen a `/venta`). Las otras 20 son filtros de zona y tipo
+  sin fichas (p. ej. `/venta/marbella/villa`), que la web ya no enlaza: su 404 es correcto y la validación volvería a
+  terminar en error.
+- `/en/*` ya no tiene nada que validar: «Excluida por noindex» figura como «Correcto» y `/en/*` redirige (308) a las
+  páginas en español.
+- Retirada de Sitemaps la entrada errónea `/property/finca-vera-29`; solo queda `sitemap.xml`.
+
+**GTM** (contenedor `GTM-5WRNRSBS`):
+
+- Versión 3, «Eventos de lead: click_email y form_submit». Variables de capa de datos `page_path`, `form_name` y
+  `property_id`; activadores de evento personalizado `click_email` y `form_submit`; etiquetas de evento GA4 con esos
+  tres parámetros hacia `G-NFLF6WC335`. Comprobado en producción que `click_email` llega a GA4.
+- Versión 4, «Excluir /admin de GA4». La etiqueta de Google tiene dos activadores («All Pages» e «Initialization - All
+  Pages»), así que lleva dos excepciones: «Init - excepción /admin» y «PV - excepción /admin» (Page Path empieza por
+  `/admin`). Comprobado: `/admin/login` no envía ningún hit y la portada sigue enviando `page_view`. Solo cubre las
+  entradas a /admin por URL directa, la única vía hoy: la web pública no enlaza a /admin.
+
+**GA4** (propiedad Azimut Property, flujo web `G-NFLF6WC335`):
+
+- Medición mejorada: «Interacciones con formularios» desactivada, para que no envíe su propio `form_submit`.
+- Eventos clave: `click_email` y `form_submit`.
+- Dimensiones personalizadas de evento: «Formulario» (`form_name`) e «ID de ficha» (`property_id`). Solo recogen datos
+  desde el 25-nov.
+- Tráfico interno: regla «Conexión de Paco» con la IP pública de la oficina (`traffic_type=internal`), publicada en la
+  configuración de la etiqueta de Google (versión 2 de su contenedor). Filtro «Internal Traffic» pasado de Prueba a
+  **Activo**: es irreversible y no afecta a los datos anteriores. Comprobado que las visitas desde esa IP llegan con
+  `tt=internal`.
 
 ## 4. Pendientes técnicos (código)
 
@@ -96,8 +135,12 @@ Borradores de blog sin publicar en `docs/borradores-blog/` (cortijos en Huelva, 
 
 ## 5. Pendientes manuales de Paco (Search Console, Vercel, cuentas)
 
-- [ ] Quitar la entrada errónea `/property/finca-vera-29` de la lista de Sitemaps, si sigue ahí.
-- [ ] GTM: etiquetas de evento GA4 para `click_email` y `form_submit` (parámetros `page_path`, `form_name`, `property_id`). GA4: marcarlos como eventos clave y activar el filtro de tráfico interno.
+- [x] Quitar la entrada errónea `/property/finca-vera-29` de la lista de Sitemaps (25-nov).
+- [x] GTM: etiquetas de evento GA4 para `click_email` y `form_submit` (parámetros `page_path`, `form_name`, `property_id`). GA4: marcarlos como eventos clave y activar el filtro de tráfico interno (25-nov, detalle en la sección 3).
+- [ ] GA4, a partir del 26-nov: comprobar que `click_email` y `form_submit` aparecen como eventos clave con «Formulario» e «ID de ficha». `form_submit` no se ha probado en producción para no crear un lead falso: comprobarlo con el primer lead real.
+- [ ] GA4: el 25-nov se envió un `click_email` de prueba con `form_name` = `prueba_gtm`. Excluirlo al leer los informes.
+- [ ] Search Console: seguir la validación de «Error de redirección» iniciada el 25-nov (Google tarda días o semanas).
+- [ ] Si cambia la IP pública de la oficina, actualizar la regla de tráfico interno (GA4 → Flujos de datos → Configurar ajustes de etiquetas → Definir tráfico interno) y publicar. Las visitas desde otras conexiones (móvil, casa) siguen contando.
 - [ ] Comprobar en producción la foto nueva de la portada.
 - [ ] **A partir del ~19-nov:** export de Search Console de 28 días (Consultas + Páginas + País) para compararlo con la línea base.
 - [ ] Al mismo tiempo: informe de **Páginas** para ver qué URLs siguen sin indexar y por qué.
