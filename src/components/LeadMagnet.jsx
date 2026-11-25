@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Mail, ArrowRight, CheckCircle } from 'lucide-react';
 import { useLeads } from '../context/LeadsContext';
+import { CONTACT_EMAIL } from '../constants/contact';
+import { trackFormSubmit } from '../utils/analytics';
 import '../styles/LeadMagnet.css';
 
 const LeadMagnet = () => {
@@ -20,6 +22,7 @@ const LeadMagnet = () => {
                 source: 'Lead magnet — home page',
                 message: 'Requested the Rural Asset Investment Guide 2026.'
             });
+            trackFormSubmit('lead_magnet');
             setStatus('done');
         } catch {
             setStatus('error');
@@ -37,7 +40,7 @@ const LeadMagnet = () => {
                             <p>
                                 We have sent the Rural Asset Investment Guide 2026 to {email}. If it
                                 does not arrive within a few minutes, check your spam folder or write
-                                to info@azimutproperty.com.
+                                to {CONTACT_EMAIL}.
                             </p>
                         </div>
                     ) : (
@@ -79,7 +82,7 @@ const LeadMagnet = () => {
                             {status === 'error' && (
                                 <p className="lead-error" role="alert">
                                     No hemos podido registrar su solicitud. Inténtelo de nuevo o escriba
-                                    directamente a info@azimutproperty.com.
+                                    directamente a {CONTACT_EMAIL}.
                                 </p>
                             )}
 

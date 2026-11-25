@@ -53,7 +53,8 @@
     border-bottom: 1px solid var(--border-strong);
     background: transparent;
     font-family: var(--font-body);
-    font-size: 0.95rem;
+    /* 16px: below that, iOS Safari zooms the page when a field takes focus. */
+    font-size: 1rem;
     color: var(--ink-800);
     transition: border-color 0.3s var(--ease-out);
     border-radius: 0;
@@ -62,6 +63,10 @@
 
 .minimal-input:hover {
     border-bottom-color: var(--ink-400);
+}
+
+.minimal-input:user-invalid {
+    border-bottom-color: var(--state-error);
 }
 
 .minimal-input:focus {

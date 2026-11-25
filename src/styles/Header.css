@@ -132,6 +132,43 @@
     letter-spacing: 0;
 }
 
+/* An address reads wrong in tracked capitals: set it as written. */
+.nav .nav-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 44px;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-size: 0.85rem;
+}
+
+.nav-email svg {
+    flex: none;
+    color: var(--gold);
+}
+
+@media (min-width: 1101px) and (max-width: 1279px) {
+    .nav-email-text {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    .nav .nav-email {
+        justify-content: center;
+        min-width: 44px;
+    }
+
+    .nav .nav-email svg {
+        width: 18px;
+        height: 18px;
+    }
+}
+
 .btn-nav {
     padding: 11px 24px;
     border: 1px solid var(--gold);
@@ -159,7 +196,7 @@
 }
 
 /* Menu button below 1100px: between tablet and small laptop widths the
-   wordmark and the six links do not fit on one line and overlapped. */
+   wordmark and the links do not fit on one line and overlapped. */
 @media (max-width: 1100px) {
     .nav {
         position: fixed;

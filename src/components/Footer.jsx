@@ -1,11 +1,30 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Linkedin, Facebook, Mail } from 'lucide-react';
+import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
+import { useProperties } from '../context/PropertiesContext';
+import { slugifyLocation } from '../utils/slugify';
+import { typesIn } from '../utils/listingTypes';
 import '../styles/Footer.css';
 
+const FINCA_PROVINCES = ['cadiz', 'sevilla', 'malaga', 'huelva'];
+
 const Footer = () => {
+    const { properties } = useProperties();
+
+    // A province holding only fincas has no separate finca page worth linking:
+    // /venta/huelva/finca would list the same as /venta/huelva.
+    const fincaLinks = FINCA_PROVINCES.flatMap((slug) => {
+        const fincas = properties.filter(p => slugifyLocation(p.province) === slug && slugifyLocation(p.type) === 'finca');
+        if (!fincas.length) return [];
+        const { types } = typesIn(properties, slug);
+        return [{ href: types.includes('finca') ? `/venta/${slug}/finca` : `/venta/${slug}`, name: fincas[0].province }];
+    });
+
     return (
-        <footer className="footer" role="contentinfo">
+        // data-contact-cta-hide: the floating contact button steps aside while the
+        // footer, which carries the address, is on screen (see ContactCTA).
+        <footer className="footer" role="contentinfo" data-contact-cta-hide="footer">
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-column">
@@ -16,19 +35,24 @@ const Footer = () => {
                         </div>
                         <p>Inmobiliaria exclusiva en Andalucía. Seleccionamos las mejores propiedades para clientes muy exigentes.</p>
                         <div className="contact-info">
-                            <p><Mail size={16} aria-hidden="true" style={{ marginRight: '8px', display: 'inline' }} /> <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a></p>
+                            <p><Mail size={16} aria-hidden="true" style={{ marginRight: '8px', display: 'inline' }} /> <a href={contactMailto()}>{CONTACT_EMAIL}</a></p>
                         </div>
                     </div>
 
-                    <div className="footer-column">
-                        <h3>Tipos de inmueble</h3>
-                        <ul className="footer-links">
-                            <li><Link to="/venta?type=finca">Fincas y cortijos</Link></li>
-                            <li><Link to="/venta?type=plot">Terrenos y parcelas</Link></li>
-                            <li><Link to="/venta?type=villa">Villas de lujo</Link></li>
-                            <li><Link to="/venta?type=penthouse">Áticos</Link></li>
-                        </ul>
-                    </div>
+                    {/* Clean URLs only, and only where there is stock. The old
+                        /venta?type= links were parameter variants Google set
+                        aside as duplicates of /venta, and plot and penthouse
+                        had no listings at all. */}
+                    {fincaLinks.length > 0 && (
+                        <div className="footer-column">
+                            <h3>Fincas por provincia</h3>
+                            <ul className="footer-links">
+                                {fincaLinks.map(({ href, name }) => (
+                                    <li key={href}><Link to={href}>Fincas en {name}</Link></li>
+                                ))}
+                            </ul>
+                        </div>
+                    )}
 
                     <div className="footer-column">
                         <h3>Zonas</h3>

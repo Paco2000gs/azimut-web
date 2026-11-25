@@ -39,19 +39,23 @@ async function generateSitemap() {
     console.log('Generating sitemap...');
     const baseUrl = 'https://www.azimutproperty.com';
 
-    // 1. Static & Silo Routes
-    // Province landing pages stay unconditionally: they are indexed, they carry the
-    // Spanish keywords that bring what little traffic exists ("fincas sevilla",
+    // Province landing pages skip the city threshold: they are indexed, they carry
+    // the Spanish keywords that bring what little traffic exists ("fincas sevilla",
     // "cortijos en venta en sevilla"), and they aggregate every city beneath them.
-    const staticRoutes = [
-        '/',
-        '/venta',
-        // Rural Andalucía — province landing pages
+    // The one exception is a province with no listings at all, whose page declares
+    // noindex (see Catalog.jsx) and so must not be advertised here.
+    const provinceRoutes = [
         '/venta/cadiz',
         '/venta/huelva',
         '/venta/sevilla',
         '/venta/malaga',
         '/venta/almeria',
+    ];
+
+    // 1. Static & Silo Routes
+    const staticRoutes = [
+        '/',
+        '/venta',
         // Zone × typology landing pages (SEO audit, priority #2)
         '/villas-marbella',
         '/mansions-sotogrande',
@@ -87,14 +91,11 @@ async function generateSitemap() {
   </url>`;
     });
 
-    // Provinces are emitted above as static routes, so the threshold below must
+    // Provinces are emitted on their own at the end, so the threshold below must
     // never apply to them and they must never be emitted a second time.
-    const provinceSlugs = new Set(
-        staticRoutes
-            .filter(r => r.startsWith('/venta/'))
-            .map(r => r.replace('/venta/', ''))
-    );
+    const provinceSlugs = new Set(provinceRoutes.map(r => r.replace('/venta/', '')));
     const listingsPerCity = {}; // citySlug -> number of listings
+    const listingsPerProvince = {}; // provinceSlug -> number of listings
 
     // 2. Dynamic Routes (Properties)
     if (supabase) {
@@ -128,6 +129,11 @@ async function generateSitemap() {
 
                 if (property.city) {
                     listingsPerCity[citySlug] = (listingsPerCity[citySlug] || 0) + 1;
+                }
+
+                if (property.province) {
+                    const provinceSlug = normalize(property.province);
+                    listingsPerProvince[provinceSlug] = (listingsPerProvince[provinceSlug] || 0) + 1;
                 }
 
                 if (property.type) {
@@ -218,6 +224,22 @@ async function generateSitemap() {
     } else {
         console.warn('Skipping dynamic content (properties/posts) in sitemap due to missing Supabase client.');
     }
+
+    // 5. Province landing pages. If the listings could not be read (no counts at
+    // all) every province stays: a failed query must not drop them from the sitemap.
+    const haveListingCounts = Object.keys(listingsPerProvince).length > 0;
+    provinceRoutes.forEach(route => {
+        const slug = route.replace('/venta/', '');
+        if (haveListingCounts && !listingsPerProvince[slug]) {
+            console.log(`Skipped province with no listings: ${slug}`);
+            return;
+        }
+        sitemap += `
+  <url>
+    <loc>${baseUrl}${route}</loc>
+    <lastmod>${today}</lastmod>
+  </url>`;
+    });
 
     sitemap += `
 </urlset>`;

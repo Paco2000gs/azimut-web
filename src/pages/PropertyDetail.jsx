@@ -8,6 +8,8 @@ import '../styles/Home.css'; // Reusing global styles
 import '../styles/PropertyDetail.css'; // New responsive styles
 import PropertyInquiryForm from '../components/PropertyInquiryForm';
 import ShortlistButton from '../components/ShortlistButton';
+import { CONTACT_EMAIL, CONTACT_OPEN_EVENT, contactMailto } from '../constants/contact';
+import { propertySeoTitle, propertySeoDescription, landLabel } from '../utils/propertySeo';
 
 import { getOptimizedImageUrl } from '../utils/imageOptimizer';
 import { extractIdFromSlug, generatePropertySlug, generatePropertyPath, slugifyLocation } from '../utils/slugify';
@@ -119,30 +121,9 @@ const PropertyDetail = () => {
 
     // The enquiry form sits in the right column on desktop and below the whole
     // listing on a phone — 4.320px down, past description, features, videos and
-    // map. The sticky bar at the bottom of this page jumps here instead.
-    const formRef = useRef(null);
+    // map. The site-wide contact bar (ContactCTA, in Layout) keeps the ask on
+    // screen here as "Solicitar dossier" with this listing filled in.
     const lightboxCloseRef = useRef(null);
-
-    const scrollToForm = () => {
-        const reduced = typeof window !== 'undefined'
-            && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        formRef.current?.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'start' });
-    };
-
-    // The sticky bar steps aside once the form it points at is on screen, so it
-    // never covers the fields the visitor came down to fill in.
-    const [formInView, setFormInView] = useState(false);
-
-    useEffect(() => {
-        const node = formRef.current;
-        if (!node || typeof IntersectionObserver === 'undefined') return;
-        const observer = new IntersectionObserver(
-            ([entry]) => setFormInView(entry.isIntersecting),
-            { rootMargin: '-80px 0px 0px 0px' }
-        );
-        observer.observe(node);
-        return () => observer.disconnect();
-    }, [property]);
 
     // A lightbox that only closes by clicking its backdrop is a trap for anyone
     // on a keyboard: Escape closes it, and focus moves to the close button so
@@ -305,8 +286,6 @@ const PropertyDetail = () => {
             ? `${(Number(property.plot) / 10000).toLocaleString(undefined, { maximumFractionDigits: 1 })} ha de parcela`
             : `${Number(property.plot).toLocaleString()} m² de parcela`)
         : '';
-    const priceDisplay = property.price_on_demand ? 'Precio a consultar' : `€${property.price?.toLocaleString()}`;
-    const seoDescription = `${property.title} en ${property.city}, ${property.province}. ${property.bedrooms} dormitorios, ${property.bathrooms} baños, ${Number(property.area).toLocaleString()} m² construidos${plotDisplay ? `, ${plotDisplay}` : ''}. ${priceDisplay}. ${property.description?.substring(0, 200)}`;
 
     // Schema.org Structured Data - RealEstateListing
     const canonicalSlug = generatePropertySlug(property);
@@ -380,7 +359,7 @@ const PropertyDetail = () => {
             "@id": "https://www.azimutproperty.com/#organization",
             "name": "Azimut Property",
             "url": "https://www.azimutproperty.com",
-            "email": "info@azimutproperty.com"
+            "email": CONTACT_EMAIL
         }
     };
 
@@ -436,9 +415,11 @@ const PropertyDetail = () => {
 
     return (
         <div className="page property-detail-page">
+            {/* Spanish title and description built from the listing's own data
+                (see utils/propertySeo.js); the page is lang="es". */}
             <SEO
-                title={`${property.title} — ${property.type} en ${property.city}, ${property.province}`}
-                description={seoDescription.substring(0, 320)}
+                title={propertySeoTitle(property, properties)}
+                description={propertySeoDescription(property)}
                 image={getOptimizedImageUrl(displayImages[0]?.url, { raw: true })}
                 imageDimensions={{ width: 1200, height: 630 }}
                 url={canonicalPropertyPath}
@@ -495,13 +476,18 @@ const PropertyDetail = () => {
                             onClick={() => setShowLightbox(true)}
                             aria-label={`Ver a pantalla completa — ${imageAlt(displayImages[activeImage], activeImage)}`}
                         >
+                            {/* The LCP element. The optimiser serves 400, 800 or 1600 px,
+                                so the descriptors name the width actually served (the
+                                second one read 1200w for a 1600 px file), and sizes
+                                matches the 768 px column the photo fills on desktop. */}
                             <img
-                                src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })}
-                                srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800, height: 533, resize: 'cover' })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1200, height: 800, resize: 'cover' })} 1200w`}
-                                sizes="(max-width: 768px) 100vw, 1200px"
+                                src={getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800 })}
+                                srcSet={`${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 800 })} 800w, ${getOptimizedImageUrl(displayImages[activeImage]?.url, { width: 1600 })} 1600w`}
+                                sizes="(max-width: 900px) 100vw, 768px"
                                 alt={imageAlt(displayImages[activeImage], activeImage)}
                                 width={1200}
                                 height={800}
+                                fetchpriority="high"
                             />
                         </button>
                         <div className="price-tag">
@@ -511,7 +497,29 @@ const PropertyDetail = () => {
                                     €{Math.round(property.price / property.area).toLocaleString()}/m²
                                 </span>
                             )}
+                            {/* Where and how big, beside the price, so the first screen
+                                answers the three questions a visitor arrives with. */}
+                            <span className="price-tag-meta">
+                                {[`${property.city}, ${property.province}`, landLabel(property), property.area > 0 ? `${Number(property.area).toLocaleString('es-ES')} m² construidos` : '']
+                                    .filter(Boolean)
+                                    .join(' · ')}
+                            </span>
                         </div>
+                        {/* The ask beside the price, on the first screen. On desktop
+                            the enquiry form already shows at the fold, so the
+                            floating button steps aside; this keeps "Solicitar
+                            dossier" in view without scrolling. Phones get the
+                            fixed bar instead (see ContactCTA). */}
+                        <button
+                            type="button"
+                            className="gallery-dossier-btn"
+                            onClick={() => window.dispatchEvent(new Event(CONTACT_OPEN_EVENT))}
+                            aria-haspopup="dialog"
+                            aria-label={`Solicitar dossier de ${property.title.trim()} por email`}
+                        >
+                            <Mail size={16} strokeWidth={1.5} aria-hidden="true" />
+                            Solicitar dossier
+                        </button>
                     </div>
 
                     {/* Thumbnails Grid */}
@@ -685,7 +693,7 @@ const PropertyDetail = () => {
                     </div>
 
                     {/* RIGHT COLUMN: Contact Agent */}
-                    <div className="property-sidebar-wrapper" ref={formRef}>
+                    <div className="property-sidebar-wrapper">
                         <div className="agent-card" style={{ padding: 0, border: 'none', boxShadow: 'none' }}>
                             <PropertyInquiryForm propertyId={property.id} propertyTitle={property.title} />
                         </div>
@@ -694,7 +702,9 @@ const PropertyDetail = () => {
                         <div className="quick-contact-actions" style={{ marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                             <ShortlistButton property={property} variant="labelled" />
                             <a
-                                href={`mailto:info@azimutproperty.com?subject=${encodeURIComponent('Enquiry: ' + property.title)}`}
+                                href={contactMailto({
+                                    subject: `Solicitud de dossier: ${property.title.trim()} (Ref. ${property.id}) — ${canonicalUrl}`,
+                                })}
                                 className="email-contact-btn"
                                 style={{
                                     display: 'flex',
@@ -764,20 +774,6 @@ const PropertyDetail = () => {
                     </div>
                 </div>
             </div>
-            {/* Mobile enquiry bar. On a phone the form is the last thing on the
-                page; this keeps the ask one tap away from wherever the visitor
-                stopped scrolling. Hidden from 900px up, where the form is
-                already in the right-hand column. */}
-            <div className={`mobile-enquiry-bar${formInView ? ' is-hidden' : ''}`}>
-                <div className="mobile-enquiry-price">
-                    <span className="mobile-enquiry-label">{property.city}</span>
-                    <strong>{property.price_on_demand ? 'Precio a consultar' : `€${property.price?.toLocaleString()}`}</strong>
-                </div>
-                <button type="button" className="mobile-enquiry-button" onClick={scrollToForm}>
-                    Solicitar dossier
-                </button>
-            </div>
-
             {/* Lightbox Overlay */}
             {showLightbox && (
                 <div

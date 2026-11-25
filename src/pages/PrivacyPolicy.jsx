@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
+import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
 import '../styles/Legal.css';
 
 const PrivacyPolicy = () => {
@@ -68,7 +69,7 @@ const PrivacyPolicy = () => {
 
                     <section>
                         <h2>6. Contacto</h2>
-                        <p>Si tiene alguna pregunta sobre esta política de privacidad o sobre nuestras prácticas de privacidad, puede escribirnos a <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a>.</p>
+                        <p>Si tiene alguna pregunta sobre esta política de privacidad o sobre nuestras prácticas de privacidad, puede escribirnos a <a href={contactMailto()}>{CONTACT_EMAIL}</a>.</p>
                     </section>
                 </div>
             </div>
