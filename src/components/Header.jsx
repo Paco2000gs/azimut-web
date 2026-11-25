@@ -65,12 +65,12 @@ const Header = () => {
             role="banner"
         >
             <div className="container header-container">
-                <Link to="/" className="logo" aria-label="Azimut Property - Home" onClick={closeMenu}>
+                <Link to="/" className="logo" aria-label="Azimut Property - Inicio" onClick={closeMenu}>
                     <img src="/azimut-logo-96.png" alt="" className="logo-img" width="48" height="50" />
                     <span>AZIMUT<span className="logo-accent">PROPERTY</span></span>
                 </Link>
 
-                <nav id="main-nav" className={`nav ${isOpen ? 'open' : ''}`} aria-label="Main navigation">
+                <nav id="main-nav" className={`nav ${isOpen ? 'open' : ''}`} aria-label="Navegación principal">
                     <NavLink to="/" onClick={closeMenu}>Inicio</NavLink>
                     <NavLink to="/venta" onClick={closeMenu}>Propiedades</NavLink>
                     <NavLink to="/about" onClick={closeMenu}>Sobre nosotros</NavLink>
@@ -100,7 +100,7 @@ const Header = () => {
                     ref={toggleRef}
                     className="menu-toggle"
                     onClick={() => setIsOpen(!isOpen)}
-                    aria-label={isOpen ? 'Close navigation menu' : 'Open navigation menu'}
+                    aria-label={isOpen ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'}
                     aria-expanded={isOpen}
                     aria-controls="main-nav"
                 >

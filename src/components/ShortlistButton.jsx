@@ -14,8 +14,8 @@ const ShortlistButton = ({ property, variant = 'icon' }) => {
 
     const saved = has(property.id);
     const label = saved
-        ? `Remove ${property.title} from your shortlist`
-        : `Save ${property.title} to your shortlist`;
+        ? `Quitar ${property.title} de favoritos`
+        : `Guardar ${property.title} en favoritos`;
 
     const handleClick = (event) => {
         // Cards wrap the whole tile in a link, so saving must not navigate.
@@ -35,7 +35,7 @@ const ShortlistButton = ({ property, variant = 'icon' }) => {
             {saved
                 ? <BookmarkCheck size={variant === 'icon' ? 18 : 17} aria-hidden="true" />
                 : <Bookmark size={variant === 'icon' ? 18 : 17} aria-hidden="true" />}
-            {variant === 'labelled' && <span>{saved ? 'Saved to shortlist' : 'Save to shortlist'}</span>}
+            {variant === 'labelled' && <span>{saved ? 'Guardado en favoritos' : 'Guardar en favoritos'}</span>}
         </button>
     );
 };
