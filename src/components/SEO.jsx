@@ -28,7 +28,9 @@ const setLink = (selector, rel, href, hreflang) => {
     el.setAttribute('href', href);
 };
 
-const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type = 'website', noindex = false, keywords = '', lang = 'es', alternates = null }) => {
+const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type = 'website', noindex = false, followLinks = false, keywords = '', lang = 'es', alternates = null }) => {
+    const noindexContent = followLinks ? 'noindex, follow' : 'noindex, nofollow';
+
     // Spanish fallbacks, matching the site default lang="es".
     const siteTitle = 'Azimut Property | Villas de lujo y fincas en Marbella y Andalucía';
     const defaultDescription = 'Inmobiliaria exclusiva en Marbella, Estepona y Benahavís, y fincas rurales en Cádiz, Sevilla y Huelva. Propiedades fuera de mercado y asesoramiento para compradores internacionales.';
@@ -37,8 +39,11 @@ const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type =
     const defaultImage = 'https://www.azimutproperty.com/media/social-card.jpg';
     const siteUrl = 'https://www.azimutproperty.com';
 
-    const fullTitle = title 
-        ? (title.includes('Azimut Property') ? title : `${title} | Azimut Property`) 
+    // The brand is appended only while the title still fits Google's ~60
+    // characters; a title that is already long keeps its keywords instead.
+    const branded = title && !title.includes('Azimut Property') ? `${title} | Azimut Property` : title;
+    const fullTitle = title
+        ? (branded.length <= 60 ? branded : title)
         : siteTitle;
     const rawDescription = description || defaultDescription;
     const fullDescription = rawDescription.length > 320
@@ -76,7 +81,7 @@ const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type =
         // page may overwrite it, and leaving that page must put it back.
         const robots = document.head.querySelector('meta[name="robots"]');
         if (noindex) {
-            setMeta('name', 'robots', 'noindex, nofollow');
+            setMeta('name', 'robots', noindexContent);
         } else if (robots && /noindex/i.test(robots.getAttribute('content') || '')) {
             robots.setAttribute('content', 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1');
         }
@@ -122,7 +127,7 @@ const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type =
         setMeta('name', 'twitter:image', fullImage);
         setMeta('property', 'og:image:alt', imageAlt);
         setMeta('name', 'twitter:image:alt', imageAlt);
-    }, [fullTitle, fullDescription, fullUrl, fullImage, imageAlt, ogLocale, lang, type, keywords, noindex, alternates]);
+    }, [fullTitle, fullDescription, fullUrl, fullImage, imageAlt, ogLocale, lang, type, keywords, noindex, noindexContent, alternates]);
 
     return (
         <Helmet>
@@ -133,7 +138,7 @@ const SEO = ({ title, description, image, imageDimensions, imageAlt, url, type =
             <title>{fullTitle}</title>
             <meta name="description" content={fullDescription} />
             <link rel="canonical" href={fullUrl} />
-            {noindex && <meta name="robots" content="noindex, nofollow" />}
+            {noindex && <meta name="robots" content={noindexContent} />}
             {keywords && <meta name="keywords" content={keywords} />}
 
             {/* Hreflang. By default a page self-references in its own language

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, Bookmark } from 'lucide-react';
+import { Menu, X, Bookmark, Mail } from 'lucide-react';
 import { useShortlist } from '../context/ShortlistContext';
+import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
 import '../styles/Header.css';
 
 const Header = () => {
@@ -72,7 +73,6 @@ const Header = () => {
                 <nav id="main-nav" className={`nav ${isOpen ? 'open' : ''}`} aria-label="Main navigation">
                     <NavLink to="/" onClick={closeMenu}>Inicio</NavLink>
                     <NavLink to="/venta" onClick={closeMenu}>Propiedades</NavLink>
-                    <NavLink to="/venta?type=finca" onClick={closeMenu}>Fincas rústicas</NavLink>
                     <NavLink to="/about" onClick={closeMenu}>Sobre nosotros</NavLink>
                     <NavLink to="/blog" onClick={closeMenu}>Blog</NavLink>
                     {/* Appears only once something is saved: an empty shortlist is
@@ -87,6 +87,12 @@ const Header = () => {
                             </span>
                         </NavLink>
                     )}
+                    {/* The address itself, one click from any page. Below 1280px
+                        the text gives way to the icon so the bar does not wrap. */}
+                    <a href={contactMailto()} className="nav-email" aria-label={`Escribir a ${CONTACT_EMAIL}`}>
+                        <Mail size={15} aria-hidden="true" />
+                        <span className="nav-email-text">{CONTACT_EMAIL}</span>
+                    </a>
                     <NavLink to="/contact" className="btn-nav" onClick={closeMenu}>Contacto</NavLink>
                 </nav>
 

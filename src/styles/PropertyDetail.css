@@ -65,6 +65,67 @@
     backdrop-filter: blur(4px);
 }
 
+/* Same voice as the site-wide contact button: dark ground, gold rule, tracked
+   capitals. Gold ground would carry ink, never white. */
+.gallery-dossier-btn {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 48px;
+    padding: 0.8rem 1.4rem;
+    border: 1px solid var(--gold);
+    border-radius: var(--radius-sm);
+    background-color: var(--surface-dark);
+    color: var(--ink-inverse);
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: background-color 0.3s var(--ease-out), color 0.3s var(--ease-out);
+}
+
+.gallery-dossier-btn svg {
+    color: var(--gold);
+    transition: color 0.3s var(--ease-out);
+}
+
+.gallery-dossier-btn:hover {
+    background-color: var(--gold);
+    color: var(--ink-900);
+}
+
+.gallery-dossier-btn:hover svg {
+    color: var(--ink-900);
+}
+
+.gallery-dossier-btn:focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+    .gallery-dossier-btn {
+        display: none;
+    }
+}
+
+/* Location and surface under the price (first-screen summary). */
+.price-tag-meta {
+    display: block;
+    max-width: 34ch;
+    margin-top: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    line-height: 1.4;
+    opacity: 0.92;
+}
+
 .gallery-thumbnails {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -103,8 +164,7 @@
 }
 
 .gallery-main-trigger:focus-visible,
-.thumbnail-item:focus-visible,
-.mobile-enquiry-button:focus-visible {
+.thumbnail-item:focus-visible {
     outline: 2px solid var(--gold-ink);
     outline-offset: 2px;
 }
@@ -435,6 +495,18 @@
         padding: 8px 16px;
         bottom: 15px;
         left: 15px;
+        right: 15px;
+    }
+
+    .price-tag-meta {
+        max-width: none;
+        font-size: 0.78rem;
+    }
+
+    /* The listing title closes the trail and repeats the H1 below; on a phone
+       it took two to three lines of the first screen. */
+    .property-header-container .breadcrumbs li:nth-last-child(-n+2) {
+        display: none;
     }
 
     .specs-bar {
@@ -464,93 +536,5 @@
         top: 1rem;
         right: 1rem;
         padding: 0.5rem;
-    }
-}
-/* ---------------------------------------------------------------------------
-   Mobile enquiry bar
-
-   On a phone the enquiry form is the last block on the page — measured at
-   4.320px down on the Constantina listing, past description, features, videos
-   and map. Anyone convinced by the photos had to scroll the whole listing to
-   act on it. This bar keeps the ask within reach and steps aside once the form
-   itself is on screen.
-   --------------------------------------------------------------------------- */
-.mobile-enquiry-bar {
-    display: none;
-}
-
-@media (max-width: 900px) {
-    .mobile-enquiry-bar {
-        position: fixed;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 900;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1rem;
-        padding: 0.75rem 1rem calc(0.75rem + env(safe-area-inset-bottom));
-        background: var(--surface-raised);
-        border-top: 1px solid var(--border);
-        box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.08);
-        transition: transform 0.25s ease, opacity 0.25s ease;
-    }
-
-    .mobile-enquiry-bar.is-hidden {
-        transform: translateY(110%);
-        opacity: 0;
-        pointer-events: none;
-    }
-
-    .mobile-enquiry-price {
-        display: flex;
-        flex-direction: column;
-        line-height: 1.25;
-        min-width: 0;
-    }
-
-    .mobile-enquiry-price strong {
-        font-size: 1.05rem;
-        color: var(--ink-800);
-        white-space: nowrap;
-    }
-
-    .mobile-enquiry-label {
-        font-size: 0.7rem;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--ink-500);
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-
-    /* Gold ground with dark ink on top: the house rule is that gold never
-       carries white text. */
-    .mobile-enquiry-button {
-        flex: 0 0 auto;
-        min-height: 44px;
-        padding: 0.7rem 1.35rem;
-        border: none;
-        border-radius: var(--radius-sm);
-        background: var(--gold);
-        color: var(--ink-800);
-        font-family: inherit;
-        font-size: 0.95rem;
-        font-weight: 600;
-        cursor: pointer;
-    }
-
-    /* The bar floats over the end of the page; without this the footer's last
-       line hides behind it. */
-    .property-detail-page {
-        padding-bottom: 5rem;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .mobile-enquiry-bar {
-        transition: none;
     }
 }

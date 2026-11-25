@@ -211,6 +211,19 @@ async function getDynamicRoutes() {
             }
         });
 
+        // Province pages for listings outside the core list. /venta/badajoz and
+        // /venta/barcelona answered 404 in production (24/11/2026) although the
+        // listing breadcrumbs link them and their /venta/{province}/{type} page
+        // declares them as canonical.
+        const knownRoutes = new Set(routes);
+        [...new Set(properties.map(p => p.province).filter(Boolean))].forEach(province => {
+            const route = `/venta/${normalize(province)}`;
+            if (!knownRoutes.has(route)) {
+                routes.push(route);
+                knownRoutes.add(route);
+            }
+        });
+
         // Type-silo pages (/venta/{city}/{type}) for each city+type combo that
         // has listings — MUST match the sitemap's silo URLs so those pages ship
         // with a correct per-page canonical instead of falling back to the home

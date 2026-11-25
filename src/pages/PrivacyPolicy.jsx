@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import SEO from '../components/SEO';
+import { CONTACT_EMAIL, contactMailto } from '../constants/contact';
 import '../styles/Legal.css';
 
 const PrivacyPolicy = () => {
@@ -69,7 +70,7 @@ const PrivacyPolicy = () => {
                         <li><strong>Qué guardamos de las cuentas conectadas:</strong> el identificador y el nombre de cada cuenta, los permisos concedidos, los tokens de acceso (cifrados) y su fecha de caducidad, y un registro de cada publicación con su identificador, estado y fecha. Solo los usamos para publicar en esas cuentas, y no los vendemos ni los cedemos.</li>
                         <li><strong>Con quién compartimos la información:</strong> los datos del inmueble se envían a Google (Gemini) para redactar los textos y a la red social en la que se publica. Las imágenes y los vídeos se generan con GitHub Actions. Los datos se alojan en Supabase y Vercel.</li>
                         <li><strong>YouTube:</strong> esta función utiliza los Servicios de la API de YouTube. Al usarla se aplican las <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener noreferrer">Condiciones del servicio de YouTube</a> y la <a href="https://www.google.com/policies/privacy" target="_blank" rel="noopener noreferrer">Política de privacidad de Google</a>.</li>
-                        <li><strong>Cómo retirar el acceso o eliminar los datos:</strong> además de pedirnos la eliminación, el titular de una cuenta de Google puede retirar el acceso en la <a href="https://security.google.com/settings/security/permissions" target="_blank" rel="noopener noreferrer">página de permisos de seguridad de Google</a>, y el de otra red, desde los ajustes de esa red. Para solicitar la eliminación de estos datos, escriba a <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a>; la atenderemos en un plazo máximo de 7 días.</li>
+                        <li><strong>Cómo retirar el acceso o eliminar los datos:</strong> además de pedirnos la eliminación, el titular de una cuenta de Google puede retirar el acceso en la <a href="https://security.google.com/settings/security/permissions" target="_blank" rel="noopener noreferrer">página de permisos de seguridad de Google</a>, y el de otra red, desde los ajustes de esa red. Para solicitar la eliminación de estos datos, escriba a <a href={contactMailto()}>{CONTACT_EMAIL}</a>; la atenderemos en un plazo máximo de 7 días.</li>
                         <li><strong>Cookies y almacenamiento en su dispositivo:</strong> esta web usa Google Analytics, a través de Google Tag Manager, que puede guardar o leer información en su dispositivo mediante cookies. Su navegador también guarda localmente la lista de inmuebles que marca como favoritos. Los mapas de las fichas se cargan desde OpenStreetMap. No mostramos publicidad de terceros.</li>
                     </ul>
                 </section>
@@ -81,7 +82,7 @@ const PrivacyPolicy = () => {
 
                     <section>
                         <h2>7. Contacto</h2>
-                        <p>Si tiene alguna pregunta sobre esta política de privacidad o sobre nuestras prácticas de privacidad, puede escribirnos a <a href="mailto:info@azimutproperty.com">info@azimutproperty.com</a>.</p>
+                        <p>Si tiene alguna pregunta sobre esta política de privacidad o sobre nuestras prácticas de privacidad, puede escribirnos a <a href={contactMailto()}>{CONTACT_EMAIL}</a>.</p>
                     </section>
                 </div>
             </div>
